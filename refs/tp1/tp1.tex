@@ -1,0 +1,139 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{physics}
+\usepackage{float}
+\usepackage{booktabs}
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm,
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cyan!60!blue,
+    urlcolor=magenta,
+    citecolor=orange!70!red
+}
+
+% Header and Footer Settings
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{teal!80!black}{Math Report}}
+\rhead{\textcolor{gray}{\thepage}}
+\lfoot{MVA Time Series $\cdot$ \texttt{timeseries}}
+\rfoot{\today}
+
+% Title Page
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+        \vspace*{2cm}
+        \Huge\bfseries
+        \textcolor{teal!70!black}{Mathematics Class Report} \\[0.5cm]
+        \Large
+        % Insert Assignment Name
+        Assignment Title \\
+        \vspace{1cm}
+        \includegraphics[width=0.25\textwidth]{example-image} % Replace with your logo or image file if desired
+        \vspace{1.5cm}
+        
+        \begin{large}
+        Your Name \\
+        Course: MVA -- Time Series Analysis\\
+        \vspace{0.5cm}
+        Instructor: Dr.~\_\_\_\_\_\\
+        Deadline: \underline{\hspace{2cm}}\\
+        \end{large}
+        \vfill
+        \textsc{Academic Year: 2023--2024}
+    \end{center}
+\end{titlepage}
+
+% Table of Contents
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+% Useful boxes
+\newtcolorbox{theobox}[1][]{colback=yellow!10!white, colframe=orange!80!black, fonttitle=\bfseries, title=Theorem~#1}
+\newtcolorbox{defbox}[1][]{colback=blue!5!white, colframe=blue!80!black, fonttitle=\bfseries, title=Definition~#1}
+\newtcolorbox{exbox}[1][]{colback=green!5!white, colframe=green!80!black, fonttitle=\bfseries, title=Example~#1}
+
+% Main Section Templates
+
+\section{Introduction}
+\begin{itemize}[leftmargin=1.5cm]
+    \item Briefly describe the objective of your report.
+    \item Provide context and motivation.
+\end{itemize}
+
+\section{Theory}
+\begin{defbox}
+Here, you can state and define important mathematical concepts.
+\end{defbox}
+\begin{theobox}
+Place for theorems, lemmas, properties, etc.
+\end{theobox}
+
+\section{Methodology}
+\begin{itemize}
+    \item Explain the approaches, algorithms, or tools used.
+    \item Illustrate with formulas:
+    \[
+        x(t) = \sum_{i=1}^n a_i \cdot \phi_i(t)
+    \]
+\end{itemize}
+
+\section{Results}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{example-image}
+    \caption{Sample Plot -- describe your results here.}
+\end{figure}
+
+% For tables
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+Parameter & Value & Description \\
+\midrule
+$a$ & 2 & Slope coefficient \\
+$b$ & 3 & Intercept \\
+\bottomrule
+\end{tabular}
+\caption{An example table}
+\end{table}
+
+\section{Discussion}
+\begin{itemize}
+    \item Interpret and critique your results.
+    \item Discuss any surprising findings.
+\end{itemize}
+
+\section{Conclusion}
+\begin{itemize}
+    \item Summarize what you learned.
+    \item Propose future directions or applications.
+\end{itemize}
+
+\section*{References}
+\begin{enumerate}
+    \item Author, ``Title of Book or Article,'' Journal/Publisher, Year.
+    \item ...
+\end{enumerate}
+
+\end{document}
