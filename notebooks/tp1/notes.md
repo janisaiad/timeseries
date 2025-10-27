@@ -35,4 +35,13 @@ grid searchCV for less MSE, BIC criterion
 
 on préferera toujours prendre une plus grosse amplitude plutot qu'une plus petite à cause de la regularization
 
+
+be careful of init for dictionary learning
 for non convex we do alternate learning
+
+pour chaque time series on regarde l'atome le plus utilisé, on peut clusteriser comme ça
+we would like to discriminate labels and atoms using
+
+
+
+CDL surtout fait pour de la reconstruction de signal? puor le clustering c'est un peu nul ?
