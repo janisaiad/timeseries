@@ -31,4 +31,8 @@ ce qui nous intéresse c'est la forme des atomes de time series
 
 stumpy, ou CDL
 
+grid searchCV for less MSE, BIC criterion
+
+on préferera toujours prendre une plus grosse amplitude plutot qu'une plus petite à cause de la regularization
+
 for non convex we do alternate learning
