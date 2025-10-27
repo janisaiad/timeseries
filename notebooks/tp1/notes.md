@@ -45,3 +45,9 @@ we would like to discriminate labels and atoms using
 
 
 CDL surtout fait pour de la reconstruction de signal? puor le clustering c'est un peu nul ?
+
+
+features de niche
+
+
+link between fourier and autorocelle comes from fourier isometry and convolution
