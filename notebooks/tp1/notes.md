@@ -28,7 +28,7 @@ ARI :
 
 
 ce qui nous intéresse c'est la forme des atomes de time series
-
+mef à l'échantillonage du dataset 
 stumpy, ou CDL
 
 grid searchCV for less MSE, BIC criterion
