@@ -23,7 +23,7 @@ méthodes ascendantes : partir de 1 cluster puis de les merge petit à patit
 
 
 
-ARI : 
+ARI : 0.01 is pretty bad
 
 
 
@@ -51,3 +51,11 @@ features de niche
 
 
 link between fourier and autorocelle comes from fourier isometry and convolution
+
+features are not exceptionnal in general
+
+
+
+.if we had label we can do more
+
+anova is exactly done for that
