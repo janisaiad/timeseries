@@ -17,8 +17,18 @@ sakoe chiba band (lower bound) (windonw_ype in dtw(sakoechiba itakura, slantedba
 pdist use is very good
 np.isin
 
-methode descendantes par partitionnement
+methode descendantes par partitionnement for high dim datasets
 méthodes ascendantes : partir de 1 cluster puis de les merge petit à patit
 
 
+
+
 ARI : 
+
+
+
+ce qui nous intéresse c'est la forme des atomes de time series
+
+stumpy, ou CDL
+
+for non convex we do alternate learning
