@@ -14,6 +14,20 @@
 \usepackage{physics}
 \usepackage{float}
 \usepackage{booktabs}
+\newcommand{\RR}{\mathbb{R}}
+\newtheoremstyle{exerciseStyle}% name
+  {3pt}% Space above
+  {3pt}% Space below
+  {\normalfont}% Body font
+  {}% Indent amount
+  {\bfseries}% Theorem head font
+  {}% Punctuation after theorem head
+  {\newline}% Space after theorem head
+  {}% Theorem head spec (can be left empty)
+
+\theoremstyle{exerciseStyle}
+\newtheorem{exercise}{Question}
+\newtheorem{solution}{Answer}
 \geometry{
     left=2.5cm,
     right=2.5cm,
@@ -87,6 +101,40 @@ Here, you can state and define important mathematical concepts.
 \begin{theobox}
 Place for theorems, lemmas, properties, etc.
 \end{theobox}
+
+\begin{exercise}
+    
+Consider the following Lasso regression:
+\begin{equation}\label{eq:lasso}
+    \min_{\beta\in\RR^p} \frac{1}{2}\norm{y-X\beta}^2_2 \quad + \quad \lambda \norm{\beta}_1
+\end{equation}
+where $y\in\RR^n$ is the response vector, $X\in\RR^{n\times p}$ the design matrix, $\beta\in\RR^p$ the vector of regressors and $\lambda>0$ the smoothing parameter.
+
+Show that there exists $\lambda_{\max}$ such that the minimizer of~\eqref{eq:lasso} is $\mathbf{0}_p$ (a $p$-dimensional vector of zeros) for any $\lambda > \lambda_{\max}$. 
+\end{exercise}
+
+\begin{solution}  % ANSWER HERE
+
+\begin{equation}
+    \lambda_{\max} = \max_{j\in\{1,\ldots,p\}} \left|\sum_{i=1}^n X_{ij}y_i \right|
+\end{equation}
+
+Proof: Let \(f(\beta) = \frac{1}{2}\norm{y-X\beta}^2_2 \). The function is twice differentiable everywhere, and the Hessian is \(\nabla^2 f(\beta) = X^TX \succeq 0\).
+Therefore \(f\) is convex. We know the function satisfies, for every pair of points \((x,y)\):
+\(f(y) \geq f(x) + \langle\grad f(x), y-x\rangle\), and so by letting \(y=\beta\), \(x=0\), and computing the gradient of the function at 0 which is \(\grad f(0) = -X^Ty\)
+we finally get the identity:
+
+\begin{equation}
+    f(\beta) \geq f(0) - \langle X^Ty , \beta \rangle
+\end{equation}
+
+Now, if we let \(\lambda > \lambda_{\max}\), we have that \(\lambda|\beta_i|\) is strictly greater than the absolute value of the \(i\)'th component of the dot product (this is true by definition of \(\lambda_{\max}\)), and therefore by adding all the terms we get
+\[f(\beta) + \lambda\norm{\beta}_1 > f(0) \quad \forall \beta \in \mathbb{R}^p \]
+
+This proves what we wanted.
+
+\end{solution}
+
 
 \section{Methodology}
 \begin{itemize}
