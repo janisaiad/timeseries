@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1761758132.81831 "c:/Users/Admin/Documents/TimeSeries/timeseries/refs/tp1/tp1.tex" "tp1.pdf" "tp1" 1761758134.21625 0
+["pdflatex"] 1761760708.8363 "c:/Users/Admin/Documents/TimeSeries/timeseries/refs/tp1/tp1.tex" "tp1.pdf" "tp1" 1761760710.80705 0
   "C:/Users/Admin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1761650523 82864 33af9636ee278c30beabba717010dc8f ""
   "C:/Users/Admin/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1761650377 31952 a5fb3e6d503ed4ccbefd6568cc4c81fc ""
   "C:/Users/Admin/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk" 1761650382 40136 f375b5b478e9384f88987b93370fc62f ""
@@ -47,11 +47,13 @@
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy8.tfm" 1136765053 1120 8b7d695260f3cff42e636090a8002094 ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbsy10.pfb" 1247596666 34793 ae7a3e2775dc0ce90475eeabcb46f9f1 ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1247596666 32080 340ef9bf63678554ee606688e7b5339d ""
+  "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb" 1247596666 32166 b0c356b15f19587482a9217ce1d8fa67 ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1247596667 30251 6afa5cb1d0204815a708a080681d4674 ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1247596667 36741 0ee9e374ec3e30da87cdfb0ea3575226 ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb" 1247596666 37166 8ab3487cbe3ab49ebce74c29ea2418db ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1247596666 35469 dcf3a5f2fc1862f5952e3ee5eb1d98c4 ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1247596667 32722 d7379af29a190c3f453aba36302ff5a9 ""
+  "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1247596667 32734 69e00a6b65cedb993666e42eedb3d48f ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1247596667 32726 39f0f9e62e84beb801509898a605dbd5 ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1247596667 32626 5abc8bb2f28aa647d4c70f8ea38cc0d3 ""
@@ -199,11 +201,11 @@
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/tex/latex/trimspaces/trimspaces.sty" 1253169183 1380 971a51b00a14503ddf754cab24c3f209 ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Admin/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "c:/Users/Admin/Documents/TimeSeries/timeseries/refs/tp1/tp1.tex" 1761758130 5659 18d9f010b797e7895179ab602864f090 ""
-  "tp1.aux" 1761758133 1204 cdbb9329d44f41667777a7460df81275 "pdflatex"
-  "tp1.out" 1761758133 538 9b0d33b9197ac72362a9c1b0e7ca5bc5 "pdflatex"
-  "tp1.tex" 1761758130 5659 18d9f010b797e7895179ab602864f090 ""
-  "tp1.toc" 1761758133 422 9df5ed0e85be275104e5d566089e8e78 "pdflatex"
+  "c:/Users/Admin/Documents/TimeSeries/timeseries/refs/tp1/tp1.tex" 1761760707 7915 8e7ee7f0a06f526df335e29aa922149a ""
+  "tp1.aux" 1761760710 1204 7cdacd825a7da8d6ef6f15682e80feb8 "pdflatex"
+  "tp1.out" 1761760710 538 9b0d33b9197ac72362a9c1b0e7ca5bc5 "pdflatex"
+  "tp1.tex" 1761760707 7915 8e7ee7f0a06f526df335e29aa922149a ""
+  "tp1.toc" 1761760710 422 8165af7431d650f1fb2efe2283480fe0 "pdflatex"
   (generated)
   "tp1.aux"
   "tp1.log"

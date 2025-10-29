@@ -135,6 +135,50 @@ This proves what we wanted.
 
 \end{solution}
 
+\begin{exercise}
+For a univariate signal $\mathbf{x}\in\mathbb{R}^n$ with $n$ samples, the convolutional dictionary learning task amounts to solving the following optimization problem:
+
+\begin{equation}
+\min_{(\mathbf{d}_k)_k, (\mathbf{z}_k)_k \\ \norm{\mathbf{d}_k}_2^2\leq 1} \quad\norm{\mathbf{x} - \sum_{k=1}^K \mathbf{z}_k * \mathbf{d}_k }^2_2 \quad + \quad\lambda \sum_{k=1}^K \norm{\mathbf{z}_k}_1
+\end{equation}
+
+where $\mathbf{d}_k\in\mathbb{R}^L$ are the $K$ dictionary atoms (patterns), $\mathbf{z}_k\in\mathbb{R}^{N-L+1}$ are activations signals, and $\lambda>0$ is the smoothing parameter.
+
+Show that
+\begin{itemize}
+    \item for a fixed dictionary, the sparse coding problem is a lasso regression (explicit the response vector and the design matrix);
+    \item for a fixed dictionary, there exists $\lambda_{\max}$ (which depends on the dictionary) such that the sparse codes are only 0 for any $\lambda > \lambda_{\max}$. 
+\end{itemize}
+\end{exercise}
+
+\begin{solution}  % ANSWER HERE
+
+To proof the first statement, we will formulate the problem as a minimization over \(z \in \mathbb{R}^{K(N-L+1)}\), where this vector is
+obtained from concatenating the \(K\) vectors \(z_k \in \mathbb{R}^{N-L+1}\). We notice first that with this notation we have 
+\[\sum_{k=1}^K \norm{\mathbf{z}_k}_1 = \norm{z}_1\]
+To put  this problem in the lasso regression form,
+we notice that the convolution \(z_k * d_k = M_{d_k}z_k\), where \(M_{d_k} \in \mathbb{R}^{N\times (N-L+1)}\) is the matrix obtained by reversing \(d_k\) and putting one more coeficient at each row in a circular way.
+\[
+M_{d_k} =
+\begin{bmatrix}
+(d_k)_L & 0 & \cdots & \cdots & 0 \\
+(d_k)_{L-1} & (d_k)_L & 0 & \cdots & 0 \\
+\vdots & \ddots & \ddots & \ddots & \vdots \\
+0 & \cdots & 0 & \cdots & (d_k)_1
+\end{bmatrix}
+\]
+
+Now, if we take the vector \(y = \sqrt{2}x\) and we take the matrix \(M \in \mathbb{R}^{N \times K(N-L+1)}\) as
+\[
+M = \sqrt{2}\big[ M_{d_1} \;\big|\; M_{d_2} \;\big|\; \cdots \;\big|\; M_{d_K} \big]
+\]
+
+We have that the problem is indeed a lassso regression minimization one. \\
+
+The second statement is an immediate consequence of the first question, applied to the vector \(y\) and the matrix \(M\).
+
+\end{solution}
+
 
 \section{Methodology}
 \begin{itemize}
