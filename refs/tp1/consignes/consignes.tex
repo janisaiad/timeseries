@@ -88,7 +88,7 @@ Denote the sampling frequency by $f_s$, meaning that the index $n$ corresponds t
 
 The \textit{power spectrum} $S$ of the stationary random process $X$ is defined as the Fourier transform of the autocovariance function:
 \begin{equation}
-    S(f) := \sum_{\tau=-\infty}^{+\infty}\gamma(\tau)e^{-2\pi f\tau/f_s}.
+    S(f) := \sum_{\tau=-\infty}^{+\infty}\gamma(\tau)e^{-2\pi i f\tau/f_s}.
 \end{equation}
 The power spectrum describes the distribution of power in the frequency space. 
 Intuitively, large values of $S(f)$ indicate that the signal contains a sine wave at the frequency $f$.
@@ -131,7 +131,7 @@ for $\tau=0,1,\dots,N-1$ and $\hat{\gamma}(\tau):=\hat{\gamma}(-\tau)$ for $\tau
 \begin{exercise}
 Define the discrete Fourier transform of the random process $\{X_n\}_n$ by
 \begin{equation}
-    J(f) := (1/\sqrt{N})\sum_{n=0}^{N-1} X_n e^{-2\pi\iu f n/f_s}
+    J(f) := (1/\sqrt{N})\sum_{n=0}^{N-1} X_n e^{-2\pi i f n/f_s}
 \end{equation}
 The \textit{periodogram} is the collection of values $|J(f_0)|^2$, $|J(f_1)|^2$, \dots, $|J(f_{N/2})|^2$ where $f_k = f_s k/N$.
 (They can be efficiently computed using the Fast Fourier Transform.)
