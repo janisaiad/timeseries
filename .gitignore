@@ -34,4 +34,5 @@ pip-wheel-metadata/
 # End of Selection
 *.pyc
 .cursorindexingignore
-data.csv
+X_train.csv
+y_train.csv
