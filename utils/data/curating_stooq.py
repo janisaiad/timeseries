@@ -63,23 +63,23 @@ def stooq_txt_to_df(file_path: Union[str, Path], tz: Optional[str] = None) -> pd
         "close": "float64",
         "vol": "Int64",
         "openint": "Int64",
-    }  # we set explicit dtypes for reliability
-
+        }  # we set explicit dtypes for reliability
+    
+    
     df = pd.read_csv(
-        p,
-        header=None,
-        names=names,
-        sep=",",
-        engine="python",
-        usecols=list(range(10)),
-        skip_blank_lines=True,
-        dtype=dtypes,
-        na_filter=True,
-        encoding="utf-8",
-        on_bad_lines="skip",
-        low_memory=False,
-    )  # we load the file robustly and ignore any extra trailing columns
-
+        p,  # we pass path
+        header=None,  # we specify no header
+        names=names,  # we set column names
+        sep=",",  # we set csv-like separator
+        engine="python",  # we use python engine to allow on_bad_lines
+        comment="<",  # we skip header lines like <TICKER>,<PER>,... safely
+        usecols=list(range(10)),  # we read only first 10 cols
+        skip_blank_lines=True,  # we skip blank lines
+        dtype=dtypes,  # we enforce dtypes
+        na_filter=True,  # we enable na parsing
+        encoding="utf-8",  # we set encoding
+        on_bad_lines="skip"  # we skip malformed lines
+    )  # we load file robustly and ignore any extra trailing columns
     if df.empty:  # we ensure not empty
         raise ValueError(f"no rows read from file: {p}")  # we signal an error
 
