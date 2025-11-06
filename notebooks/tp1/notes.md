@@ -59,3 +59,23 @@ features are not exceptionnal in general
 .if we had label we can do more
 
 anova is exactly done for that
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+todo : 
+fourier summation decomposition orthogonal formulas N/2 (sqrt(N)) proof not trivial (or invoking cramer's theorem on orthogonal subspace)
+
+
+noise features in data spectrum / statistical tests
