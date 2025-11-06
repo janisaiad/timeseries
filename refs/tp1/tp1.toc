@@ -1,0 +1,10 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Convolution dictionary learning}{2}{section.1}%
+\contentsline {section}{\numberline {2}Spectral feature}{3}{section.2}%
+\contentsline {section}{\numberline {3}Data study}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}General information}{9}{subsection.3.1}%
+\contentsline {paragraph}{Context.}{9}{section*.2}%
+\contentsline {paragraph}{Data.}{10}{section*.3}%
+\contentsline {subsection}{\numberline {3.2}Step classification with the dynamic time warping (DTW) distance}{10}{subsection.3.2}%
+\contentsline {paragraph}{Task.}{10}{section*.4}%
+\contentsline {paragraph}{Performance metric.}{10}{section*.5}%
