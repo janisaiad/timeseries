@@ -1,8 +1,8 @@
 import numpy as np
-import tensorflow as tf
 
 
-class Model1:
+
+class WaveletModel:
     def __init__(self, n_layers: int, n_neurons: int, n_outputs: int):
         self.model = None
         self.params = {}
@@ -15,3 +15,4 @@ class Model1:
         pass
 
     def predict(self):
+        pass

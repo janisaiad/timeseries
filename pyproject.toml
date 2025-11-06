@@ -16,12 +16,12 @@ dependencies = [
     "numba>=0.61.0",
     "numpy>=2.1.3",
     "pandas>=2.3.3",
+    "plotly>=6.4.0",
     "pytest>=8.3.5",
     "ruff>=0.8.2",
     "scikit-learn>=1.7.2",
     "statsmodels>=0.14.5",
     "tach>=0.16.3",
-    "tensorflow>=2.14.0",
     "torch>=2.9.0",
 ]
 
@@ -33,8 +33,8 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-package-dir = {} # you can write inside the brackets something like "Model1" = "models/model1/", "Model2" = "models/model2/"
-packages = [] # same, smth like ["Model1", "Model2"]
+package-dir = {utils = "utils/", model = "model/"} # you can write inside the brackets something like "Model1" = "models/model1/", "Model2" = "models/model2/"
+packages = ["utils", "model"] # same, smth like ["Model1", "Model2"]
 
 
 
