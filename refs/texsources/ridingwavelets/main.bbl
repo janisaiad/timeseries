@@ -1,0 +1,192 @@
+\providecommand{\noopsort}[1]{}\providecommand{\singleletter}[1]{#1}%
+\begin{thebibliography}{10}
+
+\bibitem{sornette2006endogenous}
+Sornette D.
+\newblock Endogenous versus exogenous origins of crises.
+\newblock Extreme events in nature and society. 2006:95-119.
+
+\bibitem{osorio2010epileptic}
+Osorio I, Frei MG, Sornette D, Milton J, Lai YC.
+\newblock Epileptic seizures: quakes of the brain?
+\newblock Physical Review E. 2010;82(2):021919.
+
+\bibitem{sornette2010prediction}
+Sornette D, Osorio I.
+\newblock Prediction.
+\newblock chapter in ``Epilepsy: The Intersection of Neurosciences, Biology, Mathematics, Physics and Engineering'', Editors: Osorio I, Zaveri HP, Frei MG, Arthurs S, CRC Press, Taylor \& Francis Group, pp 203-237. 2010.
+
+\bibitem{filimonov2012quantifying}
+Filimonov V, Sornette D.
+\newblock Quantifying reflexivity in financial markets: Toward a prediction of flash crashes.
+\newblock Physical Review E. 2012;85(5):056108.
+
+\bibitem{hardiman2013critical}
+Hardiman SJ, Bercot N, Bouchaud JP.
+\newblock Critical reflexivity in financial markets: a Hawkes process analysis.
+\newblock The European Physical Journal B. 2013;86:1-9.
+
+\bibitem{hardiman2014branching}
+Hardiman SJ, Bouchaud JP.
+\newblock Branching-ratio approximation for the self-exciting Hawkes process.
+\newblock Physical Review E. 2014;90(6):062807.
+
+\bibitem{bak1993aggregate}
+Bak P, Chen K, Scheinkman J, Woodford M.
+\newblock Aggregate fluctuations from independent sectoral shocks: self-organized criticality in a model of production and inventory dynamics.
+\newblock Ricerche economiche. 1993;47(1):3-30.
+
+\bibitem{moran2019may}
+Moran J, Bouchaud JP.
+\newblock May's instability in large economies.
+\newblock Physical Review E. 2019;100(3):032307.
+
+\bibitem{sornette2004endogenous}
+Sornette D, Desch{\^a}tres F, Gilbert T, Ageon Y.
+\newblock Endogenous versus exogenous shocks in complex networks: An empirical test using book sale rankings.
+\newblock Physical Review Letters. 2004;93(22):228701.
+
+\bibitem{deschatres2005dynamics}
+Deschatres F, Sornette D.
+\newblock Dynamics of book sales: Endogenous versus exogenous shocks in complex networks.
+\newblock Physical Review E. 2005;72(1):016112.
+
+\bibitem{mohler2011self}
+Mohler GO, Short MB, Brantingham PJ, Schoenberg FP, Tita GE.
+\newblock Self-exciting point process modeling of crime.
+\newblock Journal of the American Statistical Association. 2011;106(493):100-8.
+
+\bibitem{bonnasse2018epidemiological}
+Bonnasse-Gahot L, Berestycki H, Depuiset MA, Gordon MB, Roch{\'e} S, Rodriguez N, et~al.
+\newblock Epidemiological modelling of the 2005 French riots: a spreading wave and the role of contagion.
+\newblock Scientific reports. 2018;8(1):1-20.
+
+\bibitem{moran2023temporal}
+Moran J, Pijpers FP, Weitzel U, Bouchaud JP, Panja D.
+\newblock Temporal criticality in socio-technical systems.
+\newblock arXiv preprint arXiv:230703546. 2023.
+
+\bibitem{sorosalchemy}
+Soros G.
+\newblock The Alchemy of Finance: Reading the Mind of the Market by George Soros (1994-05-06).
+
+\bibitem{bak1996nature}
+B{\"a}k P.
+\newblock How Nature Works: The Science of Self-Organized Criticality (Copernicus, New York). 1996.
+
+\bibitem{bak1995complexity}
+Bak P, Paczuski M.
+\newblock Complexity, contingency, and criticality.
+\newblock Proceedings of the National Academy of Sciences. 1995;92(15):6689-96.
+
+\bibitem{sornette2003endogenous}
+Sornette D, Helmstetter A.
+\newblock Endogenous versus exogenous shocks in systems with memory.
+\newblock Physica A: Statistical Mechanics and its Applications. 2003;318(3-4):577-91.
+
+\bibitem{crane2008robust}
+Crane R, Sornette D.
+\newblock Robust dynamic classes revealed by measuring the response function of a social system.
+\newblock Proceedings of the National Academy of Sciences. 2008;105(41):15649-53.
+
+\bibitem{vol_news_jp}
+Joulin A, Lefevre A, Grunberg D, Bouchaud JP.
+\newblock Stock price jumps: news and volume play a minor role.
+\newblock Wilmott Magazine. 2008;46.
+
+\bibitem{marcaccioli2022exogenous}
+Marcaccioli R, Bouchaud JP, Benzaquen M.
+\newblock Exogenous and endogenous price jumps belong to different dynamical classes.
+\newblock Journal of Statistical Mechanics: Theory and Experiment. 2022;2022(2):023403.
+
+\bibitem{wu2022classification}
+Wu Q, Sano Y, Takayasu H, Takayasu M.
+\newblock Classification of endogenous and exogenous bursts in collective emotions based on Weibo comments during COVID-19.
+\newblock Scientific Reports. 2022;12(1):3120.
+
+\bibitem{bormetti2015modelling}
+Bormetti G, Calcagnile LM, Treccani M, Corsi F, Marmi S, Lillo F.
+\newblock Modelling systemic price cojumps with Hawkes factor models.
+\newblock Quantitative Finance. 2015;15(7):1137-56.
+
+\bibitem{calcagnile2018collective}
+Calcagnile LM, Bormetti G, Treccani M, Marmi S, Lillo F.
+\newblock Collective synchronization and high frequency systemic instabilities in financial markets.
+\newblock Quantitative Finance. 2018;18(2):237-47.
+
+\bibitem{aubrun2023multivariate}
+Aubrun C, Benzaquen M, Bouchaud JP.
+\newblock Multivariate quadratic Hawkes processes—part I: theoretical analysis.
+\newblock Quantitative Finance. 2023;23(5):741-58.
+
+\bibitem{bruna2013invariant}
+Bruna J, Mallat S.
+\newblock Invariant scattering convolution networks.
+\newblock IEEE transactions on pattern analysis and machine intelligence. 2013;35(8):1872-86.
+
+\bibitem{boudt2011robust}
+Boudt K, Croux C, Laurent S.
+\newblock Robust estimation of intraweek periodicity in volatility and jump detection.
+\newblock Journal of Empirical Finance. 2011;18(2):353-67.
+
+\bibitem{probert2002detection}
+Probert S, Song Y.
+\newblock Detection and classification of high frequency transients using wavelet analysis.
+\newblock In: IEEE Power Engineering Society Summer Meeting,. vol.~2. IEEE; 2002. p. 801-6.
+
+\bibitem{kim2015wavelet}
+Kim DI, Chun TY, Yoon SH, Lee G, Shin YJ.
+\newblock Wavelet-based event detection method using PMU data.
+\newblock IEEE Transactions on Smart grid. 2015;8(3):1154-62.
+
+\bibitem{rueda2018transient}
+Rueda L, Cardenas A, Kelouwani S, Agbossou K.
+\newblock Transient event classification based on wavelet neuronal network and matched filters.
+\newblock In: IECON 2018-44th Annual Conference of the IEEE Industrial Electronics Society. IEEE; 2018. p. 832-7.
+
+\bibitem{cuoco2018wavelet}
+Cuoco E, Razzano M, Utina A.
+\newblock Wavelet-based classification of transient signals for gravitational wave detectors.
+\newblock In: 2018 26th European Signal Processing Conference (EUSIPCO). IEEE; 2018. p. 2648-52.
+
+\bibitem{scholkopf1997kernel}
+Sch{\"o}lkopf B, Smola A, M{\"u}ller KR.
+\newblock Kernel principal component analysis.
+\newblock In: International conference on artificial neural networks. Springer; 1997. p. 583-8.
+
+\bibitem{flora2022v}
+Flora M, Ren{\`o} R.
+\newblock V-shapes.
+\newblock Available at SSRN 4260832. 2022.
+
+\bibitem{morel2022scale}
+Morel R, Rochette G, Leonarduzzi R, Bouchaud JP, Mallat S.
+\newblock Scale Dependencies and Self-Similarity Through Wavelet Scattering Covariance.
+\newblock arXiv preprint arXiv:220410177. 2022.
+
+\bibitem{morel2023path}
+Morel R, Mallat S, Bouchaud JP.
+\newblock Path Shadowing Monte-Carlo.
+\newblock arXiv preprint arXiv:230801486. 2023.
+
+\bibitem{gerig2012high}
+Gerig A.
+\newblock High-frequency trading synchronizes prices in financial markets.
+\newblock arXiv preprint arXiv:12111919. 2012.
+
+\bibitem{harris1963theory}
+Harris TE, et~al.
+\newblock The theory of branching processes. vol.~6.
+\newblock Springer Berlin; 1963.
+
+\bibitem{bouchaud2011endogenous}
+Bouchaud JP.
+\newblock The endogenous dynamics of markets: Price impact, feedback loops and instabilities.
+\newblock Lessons from the credit crisis. 2011:345-74.
+
+\bibitem{fosset2020endogenous}
+Fosset A, Bouchaud JP, Benzaquen M.
+\newblock Endogenous liquidity crises.
+\newblock Journal of Statistical Mechanics: Theory and Experiment. 2020;2020(6):063401.
+
+\end{thebibliography}
