@@ -54,7 +54,26 @@ An estimator $\hat{\theta}_n$ is consistent if it converges in probability when 
 \end{exercise}
 
 \begin{solution}  % ANSWER HERE
+For i.i.d.\ random variables with finite variance, the variance of the sample mean is
+\[
+\operatorname{Var}(\bar{Y}_n) = \frac{\sigma^2}{n}
+\]
+and the convergence rate is $1/\sqrt{n}$.
 
+For a stationary process $\{Y_t\}$ with $\sum_k |\gamma (k)| < +\infty$,
+\[
+\operatorname{Var}(\bar{Y}_n) = \frac{1}{n^2} \sum_{j=1}^n \sum_{k=1}^n \operatorname{Cov}(Y_j, Y_k)
+= \frac{1}{n^2} \sum_{j=1}^n \sum_{k=1}^n \gamma(j-k)
+\]
+which can also be written as
+\[
+\operatorname{Var}(\bar{Y}_n) = \frac{1}{n} \sum_{h=-(n-1)}^{n-1} \left(1 - \frac{|h|}{n}\right) \gamma(h)
+\]
+If $\sum_k |\gamma(k)| < +\infty$, then as $n \to \infty$,
+\[
+\operatorname{Var}(\bar{Y}_n) \to \frac{1}{n} \sum_{h=-\infty}^{\infty} \gamma(h)
+\]
+so $\operatorname{Var}(\bar{Y}_n) = O(1/n)$, i.e., the convergence rate is $1/\sqrt{n}$ like in the i.i.d.\ case.
 
 \end{solution}
 
@@ -67,7 +86,7 @@ Let $\{Y_t\}_{t\geq 0}$ be a random process defined by
 \begin{equation}\label{eq:ma-inf}
     Y_t = \varepsilon_t + \psi_1 \varepsilon_{t-1} + \psi_2 \varepsilon_{t-2} + \dots = \sum_{k=0}^{\infty} \psi_k\varepsilon_{t-k}
 \end{equation}
-where $(\psi_k)_{k\geq0} \subset \mathbb{R}$ ($\psi=1$) are square summable, \ie $\sum_k \psi_k^2 < \infty$ and $\{\varepsilon_t\}_t$ is a zero mean white noise of variance $\sigma_\varepsilon^2$.
+where $(\psi_k)_{k\geq0} \subset \mathbb{R}$ ($\psi_k=1$) are square summable, \ie $\sum_k \psi_k^2 < \infty$ and $\{\varepsilon_t\}_t$ is a zero mean white noise of variance $\sigma_\varepsilon^2$.
 (Here, the infinite sum of random variables is the limit in $L_2$ of the partial sums.)
 \begin{itemize}
     \item Derive $\mathbb{E}(Y_t)$ and $\mathbb{E}(Y_t Y_{t-k})$. Is this process weakly stationary?
@@ -80,6 +99,49 @@ Wold's theorem states that any weakly stationary process can be written as the s
 \end{exercise}
 
 \begin{solution}  % ANSWER HERE
+First, since $Y_t$ is a linear combination of zero mean white noises, we have
+\[
+\mathbb{E}[Y_t] = \sum_{k=0}^\infty \psi_k \mathbb{E}[\varepsilon_{t-k}] = 0.
+\]
+
+Now for the covariance:
+\[
+\mathbb{E}[Y_tY_{t-h}] = \mathbb{E}\left[ \left( \sum_{k=0}^\infty \psi_k \varepsilon_{t-k} \right)
+\left( \sum_{l=0}^\infty \psi_l \varepsilon_{t-h-l} \right) \right]
+= \sum_{k=0}^\infty \sum_{l=0}^\infty \psi_k \psi_l\, \mathbb{E}[\varepsilon_{t-k}\varepsilon_{t-h-l}]
+\]
+Since $\{\varepsilon_t\}$ are uncorrelated (and independent), the only nonzero terms are when $t-k = t-h-l$, i.e., $k = h + l$. Therefore,
+\[
+\mathbb{E}[Y_t Y_{t-h}] = \sum_{l=0}^\infty \psi_{h+l} \psi_l\, \mathbb{E}[\varepsilon_{t-(h+l)}^2]
+= \sigma_\varepsilon^2 \sum_{l=0}^\infty \psi_{h+l}\psi_l
+\]
+So the covariance at lag $h$ is
+\[
+\gamma(h) = \mathrm{Cov}(Y_t, Y_{t-h}) = \sigma_\varepsilon^2 \sum_{l=0}^\infty \psi_{h+l} \psi_l
+\]
+which does not depend on $t$: the process is weakly stationary.
+
+To compute the power spectrum, recall that for a stationary process,
+\[
+S(f) = \sum_{k=-\infty}^{+\infty} \gamma(k) e^{-2\pi i f k}.
+\]
+Now, let's expand the modulus square in $S(f) = \sigma_\varepsilon^2 |\phi(e^{-2\pi i f})|^2$:
+\[
+\phi(e^{-2\pi i f}) = \sum_{k=0}^\infty \psi_k e^{-2\pi i f k}
+\]
+so
+\[
+|\phi(e^{-2\pi i f})|^2 = \phi(e^{-2\pi i f})\, \overline{\phi(e^{-2\pi i f})}
+= \left( \sum_{k=0}^\infty \psi_k e^{-2\pi i f k} \right) \left( \sum_{j=0}^\infty \psi_j e^{2\pi i f j} \right )
+\]
+\[
+= \sum_{k=0}^\infty \sum_{j=0}^\infty \psi_k \psi_j e^{-2\pi i f (k-j)}
+\]
+Therefore, the power spectrum is
+\[
+S(f) = \sigma_\varepsilon^2 \sum_{k=0}^\infty \sum_{j=0}^\infty \psi_k \psi_j\, e^{-2\pi i f (k-j)}
+\]
+which is an explicit expansion of the complex conjugate product.
 
 \end{solution}
 
@@ -119,18 +181,167 @@ Properties on the roots of this polynomial drive the behavior of this process.
 
 
 \end{exercise}
+\begin{solution}
+    First, let us establish the stationarity and the form of the solution.
+    Let $\nu_1 = 1/r_1$ and $\nu_2 = 1/r_2$. Since $|r_i| > 1$, we have $|\nu_i| < 1$.
+    Using the state-space representation, let $X_t = [Y_t, Y_{t-1}]^\top$. We can write:
+    \begin{equation}
+        X_t = \Phi X_{t-1} + \xi_t, \quad \text{with} \quad \Phi = \begin{pmatrix} \phi_1 & \phi_2 \\ 1 & 0 \end{pmatrix}, \quad \xi_t = \begin{pmatrix} \varepsilon_t \\ 0 \end{pmatrix}.
+    \end{equation}
+    By iterating this equation, we obtain $X_t = \sum_{k=0}^{\infty} \Phi^k \xi_{t-k}$. Since the eigenvalues of $\Phi$ are exactly $\nu_1$ and $\nu_2$ (roots of $z^2 - \phi_1 z - \phi_2 = 0$), and $|\nu_i| < 1$, the spectral radius $\rho(\Phi) < 1$. Thus, the series converges in $L^2$, defined as a sum of independent Gaussian variables. The variance of the process converges to a finite limit $\gamma(0)$, confirming stationarity.
+    
+    We now derive $\gamma(0)$ and $\gamma(1)$ algebraically using the Yule-Walker equations.
+    Multiplying the AR(2) equation by $Y_{t-\tau}$ and taking expectations yields the recursion:
+    \begin{equation}
+        \gamma(\tau) = \phi_1 \gamma(\tau-1) + \phi_2 \gamma(\tau-2), \quad \forall \tau \geq 1.
+    \end{equation}
+    For $\tau=0$, taking the expectation with $Y_t$ (noting $E[\varepsilon_t Y_t] = \sigma^2$):
+    \begin{equation}
+        \label{eq:yw0}
+        \gamma(0) = \phi_1 \gamma(1) + \phi_2 \gamma(2) + \sigma^2.
+    \end{equation}
+    For $\tau=1$:
+    \begin{equation}
+        \label{eq:yw1}
+        \gamma(1) = \phi_1 \gamma(0) + \phi_2 \gamma(1) \implies \gamma(1)(1-\phi_2) = \phi_1 \gamma(0) \implies \gamma(1) = \frac{\phi_1}{1-\phi_2}\gamma(0).
+    \end{equation}
+    Substituting $\gamma(2) = \phi_1 \gamma(1) + \phi_2 \gamma(0)$ into \eqref{eq:yw0}:
+    \begin{equation}
+        \gamma(0) = \phi_1 \gamma(1) + \phi_2 (\phi_1 \gamma(1) + \phi_2 \gamma(0)) + \sigma^2 = (\phi_1^2 + \phi_2)\gamma(1) + \phi_2^2 \gamma(0) + \sigma^2.
+    \end{equation}
+    Substituting $\gamma(1)$ from \eqref{eq:yw1}:
+    \begin{equation}
+        \gamma(0) (1 - \phi_2^2) - \gamma(0) \frac{\phi_1 (\phi_1 + \phi_1 \phi_2)}{1-\phi_2} = \sigma^2.
+    \end{equation}
+    Factorizing and solving for $\gamma(0)$:
+    \begin{equation}
+        \gamma(0) \left[ \frac{(1-\phi_2)(1-\phi_2^2) - \phi_1^2(1+\phi_2)}{1-\phi_2} \right] = \sigma^2 \implies \gamma(0) = \frac{(1-\phi_2)\sigma^2}{(1+\phi_2)((1-\phi_2)^2 - \phi_1^2)}.
+    \end{equation}
+    Using Vieta's formulas, $\phi_1 = \nu_1 + \nu_2$ and $\phi_2 = -\nu_1 \nu_2$. The denominator term $(1-\phi_2)^2 - \phi_1^2$ simplifies to $(1+\nu_1\nu_2)^2 - (\nu_1+\nu_2)^2 = (1-\nu_1^2)(1-\nu_2^2)$.
+    Thus:
+    \begin{equation}
+        \gamma(0) = \frac{(1+\nu_1 \nu_2) \sigma^2}{(1-\nu_1 \nu_2)(1-\nu_1^2)(1-\nu_2^2)}.
+    \end{equation}
+    
+    The autocovariance satisfies the homogeneous difference equation for $\tau \geq 1$, so its solution is of the form $\gamma(\tau) = c_1 \nu_1^{\tau} + c_2 \nu_2^{\tau}$. We solve for $c_1, c_2$ using the boundary conditions at $\tau=0, 1$:
+    \begin{equation}
+        \begin{pmatrix} 1 & 1 \\ \nu_1 & \nu_2 \end{pmatrix} \begin{pmatrix} c_1 \\ c_2 \end{pmatrix} = \begin{pmatrix} \gamma(0) \\ \gamma(1) \end{pmatrix}.
+    \end{equation}
+    Inverting the matrix:
+    \begin{equation}
+        \begin{pmatrix} c_1 \\ c_2 \end{pmatrix} = \frac{1}{\nu_2 - \nu_1} \begin{pmatrix} \nu_2 & -1 \\ -\nu_1 & 1 \end{pmatrix} \begin{pmatrix} \gamma(0) \\ \gamma(1) \end{pmatrix}.
+    \end{equation}
+    Using $\gamma(1) = \frac{\nu_1+\nu_2}{1+\nu_1\nu_2}\gamma(0)$, we calculate $c_1$:
+    \begin{equation}
+        c_1 = \frac{\nu_2 \gamma(0) - \gamma(1)}{\nu_2 - \nu_1} = \frac{\gamma(0)}{\nu_2 - \nu_1} \left( \nu_2 - \frac{\nu_1+\nu_2}{1+\nu_1\nu_2} \right) = \frac{\gamma(0)}{\nu_2 - \nu_1} \frac{\nu_2 + \nu_1\nu_2^2 - \nu_1 - \nu_2}{1+\nu_1\nu_2} = \gamma(0) \frac{\nu_1\nu_2^2 - \nu_1}{(\nu_2-\nu_1)(1+\nu_1\nu_2)}.
+    \end{equation}
+    This simplifies to:
+    \begin{equation}
+        c_1 = \frac{\sigma^2 \nu_1 (1-\nu_2^2)}{(\nu_1-\nu_2)(1-\nu_1\nu_2)(1-\nu_1^2)(1-\nu_2^2)} = \frac{\sigma^2 \nu_1}{(\nu_1-\nu_2)(1-\nu_1\nu_2)(1-\nu_1^2)}.
+    \end{equation}
+    By symmetry for $c_2$ and expressing in terms of roots $r_i = 1/\nu_i$:
+    \begin{equation}
+        \gamma(\tau) = \sigma^2 \sum_{i=1}^2 \frac{r_i^{-|\tau|}}{(1-r_i^{-2})(1-r_1^{-1}r_2^{-1})(r_i^{-1}-r_{3-i}^{-1})} r_i^{-1}.
+    \end{equation}
 
-\begin{solution}  % ANSWER HERE
+    \textbf{The left correlogram exhibits oscillating behavior characteristic of complex conjugate roots in the characteristic polynomial, whereas the right correlogram displays a monotonic exponential decay typical of real roots, allowing us to identify the left as the complex case and the right as the real case.}
+
+
+
+    The power spectrum density $S(f)$ is the Fourier transform of the autocovariance function:
+    \begin{equation}
+        S(f) = \sum_{\tau=-\infty}^{\infty} \gamma(\tau) e^{-i 2\pi f \tau}.
+    \end{equation}
+    Using the expression derived previously:
+    \begin{equation}
+        \gamma(\tau) = c_1 \nu_1^{|\tau|} + c_2 \nu_2^{|\tau|}, \quad \text{where } \nu_i = 1/r_i.
+    \end{equation}
+    We can split the sum for each component $k \in \{1, 2\}$:
+    \begin{equation}
+        S_k(f) = \sum_{\tau=-\infty}^{\infty} \nu_k^{|\tau|} e^{-i 2\pi f \tau} = 1 + \sum_{\tau=1}^{\infty} (\nu_k e^{-i 2\pi f})^\tau + \sum_{\tau=1}^{\infty} (\nu_k e^{i 2\pi f})^\tau.
+    \end{equation}
+    Since $|\nu_k| < 1$, these are convergent geometric series:
+    \begin{equation}
+        S_k(f) = 1 + \frac{\nu_k e^{-i 2\pi f}}{1 - \nu_k e^{-i 2\pi f}} + \frac{\nu_k e^{i 2\pi f}}{1 - \nu_k e^{i 2\pi f}} = 1 + \frac{\nu_k e^{-i \omega}}{1 - \nu_k e^{-i \omega}} + \frac{\nu_k e^{i \omega}}{1 - \nu_k e^{i \omega}},
+    \end{equation}
+    where $\omega = 2\pi f$. Combining terms:
+    \begin{equation}
+        S_k(f) = \frac{(1 - \nu_k e^{-i \omega})(1 - \nu_k e^{i \omega}) + \nu_k e^{-i \omega}(1 - \nu_k e^{i \omega}) + \nu_k e^{i \omega}(1 - \nu_k e^{-i \omega})}{|1 - \nu_k e^{-i \omega}|^2}.
+    \end{equation}
+    The numerator simplifies to:
+    \begin{equation}
+        1 - \nu_k e^{i \omega} - \nu_k e^{-i \omega} + \nu_k^2 + \nu_k e^{-i \omega} - \nu_k^2 + \nu_k e^{i \omega} - \nu_k^2 = 1 - \nu_k^2.
+    \end{equation}
+    Thus:
+    \begin{equation}
+        S_k(f) = \frac{1 - \nu_k^2}{|1 - \nu_k e^{-i 2\pi f}|^2}.
+    \end{equation}
+    Substituting $c_k$:
+    \begin{equation}
+        S(f) = c_1 \frac{1 - \nu_1^2}{|1 - \nu_1 z^{-1}|^2} + c_2 \frac{1 - \nu_2^2}{|1 - \nu_2 z^{-1}|^2}, \quad \text{with } z = e^{i 2\pi f}.
+    \end{equation}
+    Recall from the derivation of $\gamma(0)$:
+    \begin{equation}
+        c_1 (1-\nu_1^2) = \frac{\sigma^2 \nu_1}{(\nu_1 - \nu_2)(1 - \nu_1 \nu_2)}, \quad c_2 (1-\nu_2^2) = \frac{\sigma^2 \nu_2}{(\nu_2 - \nu_1)(1 - \nu_1 \nu_2)}.
+    \end{equation}
+    So:
+    \begin{equation}
+        S(f) = \frac{\sigma^2}{1 - \nu_1 \nu_2} \left( \frac{\nu_1}{(\nu_1 - \nu_2)|1 - \nu_1 z^{-1}|^2} + \frac{\nu_2}{(\nu_2 - \nu_1)|1 - \nu_2 z^{-1}|^2} \right).
+    \end{equation}
+    Finding a common denominator $D = |1 - \nu_1 z^{-1}|^2 |1 - \nu_2 z^{-1}|^2 = |(1 - \nu_1 z^{-1})(1 - \nu_2 z^{-1})|^2 = |1 - (\nu_1+\nu_2)z^{-1} + \nu_1\nu_2 z^{-2}|^2$.
+    This matches $|\phi(e^{-i 2\pi f})|^2$ since $\phi_1 = \nu_1+\nu_2$ and $\phi_2 = -\nu_1\nu_2$.
+    
+    The numerator term is:
+    \begin{equation}
+        N = \frac{\sigma^2}{(\nu_1 - \nu_2)(1 - \nu_1 \nu_2)} \left[ \nu_1 (1 - \nu_2 z)(1 - \nu_2 z^{-1}) - \nu_2 (1 - \nu_1 z)(1 - \nu_1 z^{-1}) \right].
+    \end{equation}
+    Expanding the bracket:
+    \begin{align}
+        & \nu_1 (1 - \nu_2 (z + z^{-1}) + \nu_2^2) - \nu_2 (1 - \nu_1 (z + z^{-1}) + \nu_1^2) \\
+        &= \nu_1 - \nu_1 \nu_2 (z + z^{-1}) + \nu_1 \nu_2^2 - \nu_2 + \nu_1 \nu_2 (z + z^{-1}) - \nu_1^2 \nu_2 \\
+        &= (\nu_1 - \nu_2) + \nu_1 \nu_2 (\nu_2 - \nu_1) = (\nu_1 - \nu_2)(1 - \nu_1 \nu_2).
+    \end{align}
+    Thus, the entire numerator $N$ simplifies to just $\sigma^2$.
+    \begin{equation}
+        S(f) = \frac{\sigma^2}{|\phi(e^{-i 2\pi f})|^2} = \frac{\sigma^2}{|1 - \phi_1 e^{-i 2\pi f} - \phi_2 e^{-i 4\pi f}|^2}.
+    \end{equation}
+
+    To analyze the peak of the spectrum, let us factorize the characteristic polynomial as $\phi(z) = (1 - z/r_1)(1 - z/r_2)$.
+    Assuming complex conjugate roots $r_{1,2} = \rho e^{\pm i \theta}$ with $\rho > 1$, the power spectrum is given by:
+    \begin{equation}
+        S(f) = \frac{\sigma^2}{|1 - \rho^{-1}e^{i(2\pi f - \theta)}|^2 |1 - \rho^{-1}e^{i(2\pi f + \theta)}|^2}.
+    \end{equation}
+    T    For complex conjugate roots $r_{1,2} = r e^{\pm i\theta}$ with $r = 1.05$ and $\theta = 2\pi/6$, we have $\nu_{1,2} = r^{-1} e^{\pm i\theta}$ where $r^{-1} \approx 0.952$.
+    The power spectrum is:
+    \begin{equation}
+        S(f) = \frac{\sigma^2}{|1 - \phi_1 e^{-i 2\pi f} - \phi_2 e^{-i 4\pi f}|^2} = \frac{\sigma^2}{|(1 - \nu_1 e^{-i 2\pi f})(1 - \nu_2 e^{-i 2\pi f})|^2}.
+    \end{equation}
+    For frequency $f = f_0 := \theta/(2\pi) = 1/6$ Hz, we have $e^{-i 2\pi f_0} = e^{-i\theta}$.
+    Thus:
+    \begin{equation}
+        |1 - \nu_1 e^{-i\theta}|^2 = |1 - r^{-1} e^{i\theta} e^{-i\theta}|^2 = |1 - r^{-1}|^2 = (1 - r^{-1})^2.
+    \end{equation}
+    Similarly, $|1 - \nu_2 e^{-i\theta}|^2 = |1 - r^{-1} e^{-i\theta} e^{-i\theta}|^2 = |1 - r^{-1} e^{-i 2\theta}|^2$.
+    Since $r \approx 1$, the denominator $|1 - r^{-1}|^2 = (r - 1)^2/r^2 \approx (r-1)^2$ is very small.
+    For $r = 1.05$, we have $(r-1)^2 = 0.05^2 = 0.0025$, yielding:
+    \begin{equation}
+        S(f_0) \approx \frac{\sigma^2}{(r-1)^2 \cdot |1 - r^{-1} e^{-i 2\theta}|^2} \approx \frac{\sigma^2}{0.0025 \cdot C} \sim 400 \sigma^2 / C,
+    \end{equation}
+    where $C = |1 - r^{-1} e^{-i 2\theta}|^2 \approx O(1)$.
+    This produces a sharp spectral peak at frequency $f = \theta/(2\pi) = 1/6$ Hz, corresponding to the imaginary part (phase) of the complex roots, with amplitude scaling as $(r-1)^{-2}$, explaining the observed peak around magnitude $\sim 350$ in the periodogram.
+    
+    We can see that the process is stationnary non diverging and the fourier spectrum shows a peak at the frequency of the roots.
+\end{solution}
 
 \begin{figure}
     \centering
     \begin{minipage}[t]{0.45\textwidth}
-    \centerline{\includegraphics[width=\textwidth]{example-image-golden}}
+    \centerline{\includegraphics[width=\textwidth]{signal1.png}}
     \centerline{Signal}
     \end{minipage}
     \hfill
-    \begin{minipage}[t]{0.45\textwidth}    \centerline{\includegraphics[width=\textwidth]{example-image-golden}}
-    \centerline{Periodogram}
+    \begin{minipage}[t]{0.45\textwidth}    \centerline{\includegraphics[width=\textwidth]{spectrum1.png}}
+    \centerline{Spectrum}
     \end{minipage}
     \caption{AR(2) process}\label{fig:q-ar-2}
 \end{figure}
