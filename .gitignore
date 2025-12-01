@@ -34,10 +34,5 @@ pip-wheel-metadata/
 # End of Selection
 *.pyc
 .cursorindexingignore
-<<<<<<< HEAD
-*.txt
-*.csv
-=======
 
 *.csv
->>>>>>> janis
