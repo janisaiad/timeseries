@@ -1,0 +1,40 @@
+\providecommand\numberofexercises{}
+\XSIM{solution-body}{exercise-1=={\par \par }||exercise-2=={\par }||exercise-3=={\par \begin {figure} \centering \begin {minipage}[t]{0.45\textwidth } \centerline {\includegraphics [width=\textwidth ]{example-image-golden}} \centerline {Signal} \end {minipage} \hfill \begin {minipage}[t]{0.45\textwidth } \centerline {\includegraphics [width=\textwidth ]{example-image-golden}} \centerline {Periodogram} \end {minipage} \caption {AR(2) process}\label {fig:q-ar-2} \end {figure} \par }||exercise-4=={\par \par \begin {figure} \centering \begin {minipage}[t]{0.45\textwidth } \centerline {\includegraphics [width=\textwidth ]{example-image-golden}} \centerline {Norms of the successive residuals} \end {minipage} \hfill \begin {minipage}[t]{0.45\textwidth } \centerline {\includegraphics [width=\textwidth ]{example-image-golden}} \centerline {Reconstruction with 10 atoms} \end {minipage} \caption {Question 4} \end {figure} \par \par \par }}
+\XSIM{exercise-body}{exercise-1=={An estimator $\hat {\theta }_n$ is consistent if it converges in probability when the number $n$ of samples grows to $\infty $ to the true value $\theta \in \mathbb {R}$ of a parameter, i.e. $\hat {\theta }_n \xrightarrow {\mathcal {D}} \theta $. \par \begin {itemize} \item Recall the rate of convergence of the sample mean for i.i.d.\ random variables with finite variance. \item Let $\{Y_t\}_{t\geq 1}$ a wide-sense stationary process such that $\sum _k |\gamma (k)| < +\infty $. Show that the sample mean $\bar {Y}_n = (Y_1+\dots +Y_n)/n$ is consistent and enjoys the same rate of convergence as the i.i.d.\ case. (Hint: bound $\mathbb {E}[(\bar {Y}_n-\mu )^2]$ with the $\gamma (k)$ and recall that convergence in $L_2$ implies convergence in probability.) \end {itemize} \par }||exercise-2=={Let $\{Y_t\}_{t\geq 0}$ be a random process defined by \begin {equation}\label {eq:ma-inf} Y_t = \varepsilon _t + \psi _1 \varepsilon _{t-1} + \psi _2 \varepsilon _{t-2} + \dots = \sum _{k=0}^{\infty } \psi _k\varepsilon _{t-k} \end {equation} where $(\psi _k)_{k\geq 0} \subset \mathbb {R}$ ($\psi =1$) are square summable, \ie $\sum _k \psi _k^2 < \infty $ and $\{\varepsilon _t\}_t$ is a zero mean white noise of variance $\sigma _\varepsilon ^2$. (Here, the infinite sum of random variables is the limit in $L_2$ of the partial sums.) \begin {itemize} \item Derive $\mathbb {E}(Y_t)$ and $\mathbb {E}(Y_t Y_{t-k})$. Is this process weakly stationary? \item Show that the power spectrum of $\{Y_t\}_{t}$ is $S(f) = \sigma _\varepsilon ^2 |\phi (e^{-2\pi \iu f})|^2$ where $\phi (z) = \sum _j \psi _j z^j$. (Assume a sampling frequency of 1 Hz.) \end {itemize} \par The process $\{Y_t\}_{t}$ is a moving average of infinite order. Wold's theorem states that any weakly stationary process can be written as the sum of the deterministic process and a stochastic process which has the form~\eqref {eq:ma-inf}. \par }||exercise-3=={Let $\{Y_t\}_{t\geq 1}$ be an AR(2) process, i.e. \begin {equation} Y_t = \phi _1 Y_{t-1} + \phi _2 Y_{t-2} + \varepsilon _t \end {equation} with $\phi _1, \phi _2\in \mathbb {R}$. The associated characteristic polynomial is $\phi (z):=1-\phi _1 z - \phi _2 z^2$. Assume that $\phi $ has two distinct roots (possibly complex) $r_1$ and $r_2$ such that $|r_i|>1$. Properties on the roots of this polynomial drive the behavior of this process. \par \par \begin {itemize} \item Express the autocovariance coefficients $\gamma (\tau )$ using the roots $r_1$ and $r_2$. \item Figure~\ref {fig:q-ar-2-corr} shows the correlograms of two different AR(2) processes. Can you tell which one has complex roots and which one has real roots? \item Express the power spectrum $S(f)$ (assume the sampling frequency is 1 Hz) using $\phi (\cdot )$. \item Choose $\phi _1$ and $\phi _2$ such that the characteristic polynomial has two complex conjugate roots of norm $r=1.05$ and phase $\theta =2\pi /6$. Simulate the process $\{Y_t\}_t$ (with $n=2000$) and display the signal and the periodogram (use a smooth estimator) on Figure~\ref {fig:q-ar-2}. What do you observe? \end {itemize} \par \par \begin {figure} \centering \begin {minipage}[t]{0.45\textwidth } \centerline {\includegraphics [width=\textwidth ]{images/acf1.pdf}} \centerline {Correlogram of the first AR(2)} \end {minipage} \hfill \begin {minipage}[t]{0.45\textwidth } \centerline {\includegraphics [width=\textwidth ]{images/acf2.pdf}} \centerline {Correlogram of the second AR(2)} \end {minipage} \caption {Two AR(2) processes}\label {fig:q-ar-2-corr} \end {figure} \par \par \par }||exercise-4=={For the signal provided in the notebook, learn a sparse representation with MDCT atoms. The dictionary is defined as the concatenation of all shifted MDCDT atoms for scales $L$ in $[32, 64, 128, 256, 512, 1024]$. \par \begin {itemize} \item For the sparse coding, implement the Orthogonal Matching Pursuit (OMP). (Use convolutions to compute the correlation coefficients.) \item Display the norm of the successive residuals and the reconstructed signal with 10 atoms. \end {itemize} \par }}
+\XSIM{goal}{exercise}{points}{0}
+\XSIM{totalgoal}{points}{0}
+\XSIM{goal}{exercise}{bonus-points}{0}
+\XSIM{totalgoal}{bonus-points}{0}
+\XSIM{order}{1||2||3||4}
+\XSIM{use}{}
+\XSIM{use!}{}
+\XSIM{used}{exercise-1=={true}||exercise-2=={true}||exercise-3=={true}||exercise-4=={true}}
+\XSIM{print}{}
+\XSIM{print!}{}
+\XSIM{printed}{exercise-1=={true}||exercise-2=={true}||exercise-3=={true}||exercise-4=={true}}
+\XSIM{total-number}{4}
+\XSIM{exercise}{4}
+\XSIM{types}{exercise}
+\XSIM{idtypes}{1=={exercise}||2=={exercise}||3=={exercise}||4=={exercise}}
+\XSIM{collections}{exercise-1=={all exercises}||exercise-2=={all exercises}||exercise-3=={all exercises}||exercise-4=={all exercises}}
+\XSIM{collection:all exercises}{exercise-1||exercise-2||exercise-3||exercise-4}
+\setcounter{totalexerciseinall exercises}{4}
+\XSIM{id}{exercise-1=={1}||exercise-2=={2}||exercise-3=={3}||exercise-4=={4}}
+\XSIM{ID}{exercise-1=={1}||exercise-2=={2}||exercise-3=={3}||exercise-4=={4}}
+\XSIM{counter}{exercise-1=={1}||exercise-2=={2}||exercise-3=={3}||exercise-4=={4}}
+\XSIM{counter-value}{exercise-1=={1}||exercise-2=={2}||exercise-3=={3}||exercise-4=={4}}
+\XSIM{solution}{}
+\XSIM{section-value}{exercise-1=={2}||exercise-2=={3}||exercise-3=={3}||exercise-4=={4}}
+\XSIM{section}{exercise-1=={2}||exercise-2=={3}||exercise-3=={3}||exercise-4=={4}}
+\XSIM{sectioning}{exercise-1=={{0}{2}{0}{0}{0}}||exercise-2=={{0}{3}{0}{0}{0}}||exercise-3=={{0}{3}{0}{0}{0}}||exercise-4=={{0}{4}{0}{0}{0}}}
+\XSIM{subtitle}{exercise-2=={Infinite order moving average MA($\infty $)}||exercise-3=={AR(2) process}||exercise-4=={Sparse coding with OMP}}
+\XSIM{points}{}
+\XSIM{bonus-points}{}
+\XSIM{page-value}{exercise-1=={1}||exercise-2=={3}||exercise-3=={4}||exercise-4=={5}}
+\XSIM{page}{exercise-1=={1}||exercise-2=={3}||exercise-3=={4}||exercise-4=={5}}
+\XSIM{tags}{}
+\XSIM{topics}{}
+\XSIM{userpoints}{}
+\XSIM{bodypoints}{}
+\XSIM{userbonus-points}{}
+\XSIM{bodybonus-points}{}
