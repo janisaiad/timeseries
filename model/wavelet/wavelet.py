@@ -186,6 +186,22 @@ class WaveletModel:
             self._feature_names = names  # we cache names
         return list(self._feature_names)  # we return a copy
 
+    def get_wavelet_function(self, scale: float = 1.0) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Recover the time-domain wavelet function psi(t) for the configured wavelet.
+        
+        Returns
+        -------
+        t : np.ndarray
+            Time grid.
+        psi : np.ndarray
+            Complex wavelet values.
+        """
+        self._ensure_deps()  # we validate dependencies
+        w = pywt.ContinuousWavelet(self.wavelet)  # we create wavelet object
+        psi, t = w.wavefun(level=12)  # we evaluate on dense grid
+        return t * scale, psi  # we rescale and return
+
     # ---------- core feature extraction ----------
 
     def compute_features(self, x: Union[np.ndarray, Sequence[float]]) -> np.ndarray:
