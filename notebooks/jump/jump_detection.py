@@ -95,13 +95,13 @@ if sample_ticker:
         # Standardize
         z_scores = (log_rets - log_rets.mean()) / log_rets.std()
         
-        fig_dist.add_trace(go.Histogram(
+    fig_dist.add_trace(go.Histogram(
             x=z_scores,
             name=f"{name} (std={log_rets.std():.5f})",
-            histnorm='probability density',
+        histnorm='probability density',
             opacity=0.5,
             nbinsx=100
-        ))
+    ))
         
     x_range = np.linspace(-6, 6, 200)
     fig_dist.add_trace(go.Scatter(
