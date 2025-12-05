@@ -392,11 +392,15 @@ if not jumps_df.empty:
 
 # %%
 # Classify jumps as endogenous vs exogenous and show examples
+X_windows = None
+jumps_subset = None
+filtered_dfs = {}
+window_steps = 12
+
 if not jumps_df.empty:
     print("\n=== Classifying Jumps (Endogenous vs Exogenous) ===")
     
     # Filter trading hours for window extraction
-    filtered_dfs = {}
     for ticker, df in dfs_subset.items():
         days = []
         for date, day_df in df.groupby(df.index.date):
@@ -411,7 +415,6 @@ if not jumps_df.empty:
             filtered_dfs[ticker] = pd.concat(days)
     
     # Extract jump windows
-    window_steps = 12
     windows = []
     valid_indices = []
     jump_metadata = []
@@ -442,6 +445,8 @@ if not jumps_df.empty:
     
     if len(windows) < 10:
         print(f"Not enough valid windows ({len(windows)}). Need at least 10 for classification.")
+        X_windows = None
+        jumps_subset = None
     else:
         X_windows = np.array(windows)
         jumps_subset = jumps_df.loc[valid_indices].copy()
@@ -472,121 +477,236 @@ if not jumps_df.empty:
         
         print(f"\nClassification results:")
         print(jumps_subset["classification"].value_counts())
+
+# %%
+# Visualize examples from dataset
+if X_windows is not None and jumps_subset is not None:
+    endogenous_jumps = jumps_subset[jumps_subset["classification"] == "Endogenous"]
+    exogenous_jumps = jumps_subset[jumps_subset["classification"] == "Exogenous"]
+    
+    if len(endogenous_jumps) > 0 and len(exogenous_jumps) > 0:
+        # Select representative examples (median D1 in each class)
+        endo_example = endogenous_jumps.iloc[np.abs(endogenous_jumps["D1_reflexivity"] - endogenous_jumps["D1_reflexivity"].median()).argmin()]
+        exo_example = exogenous_jumps.iloc[np.abs(exogenous_jumps["D1_reflexivity"] - exogenous_jumps["D1_reflexivity"].median()).argmin()]
         
-        # Select examples
-        endogenous_jumps = jumps_subset[jumps_subset["classification"] == "Endogenous"]
-        exogenous_jumps = jumps_subset[jumps_subset["classification"] == "Exogenous"]
+        examples = [
+            (endo_example, "Endogenous", "blue"),
+            (exo_example, "Exogenous", "red")
+        ]
         
-        # %%
-        # Visualize examples
-        if len(endogenous_jumps) > 0 and len(exogenous_jumps) > 0:
-            # Select representative examples (median D1 in each class)
-            endo_example = endogenous_jumps.iloc[np.abs(endogenous_jumps["D1_reflexivity"] - endogenous_jumps["D1_reflexivity"].median()).argmin()]
-            exo_example = exogenous_jumps.iloc[np.abs(exogenous_jumps["D1_reflexivity"] - exogenous_jumps["D1_reflexivity"].median()).argmin()]
-            
-            examples = [
-                (endo_example, "Endogenous", "blue"),
-                (exo_example, "Exogenous", "red")
-            ]
-            
-            fig_examples = make_subplots(
-                rows=2, cols=2,
-                subplot_titles=(
-                    "Endogenous Jump: |x(t)| Profile",
-                    "Exogenous Jump: |x(t)| Profile",
-                    "Endogenous Jump: x(t) Profile",
-                    "Exogenous Jump: x(t) Profile"
-                ),
-                vertical_spacing=0.12,
-                horizontal_spacing=0.1
-            )
-            
-            t_axis = np.arange(-window_steps, window_steps + 1)
-            
-            for col_idx, (ex, label, color) in enumerate(examples, 1):
-                # Find the window index
-                ex_idx = jumps_subset.index.get_loc(ex.name)
-                x_profile = X_windows[ex_idx]
-                x_abs = np.abs(x_profile)
-                
-                # Plot |x(t)|
-                fig_examples.add_trace(
-                    go.Scatter(
-                        x=t_axis, y=x_abs, mode='lines+markers',
-                        name=f'{label} |x(t)|',
-                        line=dict(color=color, width=2),
-                        marker=dict(size=4)
-                    ),
-                    row=1, col=col_idx
-                )
-                
-                # Plot x(t)
-                fig_examples.add_trace(
-                    go.Scatter(
-                        x=t_axis, y=x_profile, mode='lines+markers',
-                        name=f'{label} x(t)',
-                        line=dict(color=color, width=2),
-                        marker=dict(size=4)
-                    ),
-                    row=2, col=col_idx
-                )
-                
-                # Add jump marker
-                fig_examples.add_vline(x=0, line_dash="dash", line_color="gray", row=1, col=col_idx)
-                fig_examples.add_vline(x=0, line_dash="dash", line_color="gray", row=2, col=col_idx)
-                
-                # Update axes
-                fig_examples.update_xaxes(title_text="Time (steps)", row=1, col=col_idx)
-                fig_examples.update_xaxes(title_text="Time (steps)", row=2, col=col_idx)
-                fig_examples.update_yaxes(title_text="|x(t)|", row=1, col=col_idx)
-                fig_examples.update_yaxes(title_text="x(t)", row=2, col=col_idx)
-            
-            fig_examples.update_layout(
-                title=f"Example Jumps: Endogenous vs Exogenous<br>Endogenous (D1={endo_example['D1_reflexivity']:.2f}) | Exogenous (D1={exo_example['D1_reflexivity']:.2f})",
-                template="plotly_white",
-                height=700,
-                showlegend=False
-            )
-            fig_examples.show()
-            
-            # Print details
-            print(f"\nEndogenous Example:")
-            print(f"  Ticker: {endo_example['ticker']}")
-            print(f"  Timestamp: {endo_example['timestamp']}")
-            print(f"  D1 Reflexivity: {endo_example['D1_reflexivity']:.3f}")
-            print(f"  Jump Score: {endo_example['score']:.3f}")
-            
-            print(f"\nExogenous Example:")
-            print(f"  Ticker: {exo_example['ticker']}")
-            print(f"  Timestamp: {exo_example['timestamp']}")
-            print(f"  D1 Reflexivity: {exo_example['D1_reflexivity']:.3f}")
-            print(f"  Jump Score: {exo_example['score']:.3f}")
-        
-        # %%
-        # Distribution of D1 scores by classification
-        fig_dist = go.Figure()
-        
-        for classification in ["Endogenous", "Mixed", "Exogenous"]:
-            subset = jumps_subset[jumps_subset["classification"] == classification]
-            if len(subset) > 0:
-                fig_dist.add_trace(go.Histogram(
-                    x=subset["D1_reflexivity"],
-                    name=classification,
-                    opacity=0.7,
-                    nbinsx=30
-                ))
-        
-        fig_dist.add_vline(x=0, line_dash="dash", line_color="gray", annotation_text="Symmetric")
-        fig_dist.add_vline(x=0.5, line_dash="dash", line_color="orange", annotation_text="Threshold")
-        
-        fig_dist.update_layout(
-            title="Distribution of D1 Reflexivity Scores by Classification",
-            xaxis_title="D1 Reflexivity Score",
-            yaxis_title="Count",
-            template="plotly_white",
-            height=500,
-            barmode='overlay'
+        fig_examples = make_subplots(
+            rows=2, cols=2,
+            subplot_titles=(
+                "Endogenous Jump: |x(t)| Profile",
+                "Exogenous Jump: |x(t)| Profile",
+                "Endogenous Jump: x(t) Profile",
+                "Exogenous Jump: x(t) Profile"
+            ),
+            vertical_spacing=0.12,
+            horizontal_spacing=0.1
         )
-        fig_dist.show()
+        
+        t_axis = np.arange(-window_steps, window_steps + 1)
+        
+        for col_idx, (ex, label, color) in enumerate(examples, 1):
+            # Find the window index
+            ex_idx = jumps_subset.index.get_loc(ex.name)
+            x_profile = X_windows[ex_idx]
+            x_abs = np.abs(x_profile)
+            
+            # Plot |x(t)|
+            fig_examples.add_trace(
+                go.Scatter(
+                    x=t_axis, y=x_abs, mode='lines+markers',
+                    name=f'{label} |x(t)|',
+                    line=dict(color=color, width=2),
+                    marker=dict(size=4)
+                ),
+                row=1, col=col_idx
+            )
+            
+            # Plot x(t)
+            fig_examples.add_trace(
+                go.Scatter(
+                    x=t_axis, y=x_profile, mode='lines+markers',
+                    name=f'{label} x(t)',
+                    line=dict(color=color, width=2),
+                    marker=dict(size=4)
+                ),
+                row=2, col=col_idx
+            )
+            
+            # Add jump marker
+            fig_examples.add_vline(x=0, line_dash="dash", line_color="gray", row=1, col=col_idx)
+            fig_examples.add_vline(x=0, line_dash="dash", line_color="gray", row=2, col=col_idx)
+            
+            # Update axes
+            fig_examples.update_xaxes(title_text="Time (steps)", row=1, col=col_idx)
+            fig_examples.update_xaxes(title_text="Time (steps)", row=2, col=col_idx)
+            fig_examples.update_yaxes(title_text="|x(t)|", row=1, col=col_idx)
+            fig_examples.update_yaxes(title_text="x(t)", row=2, col=col_idx)
+        
+        fig_examples.update_layout(
+            title=f"Example Jumps: Endogenous vs Exogenous<br>Endogenous (D1={endo_example['D1_reflexivity']:.2f}) | Exogenous (D1={exo_example['D1_reflexivity']:.2f})",
+            template="plotly_white",
+            height=700,
+            showlegend=False
+        )
+        fig_examples.show()
+        
+        # Print details
+        print(f"\nEndogenous Example (from dataset):")
+        print(f"  Ticker: {endo_example['ticker']}")
+        print(f"  Timestamp: {endo_example['timestamp']}")
+        print(f"  D1 Reflexivity: {endo_example['D1_reflexivity']:.3f}")
+        print(f"  Jump Score: {endo_example['score']:.3f}")
+        
+        print(f"\nExogenous Example (from dataset):")
+        print(f"  Ticker: {exo_example['ticker']}")
+        print(f"  Timestamp: {exo_example['timestamp']}")
+        print(f"  D1 Reflexivity: {exo_example['D1_reflexivity']:.3f}")
+        print(f"  Jump Score: {exo_example['score']:.3f}")
+
+# %%
+# Show actual price data from the dataset
+if X_windows is not None and jumps_subset is not None:
+    endogenous_jumps = jumps_subset[jumps_subset["classification"] == "Endogenous"]
+    exogenous_jumps = jumps_subset[jumps_subset["classification"] == "Exogenous"]
+    
+    if len(endogenous_jumps) > 0 and len(exogenous_jumps) > 0:
+        endo_example = endogenous_jumps.iloc[np.abs(endogenous_jumps["D1_reflexivity"] - endogenous_jumps["D1_reflexivity"].median()).argmin()]
+        exo_example = exogenous_jumps.iloc[np.abs(exogenous_jumps["D1_reflexivity"] - exogenous_jumps["D1_reflexivity"].median()).argmin()]
+        examples = [
+            (endo_example, "Endogenous", "blue"),
+            (exo_example, "Exogenous", "red")
+        ]
+        
+        fig_prices = make_subplots(
+            rows=2, cols=2,
+            subplot_titles=(
+                f"Endogenous: {endo_example['ticker']} - Price",
+                f"Exogenous: {exo_example['ticker']} - Price",
+                f"Endogenous: {endo_example['ticker']} - Returns",
+                f"Exogenous: {exo_example['ticker']} - Returns"
+            ),
+            vertical_spacing=0.12,
+            horizontal_spacing=0.1
+        )
+        
+        for col_idx, (ex, label, color) in enumerate(examples, 1):
+            ticker = ex['ticker']
+            ts = ex['timestamp']
+            
+            if ticker not in filtered_dfs: continue
+            df = filtered_dfs[ticker]
+            if ts not in df.index: continue
+            
+            loc = df.index.get_loc(ts)
+            if loc - window_steps < 0 or loc + window_steps + 1 > len(df): continue
+            
+            subset = df.iloc[loc - window_steps : loc + window_steps + 1]
+            
+            # Time axis (actual timestamps)
+            time_axis = subset.index
+            prices = subset["close"].values
+            returns = subset["close"].pct_change().fillna(0.0).values * 100
+            
+            # Plot price
+            fig_prices.add_trace(
+                go.Scatter(
+                    x=time_axis, y=prices, mode='lines+markers',
+                    name=f'{label} Price',
+                    line=dict(color=color, width=2),
+                    marker=dict(size=5)
+                ),
+                row=1, col=col_idx
+            )
+            
+            # Highlight jump time
+            fig_prices.add_vline(
+                x=ts, line_dash="dash", line_color="orange", 
+                annotation_text="Jump", row=1, col=col_idx
+            )
+            
+            # Plot returns
+            fig_prices.add_trace(
+                go.Scatter(
+                    x=time_axis, y=returns, mode='lines+markers',
+                    name=f'{label} Returns',
+                    line=dict(color=color, width=2),
+                    marker=dict(size=5)
+                ),
+                row=2, col=col_idx
+            )
+            
+            # Highlight jump time
+            fig_prices.add_vline(
+                x=ts, line_dash="dash", line_color="orange", 
+                annotation_text="Jump", row=2, col=col_idx
+            )
+            
+            # Update axes
+            fig_prices.update_xaxes(title_text="Time", row=1, col=col_idx)
+            fig_prices.update_xaxes(title_text="Time", row=2, col=col_idx)
+            fig_prices.update_yaxes(title_text="Price", row=1, col=col_idx)
+            fig_prices.update_yaxes(title_text="Returns (%)", row=2, col=col_idx)
+        
+        fig_prices.update_layout(
+            title=f"Real Examples from Dataset: Actual Price & Returns<br>Endogenous: {endo_example['ticker']} at {endo_example['timestamp']} | Exogenous: {exo_example['ticker']} at {exo_example['timestamp']}",
+            template="plotly_white",
+            height=700,
+            showlegend=False
+        )
+        fig_prices.show()
+
+# %%
+# Show multiple examples from the dataset
+if X_windows is not None and jumps_subset is not None:
+    endogenous_jumps = jumps_subset[jumps_subset["classification"] == "Endogenous"]
+    exogenous_jumps = jumps_subset[jumps_subset["classification"] == "Exogenous"]
+    
+    print("\n=== Multiple Examples from Dataset ===")
+    
+    # Select top 3 examples of each type
+    n_examples = 3
+    if len(endogenous_jumps) >= n_examples:
+        top_endo = endogenous_jumps.nsmallest(n_examples, 'D1_reflexivity')
+        print(f"\nTop {n_examples} Endogenous Examples (most negative D1):")
+        for idx, (_, row) in enumerate(top_endo.iterrows(), 1):
+            print(f"  {idx}. {row['ticker']} at {row['timestamp']} | D1={row['D1_reflexivity']:.3f} | Score={row['score']:.2f}")
+    
+    if len(exogenous_jumps) >= n_examples:
+        top_exo = exogenous_jumps.nlargest(n_examples, 'D1_reflexivity')
+        print(f"\nTop {n_examples} Exogenous Examples (most positive D1):")
+        for idx, (_, row) in enumerate(top_exo.iterrows(), 1):
+            print(f"  {idx}. {row['ticker']} at {row['timestamp']} | D1={row['D1_reflexivity']:.3f} | Score={row['score']:.2f}")
+
+# %%
+# Distribution of D1 scores by classification
+if X_windows is not None and jumps_subset is not None:
+    fig_dist = go.Figure()
+    
+    for classification in ["Endogenous", "Mixed", "Exogenous"]:
+        subset = jumps_subset[jumps_subset["classification"] == classification]
+        if len(subset) > 0:
+            fig_dist.add_trace(go.Histogram(
+                x=subset["D1_reflexivity"],
+                name=classification,
+                opacity=0.7,
+                nbinsx=30
+            ))
+    
+    fig_dist.add_vline(x=0, line_dash="dash", line_color="gray", annotation_text="Symmetric")
+    fig_dist.add_vline(x=0.5, line_dash="dash", line_color="orange", annotation_text="Threshold")
+    
+    fig_dist.update_layout(
+        title="Distribution of D1 Reflexivity Scores by Classification",
+        xaxis_title="D1 Reflexivity Score",
+        yaxis_title="Count",
+        template="plotly_white",
+        height=500,
+        barmode='overlay'
+    )
+    fig_dist.show()
 
 # %%
