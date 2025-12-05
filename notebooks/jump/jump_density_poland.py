@@ -20,6 +20,7 @@ if project_root not in sys.path:
 from utils.data.curating_stooq import curate_stooq_dir_5min
 from utils.data.jump_detection import detect_jumps_many, compute_u_shape
 from model.wavelet.wavelet import WaveletModel
+from plot_utils import save_plot
 
 # %%
 # Load data
@@ -160,6 +161,7 @@ fig1.update_layout(
     template="plotly_white",
     height=500
 )
+save_plot(fig1, "jump_density_poland_distribution_signed", format='pdf')
 fig1.show()
 
 # %%
@@ -210,6 +212,7 @@ fig2.update_layout(
     height=500,
     xaxis_range=[0, min(10, all_abs_scores.max())]
 )
+save_plot(fig2, "jump_density_poland_distribution_abs", format='pdf')
 fig2.show()
 
 # %%
@@ -309,6 +312,7 @@ fig3.update_layout(
     template="plotly_white",
     height=500
 )
+save_plot(fig3, "jump_density_poland_qq_plot", format='pdf')
 fig3.show()
 
 # %%
@@ -552,6 +556,7 @@ if X_windows is not None and jumps_subset is not None:
             height=700,
             showlegend=False
         )
+        save_plot(fig_examples, "jump_density_poland_examples", format='pdf')
         fig_examples.show()
         
         # Print details
@@ -657,6 +662,7 @@ if X_windows is not None and jumps_subset is not None:
             height=700,
             showlegend=False
         )
+        save_plot(fig_prices, "jump_density_poland_examples_prices", format='pdf')
         fig_prices.show()
 
 # %%
@@ -707,6 +713,7 @@ if X_windows is not None and jumps_subset is not None:
         height=500,
         barmode='overlay'
     )
+    save_plot(fig_dist, "jump_density_poland_D1_classification", format='pdf')
     fig_dist.show()
 
 # %%

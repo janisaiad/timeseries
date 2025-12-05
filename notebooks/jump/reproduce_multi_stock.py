@@ -19,6 +19,7 @@ if project_root not in sys.path:
 from utils.data.curating_stooq import curate_stooq_dir_5min
 from utils.data.jump_detection import detect_jumps_many
 from model.wavelet.wavelet import WaveletModel
+from plot_utils import save_plot
 
 def plot_profiles(X_windows, jumps_subset, output_dir, name):
     """
@@ -73,6 +74,7 @@ def plot_profiles(X_windows, jumps_subset, output_dir, name):
         out_path = os.path.join(output_dir, f"{name}_profile_{dim}.html")
         fig.write_html(out_path)
         print(f"    Saved profile plot to {out_path}")
+        save_plot(fig, f"reproduce_multi_stock_profile_{dim}", format='pdf')
         
         # Show in notebook
         fig.show()
@@ -199,6 +201,7 @@ def run_analysis_for_subset(
     out_path_scatter = os.path.join(output_dir, f"{subset_name}_fig5_mr.html")
     fig_mr.write_html(out_path_scatter)
     print(f"    Saved scatter plot to {out_path_scatter}")
+    save_plot(fig_mr, f"reproduce_multi_stock_{subset_name}_fig5_mr", format='pdf')
     
     # Show in notebook
     fig_mr.show()

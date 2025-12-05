@@ -21,6 +21,7 @@ if project_root not in sys.path:
 from utils.data.curating_stooq import curate_stooq_dir_5min
 from utils.data.jump_detection import detect_jumps_many
 from model.wavelet.wavelet import WaveletModel
+from plot_utils import save_plot
 
 # %%
 def run_analysis(
@@ -188,9 +189,14 @@ print(f"\nD3 Statistics:")
 print(f"  With SS:    mean={jumps_with['D3_trend'].mean():.3f}, std={jumps_with['D3_trend'].std():.3f}")
 print(f"  Without SS: mean={jumps_without['D3_trend'].mean():.3f}, std={jumps_without['D3_trend'].std():.3f}")
 
-# Correlation between D1 values
+# Correlation between directions
 d1_corr = np.corrcoef(jumps_with['D1_reflexivity'], jumps_without['D1_reflexivity'])[0, 1]
-print(f"\nD1 Correlation (With SS vs Without SS): {d1_corr:.3f}")
+d2_corr = np.corrcoef(jumps_with['D2_mean_reversion'], jumps_without['D2_mean_reversion'])[0, 1]
+d3_corr = np.corrcoef(jumps_with['D3_trend'], jumps_without['D3_trend'])[0, 1]
+print(f"\nDirection Correlations (With SS vs Without SS):")
+print(f"  D1: {d1_corr:.3f}")
+print(f"  D2: {d2_corr:.3f}")
+print(f"  D3: {d3_corr:.3f}")
 
 # %%
 # Plot 1: Scatter plot comparing D1 values
@@ -222,6 +228,7 @@ fig_d1_comp.update_layout(
     template="plotly_white",
     height=600
 )
+save_plot(fig_d1_comp, "poland_comparison_D1_scatter", format='pdf')
 fig_d1_comp.show()
 
 # %%
@@ -255,7 +262,138 @@ fig_d1_dist.update_layout(
     height=500,
     showlegend=False
 )
+save_plot(fig_d1_dist, "poland_comparison_D1_distribution", format='pdf')
 fig_d1_dist.show()
+
+# %%
+# Plot 2b: D2 comparison scatter plot
+fig_d2_comp = go.Figure()
+
+fig_d2_comp.add_trace(go.Scatter(
+    x=jumps_without['D2_mean_reversion'],
+    y=jumps_with['D2_mean_reversion'],
+    mode='markers',
+    name='Jumps',
+    marker=dict(size=4, opacity=0.6, color='green')
+))
+
+min_d2 = min(jumps_with['D2_mean_reversion'].min(), jumps_without['D2_mean_reversion'].min())
+max_d2 = max(jumps_with['D2_mean_reversion'].max(), jumps_without['D2_mean_reversion'].max())
+fig_d2_comp.add_trace(go.Scatter(
+    x=[min_d2, max_d2],
+    y=[min_d2, max_d2],
+    mode='lines',
+    name='Perfect Correlation (y=x)',
+    line=dict(color='red', width=2, dash='dash')
+))
+
+fig_d2_comp.update_layout(
+    title=f"D2 Mean-Reversion: With SS vs Without SS<br>Correlation: {d2_corr:.3f}",
+    xaxis_title="D2 (Without Scattering Spectra)",
+    yaxis_title="D2 (With Scattering Spectra)",
+    template="plotly_white",
+    height=600
+)
+save_plot(fig_d2_comp, "poland_comparison_D2_scatter", format='pdf')
+fig_d2_comp.show()
+
+# %%
+# Plot 2c: D3 comparison scatter plot
+fig_d3_comp = go.Figure()
+
+fig_d3_comp.add_trace(go.Scatter(
+    x=jumps_without['D3_trend'],
+    y=jumps_with['D3_trend'],
+    mode='markers',
+    name='Jumps',
+    marker=dict(size=4, opacity=0.6, color='purple')
+))
+
+min_d3 = min(jumps_with['D3_trend'].min(), jumps_without['D3_trend'].min())
+max_d3 = max(jumps_with['D3_trend'].max(), jumps_without['D3_trend'].max())
+fig_d3_comp.add_trace(go.Scatter(
+    x=[min_d3, max_d3],
+    y=[min_d3, max_d3],
+    mode='lines',
+    name='Perfect Correlation (y=x)',
+    line=dict(color='red', width=2, dash='dash')
+))
+
+fig_d3_comp.update_layout(
+    title=f"D3 Trend: With SS vs Without SS<br>Correlation: {d3_corr:.3f}",
+    xaxis_title="D3 (Without Scattering Spectra)",
+    yaxis_title="D3 (With Scattering Spectra)",
+    template="plotly_white",
+    height=600
+)
+save_plot(fig_d3_comp, "poland_comparison_D3_scatter", format='pdf')
+fig_d3_comp.show()
+
+# %%
+# Plot 2d: Side-by-side comparison of D2 distributions
+fig_d2_dist = make_subplots(
+    rows=1, cols=2,
+    subplot_titles=("D2 Distribution (With SS)", "D2 Distribution (Without SS)"),
+    horizontal_spacing=0.1
+)
+
+fig_d2_dist.add_trace(
+    go.Histogram(x=jumps_with['D2_mean_reversion'], name='With SS', nbinsx=30, opacity=0.7),
+    row=1, col=1
+)
+fig_d2_dist.add_trace(
+    go.Histogram(x=jumps_without['D2_mean_reversion'], name='Without SS', nbinsx=30, opacity=0.7),
+    row=1, col=2
+)
+
+fig_d2_dist.add_vline(x=0, line_dash="dash", line_color="gray", row=1, col=1)
+fig_d2_dist.add_vline(x=0, line_dash="dash", line_color="gray", row=1, col=2)
+
+fig_d2_dist.update_xaxes(title_text="D2 Mean-Reversion", row=1, col=1)
+fig_d2_dist.update_xaxes(title_text="D2 Mean-Reversion", row=1, col=2)
+fig_d2_dist.update_yaxes(title_text="Count", row=1, col=1)
+fig_d2_dist.update_yaxes(title_text="Count", row=1, col=2)
+
+fig_d2_dist.update_layout(
+    title="D2 Mean-Reversion Distribution Comparison",
+    template="plotly_white",
+    height=500,
+    showlegend=False
+)
+fig_d2_dist.show()
+
+# %%
+# Plot 2e: Side-by-side comparison of D3 distributions
+fig_d3_dist = make_subplots(
+    rows=1, cols=2,
+    subplot_titles=("D3 Distribution (With SS)", "D3 Distribution (Without SS)"),
+    horizontal_spacing=0.1
+)
+
+fig_d3_dist.add_trace(
+    go.Histogram(x=jumps_with['D3_trend'], name='With SS', nbinsx=30, opacity=0.7),
+    row=1, col=1
+)
+fig_d3_dist.add_trace(
+    go.Histogram(x=jumps_without['D3_trend'], name='Without SS', nbinsx=30, opacity=0.7),
+    row=1, col=2
+)
+
+fig_d3_dist.add_vline(x=0, line_dash="dash", line_color="gray", row=1, col=1)
+fig_d3_dist.add_vline(x=0, line_dash="dash", line_color="gray", row=1, col=2)
+
+fig_d3_dist.update_xaxes(title_text="D3 Trend", row=1, col=1)
+fig_d3_dist.update_xaxes(title_text="D3 Trend", row=1, col=2)
+fig_d3_dist.update_yaxes(title_text="Count", row=1, col=1)
+fig_d3_dist.update_yaxes(title_text="Count", row=1, col=2)
+
+fig_d3_dist.update_layout(
+    title="D3 Trend Distribution Comparison",
+    template="plotly_white",
+    height=500,
+    showlegend=False
+)
+fig_d3_dist.show()
 
 # %%
 # Plot 3: D1 vs D2 scatter plots comparison
@@ -306,6 +444,7 @@ fig_d1d2.update_layout(
     height=500,
     showlegend=False
 )
+save_plot(fig_d1d2, "poland_comparison_D1_D2", format='pdf')
 fig_d1d2.show()
 
 # %%
@@ -357,6 +496,7 @@ fig_d1d3.update_layout(
     height=500,
     showlegend=False
 )
+save_plot(fig_d1d3, "poland_comparison_D1_D3", format='pdf')
 fig_d1d3.show()
 
 # %%
@@ -416,7 +556,128 @@ if results_with_ss and results_without_ss:
         template="plotly_white",
         height=500
     )
+    save_plot(fig_profiles, "poland_comparison_profiles_D1", format='pdf')
     fig_profiles.show()
+
+# %%
+# Plot 6: Profile comparison for D2 direction
+if results_with_ss and results_without_ss:
+    X_windows = results_with_ss['X_windows']
+    center = X_windows.shape[1] // 2
+    t_axis = np.arange(-center, center + 1)
+    
+    # Sort by D2 for both
+    sorted_with = np.argsort(jumps_with['D2_mean_reversion'].values)
+    sorted_without = np.argsort(jumps_without['D2_mean_reversion'].values)
+    
+    X_sorted_with = X_windows[sorted_with]
+    X_sorted_without = X_windows[sorted_without]
+    
+    n = len(X_windows)
+    quantiles = [0, 0.1, 0.3, 0.5, 0.7, 0.9, 1.0]
+    
+    fig_profiles_d2 = make_subplots(
+        rows=1, cols=2,
+        subplot_titles=("D2 Profiles (With SS)", "D2 Profiles (Without SS)"),
+        horizontal_spacing=0.1
+    )
+    
+    colors = px.colors.sequential.Viridis
+    
+    for col_idx, (X_sorted, title_suffix) in enumerate([(X_sorted_with, "With SS"), (X_sorted_without, "Without SS")], 1):
+        for i in range(len(quantiles)-1):
+            q_s, q_e = quantiles[i], quantiles[i+1]
+            idx_s, idx_e = int(q_s*n), int(q_e*n)
+            if idx_e <= idx_s: continue
+            
+            avg = np.mean(X_sorted[idx_s:idx_e], axis=0)
+            color_idx = int(i / (len(quantiles)-1) * (len(colors)-1))
+            color = colors[color_idx]
+            
+            fig_profiles_d2.add_trace(
+                go.Scatter(
+                    x=t_axis, y=avg, mode='lines',
+                    name=f"Q {q_s}-{q_e}",
+                    line=dict(color=color, width=2),
+                    showlegend=(col_idx == 1)
+                ),
+                row=1, col=col_idx
+            )
+        
+        fig_profiles_d2.add_vline(x=0, line_dash="dash", line_color="red", annotation_text="Jump", row=1, col=col_idx)
+    
+    fig_profiles_d2.update_xaxes(title_text="Time (steps)", row=1, col=1)
+    fig_profiles_d2.update_xaxes(title_text="Time (steps)", row=1, col=2)
+    fig_profiles_d2.update_yaxes(title_text="Normalized Return x(t)", row=1, col=1)
+    fig_profiles_d2.update_yaxes(title_text="Normalized Return x(t)", row=1, col=2)
+    
+    fig_profiles_d2.update_layout(
+        title="Average Profiles along D2 (Mean-Reversion): With vs Without Scattering Spectra",
+        template="plotly_white",
+        height=500
+    )
+    save_plot(fig_profiles_d2, "poland_comparison_profiles_D2", format='pdf')
+    fig_profiles_d2.show()
+
+# %%
+# Plot 7: Profile comparison for D3 direction
+if results_with_ss and results_without_ss:
+    X_windows = results_with_ss['X_windows']
+    center = X_windows.shape[1] // 2
+    t_axis = np.arange(-center, center + 1)
+    
+    # Sort by D3 for both
+    sorted_with = np.argsort(jumps_with['D3_trend'].values)
+    sorted_without = np.argsort(jumps_without['D3_trend'].values)
+    
+    X_sorted_with = X_windows[sorted_with]
+    X_sorted_without = X_windows[sorted_without]
+    
+    n = len(X_windows)
+    quantiles = [0, 0.1, 0.3, 0.5, 0.7, 0.9, 1.0]
+    
+    fig_profiles_d3 = make_subplots(
+        rows=1, cols=2,
+        subplot_titles=("D3 Profiles (With SS)", "D3 Profiles (Without SS)"),
+        horizontal_spacing=0.1
+    )
+    
+    colors = px.colors.sequential.Viridis
+    
+    for col_idx, (X_sorted, title_suffix) in enumerate([(X_sorted_with, "With SS"), (X_sorted_without, "Without SS")], 1):
+        for i in range(len(quantiles)-1):
+            q_s, q_e = quantiles[i], quantiles[i+1]
+            idx_s, idx_e = int(q_s*n), int(q_e*n)
+            if idx_e <= idx_s: continue
+            
+            avg = np.mean(X_sorted[idx_s:idx_e], axis=0)
+            color_idx = int(i / (len(quantiles)-1) * (len(colors)-1))
+            color = colors[color_idx]
+            
+            fig_profiles_d3.add_trace(
+                go.Scatter(
+                    x=t_axis, y=avg, mode='lines',
+                    name=f"Q {q_s}-{q_e}",
+                    line=dict(color=color, width=2),
+                    showlegend=(col_idx == 1)
+                ),
+                row=1, col=col_idx
+            )
+        
+        fig_profiles_d3.add_vline(x=0, line_dash="dash", line_color="red", annotation_text="Jump", row=1, col=col_idx)
+    
+    fig_profiles_d3.update_xaxes(title_text="Time (steps)", row=1, col=1)
+    fig_profiles_d3.update_xaxes(title_text="Time (steps)", row=1, col=2)
+    fig_profiles_d3.update_yaxes(title_text="Normalized Return x(t)", row=1, col=1)
+    fig_profiles_d3.update_yaxes(title_text="Normalized Return x(t)", row=1, col=2)
+    
+    fig_profiles_d3.update_layout(
+        title="Average Profiles along D3 (Trend): With vs Without Scattering Spectra",
+        template="plotly_white",
+        height=500
+    )
+    save_plot(fig_profiles_d3, "poland_comparison_profiles_D3", format='pdf')
+    fig_profiles_d3.show()
 
 # %%
 # Summary statistics table
@@ -428,10 +689,16 @@ summary_data = {
         'D1 Max',
         'D2 Mean',
         'D2 Std',
+        'D2 Min',
+        'D2 Max',
         'D3 Mean',
         'D3 Std',
+        'D3 Min',
+        'D3 Max',
         'D1-Asymmetry Correlation',
-        'D1 Correlation (With vs Without)'
+        'D1 Correlation (With vs Without)',
+        'D2 Correlation (With vs Without)',
+        'D3 Correlation (With vs Without)'
     ],
     'With SS': [
         f"{jumps_with['D1_reflexivity'].mean():.3f}",
@@ -440,10 +707,16 @@ summary_data = {
         f"{jumps_with['D1_reflexivity'].max():.3f}",
         f"{jumps_with['D2_mean_reversion'].mean():.3f}",
         f"{jumps_with['D2_mean_reversion'].std():.3f}",
+        f"{jumps_with['D2_mean_reversion'].min():.3f}",
+        f"{jumps_with['D2_mean_reversion'].max():.3f}",
         f"{jumps_with['D3_trend'].mean():.3f}",
         f"{jumps_with['D3_trend'].std():.3f}",
+        f"{jumps_with['D3_trend'].min():.3f}",
+        f"{jumps_with['D3_trend'].max():.3f}",
         f"{results_with_ss['correlation']:.3f}",
-        f"{d1_corr:.3f}"
+        f"{d1_corr:.3f}",
+        f"{d2_corr:.3f}",
+        f"{d3_corr:.3f}"
     ],
     'Without SS': [
         f"{jumps_without['D1_reflexivity'].mean():.3f}",
@@ -452,9 +725,15 @@ summary_data = {
         f"{jumps_without['D1_reflexivity'].max():.3f}",
         f"{jumps_without['D2_mean_reversion'].mean():.3f}",
         f"{jumps_without['D2_mean_reversion'].std():.3f}",
+        f"{jumps_without['D2_mean_reversion'].min():.3f}",
+        f"{jumps_without['D2_mean_reversion'].max():.3f}",
         f"{jumps_without['D3_trend'].mean():.3f}",
         f"{jumps_without['D3_trend'].std():.3f}",
+        f"{jumps_without['D3_trend'].min():.3f}",
+        f"{jumps_without['D3_trend'].max():.3f}",
         f"{results_without_ss['correlation']:.3f}",
+        "-",
+        "-",
         "-"
     ]
 }

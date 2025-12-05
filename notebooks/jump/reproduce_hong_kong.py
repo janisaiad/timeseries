@@ -21,6 +21,7 @@ if project_root not in sys.path:
 from utils.data.curating_stooq import curate_stooq_dir_5min
 from utils.data.jump_detection import detect_jumps_many
 from model.wavelet.wavelet import WaveletModel
+from plot_utils import save_plot
 
 # %%
 def plot_profiles(X_windows, jumps_subset, output_dir, name):
@@ -76,6 +77,7 @@ def plot_profiles(X_windows, jumps_subset, output_dir, name):
         out_path = os.path.join(output_dir, f"{name}_profile_{dim}.html")
         fig.write_html(out_path)
         print(f"    Saved profile plot to {out_path}")
+        save_plot(fig, f"reproduce_hong_kong_profile_{dim}", format='pdf')
         
         # Show in notebook
         fig.show()
@@ -222,6 +224,7 @@ def run_analysis_for_subset(
     out_path_asym = os.path.join(output_dir, f"{subset_name}_D1_asymmetry.html")
     fig_asym.write_html(out_path_asym)
     print(f"    Saved D1-Asymmetry plot to {out_path_asym}")
+    save_plot(fig_asym, f"reproduce_hong_kong_D1_asymmetry", format='pdf')
     fig_asym.show()
     
     # Scatter Plot: D1 vs D2 (Mean-Reversion) - Fig 5 equivalent
@@ -236,6 +239,7 @@ def run_analysis_for_subset(
     out_path_scatter = os.path.join(output_dir, f"{subset_name}_fig5_mr.html")
     fig_mr.write_html(out_path_scatter)
     print(f"    Saved scatter plot to {out_path_scatter}")
+    save_plot(fig_mr, f"reproduce_hong_kong_fig5_mr", format='pdf')
     fig_mr.show()
     
     # Scatter Plot: D1 vs D3 (Trend) - Fig 6 equivalent
@@ -250,6 +254,7 @@ def run_analysis_for_subset(
     out_path_scatter_tr = os.path.join(output_dir, f"{subset_name}_fig6_tr.html")
     fig_tr.write_html(out_path_scatter_tr)
     print(f"    Saved scatter plot to {out_path_scatter_tr}")
+    save_plot(fig_tr, f"reproduce_hong_kong_fig6_tr", format='pdf')
     fig_tr.show()
     
     # Profile Plots (all three directions)
