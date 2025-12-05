@@ -7,6 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from typing import List, Tuple
 import random
+from scipy import stats as scipy_stats
 
 # Add project root to path
 try:
@@ -27,7 +28,7 @@ def plot_profiles(X_windows, jumps_subset, output_dir, name):
     Plots average temporal profiles along PCA directions.
     X-axis is time relative to jump (centered at 0).
     """
-    directions = ["D1_reflexivity", "D2_mean_reversion"]
+    directions = ["D1_reflexivity", "D2_mean_reversion", "D3_trend"]
     center = X_windows.shape[1] // 2
     t_axis = np.arange(-center, center + 1)
     
@@ -177,8 +178,11 @@ def run_analysis_for_subset(
     if corr < 0:
         print(f"  Flipping D1 sign (correlation was {corr:.2f})")
         d1 *= -1
+        corr = -corr  # Update correlation after flipping
         
     jumps_subset["D1_reflexivity"] = d1
+    jumps_subset["asymmetry"] = asymmetry
+    print(f"  D1-Asymmetry correlation: {corr:.3f}")
     
     # Handcrafted Features
     # D2 (Mean Reversion): Pre-Jump - Post-Jump
@@ -190,7 +194,37 @@ def run_analysis_for_subset(
     # 5. Generate Plots
     print("  Generating plots...")
     
-    # Scatter Plot (Fig 5 equivalent)
+    # Scatter Plot: D1 vs Asymmetry (to verify separation)
+    slope, intercept, r_value, p_value, std_err = scipy_stats.linregress(
+        jumps_subset["asymmetry"], jumps_subset["D1_reflexivity"]
+    )
+    
+    fig_asym = px.scatter(
+        jumps_subset, x="asymmetry", y="D1_reflexivity", 
+        color="asymmetry",
+        title=f"D1 (Reflexivity) vs Asymmetry ({subset_name}, N={len(X_windows)})<br>Correlation: {corr:.3f}, R²: {r_value**2:.3f}",
+        color_continuous_scale="RdBu", opacity=0.6,
+        hover_data=["ticker", "timestamp"],
+        labels={"asymmetry": "Asymmetry (Post-Pre)/(Post+Pre)", "D1_reflexivity": "D1 (Reflexivity)"}
+    )
+    
+    # Add regression line
+    asym_range = np.linspace(jumps_subset["asymmetry"].min(), jumps_subset["asymmetry"].max(), 100)
+    reg_line = slope * asym_range + intercept
+    fig_asym.add_trace(go.Scatter(
+        x=asym_range, y=reg_line, mode='lines', name=f'Regression (R²={r_value**2:.3f})',
+        line=dict(color='red', width=2, dash='dash')
+    ))
+    
+    fig_asym.add_vline(x=0, line_dash="dash", line_color="gray", annotation_text="Symmetric")
+    fig_asym.add_hline(y=0, line_dash="dash", line_color="gray")
+    
+    out_path_asym = os.path.join(output_dir, f"{subset_name}_D1_asymmetry.html")
+    fig_asym.write_html(out_path_asym)
+    print(f"    Saved D1-Asymmetry plot to {out_path_asym}")
+    fig_asym.show()
+    
+    # Scatter Plot: D1 vs D2 (Mean-Reversion) - Fig 5 equivalent
     fig_mr = px.scatter(
         jumps_subset, x="D1_reflexivity", y="D2_mean_reversion", color="D2_mean_reversion",
         title=f"Reflexivity vs Mean-Reversion ({subset_name}, N={len(X_windows)})", 
@@ -202,11 +236,23 @@ def run_analysis_for_subset(
     out_path_scatter = os.path.join(output_dir, f"{subset_name}_fig5_mr.html")
     fig_mr.write_html(out_path_scatter)
     print(f"    Saved scatter plot to {out_path_scatter}")
-    
-    # Show in notebook
     fig_mr.show()
     
-    # Profile Plots
+    # Scatter Plot: D1 vs D3 (Trend) - Fig 6 equivalent
+    fig_tr = px.scatter(
+        jumps_subset, x="D1_reflexivity", y="D3_trend", color="D3_trend",
+        title=f"Reflexivity vs Trend ({subset_name}, N={len(X_windows)})", 
+        color_continuous_scale="Viridis", opacity=0.5,
+        hover_data=["ticker", "timestamp"]
+    )
+    fig_tr.add_vline(x=0, line_dash="dash"); fig_tr.add_hline(y=0, line_dash="dash")
+    
+    out_path_scatter_tr = os.path.join(output_dir, f"{subset_name}_fig6_tr.html")
+    fig_tr.write_html(out_path_scatter_tr)
+    print(f"    Saved scatter plot to {out_path_scatter_tr}")
+    fig_tr.show()
+    
+    # Profile Plots (all three directions)
     plot_profiles(X_windows, jumps_subset, output_dir, subset_name)
 
 # %%
@@ -217,7 +263,7 @@ def main():
     all_dfs = curate_stooq_dir_5min(data_dir, pattern="*.txt", recursive=True)
     
     # Filter to stocks with enough data (e.g., > 1000 points) to ensure meaningful jumps
-    valid_tickers = [t for t, d in all_dfs.items() if len(d) > 1000]
+    valid_tickers = [t for t, d in all_dfs.items() if len(d) > 500]
     print(f"Found {len(valid_tickers)} valid tickers.")
     
     if not valid_tickers:
@@ -229,11 +275,11 @@ def main():
     
     # Select Subsets
     # 1. Small Subset: Top 5 most liquid/long stocks
-    tickers_5 = valid_tickers[:5]
+    tickers_5 = valid_tickers
     dfs_5 = {t: all_dfs[t] for t in tickers_5}
     
     # 2. Large Subset: Top 30 (or all if less)
-    limit_30 = min(30, len(valid_tickers))
+    limit_30 = max(80, len(valid_tickers))
     tickers_30 = valid_tickers[:limit_30]
     dfs_30 = {t: all_dfs[t] for t in tickers_30}
     
@@ -256,3 +302,5 @@ def main():
 # %%
 if __name__ == "__main__":
     main()
+
+# %%
