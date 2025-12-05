@@ -55,6 +55,8 @@ class WaveletModel:
         Independent term in poly/sigmoid kernels  # we expose coef0
     standardize_features : bool, default=True
         Whether to standardize Φ(x) before KernelPCA  # we recommend standardization
+    include_scattering_spectra : bool, default=True
+        Whether to include Scattering Spectra features (Φ1, Φ2, Φ3, Φ4) in the feature vector  # we include SS by default
     center_index : Optional[int], default=None
         Index of jump time (t=0) within each time-series; if None uses len(x)//2  # we center at middle by default
     random_state : Optional[int], default=None
@@ -74,6 +76,7 @@ class WaveletModel:
         degree: int = 3,
         coef0: float = 1.0,
         standardize_features: bool = True,
+        include_scattering_spectra: bool = True,
         center_index: Optional[int] = None,
         random_state: Optional[int] = None,
     ) -> None:
@@ -85,6 +88,7 @@ class WaveletModel:
         self.degree: int = int(degree)  # we store polynomial degree
         self.coef0: float = float(coef0)  # we store coef0 for kernels
         self.standardize_features: bool = bool(standardize_features)  # we store scaling flag
+        self.include_scattering_spectra: bool = bool(include_scattering_spectra)  # we store SS flag
         self.center_index: Optional[int] = center_index  # we store optional center index
         self.random_state: Optional[int] = random_state  # we store random seed
 
@@ -186,23 +190,135 @@ class WaveletModel:
             self._feature_names = names  # we cache names
         return list(self._feature_names)  # we return a copy
 
+    def get_wavelet_function(self, scale: float = 1.0) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Recover the time-domain wavelet function psi(t) for the configured wavelet.
+        
+        Returns
+        -------
+        t : np.ndarray
+            Time grid.
+        psi : np.ndarray
+            Complex wavelet values.
+        """
+        self._ensure_deps()  # we validate dependencies
+        w = pywt.ContinuousWavelet(self.wavelet)  # we create wavelet object
+        psi, t = w.wavefun(level=12)  # we evaluate on dense grid
+        return t * scale, psi  # we rescale and return
+
     # ---------- core feature extraction ----------
 
-    def compute_features(self, x: Union[np.ndarray, Sequence[float]]) -> np.ndarray:
+    def compute_scattering_spectra(self, x: Union[np.ndarray, Sequence[float]]) -> np.ndarray:
+        """
+        Compute Scattering Spectra (SS) features Φ1, Φ2, Φ3, Φ4 for a time-series.
+        
+        These features capture:
+        - Φ1: Low-moment kurtosis measure
+        - Φ2: Average volatility at each scale
+        - Φ3: Multi-scale skewness (complex)
+        - Φ4: Multi-scale kurtosis via second-order scattering (complex)
+        
+        Parameters
+        ----------
+        x : array-like of shape (T,)
+            Full time-series (not necessarily jump-centered).
+            
+        Returns
+        -------
+        ss_features : np.ndarray
+            Concatenated Scattering Spectra features.
+        """
+        self._ensure_deps()
+        x_arr = np.asarray(x, dtype=float).reshape(-1)
+        if x_arr.ndim != 1 or x_arr.size < 5:
+            raise ValueError("`x` must be 1D with length >= 5")
+        T = x_arr.size
+        
+        scales = self._dyadic_scales(self.J)
+        coeffs_x, _ = pywt.cwt(x_arr, scales, self.wavelet, method="fft")
+        coeffs_x = np.asarray(coeffs_x, dtype=np.complex128)  # (J, T)
+        
+        feats_ss: List[float] = []
+        
+        # Compute moments for normalization
+        abs_coeffs = np.abs(coeffs_x)  # (J, T)
+        mean_abs = np.mean(abs_coeffs, axis=1)  # (J,)
+        mean_abs_sq = np.mean(abs_coeffs ** 2, axis=1)  # (J,)
+        std_abs_sq = np.sqrt(mean_abs_sq)  # (J,)
+        
+        # Φ1(x)[j]: Low-moment kurtosis = ⟨|Wjx|⟩² / ⟨|Wjx|²⟩
+        for j in range(self.J):
+            if mean_abs_sq[j] > 0:
+                phi1 = (mean_abs[j] ** 2) / mean_abs_sq[j]
+            else:
+                phi1 = 0.0
+            feats_ss.append(float(phi1))
+        
+        # Φ2(x)[j]: Average volatility = ⟨|Wjx|²⟩
+        for j in range(self.J):
+            feats_ss.append(float(mean_abs_sq[j]))
+        
+        # Φ3(x)[j,j']: Multi-scale skewness (complex)
+        # ⟨Wjx(t)|Wj'x(t)|⟩_t / (⟨|Wjx|²⟩^(1/2) * ⟨|Wj'x|²⟩^(1/2))
+        for j in range(self.J):
+            for jp in range(j, self.J):  # j >= j' (symmetric, but we compute all pairs)
+                if std_abs_sq[j] > 0 and std_abs_sq[jp] > 0:
+                    # Compute ⟨Wjx(t)|Wj'x(t)|⟩_t (complex * real = complex)
+                    cross = np.mean(coeffs_x[j, :] * abs_coeffs[jp, :])
+                    denom = std_abs_sq[j] * std_abs_sq[jp]
+                    phi3 = cross / denom
+                else:
+                    phi3 = 0.0 + 0.0j
+                feats_ss.append(float(np.real(phi3)))
+                feats_ss.append(float(np.imag(phi3)))
+        
+        # Φ4(x)[j1, j'1, j2]: Multi-scale kurtosis via second-order scattering
+        # For j1 <= j'1 < j2: ⟨Wj2|Wj1x|(t) * Wj2|Wj'1x|(t)⟩_t / (⟨|Wj1x|²⟩^(1/2) * ⟨|Wj'1x|²⟩^(1/2))
+        for j2_idx in range(1, self.J):
+            j2_scale = scales[j2_idx]
+            for j1_idx in range(j2_idx):  # j1 < j2
+                for j1p_idx in range(j1_idx, j2_idx):  # j1 <= j'1 < j2
+                    # Compute |Wj1x| and |Wj'1x|
+                    m1 = abs_coeffs[j1_idx, :]  # |Wj1x|(t)
+                    m1p = abs_coeffs[j1p_idx, :]  # |Wj'1x|(t)
+                    
+                    # Compute Wj2|Wj1x| and Wj2|Wj'1x|
+                    coeffs_m1_j2, _ = pywt.cwt(m1, [j2_scale], self.wavelet, method="fft")
+                    coeffs_m1p_j2, _ = pywt.cwt(m1p, [j2_scale], self.wavelet, method="fft")
+                    coeffs_m1_j2 = np.asarray(coeffs_m1_j2, dtype=np.complex128).reshape(T)
+                    coeffs_m1p_j2 = np.asarray(coeffs_m1p_j2, dtype=np.complex128).reshape(T)
+                    
+                    # Compute cross-correlation (conjugate product for correlation)
+                    if std_abs_sq[j1_idx] > 0 and std_abs_sq[j1p_idx] > 0:
+                        cross = np.mean(coeffs_m1_j2 * np.conj(coeffs_m1p_j2))
+                        denom = std_abs_sq[j1_idx] * std_abs_sq[j1p_idx]
+                        phi4 = cross / denom
+                    else:
+                        phi4 = 0.0 + 0.0j
+                    feats_ss.append(float(np.real(phi4)))
+                    feats_ss.append(float(np.imag(phi4)))
+        
+        return np.asarray(feats_ss, dtype=np.float64)
+    
+    def compute_features(self, x: Union[np.ndarray, Sequence[float]], include_ss: bool = True) -> np.ndarray:
         """
         Compute Φ(x) for a single time-series:
           - W_j \bar{x}(0) normalized, j=1..J (complex -> Re, Im)
           - W_{j2} | W_{j1} x | (0) normalized for all 1 <= j1 < j2 <= J (complex -> Re, Im)
+          - Optionally: Scattering Spectra features (Φ1, Φ2, Φ3, Φ4)
 
         Parameters
         ----------
         x : array-like of shape (T,)
             Jump-centered time-series, odd length recommended.
+        include_ss : bool, default=True
+            Whether to include Scattering Spectra features.
 
         Returns
         -------
-        features : np.ndarray of shape (2*(J + J*(J-1)/2),)
-            Concatenated real/imag parts of all complex coefficients (size 42 when J=6).
+        features : np.ndarray
+            Concatenated features. Base features: 2*(J + J*(J-1)/2).
+            With SS: adds J (Φ1) + J (Φ2) + J*(J+1) (Φ3 real+imag) + ... (Φ4 real+imag).
         """
         self._ensure_deps()  # we validate dependencies
         x_arr = np.asarray(x, dtype=float).reshape(-1)  # we coerce to 1D float
@@ -244,6 +360,11 @@ class WaveletModel:
                 feats.append(float(np.real(val_sc)))  # we append real part
                 feats.append(float(np.imag(val_sc)))  # we append imaginary part
 
+        # Add Scattering Spectra features if requested
+        if include_ss:
+            ss_feats = self.compute_scattering_spectra(x_arr)  # Use original (not aligned) for SS
+            feats.extend(ss_feats.tolist())
+
         features = np.asarray(feats, dtype=np.float64)  # we convert features to float array
         return features  # we return Φ(x)
 
@@ -254,14 +375,33 @@ class WaveletModel:
         n, _ = X.shape  # we get shape
         out = np.empty((n, self._feature_dim()), dtype=np.float64)  # we allocate output
         for i in range(n):
-            out[i] = self.compute_features(X[i])  # we compute features row-wise
+            out[i] = self.compute_features(X[i], include_ss=self.include_scattering_spectra)  # we compute features row-wise
         return out  # we return batch features
 
     def _feature_dim(self) -> int:
         """Return feature dimension for current J."""
         primary = self.J  # we count primary complex coefficients
         second_order = self.J * (self.J - 1) // 2  # we count j1<j2 complex coefficients
-        return 2 * (primary + second_order)  # we return real+imag dimension
+        base_dim = 2 * (primary + second_order)  # we return real+imag dimension
+        
+        if self.include_scattering_spectra:
+            # Φ1: J features
+            # Φ2: J features
+            # Φ3: J*(J+1)/2 pairs * 2 (real+imag) = J*(J+1) features
+            # Φ4: For each j2 (1..J-1), j1 (0..j2-1), j'1 (j1..j2-1): count pairs
+            ss_dim = self.J  # Φ1
+            ss_dim += self.J  # Φ2
+            ss_dim += self.J * (self.J + 1)  # Φ3 (all pairs j>=j', real+imag)
+            # Φ4: j1 <= j'1 < j2, j2 from 1 to J-1
+            phi4_count = 0
+            for j2_idx in range(1, self.J):
+                for j1_idx in range(j2_idx):
+                    for j1p_idx in range(j1_idx, j2_idx):
+                        phi4_count += 1
+            ss_dim += phi4_count * 2  # Φ4 (real+imag)
+            return base_dim + ss_dim
+        else:
+            return base_dim
 
     @staticmethod
     def _to_2d_array(X: Union[np.ndarray, Sequence[Sequence[float]]]) -> np.ndarray:
