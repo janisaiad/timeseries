@@ -2,8 +2,9 @@ import sys
 import os
 import numpy as np
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')  # Non-interactive backend
 from typing import List, Tuple
 import random
 
@@ -41,8 +42,8 @@ def plot_profiles(X_windows, jumps_subset, output_dir, name):
         # Quantiles to visualize (Low, Mid, High)
         quantiles = [0, 0.1, 0.3, 0.5, 0.7, 0.9, 1.0]
         
-        fig = go.Figure()
-        colors = px.colors.sequential.Viridis
+        fig, ax = plt.subplots(figsize=(10, 6))
+        colors = plt.cm.viridis(np.linspace(0, 1, len(quantiles)-1))
         
         for i in range(len(quantiles)-1):
             q_s, q_e = quantiles[i], quantiles[i+1]
@@ -50,34 +51,19 @@ def plot_profiles(X_windows, jumps_subset, output_dir, name):
             if idx_e <= idx_s: continue
             
             avg = np.mean(X_sorted[idx_s:idx_e], axis=0)
+            ax.plot(t_axis, avg, linewidth=2, label=f"Q {q_s}-{q_e}", color=colors[i])
             
-            color_idx = int(i / (len(quantiles)-1) * (len(colors)-1))
-            color = colors[color_idx]
-            
-            fig.add_trace(go.Scatter(
-                x=t_axis, 
-                y=avg, 
-                mode='lines', 
-                name=f"Q {q_s}-{q_e}",
-                line=dict(color=color, width=2)
-            ))
-            
-        fig.update_layout(
-            title=f"Average Profiles along {dim} - {name}<br>(X-axis: Time relative to Jump)",
-            xaxis_title="Time (steps)",
-            yaxis_title="Normalized Return x(t)",
-            template="plotly_white",
-            hovermode="x unified"
-        )
-        fig.add_vline(x=0, line_dash="dash", line_color="red", annotation_text="Jump")
+        ax.axvline(x=0, linestyle='--', color='red', alpha=0.7, label='Jump')
+        ax.set_xlabel("Time (steps)")
+        ax.set_ylabel("Normalized Return x(t)")
+        ax.set_title(f"Average Profiles along {dim} - {name}\n(X-axis: Time relative to Jump)")
+        ax.legend()
+        ax.grid(True, alpha=0.3)
         
         out_path = os.path.join(output_dir, f"{name}_profile_{dim}.html")
-        fig.write_html(out_path)
         print(f"    Saved profile plot to {out_path}")
         save_plot(fig, f"reproduce_multi_stock_profile_{dim}", format='pdf')
-        
-        # Show in notebook
-        fig.show()
+        plt.close(fig)
 
 def run_analysis_for_subset(
     dfs_subset: dict, 
@@ -190,21 +176,21 @@ def run_analysis_for_subset(
     print("  Generating plots...")
     
     # Scatter Plot (Fig 5 equivalent)
-    fig_mr = px.scatter(
-        jumps_subset, x="D1_reflexivity", y="D2_mean_reversion", color="D2_mean_reversion",
-        title=f"Reflexivity vs Mean-Reversion ({subset_name}, N={len(X_windows)})", 
-        color_continuous_scale="RdBu", opacity=0.5,
-        hover_data=["ticker", "timestamp"]
-    )
-    fig_mr.add_vline(x=0, line_dash="dash"); fig_mr.add_hline(y=0, line_dash="dash")
+    fig_mr, ax_mr = plt.subplots(figsize=(10, 8))
+    scatter_mr = ax_mr.scatter(jumps_subset["D1_reflexivity"], jumps_subset["D2_mean_reversion"], 
+                               c=jumps_subset["D2_mean_reversion"], cmap='RdBu_r', alpha=0.5, s=20)
+    ax_mr.axvline(x=0, linestyle='--', color='gray', alpha=0.5)
+    ax_mr.axhline(y=0, linestyle='--', color='gray', alpha=0.5)
+    plt.colorbar(scatter_mr, ax=ax_mr, label='D2 Mean-Reversion')
+    ax_mr.set_xlabel("D1 Reflexivity")
+    ax_mr.set_ylabel("D2 Mean-Reversion")
+    ax_mr.set_title(f"Reflexivity vs Mean-Reversion ({subset_name}, N={len(X_windows)})")
+    ax_mr.grid(True, alpha=0.3)
     
     out_path_scatter = os.path.join(output_dir, f"{subset_name}_fig5_mr.html")
-    fig_mr.write_html(out_path_scatter)
     print(f"    Saved scatter plot to {out_path_scatter}")
     save_plot(fig_mr, f"reproduce_multi_stock_{subset_name}_fig5_mr", format='pdf')
-    
-    # Show in notebook
-    fig_mr.show()
+    plt.close(fig_mr)
     
     # Profile Plots
     plot_profiles(X_windows, jumps_subset, output_dir, subset_name)

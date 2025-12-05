@@ -3,8 +3,9 @@ import sys
 import os
 import numpy as np
 import pandas as pd
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')  # Non-interactive backend
 import scipy.stats as stats
 from scipy.optimize import curve_fit
 
@@ -117,158 +118,100 @@ gumbel_dist = stats.gumbel_r(loc=loc_gumbel, scale=scale_gumbel)
 
 # %%
 # Plot 1: Histogram of all scores (signed) with normal fit
-fig1 = go.Figure()
+fig1, ax1 = plt.subplots(figsize=(10, 6))
 
 # Histogram of all signed scores
-fig1.add_trace(go.Histogram(
-    x=all_scores,
-    name='All Standardized Returns',
-    histnorm='probability density',
-    nbinsx=100,
-    opacity=0.7
-))
+ax1.hist(all_scores, bins=100, density=True, alpha=0.7, label='All Standardized Returns', color='blue')
 
 # Normal distribution fit for comparison
 x_range = np.linspace(all_scores.min(), all_scores.max(), 200)
 normal_fit = stats.norm.pdf(x_range, all_scores.mean(), all_scores.std())
-fig1.add_trace(go.Scatter(
-    x=x_range,
-    y=normal_fit,
-    mode='lines',
-    name=f'Normal Fit (μ={all_scores.mean():.2f}, σ={all_scores.std():.2f})',
-    line=dict(color='red', width=2, dash='dash')
-))
+ax1.plot(x_range, normal_fit, 'r--', linewidth=2, 
+         label=f'Normal Fit (μ={all_scores.mean():.2f}, σ={all_scores.std():.2f})')
 
 # Add threshold lines
-fig1.add_vline(x=4, line_dash="dash", line_color="orange", annotation_text="Jump Threshold (+4)")
-fig1.add_vline(x=-4, line_dash="dash", line_color="orange", annotation_text="Jump Threshold (-4)")
+ax1.axvline(x=4, linestyle='--', color='orange', alpha=0.7, label='Jump Threshold (+4)')
+ax1.axvline(x=-4, linestyle='--', color='orange', alpha=0.7, label='Jump Threshold (-4)')
 
 # Highlight jump region if jumps were detected
 if not jumps_df.empty:
-    fig1.add_trace(go.Histogram(
-        x=jump_scores,
-        name='Detected Jumps',
-        histnorm='probability density',
-        nbinsx=50,
-        opacity=0.8,
-        marker_color='green'
-    ))
+    ax1.hist(jump_scores, bins=50, density=True, alpha=0.8, label='Detected Jumps', color='green')
 
-fig1.update_layout(
-    title="Distribution of All Standardized Returns x(t)<br>with Normal Distribution Fit",
-    xaxis_title="Standardized Return x(t)",
-    yaxis_title="Density",
-    template="plotly_white",
-    height=500
-)
+ax1.set_xlabel("Standardized Return x(t)")
+ax1.set_ylabel("Density")
+ax1.set_title("Distribution of All Standardized Returns x(t) with Normal Distribution Fit")
+ax1.legend()
+ax1.grid(True, alpha=0.3)
 save_plot(fig1, "jump_density_poland_distribution_signed", format='pdf')
-fig1.show()
+plt.close(fig1)
 
 # %%
 # Plot 2: Histogram of ALL |x(t)| with Gumbel fit (full distribution)
-fig2 = go.Figure()
+fig2, ax2 = plt.subplots(figsize=(10, 6))
 
 # Histogram of all absolute scores
-fig2.add_trace(go.Histogram(
-    x=all_abs_scores,
-    name='|All Standardized Returns|',
-    histnorm='probability density',
-    nbinsx=100,
-    opacity=0.7
-))
+ax2.hist(all_abs_scores, bins=100, density=True, alpha=0.7, label='|All Standardized Returns|', color='blue')
 
 # Gumbel distribution fit (only valid in upper tail)
 x_range_abs = np.linspace(threshold_value, min(all_abs_scores.max(), 10), 200)
 gumbel_pdf = gumbel_dist.pdf(x_range_abs)
-fig2.add_trace(go.Scatter(
-    x=x_range_abs,
-    y=gumbel_pdf,
-    mode='lines',
-    name=f'Gumbel Fit (Q>0.28, μ={loc_gumbel:.2f}, β={scale_gumbel:.2f})',
-    line=dict(color='red', width=3)
-))
+ax2.plot(x_range_abs, gumbel_pdf, 'r-', linewidth=3, 
+         label=f'Gumbel Fit (Q>0.28, μ={loc_gumbel:.2f}, β={scale_gumbel:.2f})')
 
 # Add threshold lines
-fig2.add_vline(x=threshold_value, line_dash="dot", line_color="blue", 
-               annotation_text=f"Q=0.28 ({threshold_value:.2f})")
-fig2.add_vline(x=4, line_dash="dash", line_color="orange", annotation_text="Jump Threshold (4)")
+ax2.axvline(x=threshold_value, linestyle=':', color='blue', alpha=0.7, 
+            label=f'Q=0.28 ({threshold_value:.2f})')
+ax2.axvline(x=4, linestyle='--', color='orange', alpha=0.7, label='Jump Threshold (4)')
 
 # Highlight jump region if jumps were detected
 if not jumps_df.empty:
-    fig2.add_trace(go.Histogram(
-        x=abs_jump_scores,
-        name='Detected Jumps',
-        histnorm='probability density',
-        nbinsx=30,
-        opacity=0.8,
-        marker_color='green'
-    ))
+    ax2.hist(abs_jump_scores, bins=30, density=True, alpha=0.8, label='Detected Jumps', color='green')
 
-fig2.update_layout(
-    title="Distribution of |x(t)| with Gumbel Fit (Q > 0.28)<br>Gumbel fit shown only in valid range",
-    xaxis_title="|Standardized Return| |x(t)|",
-    yaxis_title="Density",
-    template="plotly_white",
-    height=500,
-    xaxis_range=[0, min(10, all_abs_scores.max())]
-)
+ax2.set_xlabel("|Standardized Return| |x(t)|")
+ax2.set_ylabel("Density")
+ax2.set_title("Distribution of |x(t)| with Gumbel Fit (Q > 0.28)\nGumbel fit shown only in valid range")
+ax2.set_xlim(0, min(10, all_abs_scores.max()))
+ax2.legend()
+ax2.grid(True, alpha=0.3)
 save_plot(fig2, "jump_density_poland_distribution_abs", format='pdf')
-fig2.show()
+plt.close(fig2)
 
 # %%
 # Plot 2b: Zoomed view of upper tail (Q > 0.28) with better Gumbel fit visualization
-fig2b = go.Figure()
+fig2b, ax2b = plt.subplots(figsize=(10, 6))
 
 # Histogram of filtered scores (upper tail only)
-fig2b.add_trace(go.Histogram(
-    x=filtered_abs_scores,
-    name=f'|x(t)| (Q > {quantile_threshold})',
-    histnorm='probability density',
-    nbinsx=80,
-    opacity=0.7
-))
+ax2b.hist(filtered_abs_scores, bins=80, density=True, alpha=0.7, 
+          label=f'|x(t)| (Q > {quantile_threshold})', color='blue')
 
 # Gumbel distribution fit
 x_range_tail = np.linspace(threshold_value, min(filtered_abs_scores.max(), 10), 300)
 gumbel_pdf_tail = gumbel_dist.pdf(x_range_tail)
-fig2b.add_trace(go.Scatter(
-    x=x_range_tail,
-    y=gumbel_pdf_tail,
-    mode='lines',
-    name=f'Gumbel Fit (μ={loc_gumbel:.3f}, β={scale_gumbel:.3f})',
-    line=dict(color='red', width=3)
-))
+ax2b.plot(x_range_tail, gumbel_pdf_tail, 'r-', linewidth=3, 
+          label=f'Gumbel Fit (μ={loc_gumbel:.3f}, β={scale_gumbel:.3f})')
 
 # Add threshold line
-fig2b.add_vline(x=4, line_dash="dash", line_color="orange", annotation_text="Jump Threshold (4)")
+ax2b.axvline(x=4, linestyle='--', color='orange', alpha=0.7, label='Jump Threshold (4)')
 
 # Highlight jump region if jumps were detected
 if not jumps_df.empty:
     jump_tail = abs_jump_scores[abs_jump_scores >= threshold_value]
     if len(jump_tail) > 0:
-        fig2b.add_trace(go.Histogram(
-            x=jump_tail,
-            name='Detected Jumps',
-            histnorm='probability density',
-            nbinsx=30,
-            opacity=0.8,
-            marker_color='green'
-        ))
+        ax2b.hist(jump_tail, bins=30, density=True, alpha=0.8, label='Detected Jumps', color='green')
 
-fig2b.update_layout(
-    title=f"Upper Tail Distribution (Q > {quantile_threshold})<br>with Gumbel Distribution Fit",
-    xaxis_title="|Standardized Return| |x(t)|",
-    yaxis_title="Density",
-    template="plotly_white",
-    height=500,
-    xaxis_range=[threshold_value, min(10, filtered_abs_scores.max())]
-)
-fig2b.show()
+ax2b.set_xlabel("|Standardized Return| |x(t)|")
+ax2b.set_ylabel("Density")
+ax2b.set_title(f"Upper Tail Distribution (Q > {quantile_threshold})\nwith Gumbel Distribution Fit")
+ax2b.set_xlim(threshold_value, min(10, filtered_abs_scores.max()))
+ax2b.legend()
+ax2b.grid(True, alpha=0.3)
+save_plot(fig2b, "jump_density_poland_distribution_tail", format='pdf')
+plt.close(fig2b)
 
 # %%
 # Plot 3: Q-Q plot (Quantile-Quantile) to assess Gumbel fit quality
 # Showing quantiles from 0.28 to 1.0 (where Gumbel is a good fit)
-fig3 = go.Figure()
+fig3, ax3 = plt.subplots(figsize=(8, 8))
 
 # Quantile range: from 0.28 to 0.99
 quantile_range = np.linspace(0.4, 0.99, 150)
@@ -279,41 +222,29 @@ theoretical_quantiles = gumbel_dist.ppf(quantile_range)
 empirical_quantiles = np.percentile(all_abs_scores, quantile_range * 100)
 
 # Q-Q plot
-fig3.add_trace(go.Scatter(
-    x=theoretical_quantiles,
-    y=empirical_quantiles,
-    mode='markers',
-    name=f'Data Points (Q: {quantile_threshold:.2f} - 1.0)',
-    marker=dict(size=4, opacity=0.7, color='blue')
-))
+ax3.scatter(theoretical_quantiles, empirical_quantiles, s=10, alpha=0.7, 
+            color='blue', label=f'Data Points (Q: {quantile_threshold:.2f} - 1.0)')
 
 # Perfect fit line (y=x)
 min_val = min(theoretical_quantiles.min(), empirical_quantiles.min())
 max_val = max(theoretical_quantiles.max(), empirical_quantiles.max())
-fig3.add_trace(go.Scatter(
-    x=[min_val, max_val],
-    y=[min_val, max_val],
-    mode='lines',
-    name='Perfect Fit (y=x)',
-    line=dict(color='red', width=2, dash='dash')
-))
+ax3.plot([min_val, max_val], [min_val, max_val], 'r--', linewidth=2, label='Perfect Fit (y=x)')
 
 # Add reference line for jump threshold
 jump_threshold_quantile = (all_abs_scores < 4).mean()
 if jump_threshold_quantile < 0.99:
     jump_theoretical = gumbel_dist.ppf(jump_threshold_quantile)
-    fig3.add_vline(x=jump_theoretical, line_dash="dot", line_color="orange", 
-                   annotation_text=f"Jump Threshold (Q≈{jump_threshold_quantile:.2f})")
+    ax3.axvline(x=jump_theoretical, linestyle=':', color='orange', alpha=0.7, 
+                label=f'Jump Threshold (Q≈{jump_threshold_quantile:.2f})')
 
-fig3.update_layout(
-    title=f"Q-Q Plot: Gumbel Distribution Fit (Quantiles {quantile_threshold:.2f} - 1.0)<br>(Closer to diagonal = better fit)",
-    xaxis_title="Theoretical Gumbel Quantiles",
-    yaxis_title="Empirical Quantiles",
-    template="plotly_white",
-    height=500
-)
+ax3.set_xlabel("Theoretical Gumbel Quantiles")
+ax3.set_ylabel("Empirical Quantiles")
+ax3.set_title(f"Q-Q Plot: Gumbel Distribution Fit (Quantiles {quantile_threshold:.2f} - 1.0)\n(Closer to diagonal = better fit)")
+ax3.legend()
+ax3.grid(True, alpha=0.3)
+ax3.set_aspect('equal', adjustable='box')
 save_plot(fig3, "jump_density_poland_qq_plot", format='pdf')
-fig3.show()
+plt.close(fig3)
 
 # %%
 # Statistical test: Kolmogorov-Smirnov test for Gumbel fit (on filtered data)
@@ -498,66 +429,39 @@ if X_windows is not None and jumps_subset is not None:
             (exo_example, "Exogenous", "red")
         ]
         
-        fig_examples = make_subplots(
-            rows=2, cols=2,
-            subplot_titles=(
-                "Endogenous Jump: |x(t)| Profile",
-                "Exogenous Jump: |x(t)| Profile",
-                "Endogenous Jump: x(t) Profile",
-                "Exogenous Jump: x(t) Profile"
-            ),
-            vertical_spacing=0.12,
-            horizontal_spacing=0.1
-        )
+        fig_examples, axes = plt.subplots(2, 2, figsize=(12, 10))
+        fig_examples.suptitle(f"Example Jumps: Endogenous vs Exogenous\nEndogenous (D1={endo_example['D1_reflexivity']:.2f}) | Exogenous (D1={exo_example['D1_reflexivity']:.2f})", 
+                              fontsize=12)
         
         t_axis = np.arange(-window_steps, window_steps + 1)
         
-        for col_idx, (ex, label, color) in enumerate(examples, 1):
+        for col_idx, (ex, label, color) in enumerate(examples):
             # Find the window index
             ex_idx = jumps_subset.index.get_loc(ex.name)
             x_profile = X_windows[ex_idx]
             x_abs = np.abs(x_profile)
             
             # Plot |x(t)|
-            fig_examples.add_trace(
-                go.Scatter(
-                    x=t_axis, y=x_abs, mode='lines+markers',
-                    name=f'{label} |x(t)|',
-                    line=dict(color=color, width=2),
-                    marker=dict(size=4)
-                ),
-                row=1, col=col_idx
-            )
+            axes[0, col_idx].plot(t_axis, x_abs, 'o-', color=color, linewidth=2, markersize=4, label=f'{label} |x(t)|')
+            axes[0, col_idx].axvline(x=0, linestyle='--', color='gray', alpha=0.5)
+            axes[0, col_idx].set_xlabel("Time (steps)")
+            axes[0, col_idx].set_ylabel("|x(t)|")
+            axes[0, col_idx].set_title(f"{label} Jump: |x(t)| Profile")
+            axes[0, col_idx].grid(True, alpha=0.3)
+            axes[0, col_idx].legend()
             
             # Plot x(t)
-            fig_examples.add_trace(
-                go.Scatter(
-                    x=t_axis, y=x_profile, mode='lines+markers',
-                    name=f'{label} x(t)',
-                    line=dict(color=color, width=2),
-                    marker=dict(size=4)
-                ),
-                row=2, col=col_idx
-            )
-            
-            # Add jump marker
-            fig_examples.add_vline(x=0, line_dash="dash", line_color="gray", row=1, col=col_idx)
-            fig_examples.add_vline(x=0, line_dash="dash", line_color="gray", row=2, col=col_idx)
-            
-            # Update axes
-            fig_examples.update_xaxes(title_text="Time (steps)", row=1, col=col_idx)
-            fig_examples.update_xaxes(title_text="Time (steps)", row=2, col=col_idx)
-            fig_examples.update_yaxes(title_text="|x(t)|", row=1, col=col_idx)
-            fig_examples.update_yaxes(title_text="x(t)", row=2, col=col_idx)
+            axes[1, col_idx].plot(t_axis, x_profile, 'o-', color=color, linewidth=2, markersize=4, label=f'{label} x(t)')
+            axes[1, col_idx].axvline(x=0, linestyle='--', color='gray', alpha=0.5)
+            axes[1, col_idx].set_xlabel("Time (steps)")
+            axes[1, col_idx].set_ylabel("x(t)")
+            axes[1, col_idx].set_title(f"{label} Jump: x(t) Profile")
+            axes[1, col_idx].grid(True, alpha=0.3)
+            axes[1, col_idx].legend()
         
-        fig_examples.update_layout(
-            title=f"Example Jumps: Endogenous vs Exogenous<br>Endogenous (D1={endo_example['D1_reflexivity']:.2f}) | Exogenous (D1={exo_example['D1_reflexivity']:.2f})",
-            template="plotly_white",
-            height=700,
-            showlegend=False
-        )
+        plt.tight_layout()
         save_plot(fig_examples, "jump_density_poland_examples", format='pdf')
-        fig_examples.show()
+        plt.close(fig_examples)
         
         # Print details
         print(f"\nEndogenous Example (from dataset):")
@@ -586,19 +490,11 @@ if X_windows is not None and jumps_subset is not None:
             (exo_example, "Exogenous", "red")
         ]
         
-        fig_prices = make_subplots(
-            rows=2, cols=2,
-            subplot_titles=(
-                f"Endogenous: {endo_example['ticker']} - Price",
-                f"Exogenous: {exo_example['ticker']} - Price",
-                f"Endogenous: {endo_example['ticker']} - Returns",
-                f"Exogenous: {exo_example['ticker']} - Returns"
-            ),
-            vertical_spacing=0.12,
-            horizontal_spacing=0.1
-        )
+        fig_prices, axes = plt.subplots(2, 2, figsize=(14, 10))
+        fig_prices.suptitle(f"Real Examples from Dataset: Actual Price & Returns\nEndogenous: {endo_example['ticker']} at {endo_example['timestamp']} | Exogenous: {exo_example['ticker']} at {exo_example['timestamp']}", 
+                            fontsize=12)
         
-        for col_idx, (ex, label, color) in enumerate(examples, 1):
+        for col_idx, (ex, label, color) in enumerate(examples):
             ticker = ex['ticker']
             ts = ex['timestamp']
             
@@ -617,53 +513,28 @@ if X_windows is not None and jumps_subset is not None:
             returns = subset["close"].pct_change().fillna(0.0).values * 100
             
             # Plot price
-            fig_prices.add_trace(
-                go.Scatter(
-                    x=time_axis, y=prices, mode='lines+markers',
-                    name=f'{label} Price',
-                    line=dict(color=color, width=2),
-                    marker=dict(size=5)
-                ),
-                row=1, col=col_idx
-            )
-            
-            # Highlight jump time
-            fig_prices.add_vline(
-                x=ts, line_dash="dash", line_color="orange", 
-                annotation_text="Jump", row=1, col=col_idx
-            )
+            axes[0, col_idx].plot(time_axis, prices, 'o-', color=color, linewidth=2, markersize=5, label=f'{label} Price')
+            axes[0, col_idx].axvline(x=ts, linestyle='--', color='orange', alpha=0.7, label='Jump')
+            axes[0, col_idx].set_xlabel("Time")
+            axes[0, col_idx].set_ylabel("Price")
+            axes[0, col_idx].set_title(f"{label}: {ticker} - Price")
+            axes[0, col_idx].grid(True, alpha=0.3)
+            axes[0, col_idx].legend()
+            axes[0, col_idx].tick_params(axis='x', rotation=45)
             
             # Plot returns
-            fig_prices.add_trace(
-                go.Scatter(
-                    x=time_axis, y=returns, mode='lines+markers',
-                    name=f'{label} Returns',
-                    line=dict(color=color, width=2),
-                    marker=dict(size=5)
-                ),
-                row=2, col=col_idx
-            )
-            
-            # Highlight jump time
-            fig_prices.add_vline(
-                x=ts, line_dash="dash", line_color="orange", 
-                annotation_text="Jump", row=2, col=col_idx
-            )
-            
-            # Update axes
-            fig_prices.update_xaxes(title_text="Time", row=1, col=col_idx)
-            fig_prices.update_xaxes(title_text="Time", row=2, col=col_idx)
-            fig_prices.update_yaxes(title_text="Price", row=1, col=col_idx)
-            fig_prices.update_yaxes(title_text="Returns (%)", row=2, col=col_idx)
+            axes[1, col_idx].plot(time_axis, returns, 'o-', color=color, linewidth=2, markersize=5, label=f'{label} Returns')
+            axes[1, col_idx].axvline(x=ts, linestyle='--', color='orange', alpha=0.7, label='Jump')
+            axes[1, col_idx].set_xlabel("Time")
+            axes[1, col_idx].set_ylabel("Returns (%)")
+            axes[1, col_idx].set_title(f"{label}: {ticker} - Returns")
+            axes[1, col_idx].grid(True, alpha=0.3)
+            axes[1, col_idx].legend()
+            axes[1, col_idx].tick_params(axis='x', rotation=45)
         
-        fig_prices.update_layout(
-            title=f"Real Examples from Dataset: Actual Price & Returns<br>Endogenous: {endo_example['ticker']} at {endo_example['timestamp']} | Exogenous: {exo_example['ticker']} at {exo_example['timestamp']}",
-            template="plotly_white",
-            height=700,
-            showlegend=False
-        )
+        plt.tight_layout()
         save_plot(fig_prices, "jump_density_poland_examples_prices", format='pdf')
-        fig_prices.show()
+        plt.close(fig_prices)
 
 # %%
 # Show multiple examples from the dataset
@@ -690,30 +561,22 @@ if X_windows is not None and jumps_subset is not None:
 # %%
 # Distribution of D1 scores by classification
 if X_windows is not None and jumps_subset is not None:
-    fig_dist = go.Figure()
+    fig_dist, ax_dist = plt.subplots(figsize=(10, 6))
     
     for classification in ["Endogenous", "Mixed", "Exogenous"]:
         subset = jumps_subset[jumps_subset["classification"] == classification]
         if len(subset) > 0:
-            fig_dist.add_trace(go.Histogram(
-                x=subset["D1_reflexivity"],
-                name=classification,
-                opacity=0.7,
-                nbinsx=30
-            ))
+            ax_dist.hist(subset["D1_reflexivity"], bins=30, alpha=0.7, label=classification, density=False)
     
-    fig_dist.add_vline(x=0, line_dash="dash", line_color="gray", annotation_text="Symmetric")
-    fig_dist.add_vline(x=0.5, line_dash="dash", line_color="orange", annotation_text="Threshold")
+    ax_dist.axvline(x=0, linestyle='--', color='gray', alpha=0.7, label='Symmetric')
+    ax_dist.axvline(x=0.5, linestyle='--', color='orange', alpha=0.7, label='Threshold')
     
-    fig_dist.update_layout(
-        title="Distribution of D1 Reflexivity Scores by Classification",
-        xaxis_title="D1 Reflexivity Score",
-        yaxis_title="Count",
-        template="plotly_white",
-        height=500,
-        barmode='overlay'
-    )
+    ax_dist.set_xlabel("D1 Reflexivity Score")
+    ax_dist.set_ylabel("Count")
+    ax_dist.set_title("Distribution of D1 Reflexivity Scores by Classification")
+    ax_dist.legend()
+    ax_dist.grid(True, alpha=0.3)
     save_plot(fig_dist, "jump_density_poland_D1_classification", format='pdf')
-    fig_dist.show()
+    plt.close(fig_dist)
 
 # %%

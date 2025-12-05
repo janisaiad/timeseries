@@ -3,6 +3,7 @@ Utility functions for saving plots to the report figures directory.
 """
 import os
 import sys
+import matplotlib.pyplot as plt
 
 def get_figures_dir():
     """Get the path to the report figures directory."""
@@ -22,39 +23,33 @@ def get_figures_dir():
 
 def save_plot(fig, filename, format='pdf', dpi=300):
     """
-    Save a plotly figure to the figures directory.
+    Save a matplotlib figure to the figures directory.
     
     Parameters
     ----------
-    fig : plotly.graph_objects.Figure
+    fig : matplotlib.figure.Figure
         The figure to save
     filename : str
         Base filename (without extension)
     format : str, default='pdf'
-        Format to save ('pdf', 'png', 'html', or 'both')
+        Format to save ('pdf', 'png', or 'both')
     dpi : int, default=300
         DPI for PNG format
     """
     figures_dir = get_figures_dir()
     
-    # Always save HTML as backup
-    html_path = os.path.join(figures_dir, f"{filename}.html")
-    fig.write_html(html_path)
-    
     if format == 'pdf' or format == 'both':
         pdf_path = os.path.join(figures_dir, f"{filename}.pdf")
         try:
-            # Try to save as PDF (requires kaleido)
-            fig.write_image(pdf_path, width=1200, height=800, scale=2, format='pdf')
+            fig.savefig(pdf_path, format='pdf', bbox_inches='tight', dpi=dpi)
             print(f"  Saved PDF: {pdf_path}")
         except Exception as e:
-            print(f"  Note: PDF export not available ({e}), HTML saved instead: {html_path}")
+            print(f"  Warning: Could not save PDF ({e})")
     
     if format == 'png' or format == 'both':
         png_path = os.path.join(figures_dir, f"{filename}.png")
         try:
-            fig.write_image(png_path, width=1200, height=800, scale=2, format='png')
+            fig.savefig(png_path, format='png', bbox_inches='tight', dpi=dpi)
             print(f"  Saved PNG: {png_path}")
         except Exception as e:
-            print(f"  Note: PNG export not available: {e}")
-
+            print(f"  Warning: Could not save PNG: {e}")
