@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 52
-Timestamp: 2025-12-14T22:19:26.215758
+Timestamp: 2025-12-14T22:27:23.252055
 
 ================================================================================
 Processing Signal 52
@@ -26,7 +26,7 @@ High frequency clusters: 0
 
 ERROR processing signal 52: index -1 is out of bounds for axis 0 with size 0
 Traceback (most recent call last):
-  File "/tmp/ipykernel_507368/1341782408.py", line 204, in process_single_signal
+  File "/tmp/ipykernel_507368/2072320301.py", line 213, in process_single_signal
     q25 = np.percentile(period_durations, 25)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4273, in percentile

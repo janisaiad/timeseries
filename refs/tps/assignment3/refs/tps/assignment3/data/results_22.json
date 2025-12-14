@@ -14,7 +14,7 @@
     "2",
     "9"
   ],
-  "timestamp": "2025-12-14T22:18:49.294344",
+  "timestamp": "2025-12-14T22:26:49.348765",
   "success": true,
   "stft_params": {
     "window_length": 256,
@@ -94,9 +94,9 @@
     {
       "match_index": 2,
       "assigned_symbol": "*",
-      "verified_symbol": null,
+      "verified_symbol": "0",
       "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
+      "primary_high_freq": 1291.9921875,
       "period_start": 0.5166439909297053,
       "period_end": 0.5340589569160997,
       "period_duration": 0.017414965986394557,
@@ -116,9 +116,9 @@
     {
       "match_index": 4,
       "assigned_symbol": "7",
-      "verified_symbol": null,
+      "verified_symbol": "0",
       "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
+      "primary_high_freq": 1291.9921875,
       "period_start": 0.6675736961451247,
       "period_end": 0.8533333333333334,
       "period_duration": 0.18575963718820862,
@@ -127,9 +127,9 @@
     {
       "match_index": 5,
       "assigned_symbol": "2",
-      "verified_symbol": null,
+      "verified_symbol": "0",
       "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
+      "primary_high_freq": 1291.9921875,
       "period_start": 0.8533333333333334,
       "period_end": 0.9636281179138322,
       "period_duration": 0.11029478458049886,
@@ -149,8 +149,8 @@
     {
       "match_index": 7,
       "assigned_symbol": "B",
-      "verified_symbol": null,
-      "primary_low_freq": null,
+      "verified_symbol": "0",
+      "primary_low_freq": 947.4609375,
       "primary_high_freq": 1291.9921875,
       "period_start": 1.3119274376417234,
       "period_end": 1.3235374149659864,
@@ -160,8 +160,8 @@
     {
       "match_index": 8,
       "assigned_symbol": "4",
-      "verified_symbol": null,
-      "primary_low_freq": null,
+      "verified_symbol": "0",
+      "primary_low_freq": 947.4609375,
       "primary_high_freq": 1291.9921875,
       "period_start": 1.3235374149659864,
       "period_end": 1.4918820861678004,
@@ -171,8 +171,8 @@
     {
       "match_index": 9,
       "assigned_symbol": "2",
-      "verified_symbol": null,
-      "primary_low_freq": null,
+      "verified_symbol": "0",
+      "primary_low_freq": 947.4609375,
       "primary_high_freq": 1291.9921875,
       "period_start": 1.4918820861678004,
       "period_end": 2.281360544217687,
@@ -182,8 +182,8 @@
     {
       "match_index": 10,
       "assigned_symbol": "9",
-      "verified_symbol": null,
-      "primary_low_freq": null,
+      "verified_symbol": "0",
+      "primary_low_freq": 947.4609375,
       "primary_high_freq": 1291.9921875,
       "period_start": 2.281360544217687,
       "period_end": 2.4322902494331067,

@@ -1,6 +1,6 @@
 {
   "total_signals": 100,
-  "timestamp": "2025-12-14T22:20:10.767685",
+  "timestamp": "2025-12-14T22:28:07.677178",
   "signals_processed": [
     {
       "signal_idx": 0,
@@ -150,7 +150,7 @@
       "signal_idx": 24,
       "success": true,
       "n_matches": 9,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 25,
@@ -605,8 +605,8 @@
   ],
   "overall_statistics": {
     "total_matches": 512,
-    "correct_matches": 17,
+    "correct_matches": 16,
     "signals_with_errors": 28,
-    "accuracy": 0.033203125
+    "accuracy": 0.03125
   }
 }

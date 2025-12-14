@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 97
-Timestamp: 2025-12-14T22:20:08.155132
+Timestamp: 2025-12-14T22:28:04.838124
 
 ================================================================================
 Processing Signal 97
@@ -37,12 +37,12 @@ Filtered periods: 13
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 6 periods for 6 symbols
-Match 1: '3' -> period [0.244, 0.308]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: '3' -> period [0.244, 0.308]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 Match 2: '2' -> period [0.308, 0.383]s, freqs: 861+1206Hz, verified: '7', match: ✗
 Match 3: '*' -> period [0.395, 0.464]s, freqs: 861+1206Hz, verified: '7', match: ✗
 Match 4: 'C' -> period [0.464, 0.569]s, freqs: 861+1206Hz, verified: '7', match: ✗
 Match 5: '2' -> period [0.580, 0.627]s, freqs: 861+1292Hz, verified: '8', match: ✗
-Match 6: 'A' -> period [0.760, 0.935]s, freqs: 861+1292Hz, verified: '8', match: ✗
+Match 6: 'A' -> period [0.760, 0.935]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

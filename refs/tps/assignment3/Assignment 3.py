@@ -1079,15 +1079,17 @@ def order_symbols_by_time(symbols):
     return sorted(symbols, key=lambda x: x['start_time'] if x['start_time'] is not None else 0)
 
 def find_active_frequencies_in_period(period, low_freq_clusters, high_freq_clusters, 
-                                     frame_step, energy_threshold_ratio=0.1, cp_tolerance=2000):
+                                     frame_step, energy_threshold_ratio=0.05, cp_tolerance=3000):
     """
     find which low and high frequencies are active during a time period
     since periods are defined by changepoints from different frequency clusters,
     we check which clusters have changepoints that define or are near this period
+    uses multiple methods with increasing permissiveness
     """
     start_time = period['start_cp']
     end_time = period['end_cp']
     period_mid = (start_time + end_time) / 2
+    period_duration = end_time - start_time
     
     active_low = []
     active_high = []
@@ -1202,6 +1204,58 @@ def find_active_frequencies_in_period(period, low_freq_clusters, high_freq_clust
                             'energy_ratio': float(energy_ratio),
                             'method': 'energy_fallback'
                         })
+    
+    # final fallback: if still no frequencies, take the one with highest energy in the period
+    # this handles edge cases where thresholds are too strict
+    if len(active_low) == 0 and len(low_freq_clusters) > 0:
+        best_low = None
+        best_energy_ratio = 0
+        for cp_dict in low_freq_clusters:
+            start_frame = max(0, int(start_time / frame_step))
+            end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
+            if start_frame < end_frame:
+                segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
+                if len(segment_energy) > 0:
+                    max_energy = np.max(cp_dict['energy_signal'])
+                    avg_energy = np.mean(segment_energy)
+                    energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
+                    if energy_ratio > best_energy_ratio:
+                        best_energy_ratio = energy_ratio
+                        best_low = {
+                            'freq': cp_dict['selected_freq'],
+                            'cluster_id': cp_dict['cluster_id'],
+                            'avg_energy': float(avg_energy),
+                            'max_energy': float(max_energy),
+                            'energy_ratio': float(energy_ratio),
+                            'method': 'best_energy_fallback'
+                        }
+        if best_low is not None:
+            active_low.append(best_low)
+    
+    if len(active_high) == 0 and len(high_freq_clusters) > 0:
+        best_high = None
+        best_energy_ratio = 0
+        for cp_dict in high_freq_clusters:
+            start_frame = max(0, int(start_time / frame_step))
+            end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
+            if start_frame < end_frame:
+                segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
+                if len(segment_energy) > 0:
+                    max_energy = np.max(cp_dict['energy_signal'])
+                    avg_energy = np.mean(segment_energy)
+                    energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
+                    if energy_ratio > best_energy_ratio:
+                        best_energy_ratio = energy_ratio
+                        best_high = {
+                            'freq': cp_dict['selected_freq'],
+                            'cluster_id': cp_dict['cluster_id'],
+                            'avg_energy': float(avg_energy),
+                            'max_energy': float(max_energy),
+                            'energy_ratio': float(energy_ratio),
+                            'method': 'best_energy_fallback'
+                        }
+        if best_high is not None:
+            active_high.append(best_high)
     
     # sort by energy ratio (strongest first), but prioritize changepoint method
     active_low.sort(key=lambda x: (x.get('method') != 'changepoint', -x['energy_ratio']))
@@ -1629,31 +1683,40 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
         high_energy_freqs = f[high_energy_freq_indices]
         high_energy_energies = energy_per_freq[high_energy_freq_indices]
         
-        freq_normalized = (high_energy_freqs - high_energy_freqs.min()) / (high_energy_freqs.max() - high_energy_freqs.min() + 1e-10)
-        energy_normalized = (high_energy_energies - high_energy_energies.min()) / (high_energy_energies.max() - high_energy_energies.min() + 1e-10)
-        features_2d = np.column_stack([freq_normalized, energy_normalized])
+        # adapt k dynamically if we have fewer samples than clusters
+        n_high_energy = len(high_energy_freq_indices)
+        k_freq = min(8, max(1, n_high_energy))  # at least 1 cluster, at most 8, but not more than samples
         
-        kmeans_freq = KMeans(n_clusters=8, random_state=0, n_init=10)
-        freq_cluster_labels = kmeans_freq.fit_predict(features_2d)
-        
-        major_freq_clusters = []
-        for cluster_id in range(8):
-            cluster_mask = freq_cluster_labels == cluster_id
-            cluster_freq_indices = high_energy_freq_indices[cluster_mask]
-            cluster_freqs = high_energy_freqs[cluster_mask]
-            cluster_energies = high_energy_energies[cluster_mask]
+        if n_high_energy < 2:
+            log_file.write(f"Warning: Only {n_high_energy} high-energy frequency bins found, skipping frequency clustering\n")
+            major_freq_clusters = []
+        else:
+            freq_normalized = (high_energy_freqs - high_energy_freqs.min()) / (high_energy_freqs.max() - high_energy_freqs.min() + 1e-10)
+            energy_normalized = (high_energy_energies - high_energy_energies.min()) / (high_energy_energies.max() - high_energy_energies.min() + 1e-10)
+            features_2d = np.column_stack([freq_normalized, energy_normalized])
             
-            cluster_center_freq = np.mean(cluster_freqs)
-            cluster_center_energy = np.mean(cluster_energies)
+            kmeans_freq = KMeans(n_clusters=k_freq, random_state=0, n_init=10)
+            freq_cluster_labels = kmeans_freq.fit_predict(features_2d)
             
-            major_freq_clusters.append({
-                'cluster_id': cluster_id,
-                'center_freq': cluster_center_freq,
-                'center_energy': cluster_center_energy,
-                'freq_indices': cluster_freq_indices,
-                'freqs': cluster_freqs,
-                'energies': cluster_energies
-            })
+            major_freq_clusters = []
+            for cluster_id in range(k_freq):
+                cluster_mask = freq_cluster_labels == cluster_id
+                cluster_freq_indices = high_energy_freq_indices[cluster_mask]
+                cluster_freqs = high_energy_freqs[cluster_mask]
+                cluster_energies = high_energy_energies[cluster_mask]
+                
+                if len(cluster_freq_indices) > 0:  # only add non-empty clusters
+                    cluster_center_freq = np.mean(cluster_freqs)
+                    cluster_center_energy = np.mean(cluster_energies)
+                    
+                    major_freq_clusters.append({
+                        'cluster_id': cluster_id,
+                        'center_freq': cluster_center_freq,
+                        'center_energy': cluster_center_energy,
+                        'freq_indices': cluster_freq_indices,
+                        'freqs': cluster_freqs,
+                        'energies': cluster_energies
+                    })
         
         # filter clusters
         major_freq_clusters = [c for c in major_freq_clusters if len(c['freq_indices']) > 1]
@@ -1805,73 +1868,16 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
         # use the matching functions (simplified version)
         complete_matches = []
         for i, (period, symbol) in enumerate(zip(periods_ordered_by_time, ground_truth_symbols)):
-            # find active frequencies - check which clusters have changepoints defining this period
-            start_time = period['start_cp']
-            end_time = period['end_cp']
-            period_mid = (start_time + end_time) / 2
-            cp_tolerance = 2000  # tolerance for changepoint matching
-            energy_threshold_ratio = 0.1
+            # find active frequencies using the improved function
+            active_freqs = find_active_frequencies_in_period(
+                period, low_freq_clusters, high_freq_clusters, frame_step,
+                energy_threshold_ratio=0.05, cp_tolerance=3000
+            )
+            active_low = active_freqs['low_clusters']
+            active_high = active_freqs['high_clusters']
             
-            active_low = []
-            for cp_dict in low_freq_clusters:
-                cps = sorted(cp_dict['changepoints'])
-                # check if changepoints are near period boundaries (they define the period)
-                near_start = any(abs(cp - start_time) < cp_tolerance for cp in cps)
-                near_end = any(abs(cp - end_time) < cp_tolerance for cp in cps)
-                period_in_segment = any(cps[j] <= period_mid <= cps[j+1] for j in range(len(cps) - 1))
-                
-                # also check energy
-                start_frame = max(0, int(start_time / frame_step))
-                end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
-                energy_ratio = 0.0
-                if start_frame < end_frame:
-                    segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
-                    if len(segment_energy) > 0:
-                        max_energy = np.max(cp_dict['energy_signal'])
-                        avg_energy = np.mean(segment_energy)
-                        energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
-                
-                # include if changepoints define period OR energy is sufficient
-                if (near_start or near_end or period_in_segment) or (energy_ratio > energy_threshold_ratio):
-                    active_low.append({
-                        'freq': cp_dict['selected_freq'],
-                        'energy_ratio': energy_ratio,
-                        'method': 'changepoint' if (near_start or near_end or period_in_segment) else 'energy'
-                    })
-            
-            active_high = []
-            for cp_dict in high_freq_clusters:
-                cps = sorted(cp_dict['changepoints'])
-                # check if changepoints are near period boundaries (they define the period)
-                near_start = any(abs(cp - start_time) < cp_tolerance for cp in cps)
-                near_end = any(abs(cp - end_time) < cp_tolerance for cp in cps)
-                period_in_segment = any(cps[j] <= period_mid <= cps[j+1] for j in range(len(cps) - 1))
-                
-                # also check energy
-                start_frame = max(0, int(start_time / frame_step))
-                end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
-                energy_ratio = 0.0
-                if start_frame < end_frame:
-                    segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
-                    if len(segment_energy) > 0:
-                        max_energy = np.max(cp_dict['energy_signal'])
-                        avg_energy = np.mean(segment_energy)
-                        energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
-                
-                # include if changepoints define period OR energy is sufficient
-                if (near_start or near_end or period_in_segment) or (energy_ratio > energy_threshold_ratio):
-                    active_high.append({
-                        'freq': cp_dict['selected_freq'],
-                        'energy_ratio': energy_ratio,
-                        'method': 'changepoint' if (near_start or near_end or period_in_segment) else 'energy'
-                    })
-            
-            # sort by method (changepoint first) then energy ratio
-            active_low.sort(key=lambda x: (x.get('method') != 'changepoint', -x['energy_ratio']))
-            active_high.sort(key=lambda x: (x.get('method') != 'changepoint', -x['energy_ratio']))
-            
-            primary_low = active_low[0]['freq'] if active_low else None
-            primary_high = active_high[0]['freq'] if active_high else None
+            primary_low = active_freqs['low_freqs'][0] if active_freqs['low_freqs'] else None
+            primary_high = active_freqs['high_freqs'][0] if active_freqs['high_freqs'] else None
             
             # verify symbol
             verified_symbol = None

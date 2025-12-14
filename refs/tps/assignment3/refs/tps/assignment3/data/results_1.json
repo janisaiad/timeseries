@@ -10,7 +10,7 @@
     "A",
     "3"
   ],
-  "timestamp": "2025-12-14T22:18:30.498245",
+  "timestamp": "2025-12-14T22:26:32.279506",
   "success": true,
   "stft_params": {
     "window_length": 256,
@@ -90,8 +90,8 @@
     {
       "match_index": 0,
       "assigned_symbol": "8",
-      "verified_symbol": "4",
-      "primary_low_freq": 775.1953125,
+      "verified_symbol": null,
+      "primary_low_freq": 516.796875,
       "primary_high_freq": 1205.859375,
       "period_start": 0.3076643990929705,
       "period_end": 0.446984126984127,
@@ -156,8 +156,8 @@
     {
       "match_index": 6,
       "assigned_symbol": "3",
-      "verified_symbol": "6",
-      "primary_low_freq": 775.1953125,
+      "verified_symbol": null,
+      "primary_low_freq": 516.796875,
       "primary_high_freq": 1464.2578125,
       "period_start": 1.6253968253968254,
       "period_end": 1.7763265306122449,

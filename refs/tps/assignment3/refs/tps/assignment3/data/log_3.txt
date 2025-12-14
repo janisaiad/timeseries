@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 3
-Timestamp: 2025-12-14T22:18:33.191269
+Timestamp: 2025-12-14T22:26:34.501947
 
 ================================================================================
 Processing Signal 3
@@ -44,7 +44,7 @@ Match 4: '6' -> period [0.673, 1.057]s, freqs: 517+1378Hz, verified: 'None', mat
 Match 5: '5' -> period [1.057, 1.231]s, freqs: 517+1378Hz, verified: 'None', match: ✗
 Match 6: 'D' -> period [1.231, 1.411]s, freqs: 517+1378Hz, verified: 'None', match: ✗
 Match 7: '5' -> period [1.567, 1.695]s, freqs: 517+1378Hz, verified: 'None', match: ✗
-Match 8: 'C' -> period [1.695, 1.805]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 8: 'C' -> period [1.695, 1.805]s, freqs: 947+1378Hz, verified: '0', match: ✗
 
 ================================================================================
 Results saved to:

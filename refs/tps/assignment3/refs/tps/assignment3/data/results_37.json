@@ -14,7 +14,7 @@
     "*",
     "C"
   ],
-  "timestamp": "2025-12-14T22:19:04.616808",
+  "timestamp": "2025-12-14T22:27:04.092025",
   "success": true,
   "stft_params": {
     "window_length": 256,
@@ -88,8 +88,8 @@
     {
       "match_index": 0,
       "assigned_symbol": "7",
-      "verified_symbol": null,
-      "primary_low_freq": null,
+      "verified_symbol": "4",
+      "primary_low_freq": 775.1953125,
       "primary_high_freq": 1205.859375,
       "period_start": 0.33668934240362813,
       "period_end": 0.8185034013605442,
@@ -110,8 +110,8 @@
     {
       "match_index": 2,
       "assigned_symbol": "8",
-      "verified_symbol": null,
-      "primary_low_freq": null,
+      "verified_symbol": "5",
+      "primary_low_freq": 775.1953125,
       "primary_high_freq": 1291.9921875,
       "period_start": 0.9984580498866213,
       "period_end": 1.3061224489795917,
@@ -187,8 +187,8 @@
     {
       "match_index": 9,
       "assigned_symbol": "*",
-      "verified_symbol": null,
-      "primary_low_freq": null,
+      "verified_symbol": "4",
+      "primary_low_freq": 775.1953125,
       "primary_high_freq": 1205.859375,
       "period_start": 2.647074829931973,
       "period_end": 2.803809523809524,
@@ -198,8 +198,8 @@
     {
       "match_index": 10,
       "assigned_symbol": "C",
-      "verified_symbol": null,
-      "primary_low_freq": null,
+      "verified_symbol": "4",
+      "primary_low_freq": 775.1953125,
       "primary_high_freq": 1205.859375,
       "period_start": 2.803809523809524,
       "period_end": 2.948934240362812,

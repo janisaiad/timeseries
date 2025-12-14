@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 74
-Timestamp: 2025-12-14T22:19:44.279400
+Timestamp: 2025-12-14T22:27:41.888973
 
 ================================================================================
 Processing Signal 74
@@ -41,7 +41,7 @@ Match 5: '1' -> period [0.981, 1.144]s, freqs: 603+1206Hz, verified: 'None', mat
 Match 6: '0' -> period [1.144, 1.312]s, freqs: 603+1206Hz, verified: 'None', match: ✗
 Match 7: '#' -> period [1.347, 1.411]s, freqs: 603+1206Hz, verified: 'None', match: ✗
 Match 8: 'D' -> period [1.422, 1.498]s, freqs: 603+1206Hz, verified: 'None', match: ✗
-Match 9: 'D' -> period [1.521, 2.229]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 9: 'D' -> period [1.521, 2.229]s, freqs: 603+1206Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

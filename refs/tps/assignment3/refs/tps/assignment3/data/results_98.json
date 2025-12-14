@@ -6,7 +6,7 @@
     "A",
     "7"
   ],
-  "timestamp": "2025-12-14T22:20:09.201223",
+  "timestamp": "2025-12-14T22:28:05.856563",
   "success": true,
   "stft_params": {
     "window_length": 256,
@@ -80,9 +80,9 @@
     {
       "match_index": 2,
       "assigned_symbol": "7",
-      "verified_symbol": null,
+      "verified_symbol": "3",
       "primary_low_freq": 689.0625,
-      "primary_high_freq": null,
+      "primary_high_freq": 1464.2578125,
       "period_start": 0.4992290249433107,
       "period_end": 0.6849886621315193,
       "period_duration": 0.18575963718820862,

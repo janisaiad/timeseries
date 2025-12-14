@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 79
-Timestamp: 2025-12-14T22:19:50.002438
+Timestamp: 2025-12-14T22:27:46.875372
 
 ================================================================================
 Processing Signal 79
@@ -37,7 +37,7 @@ Filtered periods: 24
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 11 periods for 11 symbols
-Match 1: 'A' -> period [0.580, 0.673]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: 'A' -> period [0.580, 0.673]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 Match 2: '3' -> period [0.673, 0.766]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 Match 3: '3' -> period [0.778, 1.086]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 Match 4: '3' -> period [1.161, 1.254]s, freqs: 775+1292Hz, verified: '5', match: ✗

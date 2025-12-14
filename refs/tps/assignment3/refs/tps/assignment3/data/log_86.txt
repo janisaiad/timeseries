@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 86
-Timestamp: 2025-12-14T22:20:00.024955
+Timestamp: 2025-12-14T22:27:56.576756
 
 ================================================================================
 Processing Signal 86
@@ -33,12 +33,12 @@ Filtered periods: 7
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 6 periods for 6 symbols
-Match 1: 'D' -> period [0.192, 0.331]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: 'D' -> period [0.192, 0.331]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 2: '9' -> period [0.331, 0.580]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 3: 'D' -> period [0.580, 0.668]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 4: '#' -> period [0.668, 0.824]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 5: '2' -> period [0.911, 1.416]s, freqs: 517+1637Hz, verified: 'None', match: ✗
-Match 6: '9' -> period [1.416, 1.509]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 6: '9' -> period [1.416, 1.509]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 38
-Timestamp: 2025-12-14T22:19:07.559957
+Timestamp: 2025-12-14T22:27:06.353273
 
 ================================================================================
 Processing Signal 38
@@ -45,7 +45,7 @@ Match 5: 'D' -> period [1.300, 1.416]s, freqs: 947+1464Hz, verified: '#', match:
 Match 6: '*' -> period [1.683, 1.788]s, freqs: 947+1378Hz, verified: '0', match: ✗
 Match 7: '8' -> period [1.794, 1.904]s, freqs: 947+1378Hz, verified: '0', match: ✗
 Match 8: '0' -> period [1.910, 2.043]s, freqs: 517+1464Hz, verified: 'None', match: ✗
-Match 9: '6' -> period [2.043, 2.200]s, freqs: 517+1464Hz, verified: 'None', match: ✗
+Match 9: '6' -> period [2.043, 2.200]s, freqs: 947+1464Hz, verified: '#', match: ✗
 
 ================================================================================
 Results saved to:

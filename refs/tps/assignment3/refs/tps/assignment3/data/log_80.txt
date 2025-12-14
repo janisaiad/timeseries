@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 80
-Timestamp: 2025-12-14T22:19:52.341806
+Timestamp: 2025-12-14T22:27:49.152813
 
 ================================================================================
 Processing Signal 80
@@ -35,7 +35,7 @@ Filtered periods: 10
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 7 periods for 7 symbols
-Match 1: '1' -> period [0.279, 0.383]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: '1' -> period [0.279, 0.383]s, freqs: 861+1378Hz, verified: '8', match: ✗
 Match 2: '2' -> period [0.383, 0.511]s, freqs: 861+1378Hz, verified: '8', match: ✗
 Match 3: '*' -> period [0.546, 0.662]s, freqs: 947+1378Hz, verified: '0', match: ✗
 Match 4: '3' -> period [0.662, 0.993]s, freqs: 861+1378Hz, verified: '8', match: ✗

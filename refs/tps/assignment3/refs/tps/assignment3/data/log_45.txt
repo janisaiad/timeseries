@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 45
-Timestamp: 2025-12-14T22:19:19.901313
+Timestamp: 2025-12-14T22:27:17.160309
 
 ================================================================================
 Processing Signal 45
@@ -47,7 +47,7 @@ Match 7: '3' -> period [1.800, 1.980]s, freqs: 947+1292Hz, verified: '0', match:
 Match 8: '3' -> period [1.980, 2.061]s, freqs: 947+1292Hz, verified: '0', match: ✗
 Match 9: '*' -> period [2.142, 2.235]s, freqs: 947+1292Hz, verified: '0', match: ✗
 Match 10: '5' -> period [2.334, 2.490]s, freqs: 947+1292Hz, verified: '0', match: ✗
-Match 11: 'D' -> period [2.490, 2.641]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 11: 'D' -> period [2.490, 2.641]s, freqs: 947+1292Hz, verified: '0', match: ✗
 
 ================================================================================
 Results saved to:

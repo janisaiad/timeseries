@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 29
-Timestamp: 2025-12-14T22:18:58.384907
+Timestamp: 2025-12-14T22:26:58.757986
 
 ================================================================================
 Processing Signal 29
@@ -46,7 +46,7 @@ Match 6: 'A' -> period [1.800, 1.898]s, freqs: 775+1550Hz, verified: 'None', mat
 Match 7: '8' -> period [1.898, 2.113]s, freqs: 775+1550Hz, verified: 'None', match: ✗
 Match 8: '9' -> period [2.113, 2.200]s, freqs: 775+1550Hz, verified: 'None', match: ✗
 Match 9: '9' -> period [2.252, 2.322]s, freqs: 517+1206Hz, verified: 'None', match: ✗
-Match 10: '*' -> period [2.334, 2.397]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 10: '*' -> period [2.334, 2.397]s, freqs: 775+1206Hz, verified: '4', match: ✗
 Match 11: '3' -> period [2.473, 2.577]s, freqs: 775+1550Hz, verified: 'None', match: ✗
 
 ================================================================================

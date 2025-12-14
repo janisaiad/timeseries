@@ -6,7 +6,7 @@
     "0",
     "D"
   ],
-  "timestamp": "2025-12-14T22:18:45.182244",
+  "timestamp": "2025-12-14T22:26:45.281493",
   "success": false,
   "stft_params": {
     "window_length": 256,
@@ -25,5 +25,5 @@
     "statistics": {}
   },
   "matches": [],
-  "error": "n_samples=2 should be >= n_clusters=8."
+  "error": "index -1 is out of bounds for axis 0 with size 0"
 }

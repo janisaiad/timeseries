@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 44
-Timestamp: 2025-12-14T22:19:18.830870
+Timestamp: 2025-12-14T22:27:16.024144
 
 ================================================================================
 Processing Signal 44
@@ -35,8 +35,8 @@ Filtered periods: 11
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 6 periods for 6 symbols
-Match 1: '0' -> period [0.128, 0.308]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 2: 'C' -> period [0.308, 0.488]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: '0' -> period [0.128, 0.308]s, freqs: 517+1292Hz, verified: 'None', match: ✗
+Match 2: 'C' -> period [0.308, 0.488]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 Match 3: '3' -> period [0.673, 0.935]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 Match 4: '8' -> period [0.935, 1.033]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 Match 5: '3' -> period [1.033, 1.300]s, freqs: 517+1292Hz, verified: 'None', match: ✗

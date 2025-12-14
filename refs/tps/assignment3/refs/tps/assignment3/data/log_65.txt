@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 65
-Timestamp: 2025-12-14T22:19:37.942809
+Timestamp: 2025-12-14T22:27:34.991716
 
 ================================================================================
 Processing Signal 65
@@ -49,7 +49,7 @@ Match 7: '2' -> period [1.660, 1.834]s, freqs: 517+1464Hz, verified: 'None', mat
 Match 8: '#' -> period [1.840, 1.985]s, freqs: 947+1464Hz, verified: '#', match: ✓
 Match 9: '7' -> period [1.985, 2.154]s, freqs: 947+1464Hz, verified: '#', match: ✗
 Match 10: '8' -> period [2.334, 2.647]s, freqs: 689+1206Hz, verified: '1', match: ✗
-Match 11: 'A' -> period [2.647, 2.781]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 11: 'A' -> period [2.647, 2.781]s, freqs: 689+1464Hz, verified: '3', match: ✗
 
 ================================================================================
 Results saved to:

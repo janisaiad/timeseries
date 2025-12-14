@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 46
-Timestamp: 2025-12-14T22:19:22.499142
+Timestamp: 2025-12-14T22:27:19.629571
 
 ================================================================================
 Processing Signal 46
@@ -35,15 +35,15 @@ Filtered periods: 22
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 9 periods for 9 symbols
-Match 1: '6' -> period [0.163, 0.302]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 2: '8' -> period [0.302, 0.511]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 3: '0' -> period [0.522, 0.610]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 4: '6' -> period [0.610, 0.708]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 5: '8' -> period [0.772, 0.940]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 6: 'A' -> period [0.940, 1.138]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 7: 'A' -> period [1.138, 1.347]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: '6' -> period [0.163, 0.302]s, freqs: 775+1637Hz, verified: 'B', match: ✗
+Match 2: '8' -> period [0.302, 0.511]s, freqs: 775+1637Hz, verified: 'B', match: ✗
+Match 3: '0' -> period [0.522, 0.610]s, freqs: 775+1637Hz, verified: 'B', match: ✗
+Match 4: '6' -> period [0.610, 0.708]s, freqs: 947+1637Hz, verified: 'D', match: ✗
+Match 5: '8' -> period [0.772, 0.940]s, freqs: 775+1637Hz, verified: 'B', match: ✗
+Match 6: 'A' -> period [0.940, 1.138]s, freqs: 775+1637Hz, verified: 'B', match: ✗
+Match 7: 'A' -> period [1.138, 1.347]s, freqs: 775+1637Hz, verified: 'B', match: ✗
 Match 8: 'C' -> period [1.399, 1.678]s, freqs: 775+1637Hz, verified: 'B', match: ✗
-Match 9: '9' -> period [1.904, 2.003]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 9: '9' -> period [1.904, 2.003]s, freqs: 775+1637Hz, verified: 'B', match: ✗
 
 ================================================================================
 Results saved to:

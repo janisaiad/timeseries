@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 67
-Timestamp: 2025-12-14T22:19:40.775217
+Timestamp: 2025-12-14T22:27:38.036905
 
 ================================================================================
 Processing Signal 67
@@ -35,8 +35,8 @@ Filtered periods: 6
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 4 periods for 4 symbols
-Match 1: '#' -> period [0.186, 0.319]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 2: '8' -> period [0.319, 0.459]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: '#' -> period [0.186, 0.319]s, freqs: 689+1464Hz, verified: '3', match: ✗
+Match 2: '8' -> period [0.319, 0.459]s, freqs: 689+1292Hz, verified: '2', match: ✗
 Match 3: 'C' -> period [0.702, 1.016]s, freqs: 689+1292Hz, verified: '2', match: ✗
 Match 4: '2' -> period [1.016, 1.190]s, freqs: 689+1292Hz, verified: '2', match: ✓
 

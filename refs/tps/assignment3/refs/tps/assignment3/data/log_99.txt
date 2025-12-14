@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 99
-Timestamp: 2025-12-14T22:20:09.478757
+Timestamp: 2025-12-14T22:28:06.121727
 
 ================================================================================
 Processing Signal 99
@@ -35,14 +35,14 @@ Filtered periods: 9
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 8 periods for 8 symbols
-Match 1: '7' -> period [0.308, 0.447]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: '7' -> period [0.308, 0.447]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 Match 2: '5' -> period [0.459, 0.505]s, freqs: 517+1292Hz, verified: 'None', match: ✗
 Match 3: '9' -> period [0.505, 0.586]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 4: '7' -> period [0.586, 0.673]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 5: '4' -> period [0.673, 1.422]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 6: '*' -> period [1.422, 1.509]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 7: '9' -> period [1.509, 1.950]s, freqs: 517+1637Hz, verified: 'None', match: ✗
-Match 8: 'D' -> period [1.950, 2.055]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 8: 'D' -> period [1.950, 2.055]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 2
-Timestamp: 2025-12-14T22:18:32.412510
+Timestamp: 2025-12-14T22:26:33.807731
 
 ================================================================================
 Processing Signal 2
@@ -33,7 +33,7 @@ Filtered periods: 11
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 10 periods for 10 symbols
-Match 1: 'D' -> period [0.180, 0.279]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: 'D' -> period [0.180, 0.279]s, freqs: 861+1464Hz, verified: '9', match: ✗
 Match 2: '6' -> period [0.279, 0.627]s, freqs: 861+1464Hz, verified: '9', match: ✗
 Match 3: 'A' -> period [0.627, 0.714]s, freqs: 861+1464Hz, verified: '9', match: ✗
 Match 4: '8' -> period [0.731, 0.778]s, freqs: 861+1464Hz, verified: '9', match: ✗

@@ -12,7 +12,7 @@
     "A",
     "4"
   ],
-  "timestamp": "2025-12-14T22:18:50.578367",
+  "timestamp": "2025-12-14T22:26:50.643531",
   "success": true,
   "stft_params": {
     "window_length": 256,
@@ -78,9 +78,9 @@
     {
       "match_index": 0,
       "assigned_symbol": "4",
-      "verified_symbol": null,
+      "verified_symbol": "0",
       "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
+      "primary_high_freq": 1378.125,
       "period_start": 0.5282539682539683,
       "period_end": 0.7198185941043084,
       "period_duration": 0.19156462585034015,
@@ -89,9 +89,9 @@
     {
       "match_index": 1,
       "assigned_symbol": "3",
-      "verified_symbol": null,
+      "verified_symbol": "0",
       "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
+      "primary_high_freq": 1378.125,
       "period_start": 0.7198185941043084,
       "period_end": 0.7430385487528345,
       "period_duration": 0.023219954648526078,
@@ -100,9 +100,9 @@
     {
       "match_index": 2,
       "assigned_symbol": "*",
-      "verified_symbol": null,
+      "verified_symbol": "0",
       "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
+      "primary_high_freq": 1378.125,
       "period_start": 0.7430385487528345,
       "period_end": 0.7720634920634921,
       "period_duration": 0.029024943310657598,
@@ -122,9 +122,9 @@
     {
       "match_index": 4,
       "assigned_symbol": "5",
-      "verified_symbol": null,
+      "verified_symbol": "8",
       "primary_low_freq": 861.328125,
-      "primary_high_freq": null,
+      "primary_high_freq": 1378.125,
       "period_start": 0.8301133786848073,
       "period_end": 0.8881632653061224,
       "period_duration": 0.058049886621315196,
@@ -133,9 +133,9 @@
     {
       "match_index": 5,
       "assigned_symbol": "A",
-      "verified_symbol": null,
+      "verified_symbol": "8",
       "primary_low_freq": 861.328125,
-      "primary_high_freq": null,
+      "primary_high_freq": 1378.125,
       "period_start": 0.8881632653061224,
       "period_end": 1.0274829931972789,
       "period_duration": 0.13931972789115646,

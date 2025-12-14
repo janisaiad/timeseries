@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 9
-Timestamp: 2025-12-14T22:18:36.882997
+Timestamp: 2025-12-14T22:26:37.961701
 
 ================================================================================
 Processing Signal 9
@@ -15,25 +15,36 @@ Frequency bins: 129, Time frames: 195
 High-energy (signal) bins: 7
 
 --- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 0
 
-ERROR processing signal 9: n_samples=7 should be >= n_clusters=8.
+--- Cell 4: Changepoint Detection ---
+
+Low frequency clusters: 0
+High frequency clusters: 0
+
+--- Cell 6: Distribution Analysis ---
+
+ERROR processing signal 9: index -1 is out of bounds for axis 0 with size 0
 Traceback (most recent call last):
-  File "/tmp/ipykernel_507368/1341782408.py", line 84, in process_single_signal
-    freq_cluster_labels = kmeans_freq.fit_predict(features_2d)
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py", line 1064, in fit_predict
-    return self.fit(X, sample_weight=sample_weight).labels_
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/base.py", line 1365, in wrapper
-    return fit_method(estimator, *args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py", line 1464, in fit
-    self._check_params_vs_input(X)
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py", line 1404, in _check_params_vs_input
-    super()._check_params_vs_input(X, default_n_init=10)
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py", line 871, in _check_params_vs_input
-    raise ValueError(
-ValueError: n_samples=7 should be >= n_clusters=8.
+  File "/tmp/ipykernel_507368/2072320301.py", line 213, in process_single_signal
+    q25 = np.percentile(period_durations, 25)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4273, in percentile
+    return _quantile_unchecked(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4550, in _quantile_unchecked
+    return _ureduce(a,
+           ^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 3894, in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4727, in _quantile_ureduce_func
+    result = _quantile(arr,
+             ^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4849, in _quantile
+    slices_having_nans = np.isnan(arr[-1, ...])
+                                  ~~~^^^^^^^^^
+IndexError: index -1 is out of bounds for axis 0 with size 0
 
 ================================================================================
 Results saved to:

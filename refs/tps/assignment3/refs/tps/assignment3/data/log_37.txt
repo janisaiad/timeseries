@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 37
-Timestamp: 2025-12-14T22:19:04.616718
+Timestamp: 2025-12-14T22:27:04.091939
 
 ================================================================================
 Processing Signal 37
@@ -35,17 +35,17 @@ Filtered periods: 19
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 11 periods for 11 symbols
-Match 1: '7' -> period [0.337, 0.819]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: '7' -> period [0.337, 0.819]s, freqs: 775+1206Hz, verified: '4', match: ✗
 Match 2: 'D' -> period [0.819, 0.998]s, freqs: 775+1292Hz, verified: '5', match: ✗
-Match 3: '8' -> period [0.998, 1.306]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 3: '8' -> period [0.998, 1.306]s, freqs: 775+1292Hz, verified: '5', match: ✗
 Match 4: '3' -> period [1.329, 1.567]s, freqs: 775+1206Hz, verified: '4', match: ✗
 Match 5: '9' -> period [1.567, 1.736]s, freqs: 775+1206Hz, verified: '4', match: ✗
 Match 6: 'B' -> period [1.736, 1.910]s, freqs: 775+1206Hz, verified: '4', match: ✗
 Match 7: '2' -> period [1.910, 2.061]s, freqs: 775+1292Hz, verified: '5', match: ✗
 Match 8: '3' -> period [2.061, 2.368]s, freqs: 775+1292Hz, verified: '5', match: ✗
 Match 9: '2' -> period [2.490, 2.647]s, freqs: 775+1292Hz, verified: '5', match: ✗
-Match 10: '*' -> period [2.647, 2.804]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 11: 'C' -> period [2.804, 2.949]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 10: '*' -> period [2.647, 2.804]s, freqs: 775+1206Hz, verified: '4', match: ✗
+Match 11: 'C' -> period [2.804, 2.949]s, freqs: 775+1206Hz, verified: '4', match: ✗
 
 ================================================================================
 Results saved to:

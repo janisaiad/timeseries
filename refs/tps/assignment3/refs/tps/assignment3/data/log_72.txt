@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 72
-Timestamp: 2025-12-14T22:19:41.878803
+Timestamp: 2025-12-14T22:27:39.213830
 
 ================================================================================
 Processing Signal 72
@@ -35,7 +35,7 @@ Filtered periods: 17
 
 --- Cell 7: Period-Symbol Matching ---
 Selected 10 periods for 10 symbols
-Match 1: '9' -> period [0.215, 0.284]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 1: '9' -> period [0.215, 0.284]s, freqs: 689+1206Hz, verified: '1', match: ✗
 Match 2: '3' -> period [0.284, 0.551]s, freqs: 689+1206Hz, verified: '1', match: ✗
 Match 3: 'D' -> period [0.586, 0.679]s, freqs: 517+1206Hz, verified: 'None', match: ✗
 Match 4: '1' -> period [0.708, 0.859]s, freqs: 517+1206Hz, verified: 'None', match: ✗
@@ -44,7 +44,7 @@ Match 6: 'D' -> period [1.010, 1.422]s, freqs: 517+1206Hz, verified: 'None', mat
 Match 7: '0' -> period [1.422, 1.503]s, freqs: 517+1206Hz, verified: 'None', match: ✗
 Match 8: '*' -> period [1.503, 1.689]s, freqs: 689+1206Hz, verified: '1', match: ✗
 Match 9: '8' -> period [1.736, 2.223]s, freqs: 517+1206Hz, verified: 'None', match: ✗
-Match 10: '5' -> period [2.258, 2.322]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 10: '5' -> period [2.258, 2.322]s, freqs: 517+1206Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

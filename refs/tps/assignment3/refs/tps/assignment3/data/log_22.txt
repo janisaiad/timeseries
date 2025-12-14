@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 22
-Timestamp: 2025-12-14T22:18:49.294283
+Timestamp: 2025-12-14T22:26:49.348708
 
 ================================================================================
 Processing Signal 22
@@ -35,15 +35,15 @@ Filtered periods: 12
 Selected 11 periods for 11 symbols
 Match 1: 'A' -> period [0.337, 0.406]s, freqs: 947+1292Hz, verified: '0', match: ✗
 Match 2: '*' -> period [0.406, 0.517]s, freqs: 947+1292Hz, verified: '0', match: ✗
-Match 3: '*' -> period [0.517, 0.534]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 3: '*' -> period [0.517, 0.534]s, freqs: 947+1292Hz, verified: '0', match: ✗
 Match 4: 'D' -> period [0.534, 0.668]s, freqs: 947+1292Hz, verified: '0', match: ✗
-Match 5: '7' -> period [0.668, 0.853]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 6: '2' -> period [0.853, 0.964]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 5: '7' -> period [0.668, 0.853]s, freqs: 947+1292Hz, verified: '0', match: ✗
+Match 6: '2' -> period [0.853, 0.964]s, freqs: 947+1292Hz, verified: '0', match: ✗
 Match 7: '2' -> period [0.964, 1.312]s, freqs: 947+1292Hz, verified: '0', match: ✗
-Match 8: 'B' -> period [1.312, 1.324]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 9: '4' -> period [1.324, 1.492]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 10: '2' -> period [1.492, 2.281]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 11: '9' -> period [2.281, 2.432]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 8: 'B' -> period [1.312, 1.324]s, freqs: 947+1292Hz, verified: '0', match: ✗
+Match 9: '4' -> period [1.324, 1.492]s, freqs: 947+1292Hz, verified: '0', match: ✗
+Match 10: '2' -> period [1.492, 2.281]s, freqs: 947+1292Hz, verified: '0', match: ✗
+Match 11: '9' -> period [2.281, 2.432]s, freqs: 947+1292Hz, verified: '0', match: ✗
 
 ================================================================================
 Results saved to:

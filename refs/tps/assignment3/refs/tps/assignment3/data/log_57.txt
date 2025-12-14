@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 57
-Timestamp: 2025-12-14T22:19:32.412307
+Timestamp: 2025-12-14T22:27:29.544290
 
 ================================================================================
 Processing Signal 57
@@ -41,8 +41,8 @@ Match 1: '9' -> period [0.331, 0.499]s, freqs: 517+1206Hz, verified: 'None', mat
 Match 2: '4' -> period [0.499, 0.580]s, freqs: 517+1206Hz, verified: 'None', match: ✗
 Match 3: 'A' -> period [0.685, 0.807]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 4: '5' -> period [0.807, 1.086]s, freqs: 517+1637Hz, verified: 'None', match: ✗
-Match 5: '0' -> period [1.086, 1.219]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 6: '6' -> period [1.219, 1.422]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 5: '0' -> period [1.086, 1.219]s, freqs: 947+1206Hz, verified: '*', match: ✗
+Match 6: '6' -> period [1.219, 1.422]s, freqs: 517+1206Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

@@ -12,7 +12,7 @@
     "D",
     "D"
   ],
-  "timestamp": "2025-12-14T22:19:44.279462",
+  "timestamp": "2025-12-14T22:27:41.889043",
   "success": true,
   "stft_params": {
     "window_length": 256,
@@ -161,7 +161,7 @@
       "assigned_symbol": "D",
       "verified_symbol": null,
       "primary_low_freq": 602.9296875,
-      "primary_high_freq": null,
+      "primary_high_freq": 1205.859375,
       "period_start": 1.5209070294784581,
       "period_end": 2.2291156462585033,
       "period_duration": 0.7082086167800453,

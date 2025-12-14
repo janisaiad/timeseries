@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 78
-Timestamp: 2025-12-14T22:19:47.048730
+Timestamp: 2025-12-14T22:27:44.002192
 
 ================================================================================
 Processing Signal 78
@@ -44,7 +44,7 @@ Match 4: '0' -> period [0.575, 0.662]s, freqs: 517+1464Hz, verified: 'None', mat
 Match 5: '8' -> period [0.737, 1.091]s, freqs: 775+1464Hz, verified: '6', match: ✗
 Match 6: '8' -> period [1.091, 1.434]s, freqs: 775+1464Hz, verified: '6', match: ✗
 Match 7: '4' -> period [1.678, 1.765]s, freqs: 775+1464Hz, verified: '6', match: ✗
-Match 8: '4' -> period [1.765, 1.927]s, freqs: 775+1637Hz, verified: 'B', match: ✗
+Match 8: '4' -> period [1.765, 1.927]s, freqs: 775+1464Hz, verified: '6', match: ✗
 Match 9: 'A' -> period [1.927, 2.107]s, freqs: 775+1637Hz, verified: 'B', match: ✗
 Match 10: 'C' -> period [2.107, 2.241]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 Match 11: '1' -> period [2.351, 2.456]s, freqs: 517+1637Hz, verified: 'None', match: ✗
