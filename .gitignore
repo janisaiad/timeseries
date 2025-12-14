@@ -36,6 +36,3 @@ pip-wheel-metadata/
 .cursorindexingignore
 
 *.csv
-
-# Jupyter notebooks with outputs
-*.ipynb
