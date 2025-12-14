@@ -59,6 +59,25 @@ Describe in 5 to 10 lines your methodology and the calibration procedure (give t
 
 \end{exercise}
 \begin{solution}
+We apply changepoint detection to the time-frequency representation of the signal. 
+First, we compute the STFT to obtain the time-frequency representation. 
+For each frequency bin, we compute the energy by integrating over the time axis.
+
+Since the signal contains significant white noise, we need to identify which frequency bins contain actual signal. 
+We perform k-means clustering (k=2) on the energy values to separate frequency bins with high energy (signal) from those with low energy (noise).
+
+Within the high-energy frequency bins, multiple bins may correspond to the same DTMF frequency due to spectral leakage. 
+We therefore perform a second k-means clustering (k=8) on the frequency values of these high-energy bins to group them into the 8 major DTMF frequency bands (4 low frequencies and 4 high frequencies).
+
+For each of these 8 major frequency clusters, we compute the energy signal from $t=0$ to $t_{\max}$ and apply penalized changepoint detection (PELT algorithm) to identify the boundaries between symbols and silences. 
+The changepoints detected across all frequency bands are then combined to determine the start and end times of each symbol.
+
+This approach is more robust to noise than applying changepoint detection directly on the raw signal, as it leverages the known frequency structure of DTMF signals.
+
+
+
+
+
 
 \end{solution}
 
