@@ -104,21 +104,22 @@ Plot the kernel functions $\hat{g}_m$ for $R=1$, $R=3$ and $R=5$ (take $\lambda_
 \begin{figure}
     \centering
     \begin{minipage}[t]{0.32\textwidth}
-    \centerline{\includegraphics[width=\textwidth]{example-image-golden}}
+    \centerline{\includegraphics[width=\textwidth]{gm_all_m_R1.png}}
     \centerline{(a) $R=1$}
     \end{minipage}
     \hfill
-    \begin{minipage}[t]{0.32\textwidth}    \centerline{\includegraphics[width=\textwidth]{example-image-golden}}
+    \begin{minipage}[t]{0.32\textwidth}    \centerline{\includegraphics[width=\textwidth]{gm_all_m_R3.png}}
     \centerline{(b) $R=3$}
     \end{minipage}
     \hfill
-    \begin{minipage}[t]{0.32\textwidth}    \centerline{\includegraphics[width=\textwidth]{example-image-golden}}
+    \begin{minipage}[t]{0.32\textwidth}    \centerline{\includegraphics[width=\textwidth]{gm_all_m_R5.png}}
     \centerline{(c) $R=5$}
     \end{minipage}
     \caption{The SAGW kernels functions}\label{fig:sagw-kernels}
 \end{figure}
+We can see that as \(R\) increases, the support of the kernels grows (because \(R < M+1\)), and the oscillation frequency decreases. Each kernel spans exactly \(\pi\) radians, forming a single "mountain".
+Also, the kernels get more and more overlapped as \(R\) increases.
 \end{solution}
-
 
 \newpage
 We will study the Molene data set (the one we used in the last tutorial).
@@ -135,14 +136,14 @@ Construct the graph using the distance matrix and exponential smoothing (use the
 \end{exercise}
 
 \begin{solution}
-The stations with missing values are\dots
 
-The threshold is equal to \dots.
+The stations with missing values are ARZAL, BATZ, BEG\_MEIL, BREST-GUIPAVAS, BRIGNOGAN, CAMARET, LANDIVISIAU, LANNAERO, LANVEOC, OUESSANT-STIFF, PLOUAY-SA, PLOUDALMEZEAU, PLOUGONVELIN, QUIMPER, RIEC SUR BELON, SIZUN, ST NAZAIRE-MONTOIR, VANNES-MEUCON.
 
-The signal is the least smooth at\dots
+The threshold is equal 0.8291457286432161. We computed the maximum threshold and not the minimum since for low values of epsilon the condition will be surely met.
 
-The signal is the smoothest at\dots
+The signal is the least smooth at 2014-01-21 06:00:00.
 
+The signal is the smoothest at 2014-01-24 19:00:00.
 \end{solution}
 
 \newpage
