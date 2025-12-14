@@ -1,0 +1,54 @@
+DTMF Detection Log for Signal 55
+Timestamp: 2025-12-14T22:19:30.838136
+
+================================================================================
+Processing Signal 55
+================================================================================
+Signal length: 43061 samples (1.953 seconds)
+Ground truth symbols: ['6', '6', '7', '#', 'C', '3', '4', '0']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 338)
+Frequency bins: 129, Time frames: 338
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 16
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 4
+  Cluster 0: center=559.9 Hz, n_bins=2
+  Cluster 1: center=818.3 Hz, n_bins=2
+  Cluster 2: center=1076.7 Hz, n_bins=2
+  Cluster 3: center=1464.3 Hz, n_bins=4
+
+--- Cell 4: Changepoint Detection ---
+Cluster 4: selected freq 516.8 Hz with 7 CPs
+Cluster 2: selected freq 775.2 Hz with 6 CPs
+Cluster 3: selected freq 1205.9 Hz with 5 CPs
+Cluster 0: selected freq 1378.1 Hz with 4 CPs
+
+Low frequency clusters: 2
+High frequency clusters: 2
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 21
+Removed outliers: 0
+Filtered periods: 21
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 8 periods for 8 symbols
+Match 1: '6' -> period [0.151, 0.360]s, freqs: 775+1378Hz, verified: '5', match: ✗
+Match 2: '6' -> period [0.360, 0.476]s, freqs: 775+1206Hz, verified: '4', match: ✗
+Match 3: '7' -> period [0.505, 0.575]s, freqs: 775+1206Hz, verified: '4', match: ✗
+Match 4: '#' -> period [0.679, 1.300]s, freqs: 775+1378Hz, verified: '5', match: ✗
+Match 5: 'C' -> period [1.318, 1.399]s, freqs: 775+1378Hz, verified: '5', match: ✗
+Match 6: '3' -> period [1.445, 1.503]s, freqs: 517+1378Hz, verified: 'None', match: ✗
+Match 7: '4' -> period [1.602, 1.666]s, freqs: 775+1378Hz, verified: '5', match: ✗
+Match 8: '0' -> period [1.666, 1.800]s, freqs: 775+1378Hz, verified: '5', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_55.npz
+  JSON: refs/tps/assignment3/data/results_55.json
+  Log: refs/tps/assignment3/data/log_55.txt
+================================================================================

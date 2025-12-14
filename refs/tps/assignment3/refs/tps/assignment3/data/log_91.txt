@@ -1,0 +1,43 @@
+DTMF Detection Log for Signal 91
+Timestamp: 2025-12-14T22:20:04.183796
+
+================================================================================
+Processing Signal 91
+================================================================================
+Signal length: 28352 samples (1.286 seconds)
+Ground truth symbols: ['4', '5', '*', '6', '*']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 223)
+Frequency bins: 129, Time frames: 223
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 9
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 1
+  Cluster 0: center=861.3 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 3: selected freq 947.5 Hz with 4 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 0
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 3
+Removed outliers: 0
+Filtered periods: 3
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 3 periods for 5 symbols
+Match 1: '4' -> period [0.610, 0.714]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: '5' -> period [0.714, 0.940]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 3: '*' -> period [0.940, 1.109]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_91.npz
+  JSON: refs/tps/assignment3/data/results_91.json
+  Log: refs/tps/assignment3/data/log_91.txt
+================================================================================

@@ -1,0 +1,54 @@
+DTMF Detection Log for Signal 93
+Timestamp: 2025-12-14T22:20:04.425898
+
+================================================================================
+Processing Signal 93
+================================================================================
+Signal length: 54724 samples (2.482 seconds)
+Ground truth symbols: ['2', '2', '9', '4', '9', '2', '3', 'A', 'B', '4']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 429)
+Frequency bins: 129, Time frames: 429
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 12
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 3
+  Cluster 0: center=732.1 Hz, n_bins=2
+  Cluster 1: center=1378.1 Hz, n_bins=3
+  Cluster 2: center=1593.5 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 4: selected freq 861.3 Hz with 8 CPs
+Cluster 3: selected freq 1378.1 Hz with 6 CPs
+Cluster 7: selected freq 1636.5 Hz with 6 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 2
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 19
+Removed outliers: 0
+Filtered periods: 19
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 10 periods for 10 symbols
+Match 1: '2' -> period [0.087, 0.221]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: '2' -> period [0.221, 0.383]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 3: '9' -> period [0.476, 0.592]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 4: '4' -> period [0.662, 1.120]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 5: '9' -> period [1.120, 1.225]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 6: '2' -> period [1.225, 1.353]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 7: '3' -> period [1.382, 1.521]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 8: 'A' -> period [1.521, 1.631]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 9: 'B' -> period [1.643, 1.962]s, freqs: 861+1637Hz, verified: 'C', match: ✗
+Match 10: '4' -> period [2.061, 2.171]s, freqs: 861+1637Hz, verified: 'C', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_93.npz
+  JSON: refs/tps/assignment3/data/results_93.json
+  Log: refs/tps/assignment3/data/log_93.txt
+================================================================================

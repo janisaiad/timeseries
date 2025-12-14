@@ -1,0 +1,32 @@
+{
+  "signal_idx": 36,
+  "signal_length": 29044,
+  "ground_truth_symbols": [
+    "8",
+    "A",
+    "2",
+    "2",
+    "A",
+    "1"
+  ],
+  "timestamp": "2025-12-14T22:19:04.544957",
+  "success": false,
+  "stft_params": {
+    "window_length": 256,
+    "overlap": 128,
+    "frame_step": 128
+  },
+  "freq_clustering": {
+    "n_clusters": 0,
+    "cluster_centers": []
+  },
+  "changepoints_summary": [],
+  "period_analysis": {
+    "n_original_periods": 0,
+    "n_filtered_periods": 0,
+    "n_removed_outliers": 0,
+    "statistics": {}
+  },
+  "matches": [],
+  "error": "index -1 is out of bounds for axis 0 with size 0"
+}

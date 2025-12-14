@@ -1,0 +1,114 @@
+{
+  "signal_idx": 58,
+  "signal_length": 21643,
+  "ground_truth_symbols": [
+    "7",
+    "A",
+    "0",
+    "1"
+  ],
+  "timestamp": "2025-12-14T22:19:33.579944",
+  "success": true,
+  "stft_params": {
+    "window_length": 256,
+    "overlap": 128,
+    "frame_step": 128
+  },
+  "freq_clustering": {
+    "n_clusters": 3,
+    "cluster_centers": [
+      689.0625,
+      1119.7265625,
+      1248.92578125
+    ]
+  },
+  "changepoints_summary": [
+    {
+      "cluster_id": 6,
+      "selected_freq": 602.9296875,
+      "n_changepoints": 3,
+      "changepoints": [
+        12288,
+        14464,
+        15104
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "selected_freq": 1378.125,
+      "n_changepoints": 4,
+      "changepoints": [
+        10368,
+        10624,
+        11776,
+        14720
+      ]
+    },
+    {
+      "cluster_id": 0,
+      "selected_freq": 1291.9921875,
+      "n_changepoints": 2,
+      "changepoints": [
+        12160,
+        14720
+      ]
+    }
+  ],
+  "period_analysis": {
+    "n_original_periods": 7,
+    "n_filtered_periods": 7,
+    "n_removed_outliers": 0,
+    "statistics": {
+      "q25": 0.011609977324263039,
+      "q75": 0.034829931972789115,
+      "iqr": 0.023219954648526074,
+      "lower_bound": -0.023219954648526067
+    }
+  },
+  "matches": [
+    {
+      "match_index": 0,
+      "assigned_symbol": "7",
+      "verified_symbol": null,
+      "primary_low_freq": 602.9296875,
+      "primary_high_freq": 1291.9921875,
+      "period_start": 0.4818140589569161,
+      "period_end": 0.5340589569160997,
+      "period_duration": 0.052244897959183675,
+      "symbol_match": false
+    },
+    {
+      "match_index": 1,
+      "assigned_symbol": "A",
+      "verified_symbol": null,
+      "primary_low_freq": 602.9296875,
+      "primary_high_freq": 1378.125,
+      "period_start": 0.5340589569160997,
+      "period_end": 0.5514739229024943,
+      "period_duration": 0.017414965986394557,
+      "symbol_match": false
+    },
+    {
+      "match_index": 2,
+      "assigned_symbol": "0",
+      "verified_symbol": null,
+      "primary_low_freq": 602.9296875,
+      "primary_high_freq": 1378.125,
+      "period_start": 0.5572789115646258,
+      "period_end": 0.6559637188208617,
+      "period_duration": 0.09868480725623582,
+      "symbol_match": false
+    },
+    {
+      "match_index": 3,
+      "assigned_symbol": "1",
+      "verified_symbol": null,
+      "primary_low_freq": 602.9296875,
+      "primary_high_freq": 1291.9921875,
+      "period_start": 0.6675736961451247,
+      "period_end": 0.6849886621315193,
+      "period_duration": 0.017414965986394557,
+      "symbol_match": false
+    }
+  ]
+}

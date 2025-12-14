@@ -1,0 +1,56 @@
+DTMF Detection Log for Signal 20
+Timestamp: 2025-12-14T22:18:46.423241
+
+================================================================================
+Processing Signal 20
+================================================================================
+Signal length: 54216 samples (2.459 seconds)
+Ground truth symbols: ['D', '2', '6', '8', '8', '3', '*', '2', 'D', '*']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 425)
+Frequency bins: 129, Time frames: 425
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 14
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 4
+  Cluster 0: center=559.9 Hz, n_bins=2
+  Cluster 1: center=818.3 Hz, n_bins=2
+  Cluster 2: center=1263.3 Hz, n_bins=3
+  Cluster 3: center=1378.1 Hz, n_bins=3
+
+--- Cell 4: Changepoint Detection ---
+Cluster 6: selected freq 516.8 Hz with 6 CPs
+Cluster 3: selected freq 775.2 Hz with 7 CPs
+Cluster 0: selected freq 1205.9 Hz with 5 CPs
+Cluster 5: selected freq 1464.3 Hz with 5 CPs
+
+Low frequency clusters: 2
+High frequency clusters: 2
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 19
+Removed outliers: 0
+Filtered periods: 19
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 10 periods for 10 symbols
+Match 1: 'D' -> period [0.551, 0.586]s, freqs: 517+1464Hz, verified: 'None', match: ✗
+Match 2: '2' -> period [0.586, 0.662]s, freqs: 517+1464Hz, verified: 'None', match: ✗
+Match 3: '6' -> period [0.714, 1.213]s, freqs: 775+1464Hz, verified: '6', match: ✓
+Match 4: '8' -> period [1.213, 1.358]s, freqs: 775+1464Hz, verified: '6', match: ✗
+Match 5: '8' -> period [1.358, 1.416]s, freqs: 775+1464Hz, verified: '6', match: ✗
+Match 6: '3' -> period [1.416, 1.503]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 7: '*' -> period [1.527, 1.625]s, freqs: 775+1206Hz, verified: '4', match: ✗
+Match 8: '2' -> period [1.625, 2.200]s, freqs: 775+1206Hz, verified: '4', match: ✗
+Match 9: 'D' -> period [2.223, 2.264]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 10: '*' -> period [2.264, 2.339]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_20.npz
+  JSON: refs/tps/assignment3/data/results_20.json
+  Log: refs/tps/assignment3/data/log_20.txt
+================================================================================

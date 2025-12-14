@@ -1,0 +1,51 @@
+DTMF Detection Log for Signal 80
+Timestamp: 2025-12-14T22:19:52.341806
+
+================================================================================
+Processing Signal 80
+================================================================================
+Signal length: 36196 samples (1.642 seconds)
+Ground truth symbols: ['1', '2', '*', '3', '8', '1', '9']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 284)
+Frequency bins: 129, Time frames: 284
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 11
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 3
+  Cluster 0: center=775.2 Hz, n_bins=2
+  Cluster 1: center=861.3 Hz, n_bins=2
+  Cluster 2: center=1421.2 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 2: selected freq 861.3 Hz with 6 CPs
+Cluster 0: selected freq 947.5 Hz with 3 CPs
+Cluster 4: selected freq 1378.1 Hz with 4 CPs
+
+Low frequency clusters: 2
+High frequency clusters: 1
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 10
+Removed outliers: 0
+Filtered periods: 10
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 7 periods for 7 symbols
+Match 1: '1' -> period [0.279, 0.383]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: '2' -> period [0.383, 0.511]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 3: '*' -> period [0.546, 0.662]s, freqs: 947+1378Hz, verified: '0', match: ✗
+Match 4: '3' -> period [0.662, 0.993]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 5: '8' -> period [0.993, 1.155]s, freqs: 861+1378Hz, verified: '8', match: ✓
+Match 6: '1' -> period [1.161, 1.434]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 7: '9' -> period [1.434, 1.509]s, freqs: 861+1378Hz, verified: '8', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_80.npz
+  JSON: refs/tps/assignment3/data/results_80.json
+  Log: refs/tps/assignment3/data/log_80.txt
+================================================================================

@@ -1,0 +1,29 @@
+{
+  "signal_idx": 92,
+  "signal_length": 20578,
+  "ground_truth_symbols": [
+    "7",
+    "1",
+    "4"
+  ],
+  "timestamp": "2025-12-14T22:20:04.386595",
+  "success": false,
+  "stft_params": {
+    "window_length": 256,
+    "overlap": 128,
+    "frame_step": 128
+  },
+  "freq_clustering": {
+    "n_clusters": 0,
+    "cluster_centers": []
+  },
+  "changepoints_summary": [],
+  "period_analysis": {
+    "n_original_periods": 0,
+    "n_filtered_periods": 0,
+    "n_removed_outliers": 0,
+    "statistics": {}
+  },
+  "matches": [],
+  "error": "n_samples=6 should be >= n_clusters=8."
+}

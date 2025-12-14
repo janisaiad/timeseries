@@ -59,20 +59,41 @@ Describe in 5 to 10 lines your methodology and the calibration procedure (give t
 
 \end{exercise}
 \begin{solution}
-We apply changepoint detection to the time-frequency representation of the signal. 
-First, we compute the STFT to obtain the time-frequency representation. 
-For each frequency bin, we compute the energy by integrating over the time axis.
+We apply changepoint detection to the time-frequency representation of the signal to identify symbol boundaries and classify each segment. 
+The complete procedure consists of the following steps:
 
-Since the signal contains significant white noise, we need to identify which frequency bins contain actual signal. 
-We perform k-means clustering (k=2) on the energy values to separate frequency bins with high energy (signal) from those with low energy (noise).
+\textbf{Step 1: Time-Frequency Representation.} 
+We compute the Short-Time Fourier Transform (STFT) with window length $256$ samples and overlap $128$ samples (sampling frequency $f_s = 22050$ Hz). 
+For each frequency bin, we compute the energy by integrating the squared magnitude over the time axis: $E(f) = \sum_t |Z(f,t)|^2$.
 
+\textbf{Step 2: Signal-Noise Separation.} 
+Since the signal contains significant white noise, we perform k-means clustering ($k=2$) on the energy values to separate frequency bins with high energy (signal) from those with low energy (noise). 
+We retain only the high-energy bins for further processing.
+
+\textbf{Step 3: Frequency Clustering.} 
 Within the high-energy frequency bins, multiple bins may correspond to the same DTMF frequency due to spectral leakage. 
-We therefore perform a second k-means clustering (k=8) on the frequency values of these high-energy bins to group them into the 8 major DTMF frequency bands (4 low frequencies and 4 high frequencies).
+We perform a second k-means clustering ($k=8$) on the 2D feature space $(f, E(f))$ combining frequency and energy to group bins into the 8 major DTMF frequency bands (4 low frequencies: 697, 770, 852, 941 Hz; 4 high frequencies: 1209, 1336, 1477, 1633 Hz). 
+We filter out clusters containing only a single frequency bin or frequencies outside the DTMF range $[500, 1800]$ Hz.
 
-For each of these 8 major frequency clusters, we compute the energy signal from $t=0$ to $t_{\max}$ and apply penalized changepoint detection (PELT algorithm) to identify the boundaries between symbols and silences. 
-The changepoints detected across all frequency bands are then combined to determine the start and end times of each symbol.
+\textbf{Step 4: Changepoint Detection.} 
+For each frequency cluster, we compute the energy signal $E(t)$ by integrating over the frequency bins in that cluster. 
+Since DTMF signals are dual-tone (simultaneous low and high frequencies), we apply changepoint detection on each frequency bin within a cluster and select the bin with the minimum number of changepoints as the representative (the dual-tone nature makes one frequency more stable). 
+We use the PELT algorithm with BIC penalty $\beta = 2\sigma^2 \log(T)$, where $\sigma^2$ is estimated from the signal variance and $T$ is the signal length.
 
-This approach is more robust to noise than applying changepoint detection directly on the raw signal, as it leverages the known frequency structure of DTMF signals.
+\textbf{Step 5: Period Extraction and Filtering.} 
+We combine all changepoints from all frequency clusters, order them chronologically, and extract time periods between consecutive changepoints. 
+We compute the distribution of gap durations (silences between symbols) and remove lower outliers using the IQR method, ensuring that the total duration of remaining periods exceeds $0.4$ seconds (a calibration threshold).
+
+\textbf{Step 6: Period-Symbol Matching.} 
+Given $N$ ground truth symbols, we select the $N$ largest periods by duration, order them chronologically, and match them one-to-one with the ground truth symbols in temporal order.
+
+\textbf{Step 7: Frequency Pair Detection and Symbol Verification.} 
+For each matched period, we identify the active low and high frequencies by checking which clusters have changepoints near the period boundaries (tolerance: 2000 samples) or by verifying energy levels above a threshold (ratio $0.1$ of maximum energy). 
+We map the detected frequency pair to a DTMF symbol using the standard DTMF frequency table and compare it with the assigned ground truth symbol.
+
+\textbf{Hyperparameters:} STFT window length $256$, overlap $128$, energy clustering $k=2$, frequency clustering $k=8$, BIC penalty coefficient $2\sigma^2 \log(T)$, minimum total period duration $0.4$ s, changepoint matching tolerance $2000$ samples, energy threshold ratio $0.1$.
+
+This approach is more robust to noise than applying changepoint detection directly on the raw signal, as it leverages the known frequency structure of DTMF signals and the dual-tone property to improve changepoint detection accuracy.
 
 
 

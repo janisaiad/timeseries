@@ -1,0 +1,43 @@
+DTMF Detection Log for Signal 26
+Timestamp: 2025-12-14T22:18:56.039658
+
+================================================================================
+Processing Signal 26
+================================================================================
+Signal length: 22740 samples (1.031 seconds)
+Ground truth symbols: ['9', '6', '4']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 179)
+Frequency bins: 129, Time frames: 179
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 7
+
+--- Cell 3: Second k-means (k=8) ---
+
+ERROR processing signal 26: n_samples=7 should be >= n_clusters=8.
+Traceback (most recent call last):
+  File "/tmp/ipykernel_507368/1341782408.py", line 84, in process_single_signal
+    freq_cluster_labels = kmeans_freq.fit_predict(features_2d)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py", line 1064, in fit_predict
+    return self.fit(X, sample_weight=sample_weight).labels_
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/base.py", line 1365, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py", line 1464, in fit
+    self._check_params_vs_input(X)
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py", line 1404, in _check_params_vs_input
+    super()._check_params_vs_input(X, default_n_init=10)
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py", line 871, in _check_params_vs_input
+    raise ValueError(
+ValueError: n_samples=7 should be >= n_clusters=8.
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_26.npz
+  JSON: refs/tps/assignment3/data/results_26.json
+  Log: refs/tps/assignment3/data/log_26.txt
+================================================================================

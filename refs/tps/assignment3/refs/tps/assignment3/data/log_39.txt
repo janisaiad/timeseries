@@ -1,0 +1,49 @@
+DTMF Detection Log for Signal 39
+Timestamp: 2025-12-14T22:19:09.537126
+
+================================================================================
+Processing Signal 39
+================================================================================
+Signal length: 49041 samples (2.224 seconds)
+Ground truth symbols: ['9', 'A', '0', '8', '*', '8', '8']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 385)
+Frequency bins: 129, Time frames: 385
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 11
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 2
+  Cluster 0: center=1335.1 Hz, n_bins=2
+  Cluster 1: center=1550.4 Hz, n_bins=3
+
+--- Cell 4: Changepoint Detection ---
+Cluster 0: selected freq 1292.0 Hz with 7 CPs
+Cluster 1: selected freq 1636.5 Hz with 2 CPs
+
+Low frequency clusters: 0
+High frequency clusters: 2
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 8
+Removed outliers: 1
+Filtered periods: 7
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 7 periods for 7 symbols
+Match 1: '9' -> period [0.493, 0.621]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: 'A' -> period [0.621, 0.766]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 3: '0' -> period [0.778, 0.877]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 4: '8' -> period [0.877, 1.010]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 5: '*' -> period [1.010, 1.196]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 6: '8' -> period [1.196, 1.678]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 7: '8' -> period [1.678, 1.846]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_39.npz
+  JSON: refs/tps/assignment3/data/results_39.json
+  Log: refs/tps/assignment3/data/log_39.txt
+================================================================================

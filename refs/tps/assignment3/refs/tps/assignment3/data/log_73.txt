@@ -1,0 +1,53 @@
+DTMF Detection Log for Signal 73
+Timestamp: 2025-12-14T22:19:43.386617
+
+================================================================================
+Processing Signal 73
+================================================================================
+Signal length: 35783 samples (1.623 seconds)
+Ground truth symbols: ['2', '9', 'B', '9', '8', '5', '1']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 281)
+Frequency bins: 129, Time frames: 281
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 12
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 4
+  Cluster 0: center=559.9 Hz, n_bins=2
+  Cluster 1: center=818.3 Hz, n_bins=2
+  Cluster 2: center=1421.2 Hz, n_bins=2
+  Cluster 3: center=1593.5 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 3: selected freq 516.8 Hz with 4 CPs
+Cluster 1: selected freq 861.3 Hz with 6 CPs
+Cluster 6: selected freq 1464.3 Hz with 4 CPs
+Cluster 5: selected freq 1636.5 Hz with 2 CPs
+
+Low frequency clusters: 2
+High frequency clusters: 2
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 15
+Removed outliers: 0
+Filtered periods: 15
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 7 periods for 7 symbols
+Match 1: '2' -> period [0.238, 0.412]s, freqs: 861+1464Hz, verified: '9', match: ✗
+Match 2: '9' -> period [0.424, 0.586]s, freqs: 861+1637Hz, verified: 'C', match: ✗
+Match 3: 'B' -> period [0.766, 0.917]s, freqs: 861+1464Hz, verified: '9', match: ✗
+Match 4: '9' -> period [0.987, 1.062]s, freqs: 861+1464Hz, verified: '9', match: ✓
+Match 5: '8' -> period [1.062, 1.196]s, freqs: 861+1464Hz, verified: '9', match: ✗
+Match 6: '5' -> period [1.196, 1.428]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 7: '1' -> period [1.428, 1.503]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_73.npz
+  JSON: refs/tps/assignment3/data/results_73.json
+  Log: refs/tps/assignment3/data/log_73.txt
+================================================================================

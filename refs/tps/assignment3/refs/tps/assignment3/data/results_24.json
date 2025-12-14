@@ -1,0 +1,232 @@
+{
+  "signal_idx": 24,
+  "signal_length": 60462,
+  "ground_truth_symbols": [
+    "1",
+    "2",
+    "4",
+    "D",
+    "9",
+    "1",
+    "C",
+    "7",
+    "9"
+  ],
+  "timestamp": "2025-12-14T22:18:52.179247",
+  "success": true,
+  "stft_params": {
+    "window_length": 256,
+    "overlap": 128,
+    "frame_step": 128
+  },
+  "freq_clustering": {
+    "n_clusters": 6,
+    "cluster_centers": [
+      559.86328125,
+      732.12890625,
+      1033.59375,
+      1033.59375,
+      1464.2578125,
+      1464.2578125
+    ]
+  },
+  "changepoints_summary": [
+    {
+      "cluster_id": 4,
+      "selected_freq": 516.796875,
+      "n_changepoints": 7,
+      "changepoints": [
+        12928,
+        14976,
+        31360,
+        33152,
+        49664,
+        50944,
+        51584
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "selected_freq": 689.0625,
+      "n_changepoints": 6,
+      "changepoints": [
+        4096,
+        7552,
+        11264,
+        14464,
+        32512,
+        36096
+      ]
+    },
+    {
+      "cluster_id": 0,
+      "selected_freq": 947.4609375,
+      "n_changepoints": 6,
+      "changepoints": [
+        22656,
+        25728,
+        29824,
+        30080,
+        52608,
+        53120
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "selected_freq": 861.328125,
+      "n_changepoints": 10,
+      "changepoints": [
+        29568,
+        30080,
+        30336,
+        40448,
+        42368,
+        44288,
+        47488,
+        52608,
+        52864,
+        56576
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "selected_freq": 1378.125,
+      "n_changepoints": 8,
+      "changepoints": [
+        10496,
+        14336,
+        17024,
+        17280,
+        35456,
+        35712,
+        53760,
+        54144
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "selected_freq": 1291.9921875,
+      "n_changepoints": 6,
+      "changepoints": [
+        10624,
+        14336,
+        35200,
+        35584,
+        45824,
+        47744
+      ]
+    }
+  ],
+  "period_analysis": {
+    "n_original_periods": 39,
+    "n_filtered_periods": 39,
+    "n_removed_outliers": 0,
+    "statistics": {
+      "q25": 0.011609977324263039,
+      "q75": 0.08707482993197278,
+      "iqr": 0.07546485260770974,
+      "lower_bound": -0.10158730158730157
+    }
+  },
+  "matches": [
+    {
+      "match_index": 0,
+      "assigned_symbol": "1",
+      "verified_symbol": "2",
+      "primary_low_freq": 689.0625,
+      "primary_high_freq": 1291.9921875,
+      "period_start": 0.18575963718820862,
+      "period_end": 0.34249433106575966,
+      "period_duration": 0.156734693877551,
+      "symbol_match": false
+    },
+    {
+      "match_index": 1,
+      "assigned_symbol": "2",
+      "verified_symbol": "2",
+      "primary_low_freq": 689.0625,
+      "primary_high_freq": 1378.125,
+      "period_start": 0.34249433106575966,
+      "period_end": 0.47600907029478456,
+      "period_duration": 0.13351473922902493,
+      "symbol_match": true
+    },
+    {
+      "match_index": 2,
+      "assigned_symbol": "4",
+      "verified_symbol": "2",
+      "primary_low_freq": 689.0625,
+      "primary_high_freq": 1378.125,
+      "period_start": 0.6791836734693878,
+      "period_end": 0.7720634920634921,
+      "period_duration": 0.09287981859410431,
+      "symbol_match": false
+    },
+    {
+      "match_index": 3,
+      "assigned_symbol": "D",
+      "verified_symbol": "0",
+      "primary_low_freq": 947.4609375,
+      "primary_high_freq": 1291.9921875,
+      "period_start": 0.7836734693877551,
+      "period_end": 1.0274829931972789,
+      "period_duration": 0.2438095238095238,
+      "symbol_match": false
+    },
+    {
+      "match_index": 4,
+      "assigned_symbol": "9",
+      "verified_symbol": "0",
+      "primary_low_freq": 947.4609375,
+      "primary_high_freq": 1378.125,
+      "period_start": 1.0274829931972789,
+      "period_end": 1.1668027210884353,
+      "period_duration": 0.13931972789115646,
+      "symbol_match": false
+    },
+    {
+      "match_index": 5,
+      "assigned_symbol": "1",
+      "verified_symbol": "0",
+      "primary_low_freq": 947.4609375,
+      "primary_high_freq": 1378.125,
+      "period_start": 1.1668027210884353,
+      "period_end": 1.340952380952381,
+      "period_duration": 0.17414965986394557,
+      "symbol_match": false
+    },
+    {
+      "match_index": 6,
+      "assigned_symbol": "C",
+      "verified_symbol": "2",
+      "primary_low_freq": 689.0625,
+      "primary_high_freq": 1291.9921875,
+      "period_start": 1.5034920634920634,
+      "period_end": 1.5963718820861679,
+      "period_duration": 0.09287981859410431,
+      "symbol_match": false
+    },
+    {
+      "match_index": 7,
+      "assigned_symbol": "7",
+      "verified_symbol": null,
+      "primary_low_freq": 516.796875,
+      "primary_high_freq": 1378.125,
+      "period_start": 1.6370068027210884,
+      "period_end": 1.8343764172335602,
+      "period_duration": 0.19736961451247165,
+      "symbol_match": false
+    },
+    {
+      "match_index": 8,
+      "assigned_symbol": "9",
+      "verified_symbol": "8",
+      "primary_low_freq": 861.328125,
+      "primary_high_freq": 1378.125,
+      "period_start": 2.455510204081633,
+      "period_end": 2.5658049886621317,
+      "period_duration": 0.11029478458049886,
+      "symbol_match": false
+    }
+  ]
+}

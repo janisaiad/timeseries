@@ -1,0 +1,41 @@
+DTMF Detection Log for Signal 50
+Timestamp: 2025-12-14T22:19:25.996550
+
+================================================================================
+Processing Signal 50
+================================================================================
+Signal length: 14735 samples (0.668 seconds)
+Ground truth symbols: ['A', '6', '3']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 117)
+Frequency bins: 129, Time frames: 117
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 9
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 1
+  Cluster 0: center=559.9 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 3: selected freq 516.8 Hz with 2 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 0
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 1
+Removed outliers: 0
+Filtered periods: 1
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 1 periods for 3 symbols
+Match 1: 'A' -> period [0.586, 0.662]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_50.npz
+  JSON: refs/tps/assignment3/data/results_50.json
+  Log: refs/tps/assignment3/data/log_50.txt
+================================================================================

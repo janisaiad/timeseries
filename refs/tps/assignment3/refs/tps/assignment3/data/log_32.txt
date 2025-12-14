@@ -1,0 +1,51 @@
+DTMF Detection Log for Signal 32
+Timestamp: 2025-12-14T22:19:01.343332
+
+================================================================================
+Processing Signal 32
+================================================================================
+Signal length: 34447 samples (1.562 seconds)
+Ground truth symbols: ['#', '5', 'D', '3', '4']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 271)
+Frequency bins: 129, Time frames: 271
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 13
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 4
+  Cluster 0: center=660.4 Hz, n_bins=3
+  Cluster 1: center=1335.1 Hz, n_bins=2
+  Cluster 2: center=1335.1 Hz, n_bins=2
+  Cluster 3: center=1593.5 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 4: selected freq 516.8 Hz with 4 CPs
+Cluster 0: selected freq 1378.1 Hz with 4 CPs
+Cluster 3: selected freq 1205.9 Hz with 4 CPs
+Cluster 5: selected freq 1636.5 Hz with 3 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 3
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 14
+Removed outliers: 0
+Filtered periods: 14
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 5 periods for 5 symbols
+Match 1: '#' -> period [0.308, 0.412]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: '5' -> period [0.598, 0.673]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+Match 3: 'D' -> period [0.772, 1.202]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 4: '3' -> period [1.202, 1.382]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 5: '4' -> period [1.411, 1.503]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_32.npz
+  JSON: refs/tps/assignment3/data/results_32.json
+  Log: refs/tps/assignment3/data/log_32.txt
+================================================================================

@@ -1,0 +1,53 @@
+DTMF Detection Log for Signal 22
+Timestamp: 2025-12-14T22:18:49.294283
+
+================================================================================
+Processing Signal 22
+================================================================================
+Signal length: 61767 samples (2.801 seconds)
+Ground truth symbols: ['A', '*', '*', 'D', '7', '2', '2', 'B', '4', '2', '9']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 484)
+Frequency bins: 129, Time frames: 484
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 10
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 2
+  Cluster 0: center=861.3 Hz, n_bins=2
+  Cluster 1: center=1248.9 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 4: selected freq 947.5 Hz with 7 CPs
+Cluster 0: selected freq 1292.0 Hz with 6 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 1
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 12
+Removed outliers: 0
+Filtered periods: 12
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 11 periods for 11 symbols
+Match 1: 'A' -> period [0.337, 0.406]s, freqs: 947+1292Hz, verified: '0', match: ✗
+Match 2: '*' -> period [0.406, 0.517]s, freqs: 947+1292Hz, verified: '0', match: ✗
+Match 3: '*' -> period [0.517, 0.534]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 4: 'D' -> period [0.534, 0.668]s, freqs: 947+1292Hz, verified: '0', match: ✗
+Match 5: '7' -> period [0.668, 0.853]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 6: '2' -> period [0.853, 0.964]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 7: '2' -> period [0.964, 1.312]s, freqs: 947+1292Hz, verified: '0', match: ✗
+Match 8: 'B' -> period [1.312, 1.324]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 9: '4' -> period [1.324, 1.492]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 10: '2' -> period [1.492, 2.281]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 11: '9' -> period [2.281, 2.432]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_22.npz
+  JSON: refs/tps/assignment3/data/results_22.json
+  Log: refs/tps/assignment3/data/log_22.txt
+================================================================================

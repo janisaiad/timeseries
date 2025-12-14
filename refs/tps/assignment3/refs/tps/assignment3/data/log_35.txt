@@ -1,0 +1,51 @@
+DTMF Detection Log for Signal 35
+Timestamp: 2025-12-14T22:19:02.922976
+
+================================================================================
+Processing Signal 35
+================================================================================
+Signal length: 70095 samples (3.179 seconds)
+Ground truth symbols: ['5', '*', '*', '4', '2', '4', '*', '1', '2', '*']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 549)
+Frequency bins: 129, Time frames: 549
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 10
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 2
+  Cluster 0: center=861.3 Hz, n_bins=2
+  Cluster 1: center=990.5 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 3: selected freq 775.2 Hz with 6 CPs
+Cluster 0: selected freq 1119.7 Hz with 4 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 1
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 9
+Removed outliers: 0
+Filtered periods: 9
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 9 periods for 10 symbols
+Match 1: '5' -> period [0.209, 0.267]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: '*' -> period [0.267, 0.737]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+Match 3: '*' -> period [0.737, 0.749]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+Match 4: '4' -> period [0.749, 0.842]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+Match 5: '2' -> period [0.842, 0.975]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+Match 6: '4' -> period [0.975, 1.318]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+Match 7: '*' -> period [1.318, 1.492]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+Match 8: '1' -> period [1.492, 2.148]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+Match 9: '2' -> period [2.148, 2.188]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_35.npz
+  JSON: refs/tps/assignment3/data/results_35.json
+  Log: refs/tps/assignment3/data/log_35.txt
+================================================================================

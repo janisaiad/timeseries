@@ -1,0 +1,45 @@
+DTMF Detection Log for Signal 98
+Timestamp: 2025-12-14T22:20:09.201168
+
+================================================================================
+Processing Signal 98
+================================================================================
+Signal length: 21837 samples (0.990 seconds)
+Ground truth symbols: ['6', 'A', '7']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 172)
+Frequency bins: 129, Time frames: 172
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 11
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 2
+  Cluster 0: center=732.1 Hz, n_bins=2
+  Cluster 1: center=1507.3 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 7: selected freq 689.1 Hz with 4 CPs
+Cluster 0: selected freq 1464.3 Hz with 3 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 1
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 6
+Removed outliers: 0
+Filtered periods: 6
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 3 periods for 3 symbols
+Match 1: '6' -> period [0.250, 0.331]s, freqs: 689+1464Hz, verified: '3', match: ✗
+Match 2: 'A' -> period [0.331, 0.499]s, freqs: 689+1464Hz, verified: '3', match: ✗
+Match 3: '7' -> period [0.499, 0.685]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_98.npz
+  JSON: refs/tps/assignment3/data/results_98.json
+  Log: refs/tps/assignment3/data/log_98.txt
+================================================================================

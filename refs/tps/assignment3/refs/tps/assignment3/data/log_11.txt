@@ -1,0 +1,43 @@
+DTMF Detection Log for Signal 11
+Timestamp: 2025-12-14T22:18:37.672000
+
+================================================================================
+Processing Signal 11
+================================================================================
+Signal length: 23060 samples (1.046 seconds)
+Ground truth symbols: ['8', 'A', '#', '3', '4']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 182)
+Frequency bins: 129, Time frames: 182
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 9
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 1
+  Cluster 0: center=818.3 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 3: selected freq 775.2 Hz with 4 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 0
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 3
+Removed outliers: 0
+Filtered periods: 3
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 3 periods for 5 symbols
+Match 1: '8' -> period [0.697, 0.720]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: 'A' -> period [0.720, 0.946]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 3: '#' -> period [0.946, 0.993]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_11.npz
+  JSON: refs/tps/assignment3/data/results_11.json
+  Log: refs/tps/assignment3/data/log_11.txt
+================================================================================

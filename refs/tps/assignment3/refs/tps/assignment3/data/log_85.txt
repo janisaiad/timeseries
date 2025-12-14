@@ -1,0 +1,53 @@
+DTMF Detection Log for Signal 85
+Timestamp: 2025-12-14T22:19:58.473350
+
+================================================================================
+Processing Signal 85
+================================================================================
+Signal length: 37459 samples (1.699 seconds)
+Ground truth symbols: ['5', 'D', '#', '*', '*', 'C', 'A']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 294)
+Frequency bins: 129, Time frames: 294
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 15
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 4
+  Cluster 0: center=559.9 Hz, n_bins=2
+  Cluster 1: center=775.2 Hz, n_bins=3
+  Cluster 2: center=1248.9 Hz, n_bins=2
+  Cluster 3: center=1464.3 Hz, n_bins=3
+
+--- Cell 4: Changepoint Detection ---
+Cluster 6: selected freq 516.8 Hz with 4 CPs
+Cluster 3: selected freq 861.3 Hz with 3 CPs
+Cluster 5: selected freq 1205.9 Hz with 4 CPs
+Cluster 4: selected freq 1550.4 Hz with 5 CPs
+
+Low frequency clusters: 2
+High frequency clusters: 2
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 15
+Removed outliers: 0
+Filtered periods: 15
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 7 periods for 7 symbols
+Match 1: '5' -> period [0.453, 0.586]s, freqs: 517+1550Hz, verified: 'None', match: ✗
+Match 2: 'D' -> period [0.586, 0.662]s, freqs: 517+1550Hz, verified: 'None', match: ✗
+Match 3: '#' -> period [0.662, 0.726]s, freqs: 517+1550Hz, verified: 'None', match: ✗
+Match 4: '*' -> period [0.737, 0.859]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 5: '*' -> period [0.964, 1.149]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 6: 'C' -> period [1.149, 1.289]s, freqs: 517+1550Hz, verified: 'None', match: ✗
+Match 7: 'A' -> period [1.428, 1.498]s, freqs: 517+1550Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_85.npz
+  JSON: refs/tps/assignment3/data/results_85.json
+  Log: refs/tps/assignment3/data/log_85.txt
+================================================================================

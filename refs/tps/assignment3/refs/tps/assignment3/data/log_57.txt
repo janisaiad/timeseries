@@ -1,0 +1,52 @@
+DTMF Detection Log for Signal 57
+Timestamp: 2025-12-14T22:19:32.412307
+
+================================================================================
+Processing Signal 57
+================================================================================
+Signal length: 37220 samples (1.688 seconds)
+Ground truth symbols: ['9', '4', 'A', '5', '0', '6']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 292)
+Frequency bins: 129, Time frames: 292
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 13
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 4
+  Cluster 0: center=559.9 Hz, n_bins=2
+  Cluster 1: center=904.4 Hz, n_bins=2
+  Cluster 2: center=1292.0 Hz, n_bins=3
+  Cluster 3: center=1593.5 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 3: selected freq 516.8 Hz with 4 CPs
+Cluster 6: selected freq 947.5 Hz with 2 CPs
+Cluster 0: selected freq 1205.9 Hz with 2 CPs
+Cluster 5: selected freq 1636.5 Hz with 2 CPs
+
+Low frequency clusters: 2
+High frequency clusters: 2
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 9
+Removed outliers: 0
+Filtered periods: 9
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 6 periods for 6 symbols
+Match 1: '9' -> period [0.331, 0.499]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 2: '4' -> period [0.499, 0.580]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 3: 'A' -> period [0.685, 0.807]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+Match 4: '5' -> period [0.807, 1.086]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+Match 5: '0' -> period [1.086, 1.219]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 6: '6' -> period [1.219, 1.422]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_57.npz
+  JSON: refs/tps/assignment3/data/results_57.json
+  Log: refs/tps/assignment3/data/log_57.txt
+================================================================================

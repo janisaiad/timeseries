@@ -1,0 +1,42 @@
+DTMF Detection Log for Signal 83
+Timestamp: 2025-12-14T22:19:58.180551
+
+================================================================================
+Processing Signal 83
+================================================================================
+Signal length: 23538 samples (1.067 seconds)
+Ground truth symbols: ['1', '#', '2', '1', '3']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 185)
+Frequency bins: 129, Time frames: 185
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 9
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 1
+  Cluster 0: center=861.3 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 6: selected freq 947.5 Hz with 3 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 0
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 2
+Removed outliers: 0
+Filtered periods: 2
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 2 periods for 5 symbols
+Match 1: '1' -> period [0.406, 0.517]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: '#' -> period [0.517, 0.528]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_83.npz
+  JSON: refs/tps/assignment3/data/results_83.json
+  Log: refs/tps/assignment3/data/log_83.txt
+================================================================================

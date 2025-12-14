@@ -1,0 +1,53 @@
+DTMF Detection Log for Signal 61
+Timestamp: 2025-12-14T22:19:34.675957
+
+================================================================================
+Processing Signal 61
+================================================================================
+Signal length: 63159 samples (2.864 seconds)
+Ground truth symbols: ['9', 'C', '4', 'D', '4', '#', 'D', '5', '*', '4', 'A']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 495)
+Frequency bins: 129, Time frames: 495
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 14
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 2
+  Cluster 0: center=1004.9 Hz, n_bins=3
+  Cluster 1: center=1481.5 Hz, n_bins=5
+
+--- Cell 4: Changepoint Detection ---
+Cluster 5: selected freq 861.3 Hz with 6 CPs
+Cluster 0: selected freq 1378.1 Hz with 6 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 1
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 11
+Removed outliers: 0
+Filtered periods: 11
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 11 periods for 11 symbols
+Match 1: '9' -> period [0.203, 0.331]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 2: 'C' -> period [0.331, 0.470]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 3: '4' -> period [0.470, 0.522]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 4: 'D' -> period [0.522, 0.534]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 5: '4' -> period [0.534, 0.569]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 6: '#' -> period [0.569, 1.300]s, freqs: 861+1378Hz, verified: '8', match: ✗
+Match 7: 'D' -> period [1.300, 1.318]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 8: '5' -> period [1.318, 1.602]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 9: '*' -> period [1.602, 1.788]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 10: '4' -> period [1.788, 2.136]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 11: 'A' -> period [2.136, 2.154]s, freqs: no freq pair, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_61.npz
+  JSON: refs/tps/assignment3/data/results_61.json
+  Log: refs/tps/assignment3/data/log_61.txt
+================================================================================

@@ -1,0 +1,54 @@
+DTMF Detection Log for Signal 28
+Timestamp: 2025-12-14T22:18:56.130270
+
+================================================================================
+Processing Signal 28
+================================================================================
+Signal length: 53857 samples (2.442 seconds)
+Ground truth symbols: ['7', '0', '*', '9', '1', '3', 'D', '7']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 422)
+Frequency bins: 129, Time frames: 422
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 13
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 4
+  Cluster 0: center=559.9 Hz, n_bins=2
+  Cluster 1: center=1033.6 Hz, n_bins=2
+  Cluster 2: center=1378.1 Hz, n_bins=2
+  Cluster 3: center=1521.7 Hz, n_bins=3
+
+--- Cell 4: Changepoint Detection ---
+Cluster 4: selected freq 516.8 Hz with 6 CPs
+Cluster 1: selected freq 1205.9 Hz with 8 CPs
+Cluster 0: selected freq 1292.0 Hz with 6 CPs
+Cluster 3: selected freq 1636.5 Hz with 2 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 3
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 20
+Removed outliers: 0
+Filtered periods: 20
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 8 periods for 8 symbols
+Match 1: '7' -> period [0.331, 0.476]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: '0' -> period [0.784, 1.091]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 3: '*' -> period [1.091, 1.231]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 4: '9' -> period [1.231, 1.428]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+Match 5: '1' -> period [1.492, 1.724]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+Match 6: '3' -> period [1.724, 1.910]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+Match 7: 'D' -> period [1.910, 2.107]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+Match 8: '7' -> period [2.107, 2.258]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_28.npz
+  JSON: refs/tps/assignment3/data/results_28.json
+  Log: refs/tps/assignment3/data/log_28.txt
+================================================================================

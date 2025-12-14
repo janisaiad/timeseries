@@ -1,0 +1,50 @@
+DTMF Detection Log for Signal 44
+Timestamp: 2025-12-14T22:19:18.830870
+
+================================================================================
+Processing Signal 44
+================================================================================
+Signal length: 34001 samples (1.542 seconds)
+Ground truth symbols: ['0', 'C', '3', '8', '3', '*']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 267)
+Frequency bins: 129, Time frames: 267
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 14
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 3
+  Cluster 0: center=631.6 Hz, n_bins=3
+  Cluster 1: center=1378.1 Hz, n_bins=3
+  Cluster 2: center=1464.3 Hz, n_bins=3
+
+--- Cell 4: Changepoint Detection ---
+Cluster 3: selected freq 516.8 Hz with 4 CPs
+Cluster 0: selected freq 1292.0 Hz with 4 CPs
+Cluster 1: selected freq 1205.9 Hz with 4 CPs
+
+Low frequency clusters: 1
+High frequency clusters: 2
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 11
+Removed outliers: 0
+Filtered periods: 11
+
+--- Cell 7: Period-Symbol Matching ---
+Selected 6 periods for 6 symbols
+Match 1: '0' -> period [0.128, 0.308]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 2: 'C' -> period [0.308, 0.488]s, freqs: no freq pair, verified: 'None', match: ✗
+Match 3: '3' -> period [0.673, 0.935]s, freqs: 517+1292Hz, verified: 'None', match: ✗
+Match 4: '8' -> period [0.935, 1.033]s, freqs: 517+1292Hz, verified: 'None', match: ✗
+Match 5: '3' -> period [1.033, 1.300]s, freqs: 517+1292Hz, verified: 'None', match: ✗
+Match 6: '*' -> period [1.300, 1.411]s, freqs: 517+1206Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_44.npz
+  JSON: refs/tps/assignment3/data/results_44.json
+  Log: refs/tps/assignment3/data/log_44.txt
+================================================================================
