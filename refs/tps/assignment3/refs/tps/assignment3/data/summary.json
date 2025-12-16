@@ -1,6 +1,6 @@
 {
   "total_signals": 100,
-  "timestamp": "2025-12-16T13:24:14.689205",
+  "timestamp": "2025-12-16T13:42:20.991089",
   "signals_processed": [
     {
       "signal_idx": 0,
@@ -24,12 +24,12 @@
       "signal_idx": 3,
       "success": true,
       "n_matches": 8,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 4,
       "success": true,
-      "n_matches": 5,
+      "n_matches": 9,
       "n_correct": 0
     },
     {
@@ -41,19 +41,19 @@
     {
       "signal_idx": 6,
       "success": true,
-      "n_matches": 3,
+      "n_matches": 10,
       "n_correct": 0
     },
     {
       "signal_idx": 7,
       "success": true,
-      "n_matches": 6,
+      "n_matches": 9,
       "n_correct": 0
     },
     {
       "signal_idx": 8,
       "success": true,
-      "n_matches": 1,
+      "n_matches": 4,
       "n_correct": 0
     },
     {
@@ -65,13 +65,13 @@
     {
       "signal_idx": 10,
       "success": true,
-      "n_matches": 5,
+      "n_matches": 10,
       "n_correct": 0
     },
     {
       "signal_idx": 11,
       "success": true,
-      "n_matches": 3,
+      "n_matches": 5,
       "n_correct": 0
     },
     {
@@ -90,7 +90,7 @@
       "signal_idx": 14,
       "success": true,
       "n_matches": 10,
-      "n_correct": 2
+      "n_correct": 0
     },
     {
       "signal_idx": 15,
@@ -102,7 +102,7 @@
       "signal_idx": 16,
       "success": true,
       "n_matches": 9,
-      "n_correct": 0
+      "n_correct": 2
     },
     {
       "signal_idx": 17,
@@ -114,7 +114,7 @@
       "signal_idx": 18,
       "success": true,
       "n_matches": 6,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 19,
@@ -126,7 +126,7 @@
       "signal_idx": 20,
       "success": true,
       "n_matches": 10,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 21,
@@ -138,7 +138,7 @@
       "signal_idx": 22,
       "success": true,
       "n_matches": 11,
-      "n_correct": 0
+      "n_correct": 1
     },
     {
       "signal_idx": 23,
@@ -150,12 +150,12 @@
       "signal_idx": 24,
       "success": true,
       "n_matches": 9,
-      "n_correct": 0
+      "n_correct": 1
     },
     {
       "signal_idx": 25,
       "success": true,
-      "n_matches": 4,
+      "n_matches": 9,
       "n_correct": 0
     },
     {
@@ -215,7 +215,7 @@
     {
       "signal_idx": 35,
       "success": true,
-      "n_matches": 9,
+      "n_matches": 10,
       "n_correct": 0
     },
     {
@@ -228,7 +228,7 @@
       "signal_idx": 37,
       "success": true,
       "n_matches": 11,
-      "n_correct": 0
+      "n_correct": 1
     },
     {
       "signal_idx": 38,
@@ -245,7 +245,7 @@
     {
       "signal_idx": 40,
       "success": true,
-      "n_matches": 3,
+      "n_matches": 9,
       "n_correct": 0
     },
     {
@@ -258,13 +258,13 @@
       "signal_idx": 42,
       "success": true,
       "n_matches": 11,
-      "n_correct": 0
+      "n_correct": 1
     },
     {
       "signal_idx": 43,
       "success": true,
       "n_matches": 9,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 44,
@@ -276,7 +276,7 @@
       "signal_idx": 45,
       "success": true,
       "n_matches": 11,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 46,
@@ -305,7 +305,7 @@
     {
       "signal_idx": 50,
       "success": true,
-      "n_matches": 1,
+      "n_matches": 3,
       "n_correct": 0
     },
     {
@@ -354,7 +354,7 @@
       "signal_idx": 58,
       "success": true,
       "n_matches": 4,
-      "n_correct": 0
+      "n_correct": 1
     },
     {
       "signal_idx": 59,
@@ -389,7 +389,7 @@
     {
       "signal_idx": 64,
       "success": true,
-      "n_matches": 3,
+      "n_matches": 8,
       "n_correct": 0
     },
     {
@@ -419,7 +419,7 @@
     {
       "signal_idx": 69,
       "success": true,
-      "n_matches": 4,
+      "n_matches": 8,
       "n_correct": 0
     },
     {
@@ -444,7 +444,7 @@
       "signal_idx": 73,
       "success": true,
       "n_matches": 7,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 74,
@@ -474,7 +474,7 @@
       "signal_idx": 78,
       "success": true,
       "n_matches": 11,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 79,
@@ -486,7 +486,7 @@
       "signal_idx": 80,
       "success": true,
       "n_matches": 7,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 81,
@@ -498,12 +498,12 @@
       "signal_idx": 82,
       "success": true,
       "n_matches": 10,
-      "n_correct": 0
+      "n_correct": 1
     },
     {
       "signal_idx": 83,
       "success": true,
-      "n_matches": 2,
+      "n_matches": 5,
       "n_correct": 0
     },
     {
@@ -527,7 +527,7 @@
     {
       "signal_idx": 87,
       "success": true,
-      "n_matches": 3,
+      "n_matches": 5,
       "n_correct": 0
     },
     {
@@ -545,13 +545,13 @@
     {
       "signal_idx": 90,
       "success": true,
-      "n_matches": 1,
+      "n_matches": 6,
       "n_correct": 0
     },
     {
       "signal_idx": 91,
       "success": true,
-      "n_matches": 3,
+      "n_matches": 5,
       "n_correct": 0
     },
     {
@@ -569,14 +569,14 @@
     {
       "signal_idx": 94,
       "success": true,
-      "n_matches": 9,
-      "n_correct": 0
+      "n_matches": 10,
+      "n_correct": 1
     },
     {
       "signal_idx": 95,
       "success": true,
       "n_matches": 4,
-      "n_correct": 1
+      "n_correct": 0
     },
     {
       "signal_idx": 96,
@@ -594,7 +594,7 @@
       "signal_idx": 98,
       "success": true,
       "n_matches": 3,
-      "n_correct": 0
+      "n_correct": 1
     },
     {
       "signal_idx": 99,
@@ -604,9 +604,9 @@
     }
   ],
   "overall_statistics": {
-    "total_matches": 512,
-    "correct_matches": 16,
+    "total_matches": 572,
+    "correct_matches": 15,
     "signals_with_errors": 28,
-    "accuracy": 0.03125
+    "accuracy": 0.026223776223776224
   }
 }

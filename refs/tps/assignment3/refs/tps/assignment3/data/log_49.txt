@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 49
-Timestamp: 2025-12-16T13:22:51.987909
+Timestamp: 2025-12-16T13:40:59.124696
 
 ================================================================================
 Processing Signal 49
@@ -19,6 +19,8 @@ Number of major frequency clusters: 0
 
 --- Cell 4: Changepoint Detection ---
 
+Total energy density intervals collected: 0
+
 Low frequency clusters: 0
 High frequency clusters: 0
 
@@ -26,7 +28,7 @@ High frequency clusters: 0
 
 ERROR processing signal 49: index -1 is out of bounds for axis 0 with size 0
 Traceback (most recent call last):
-  File "/home/janis/4A/timeseries/refs/tps/assignment3/Assignment 3.py", line 1835, in process_single_signal
+  File "/home/janis/4A/timeseries/refs/tps/assignment3/Assignment 3.py", line 1883, in process_single_signal
     q25 = np.percentile(period_durations, 25)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4273, in percentile

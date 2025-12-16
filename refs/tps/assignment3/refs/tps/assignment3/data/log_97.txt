@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 97
-Timestamp: 2025-12-16T13:24:08.759263
+Timestamp: 2025-12-16T13:42:15.168097
 
 ================================================================================
 Processing Signal 97
@@ -27,6 +27,8 @@ Cluster 3: selected freq 861.3 Hz with 4 CPs
 Cluster 7: selected freq 1292.0 Hz with 4 CPs
 Cluster 0: selected freq 1205.9 Hz with 3 CPs
 
+Total energy density intervals collected: 48
+
 Low frequency clusters: 2
 High frequency clusters: 2
 
@@ -35,14 +37,16 @@ Original periods: 13
 Removed outliers: 0
 Filtered periods: 13
 
---- Cell 7: Period-Symbol Matching ---
-Selected 6 periods for 6 symbols
-Match 1: '3' -> period [0.244, 0.308]s, freqs: 517+1292Hz, verified: 'None', match: ✗
-Match 2: '2' -> period [0.308, 0.383]s, freqs: 861+1206Hz, verified: '7', match: ✗
-Match 3: '*' -> period [0.395, 0.464]s, freqs: 861+1206Hz, verified: '7', match: ✗
-Match 4: 'C' -> period [0.464, 0.569]s, freqs: 861+1206Hz, verified: '7', match: ✗
-Match 5: '2' -> period [0.580, 0.627]s, freqs: 861+1292Hz, verified: '8', match: ✗
-Match 6: 'A' -> period [0.760, 0.935]s, freqs: 517+1292Hz, verified: 'None', match: ✗
+--- Cell 7: Period-Symbol Matching (Energy Density Based) ---
+Selected top 12 intervals (2n=12) by energy density for 6 symbols
+  Low frequency intervals: 6
+  High frequency intervals: 6
+Match 1: '3' -> period [0.116, 0.662]s, freqs: 517+1464Hz, verified: 'None', energy_density: low=6.41e+01, high=8.49e+01
+Match 2: '2' -> period [0.383, 0.731]s, freqs: 861+1206Hz, verified: '7', energy_density: low=5.79e+01, high=8.43e+01
+Match 3: '*' -> period [0.772, 0.940]s, freqs: 775+1378Hz, verified: '5', energy_density: low=4.47e+01, high=4.42e+01
+Match 4: 'C' -> period [0.569, 1.300]s, freqs: 861+1550Hz, verified: 'None', energy_density: low=5.61e+01, high=5.79e+01
+Match 5: '2' -> period [0.673, 1.306]s, freqs: 603+1464Hz, verified: 'None', energy_density: low=5.39e+01, high=5.60e+01
+Match 6: 'A' -> period [0.697, 0.801]s, freqs: 775+1550Hz, verified: 'None', energy_density: low=4.47e+01, high=4.88e+01
 
 ================================================================================
 Results saved to:

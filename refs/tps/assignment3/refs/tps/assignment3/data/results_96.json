@@ -8,7 +8,7 @@
     "0",
     "B"
   ],
-  "timestamp": "2025-12-16T13:24:07.381286",
+  "timestamp": "2025-12-16T13:42:13.726419",
   "success": true,
   "stft_params": {
     "window_length": 256,
@@ -65,10 +65,10 @@
       "assigned_symbol": "A",
       "verified_symbol": null,
       "primary_low_freq": null,
-      "primary_high_freq": 1378.125,
-      "period_start": 0.4876190476190476,
-      "period_end": 0.5224489795918368,
-      "period_duration": 0.034829931972789115,
+      "primary_high_freq": 1291.9921875,
+      "period_start": 0.47600907029478456,
+      "period_end": 0.4876190476190476,
+      "period_duration": 0.011609977324263039,
       "symbol_match": false
     },
     {
@@ -76,10 +76,10 @@
       "assigned_symbol": "0",
       "verified_symbol": null,
       "primary_low_freq": null,
-      "primary_high_freq": 1464.2578125,
-      "period_start": 0.5224489795918368,
-      "period_end": 0.6095238095238096,
-      "period_duration": 0.08707482993197278,
+      "primary_high_freq": 1378.125,
+      "period_start": 0.47020408163265304,
+      "period_end": 0.4876190476190476,
+      "period_duration": 0.017414965986394557,
       "symbol_match": false
     },
     {
@@ -87,10 +87,10 @@
       "assigned_symbol": "#",
       "verified_symbol": null,
       "primary_low_freq": null,
-      "primary_high_freq": 1464.2578125,
-      "period_start": 0.6095238095238096,
-      "period_end": 0.7720634920634921,
-      "period_duration": 0.16253968253968254,
+      "primary_high_freq": 1550.390625,
+      "period_start": 0.7894784580498866,
+      "period_end": 0.8010884353741496,
+      "period_duration": 0.011609977324263039,
       "symbol_match": false
     },
     {
@@ -98,10 +98,10 @@
       "assigned_symbol": "0",
       "verified_symbol": null,
       "primary_low_freq": null,
-      "primary_high_freq": 1464.2578125,
-      "period_start": 0.7720634920634921,
-      "period_end": 0.9287981859410431,
-      "period_duration": 0.156734693877551,
+      "primary_high_freq": 1291.9921875,
+      "period_start": 0.4876190476190476,
+      "period_end": 0.5224489795918368,
+      "period_duration": 0.034829931972789115,
       "symbol_match": false
     },
     {
@@ -109,10 +109,10 @@
       "assigned_symbol": "B",
       "verified_symbol": null,
       "primary_low_freq": null,
-      "primary_high_freq": 1378.125,
-      "period_start": 0.9287981859410431,
-      "period_end": 0.9810430839002268,
-      "period_duration": 0.052244897959183675,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 0.45859410430839004,
+      "period_end": 0.47600907029478456,
+      "period_duration": 0.017414965986394557,
       "symbol_match": false
     }
   ]

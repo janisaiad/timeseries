@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 40
-Timestamp: 2025-12-16T13:22:28.419050
+Timestamp: 2025-12-16T13:40:35.082299
 
 ================================================================================
 Processing Signal 40
@@ -21,6 +21,8 @@ Number of major frequency clusters: 1
 --- Cell 4: Changepoint Detection ---
 Cluster 0: selected freq 861.3 Hz with 4 CPs
 
+Total energy density intervals collected: 20
+
 Low frequency clusters: 1
 High frequency clusters: 0
 
@@ -29,11 +31,19 @@ Original periods: 3
 Removed outliers: 0
 Filtered periods: 3
 
---- Cell 7: Period-Symbol Matching ---
-Selected 3 periods for 9 symbols
-Match 1: '1' -> period [0.528, 0.546]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 2: 'A' -> period [0.546, 1.445]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 3: '1' -> period [1.445, 1.602]s, freqs: no freq pair, verified: 'None', match: ✗
+--- Cell 7: Period-Symbol Matching (Energy Density Based) ---
+Selected top 18 intervals (2n=18) by energy density for 9 symbols
+  Low frequency intervals: 18
+  High frequency intervals: 0
+Match 1: '1' -> period [1.533, 1.550]s, freqs: no freq pair, verified: 'None', energy_density: low=6.38e+01
+Match 2: 'A' -> period [0.528, 0.546]s, freqs: no freq pair, verified: 'None', energy_density: low=6.29e+01
+Match 3: '1' -> period [1.562, 1.579]s, freqs: no freq pair, verified: 'None', energy_density: low=6.24e+01
+Match 4: '4' -> period [2.206, 2.229]s, freqs: no freq pair, verified: 'None', energy_density: low=6.11e+01
+Match 5: '7' -> period [0.540, 0.563]s, freqs: no freq pair, verified: 'None', energy_density: low=5.47e+01
+Match 6: '7' -> period [1.445, 1.602]s, freqs: no freq pair, verified: 'None', energy_density: low=5.34e+01
+Match 7: '4' -> period [1.765, 1.817]s, freqs: no freq pair, verified: 'None', energy_density: low=5.31e+01
+Match 8: '0' -> period [1.887, 2.038]s, freqs: no freq pair, verified: 'None', energy_density: low=5.14e+01
+Match 9: '*' -> period [2.183, 2.351]s, freqs: no freq pair, verified: 'None', energy_density: low=4.26e+01
 
 ================================================================================
 Results saved to:

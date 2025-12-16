@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 47
-Timestamp: 2025-12-16T13:22:48.038818
+Timestamp: 2025-12-16T13:40:55.105227
 
 ================================================================================
 Processing Signal 47
@@ -21,6 +21,8 @@ Number of major frequency clusters: 1
 --- Cell 4: Changepoint Detection ---
 Cluster 1: selected freq 1292.0 Hz with 6 CPs
 
+Total energy density intervals collected: 12
+
 Low frequency clusters: 0
 High frequency clusters: 1
 
@@ -29,13 +31,15 @@ Original periods: 5
 Removed outliers: 0
 Filtered periods: 5
 
---- Cell 7: Period-Symbol Matching ---
-Selected 5 periods for 5 symbols
-Match 1: '2' -> period [0.099, 0.296]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 2: '#' -> period [0.296, 0.610]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 3: '2' -> period [0.610, 0.778]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 4: '*' -> period [0.778, 1.184]s, freqs: no freq pair, verified: 'None', match: ✗
-Match 5: '2' -> period [1.184, 1.277]s, freqs: no freq pair, verified: 'None', match: ✗
+--- Cell 7: Period-Symbol Matching (Energy Density Based) ---
+Selected top 10 intervals (2n=10) by energy density for 5 symbols
+  Low frequency intervals: 0
+  High frequency intervals: 10
+Match 1: '2' -> period [1.190, 1.277]s, freqs: no freq pair, verified: 'None', energy_density: high=3.68e+01
+Match 2: '#' -> period [0.610, 0.778]s, freqs: no freq pair, verified: 'None', energy_density: high=3.50e+01
+Match 3: '2' -> period [1.184, 1.277]s, freqs: no freq pair, verified: 'None', energy_density: high=3.42e+01
+Match 4: '*' -> period [0.610, 0.784]s, freqs: no freq pair, verified: 'None', energy_density: high=3.30e+01
+Match 5: '2' -> period [0.099, 0.296]s, freqs: no freq pair, verified: 'None', energy_density: high=3.23e+01
 
 ================================================================================
 Results saved to:
