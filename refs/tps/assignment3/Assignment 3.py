@@ -54,11 +54,32 @@ rng = np.random.default_rng()
 # %%
 FS = 22050  # sampling frequency (Hz)
 
-X_train = np.load("X_train.npy", allow_pickle=True).tolist()
-y_train = np.load("y_train.npy", allow_pickle=True).tolist()
+# get script directory to load data files
+try:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+except NameError:
+    # if __file__ is not defined (e.g., in notebook), use current working directory
+    script_dir = os.getcwd()
 
-# create figures directory
-figures_dir = "refs/tps/assignment3/data/figures"
+# try to find data files: first in script directory, then in parent directories
+data_dir = script_dir
+for _ in range(3):  # check up to 3 levels up
+    if os.path.exists(os.path.join(data_dir, "X_train.npy")):
+        break
+    parent = os.path.dirname(data_dir)
+    if parent == data_dir:  # reached root
+        break
+    data_dir = parent
+
+# if still not found, try current working directory
+if not os.path.exists(os.path.join(data_dir, "X_train.npy")):
+    data_dir = os.getcwd()
+
+X_train = np.load(os.path.join(data_dir, "X_train.npy"), allow_pickle=True).tolist()
+y_train = np.load(os.path.join(data_dir, "y_train.npy"), allow_pickle=True).tolist()
+
+# create figures directory relative to data directory
+figures_dir = os.path.join(data_dir, "data", "figures")
 os.makedirs(figures_dir, exist_ok=True)
 
 # %%
@@ -218,10 +239,11 @@ plt.savefig(os.path.join(figures_dir, "cell2_energy_clustering.png"), dpi=150, b
 plt.close()
 
 # %%
-# Cell 3: Second k-means (k=8) to group frequency bins into DTMF frequency bands
+# Cell 3: Second k-means with elbow method to group frequency bins into DTMF frequency bands
 # within the high-energy frequency bins, multiple bins may correspond to the same 
 # DTMF frequency due to spectral leakage. we perform 2D k-means clustering 
 # on the (frequency, energy) plane to group them into the major DTMF frequency bands
+# we use elbow method to determine optimal number of clusters instead of fixed k=8
 
 # get frequency and energy values of high-energy bins for 2D clustering
 high_energy_freqs = f[high_energy_freq_indices]
@@ -234,13 +256,58 @@ energy_normalized = (high_energy_energies - high_energy_energies.min()) / (high_
 # 2D feature matrix: (frequency, energy)
 features_2d = np.column_stack([freq_normalized, energy_normalized])
 
-# k-means with k=8 to group into DTMF frequency bands (4 low + 4 high)
-kmeans_freq = KMeans(n_clusters=8, random_state=0, n_init=10)
+# elbow method to find optimal k
+n_high_energy = len(high_energy_freq_indices)
+max_k = min(8, n_high_energy)  # at most 8, but not more than samples
+min_k = max(1, max_k // 4)  # at least 1, but try to start from a reasonable minimum
+
+inertias = []
+k_range = range(min_k, max_k + 1)
+
+for k in k_range:
+    kmeans_test = KMeans(n_clusters=k, random_state=0, n_init=10)
+    kmeans_test.fit(features_2d)
+    inertias.append(kmeans_test.inertia_)
+
+# find elbow: look for the point where the decrease in inertia starts to slow down
+if len(inertias) >= 3:
+    # compute first differences
+    first_diff = np.diff(inertias)
+    # compute second differences (rate of change of first differences)
+    second_diff = np.diff(first_diff)
+    # find elbow: maximum of second differences (where curve bends most)
+    elbow_idx = np.argmax(second_diff) + 1  # +1 because second_diff is one shorter
+    k_freq = k_range[elbow_idx] if elbow_idx < len(k_range) else k_range[-1]
+else:
+    # fallback: use middle value or max
+    k_freq = k_range[len(k_range) // 2] if len(k_range) > 0 else max_k
+
+# ensure k_freq is at least 1 and at most max_k
+k_freq = max(1, min(k_freq, max_k))
+
+print(f"Elbow method: tested k in range [{min_k}, {max_k}], selected k={k_freq}")
+print(f"Inertias: {inertias}")
+
+# plot elbow curve
+fig_elbow, ax_elbow = plt.subplots(1, 1, figsize=(10, 6))
+ax_elbow.plot(k_range, inertias, 'bo-', linewidth=2, markersize=8, label='Inertia')
+ax_elbow.axvline(x=k_freq, color='red', linestyle='--', linewidth=2, label=f'Selected k={k_freq}')
+ax_elbow.set_xlabel('Number of clusters (k)')
+ax_elbow.set_ylabel('Inertia (Within-cluster sum of squares)')
+ax_elbow.set_title('Elbow Method for Optimal k Selection')
+ax_elbow.legend()
+ax_elbow.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig(os.path.join(figures_dir, "cell3_elbow_method.png"), dpi=150, bbox_inches='tight')
+plt.close()
+
+# k-means with optimal k from elbow method
+kmeans_freq = KMeans(n_clusters=k_freq, random_state=0, n_init=10)
 freq_cluster_labels = kmeans_freq.fit_predict(features_2d)
 
-# get the 8 major frequency clusters
+# get the major frequency clusters
 major_freq_clusters = []
-for cluster_id in range(8):
+for cluster_id in range(k_freq):
     cluster_mask = freq_cluster_labels == cluster_id
     cluster_freq_indices = high_energy_freq_indices[cluster_mask]
     cluster_freqs = high_energy_freqs[cluster_mask]
@@ -414,9 +481,9 @@ for cluster in major_freq_clusters:
         freq_energy = np.abs(Zxx[freq_idx, :])**2
         
         # apply changepoint detection using PELT
-        # BIC penalty: beta = 2 * sigma^2 * log(T)
+        # BIC penalty: beta = 2 * sigma^2 * log(T), multiplied by 10 to heavily penalize number of CPs
         sigma_est = np.std(freq_energy)
-        pen_bic = 2 * sigma_est**2 * np.log(t_max)
+        pen_bic = 10 * 2 * sigma_est**2 * np.log(t_max)
         
         # PELT algorithm
         algo = rpt.Pelt(model="l2", jump=1)
@@ -1517,10 +1584,8 @@ else:
     print("\nNo matches found!")
 
 # %%
-FS = 22050  # sampling frequency (Hz)
-
-X_train = np.load("X_train.npy", allow_pickle=True).tolist()
-y_train = np.load("y_train.npy", allow_pickle=True).tolist()
+# Note: X_train and y_train are already loaded above
+# This section is for notebook exploration only
 
 # %%
 plt.plot(X_train[0])
@@ -1546,7 +1611,7 @@ plt.savefig(os.path.join(figures_dir, "fft_signal.png"), dpi=150, bbox_inches='t
 plt.close()
 
 # %%
-X_test = np.load("X_test.npy", allow_pickle=True).tolist()
+X_test = np.load(os.path.join(data_dir, "X_test.npy"), allow_pickle=True).tolist()
 
 
 # %% [markdown]
@@ -1631,8 +1696,8 @@ import os
 from io import StringIO
 import sys
 
-# create output directory
-output_dir = "refs/tps/assignment3/data"
+# create output directory (relative to data directory)
+output_dir = os.path.join(data_dir, "data")
 os.makedirs(output_dir, exist_ok=True)
 
 def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
@@ -1653,6 +1718,10 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
         'ground_truth_symbols': ground_truth_symbols,
         'timestamp': dt.datetime.now().isoformat()
     }
+    
+    # create signal-specific figures directory
+    signal_figures_dir = os.path.join(figures_dir, f"signal_{signal_idx}")
+    os.makedirs(signal_figures_dir, exist_ok=True)
     
     try:
         # Cell 1: STFT and energy computation
@@ -1678,6 +1747,37 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             'frame_step': frame_step
         }
         
+        # plot Cell 1: STFT and energy computation
+        fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+        axes[0, 0].plot(signal)
+        axes[0, 0].set_title("Original Signal")
+        axes[0, 0].set_xlabel("Sample")
+        axes[0, 0].set_ylabel("Amplitude")
+        axes[0, 0].grid(True, alpha=0.3)
+        spectrogram = np.abs(Zxx)
+        im1 = axes[0, 1].pcolormesh(t, f, 20 * np.log10(spectrogram + 1e-10), 
+                                    shading='gouraud', cmap='viridis')
+        axes[0, 1].set_title("STFT Spectrogram")
+        axes[0, 1].set_xlabel("Time (s)")
+        axes[0, 1].set_ylabel("Frequency (Hz)")
+        axes[0, 1].set_ylim([0, 4000])
+        plt.colorbar(im1, ax=axes[0, 1], label="Magnitude (dB)")
+        axes[1, 0].plot(f, energy_per_freq, 'b-', linewidth=1.5)
+        axes[1, 0].set_title("Energy per Frequency Bin")
+        axes[1, 0].set_xlabel("Frequency (Hz)")
+        axes[1, 0].set_ylabel("Energy")
+        axes[1, 0].set_xlim([0, 4000])
+        axes[1, 0].grid(True, alpha=0.3)
+        axes[1, 1].semilogy(f, energy_per_freq, 'b-', linewidth=1.5)
+        axes[1, 1].set_title("Energy per Frequency Bin (Log Scale)")
+        axes[1, 1].set_xlabel("Frequency (Hz)")
+        axes[1, 1].set_ylabel("Energy (log scale)")
+        axes[1, 1].set_xlim([0, 4000])
+        axes[1, 1].grid(True, alpha=0.3)
+        plt.tight_layout()
+        plt.savefig(os.path.join(signal_figures_dir, "cell1_stft_energy.png"), dpi=150, bbox_inches='tight')
+        plt.close()
+        
         # Cell 2: First k-means (k=2) to separate signal from noise
         log_file.write(f"\n--- Cell 2: First k-means (k=2) ---\n")
         energy_reshaped = energy_per_freq.reshape(-1, 1)
@@ -1698,22 +1798,120 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             'high_energy_freq_indices': high_energy_freq_indices
         }
         
-        # Cell 3: Second k-means (k=8) for frequency clustering
-        log_file.write(f"\n--- Cell 3: Second k-means (k=8) ---\n")
+        # plot Cell 2: Energy clustering
+        noise_cluster_idx = 1 - signal_cluster_idx
+        high_energy_freqs = f[high_energy_freq_indices]
+        fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+        colors = ['red' if label == signal_cluster_idx else 'gray' for label in energy_labels]
+        axes[0, 0].scatter(f, energy_per_freq, c=colors, alpha=0.6, s=30)
+        axes[0, 0].axhline(y=cluster_centers[signal_cluster_idx], color='red', linestyle='--', linewidth=2, label='Signal cluster center')
+        axes[0, 0].axhline(y=cluster_centers[noise_cluster_idx], color='gray', linestyle='--', linewidth=2, label='Noise cluster center')
+        axes[0, 0].set_title("Energy Clustering (k=2): Signal vs Noise")
+        axes[0, 0].set_xlabel("Frequency (Hz)")
+        axes[0, 0].set_ylabel("Energy")
+        axes[0, 0].set_xlim([0, 4000])
+        axes[0, 0].legend()
+        axes[0, 0].grid(True, alpha=0.3)
+        axes[0, 1].semilogy(f[energy_labels == signal_cluster_idx], 
+                           energy_per_freq[energy_labels == signal_cluster_idx], 
+                           'ro', markersize=8, alpha=0.7, label='Signal bins')
+        axes[0, 1].semilogy(f[energy_labels == noise_cluster_idx], 
+                           energy_per_freq[energy_labels == noise_cluster_idx], 
+                           'ko', markersize=4, alpha=0.5, label='Noise bins')
+        axes[0, 1].axhline(y=cluster_centers[signal_cluster_idx], color='red', linestyle='--', linewidth=2)
+        axes[0, 1].axhline(y=cluster_centers[noise_cluster_idx], color='gray', linestyle='--', linewidth=2)
+        axes[0, 1].set_title("Energy Clustering (Log Scale)")
+        axes[0, 1].set_xlabel("Frequency (Hz)")
+        axes[0, 1].set_ylabel("Energy (log scale)")
+        axes[0, 1].set_xlim([0, 4000])
+        axes[0, 1].legend()
+        axes[0, 1].grid(True, alpha=0.3)
+        axes[1, 0].hist(energy_per_freq[energy_labels == noise_cluster_idx], 
+                       bins=50, alpha=0.6, color='gray', label='Noise bins')
+        axes[1, 0].hist(energy_per_freq[energy_labels == signal_cluster_idx], 
+                       bins=50, alpha=0.6, color='red', label='Signal bins')
+        axes[1, 0].axvline(x=cluster_centers[signal_cluster_idx], color='red', linestyle='--', linewidth=2, label='Signal center')
+        axes[1, 0].axvline(x=cluster_centers[noise_cluster_idx], color='gray', linestyle='--', linewidth=2, label='Noise center')
+        axes[1, 0].set_title("Energy Distribution Histogram")
+        axes[1, 0].set_xlabel("Energy")
+        axes[1, 0].set_ylabel("Count")
+        axes[1, 0].legend()
+        axes[1, 0].grid(True, alpha=0.3)
+        spectrogram = np.abs(Zxx)
+        im = axes[1, 1].pcolormesh(t, f, 20 * np.log10(spectrogram + 1e-10), 
+                                   shading='gouraud', cmap='gray')
+        for idx in high_energy_freq_indices:
+            axes[1, 1].axhline(y=f[idx], color='red', linewidth=1, alpha=0.5)
+        axes[1, 1].set_title("Spectrogram with Signal Bins Highlighted (Red)")
+        axes[1, 1].set_xlabel("Time (s)")
+        axes[1, 1].set_ylabel("Frequency (Hz)")
+        axes[1, 1].set_ylim([0, 4000])
+        plt.colorbar(im, ax=axes[1, 1], label="Magnitude (dB)")
+        plt.tight_layout()
+        plt.savefig(os.path.join(signal_figures_dir, "cell2_energy_clustering.png"), dpi=150, bbox_inches='tight')
+        plt.close()
+        
+        # Cell 3: Second k-means with elbow method for frequency clustering
+        log_file.write(f"\n--- Cell 3: Second k-means (elbow method) ---\n")
         high_energy_freqs = f[high_energy_freq_indices]
         high_energy_energies = energy_per_freq[high_energy_freq_indices]
         
-        # adapt k dynamically if we have fewer samples than clusters
         n_high_energy = len(high_energy_freq_indices)
-        k_freq = min(8, max(1, n_high_energy))  # at least 1 cluster, at most 8, but not more than samples
         
         if n_high_energy < 2:
             log_file.write(f"Warning: Only {n_high_energy} high-energy frequency bins found, skipping frequency clustering\n")
             major_freq_clusters = []
+            k_freq = 0
         else:
             freq_normalized = (high_energy_freqs - high_energy_freqs.min()) / (high_energy_freqs.max() - high_energy_freqs.min() + 1e-10)
             energy_normalized = (high_energy_energies - high_energy_energies.min()) / (high_energy_energies.max() - high_energy_energies.min() + 1e-10)
             features_2d = np.column_stack([freq_normalized, energy_normalized])
+            
+            # elbow method to find optimal k
+            max_k = min(8, n_high_energy)  # at most 8, but not more than samples
+            min_k = max(1, max_k // 4)  # at least 1, but try to start from a reasonable minimum
+            
+            inertias = []
+            k_range = range(min_k, max_k + 1)
+            
+            for k in k_range:
+                kmeans_test = KMeans(n_clusters=k, random_state=0, n_init=10)
+                kmeans_test.fit(features_2d)
+                inertias.append(kmeans_test.inertia_)
+            
+            # find elbow: look for the point where the decrease in inertia starts to slow down
+            # compute rate of change (second derivative approximation)
+            if len(inertias) >= 3:
+                # compute first differences
+                first_diff = np.diff(inertias)
+                # compute second differences (rate of change of first differences)
+                second_diff = np.diff(first_diff)
+                # find elbow: maximum of second differences (where curve bends most)
+                # but we want the k before the elbow, so we look for the minimum second diff
+                elbow_idx = np.argmax(second_diff) + 1  # +1 because second_diff is one shorter
+                k_freq = k_range[elbow_idx] if elbow_idx < len(k_range) else k_range[-1]
+            else:
+                # fallback: use middle value or max
+                k_freq = k_range[len(k_range) // 2] if len(k_range) > 0 else max_k
+            
+            # ensure k_freq is at least 1 and at most max_k
+            k_freq = max(1, min(k_freq, max_k))
+            
+            log_file.write(f"Elbow method: tested k in range [{min_k}, {max_k}], selected k={k_freq}\n")
+            log_file.write(f"Inertias: {[f'{inert:.2e}' for inert in inertias]}\n")
+            
+            # plot elbow curve
+            fig_elbow, ax_elbow = plt.subplots(1, 1, figsize=(10, 6))
+            ax_elbow.plot(k_range, inertias, 'bo-', linewidth=2, markersize=8, label='Inertia')
+            ax_elbow.axvline(x=k_freq, color='red', linestyle='--', linewidth=2, label=f'Selected k={k_freq}')
+            ax_elbow.set_xlabel('Number of clusters (k)')
+            ax_elbow.set_ylabel('Inertia (Within-cluster sum of squares)')
+            ax_elbow.set_title(f'Elbow Method for Optimal k Selection (Signal {signal_idx})')
+            ax_elbow.legend()
+            ax_elbow.grid(True, alpha=0.3)
+            plt.tight_layout()
+            plt.savefig(os.path.join(signal_figures_dir, "cell3_elbow_method.png"), dpi=150, bbox_inches='tight')
+            plt.close()
             
             kmeans_freq = KMeans(n_clusters=k_freq, random_state=0, n_init=10)
             freq_cluster_labels = kmeans_freq.fit_predict(features_2d)
@@ -1756,6 +1954,102 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             'clusters': major_freq_clusters
         }
         
+        # plot Cell 3: Frequency clustering
+        if len(major_freq_clusters) > 0:
+            n_clusters = len(major_freq_clusters)
+            colors_clusters = plt.cm.tab10(np.linspace(0, 1, n_clusters))
+            fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+            for i, cluster in enumerate(major_freq_clusters):
+                axes[0, 0].scatter(cluster['freqs'], cluster['energies'], 
+                                  c=[colors_clusters[i]], s=150, alpha=0.7, 
+                                  edgecolors='black', linewidths=1.5,
+                                  label=f"Cluster {i}: {cluster['center_freq']:.0f} Hz")
+                axes[0, 0].plot(cluster['center_freq'], cluster['center_energy'], 
+                               'x', color=colors_clusters[i], markersize=15, 
+                               markeredgewidth=3, label=f"Center {i}" if i == 0 else "")
+            axes[0, 0].set_title("2D Clustering in Energy-Frequency Plane", fontsize=14, fontweight='bold')
+            axes[0, 0].set_xlabel("Frequency (Hz)")
+            axes[0, 0].set_ylabel("Energy")
+            axes[0, 0].set_xlim([0, 4000])
+            axes[0, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=9)
+            axes[0, 0].grid(True, alpha=0.3)
+            for i, cluster in enumerate(major_freq_clusters):
+                axes[0, 1].semilogy(cluster['freqs'], cluster['energies'], 
+                                   'o', color=colors_clusters[i], markersize=12, 
+                                   alpha=0.7, markeredgecolor='black', markeredgewidth=1.5,
+                                   label=f"Cluster {i}: {cluster['center_freq']:.0f} Hz")
+                axes[0, 1].semilogy(cluster['center_freq'], cluster['center_energy'], 
+                                   'x', color=colors_clusters[i], markersize=15, 
+                                   markeredgewidth=3)
+            axes[0, 1].set_title("2D Clustering (Log Energy Scale)", fontsize=14, fontweight='bold')
+            axes[0, 1].set_xlabel("Frequency (Hz)")
+            axes[0, 1].set_ylabel("Energy (log scale)")
+            axes[0, 1].set_xlim([0, 4000])
+            axes[0, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=9)
+            axes[0, 1].grid(True, alpha=0.3)
+            spectrogram = np.abs(Zxx)
+            im = axes[1, 0].pcolormesh(t, f, 20 * np.log10(spectrogram + 1e-10), 
+                                       shading='gouraud', cmap='gray')
+            for i, cluster in enumerate(major_freq_clusters):
+                for idx in cluster['freq_indices']:
+                    axes[1, 0].axhline(y=f[idx], color=colors_clusters[i], 
+                                      linewidth=2.5, alpha=0.8, 
+                                      label=f"Cluster {i}" if idx == cluster['freq_indices'][0] else "")
+            axes[1, 0].set_title(f"Spectrogram with {n_clusters} Frequency Clusters", 
+                                fontsize=14, fontweight='bold')
+            axes[1, 0].set_xlabel("Time (s)")
+            axes[1, 0].set_ylabel("Frequency (Hz)")
+            axes[1, 0].set_ylim([0, 4000])
+            plt.colorbar(im, ax=axes[1, 0], label="Magnitude (dB)")
+            if n_clusters > 0:
+                cluster_centers_freq = [c['center_freq'] for c in major_freq_clusters]
+                cluster_sizes = [len(c['freq_indices']) for c in major_freq_clusters]
+                bars = axes[1, 1].bar(range(n_clusters), cluster_centers_freq, 
+                                     color=colors_clusters[:n_clusters], alpha=0.7, 
+                                     edgecolor='black', linewidth=1.5)
+                axes[1, 1].set_title(f"{n_clusters} DTMF Frequency Cluster Centers", 
+                                    fontsize=14, fontweight='bold')
+                axes[1, 1].set_xlabel("Cluster Index")
+                axes[1, 1].set_ylabel("Center Frequency (Hz)")
+                axes[1, 1].set_xticks(range(n_clusters))
+                axes[1, 1].set_xticklabels([f"{c['center_freq']:.0f}Hz" 
+                                           for c in major_freq_clusters], 
+                                           rotation=45, ha='right')
+                axes[1, 1].grid(True, alpha=0.3, axis='y')
+                for i, (bar, size) in enumerate(zip(bars, cluster_sizes)):
+                    height = bar.get_height()
+                    axes[1, 1].text(bar.get_x() + bar.get_width()/2., height,
+                                   f'{size} bins', ha='center', va='bottom', fontsize=9, fontweight='bold')
+            plt.tight_layout()
+            plt.savefig(os.path.join(signal_figures_dir, "cell3_freq_clustering_2d.png"), dpi=150, bbox_inches='tight')
+            plt.close()
+            
+            # additional voronoi plot
+            fig2, ax2 = plt.subplots(1, 1, figsize=(12, 8))
+            for i, cluster in enumerate(major_freq_clusters):
+                ax2.scatter(cluster['freqs'], cluster['energies'], 
+                           c=[colors_clusters[i]], s=200, alpha=0.6, 
+                           edgecolors='black', linewidths=2,
+                           label=f"Cluster {i}: {cluster['center_freq']:.0f} Hz ({len(cluster['freq_indices'])} bins)")
+                ax2.plot(cluster['center_freq'], cluster['center_energy'], 
+                        'x', color=colors_clusters[i], markersize=20, 
+                        markeredgewidth=4, label=f"Center {i}" if i == 0 else "")
+            noise_freq_indices = np.setdiff1d(np.arange(len(f)), high_energy_freq_indices)
+            noise_freqs = f[noise_freq_indices]
+            noise_energies = energy_per_freq[noise_freq_indices]
+            ax2.scatter(noise_freqs, noise_energies, c='lightgray', s=30, 
+                       alpha=0.3, label='Noise bins', edgecolors='none')
+            ax2.set_title("2D Clustering: Energy-Frequency Plane\n(Filtered Clusters Only)", 
+                         fontsize=16, fontweight='bold')
+            ax2.set_xlabel("Frequency (Hz)", fontsize=12)
+            ax2.set_ylabel("Energy", fontsize=12)
+            ax2.set_xlim([0, 4000])
+            ax2.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
+            ax2.grid(True, alpha=0.3)
+            plt.tight_layout()
+            plt.savefig(os.path.join(signal_figures_dir, "cell3_freq_clustering_voronoi.png"), dpi=150, bbox_inches='tight')
+            plt.close()
+        
         # Cell 4: Changepoint detection
         log_file.write(f"\n--- Cell 4: Changepoint Detection ---\n")
         t_max = len(t)
@@ -1770,7 +2064,8 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             for freq_idx in freq_indices:
                 freq_energy = np.abs(Zxx[freq_idx, :])**2
                 sigma_est = np.std(freq_energy)
-                pen_bic = 2 * sigma_est**2 * np.log(t_max)
+                # heavily penalize number of changepoints (multiply by 10 for stronger penalty)
+                pen_bic = 10 * 2 * sigma_est**2 * np.log(t_max)
                 
                 algo = rpt.Pelt(model="l2", jump=1)
                 predicted_bkps = algo.fit_predict(freq_energy, pen=pen_bic)
@@ -1799,7 +2094,8 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
                 'changepoints': best_freq_result['changepoints'],
                 'frame_bkps': best_freq_result['frame_bkps'],
                 'energy_signal': best_freq_result['energy_signal'],
-                'n_cps': best_freq_result['n_cps']
+                'n_cps': best_freq_result['n_cps'],
+                'all_freq_results': freq_cp_results  # store all for comparison plots
             })
             
             log_file.write(f"  -> Selected freq: {best_freq_result['freq_value']:.1f} Hz with {best_freq_result['n_cps']} CPs (minimum)\n")
@@ -1807,6 +2103,127 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
         log_file.flush()
         
         results['changepoints'] = all_changepoints
+        
+        # plot Cell 4: Changepoint detection (including cluster frequency comparison)
+        if len(all_changepoints) > 0:
+            all_bkps = sorted(set([bp for cp_dict in all_changepoints 
+                                   for bp in cp_dict['changepoints']]))
+            colors_8 = plt.cm.tab10(np.linspace(0, 1, 8))
+            
+            # main changepoint detection plot
+            fig = plt.figure(figsize=(18, 12))
+            gs = fig.add_gridspec(4, 2, hspace=0.3, wspace=0.3)
+            ax1 = fig.add_subplot(gs[0, :])
+            ax1.plot(signal, 'b-', linewidth=0.8, alpha=0.7, label='Signal')
+            for bp in all_bkps:
+                ax1.axvline(x=bp, color='red', linestyle='--', linewidth=1.5, alpha=0.6)
+            ax1.set_title("Original Signal with Detected Changepoints", fontsize=14, fontweight='bold')
+            ax1.set_xlabel("Sample")
+            ax1.set_ylabel("Amplitude")
+            ax1.legend()
+            ax1.grid(True, alpha=0.3)
+            
+            # show first 4 clusters
+            for idx in range(min(4, len(all_changepoints))):
+                cp_dict = all_changepoints[idx]
+                ax = fig.add_subplot(gs[1 + idx//2, idx%2])
+                for fr_result in cp_dict.get('all_freq_results', []):
+                    if fr_result['freq_idx'] != cp_dict['selected_freq_idx']:
+                        ax.plot(t, fr_result['energy_signal'], 
+                               color=colors_8[cp_dict['cluster_id'] % 8], linewidth=1, 
+                               alpha=0.3, linestyle='--',
+                               label=f"f={fr_result['freq_value']:.0f} Hz ({fr_result['n_cps']} CPs)")
+                ax.plot(t, cp_dict['energy_signal'], 
+                       color=colors_8[cp_dict['cluster_id'] % 8], linewidth=2.5, 
+                       label=f"SELECTED: f={cp_dict['selected_freq']:.0f} Hz ({cp_dict['n_cps']} CPs)")
+                for frame_bp in cp_dict['frame_bkps']:
+                    if frame_bp < len(t):
+                        ax.axvline(x=t[frame_bp], color='red', 
+                                  linestyle='--', linewidth=2, alpha=0.8)
+                ax.set_title(f"Cluster {cp_dict['cluster_id']}: Frequency Comparison\n"
+                            f"(Center: {cp_dict['center_freq']:.0f} Hz, Selected: {cp_dict['selected_freq']:.0f} Hz)",
+                            fontweight='bold')
+                ax.set_xlabel("Time (s)")
+                ax.set_ylabel("Energy")
+                ax.legend(fontsize=8)
+                ax.grid(True, alpha=0.3)
+            
+            # spectrogram with changepoints
+            ax6 = fig.add_subplot(gs[3, 0])
+            spectrogram = np.abs(Zxx)
+            im = ax6.pcolormesh(t, f, 20 * np.log10(spectrogram + 1e-10), 
+                               shading='gouraud', cmap='viridis')
+            for cp_dict in all_changepoints:
+                for frame_bp in cp_dict['frame_bkps']:
+                    if frame_bp < len(t):
+                        ax6.axvline(x=t[frame_bp], color='red', 
+                                   linestyle='--', linewidth=1.5, alpha=0.6)
+            ax6.set_title("Spectrogram with Changepoints")
+            ax6.set_xlabel("Time (s)")
+            ax6.set_ylabel("Frequency (Hz)")
+            ax6.set_ylim([0, 4000])
+            plt.colorbar(im, ax=ax6, label="Magnitude (dB)")
+            
+            # changepoint frequency across clusters
+            ax7 = fig.add_subplot(gs[3, 1])
+            cluster_ids = [cp['cluster_id'] for cp in all_changepoints]
+            n_changepoints = [cp['n_cps'] for cp in all_changepoints]
+            selected_freqs = [cp['selected_freq'] for cp in all_changepoints]
+            bars = ax7.bar(range(len(all_changepoints)), n_changepoints, 
+                          color=[colors_8[i % 8] for i in cluster_ids], alpha=0.7, edgecolor='black', linewidth=2)
+            ax7.set_title("Number of Changepoints per Cluster\n(Selected Frequency Shown)", 
+                         fontweight='bold')
+            ax7.set_xlabel("Cluster Index")
+            ax7.set_ylabel("Number of Changepoints")
+            ax7.set_xticks(range(len(all_changepoints)))
+            ax7.set_xticklabels([f"{cp['center_freq']:.0f}Hz\n→{cp['selected_freq']:.0f}Hz" 
+                                for cp in all_changepoints], 
+                                rotation=45, ha='right', fontsize=8)
+            ax7.grid(True, alpha=0.3, axis='y')
+            for bar, n_cp, sel_freq in zip(bars, n_changepoints, selected_freqs):
+                height = bar.get_height()
+                ax7.text(bar.get_x() + bar.get_width()/2., height,
+                        f'{n_cp} CPs', ha='center', va='bottom', fontsize=9, fontweight='bold')
+            plt.tight_layout()
+            plt.savefig(os.path.join(signal_figures_dir, "cell4_changepoint_detection.png"), dpi=150, bbox_inches='tight')
+            plt.close()
+            
+            # detailed cluster frequency comparison (the important one!)
+            n_clusters = len(all_changepoints)
+            n_rows = (n_clusters + 1) // 2
+            fig2, axes2 = plt.subplots(n_rows, 2, figsize=(16, 4*n_rows))
+            if n_rows == 1:
+                axes2 = axes2.reshape(1, -1)
+            axes2 = axes2.flatten()
+            for idx, cp_dict in enumerate(all_changepoints):
+                ax = axes2[idx]
+                for fr_result in cp_dict.get('all_freq_results', []):
+                    if fr_result['freq_idx'] != cp_dict['selected_freq_idx']:
+                        ax.plot(t, fr_result['energy_signal'], 
+                               color=colors_8[cp_dict['cluster_id'] % 8], linewidth=1, 
+                               alpha=0.25, linestyle='--')
+                ax.plot(t, cp_dict['energy_signal'], 
+                       color=colors_8[cp_dict['cluster_id'] % 8], linewidth=2.5)
+                for frame_bp in cp_dict['frame_bkps']:
+                    if frame_bp < len(t):
+                        ax.axvline(x=t[frame_bp], color='red', 
+                                  linestyle='--', linewidth=2, alpha=0.8)
+                        ax.plot(t[frame_bp], cp_dict['energy_signal'][frame_bp], 
+                               'ro', markersize=8)
+                freq_info = ", ".join([f"{fr['freq_value']:.0f}Hz({fr['n_cps']}CPs)" 
+                                      for fr in cp_dict.get('all_freq_results', [])])
+                selected_marker = f"→ {cp_dict['selected_freq']:.0f}Hz selected"
+                ax.set_title(f"Cluster {cp_dict['cluster_id']}: {cp_dict['center_freq']:.0f} Hz center\n"
+                            f"Freqs: {freq_info} | {selected_marker}", 
+                            fontsize=9, fontweight='bold')
+                ax.set_xlabel("Time (s)")
+                ax.set_ylabel("Energy")
+                ax.grid(True, alpha=0.3)
+            for idx in range(n_clusters, len(axes2)):
+                axes2[idx].axis('off')
+            plt.tight_layout()
+            plt.savefig(os.path.join(signal_figures_dir, "cell4_changepoint_freq_comparison.png"), dpi=150, bbox_inches='tight')
+            plt.close()
         
         # group into low and high frequency clusters
         dtmf_low_freqs = [697, 770, 852, 941]
@@ -1878,6 +2295,72 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
                 'lower_bound': float(lower_bound)
             }
         }
+        
+        # plot Cell 6: Distribution analysis
+        if len(time_periods) > 0:
+            mean_duration = np.mean(period_durations)
+            median_duration = np.median(period_durations)
+            std_duration = np.std(period_durations)
+            upper_bound = q75 + 1.5 * iqr
+            upper_outliers = [p for p in time_periods if p['duration_seconds'] > upper_bound]
+            inliers = [p for p in time_periods if lower_bound <= p['duration_seconds'] <= upper_bound]
+            filtered_durations = [p['duration_seconds'] for p in filtered_periods]
+            
+            fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+            axes[0, 0].hist(period_durations, bins=30, alpha=0.7, color='blue', edgecolor='black', label='All periods')
+            axes[0, 0].axvline(mean_duration, color='red', linestyle='--', linewidth=2, label=f'Mean: {mean_duration:.4f}s')
+            axes[0, 0].axvline(median_duration, color='green', linestyle='--', linewidth=2, label=f'Median: {median_duration:.4f}s')
+            axes[0, 0].axvline(lower_bound, color='orange', linestyle=':', linewidth=2, label=f'Lower bound: {lower_bound:.4f}s')
+            axes[0, 0].axvline(upper_bound, color='orange', linestyle=':', linewidth=2, label=f'Upper bound: {upper_bound:.4f}s')
+            axes[0, 0].set_title("Time Period Distribution (Between Changepoints)", fontsize=14, fontweight='bold')
+            axes[0, 0].set_xlabel("Duration (seconds)")
+            axes[0, 0].set_ylabel("Frequency")
+            axes[0, 0].legend()
+            axes[0, 0].grid(True, alpha=0.3)
+            
+            bp = axes[0, 1].boxplot(period_durations, vert=True, patch_artist=True, 
+                                    showmeans=True, meanline=True)
+            bp['boxes'][0].set_facecolor('lightblue')
+            bp['boxes'][0].set_alpha(0.7)
+            for outlier in lower_outliers:
+                axes[0, 1].plot(1, outlier['duration_seconds'], 'ro', markersize=8, alpha=0.7, 
+                               label='Lower outlier' if outlier == lower_outliers[0] else '')
+            for outlier in upper_outliers:
+                axes[0, 1].plot(1, outlier['duration_seconds'], 'go', markersize=8, alpha=0.7, 
+                               label='Upper outlier' if outlier == upper_outliers[0] else '')
+            axes[0, 1].axhline(magic_threshold, color='purple', linestyle='--', linewidth=2, 
+                               label=f'Magic threshold: {magic_threshold}s')
+            axes[0, 1].set_title("Box Plot with Outliers", fontsize=14, fontweight='bold')
+            axes[0, 1].set_ylabel("Duration (seconds)")
+            axes[0, 1].set_xticklabels(['Time Periods'])
+            axes[0, 1].legend()
+            axes[0, 1].grid(True, alpha=0.3, axis='y')
+            
+            axes[1, 0].hist(period_durations, bins=30, alpha=0.5, color='blue', edgecolor='black', 
+                           label=f'Before ({len(time_periods)} periods)')
+            axes[1, 0].hist(filtered_durations, bins=30, alpha=0.7, color='green', edgecolor='black', 
+                           label=f'After ({len(filtered_periods)} periods)')
+            axes[1, 0].axvline(magic_threshold, color='red', linestyle='--', linewidth=2, 
+                              label=f'Magic threshold: {magic_threshold}s')
+            axes[1, 0].set_title("Before/After Filtering Comparison", fontsize=14, fontweight='bold')
+            axes[1, 0].set_xlabel("Duration (seconds)")
+            axes[1, 0].set_ylabel("Frequency")
+            axes[1, 0].legend()
+            axes[1, 0].grid(True, alpha=0.3)
+            
+            for i, p in enumerate(time_periods):
+                color = 'red' if p in removed_outliers else 'green'
+                alpha = 0.3 if p in removed_outliers else 0.7
+                axes[1, 1].barh(i, p['duration_seconds'], left=p['start_cp']/FS, 
+                               color=color, alpha=alpha, edgecolor='black', linewidth=0.5)
+            axes[1, 1].set_title(f"Timeline: Removed vs Kept Periods\n(Red=removed, Green=kept)", 
+                                fontsize=14, fontweight='bold')
+            axes[1, 1].set_xlabel("Time (seconds)")
+            axes[1, 1].set_ylabel("Period Index")
+            axes[1, 1].grid(True, alpha=0.3, axis='x')
+            plt.tight_layout()
+            plt.savefig(os.path.join(signal_figures_dir, "cell6_distribution_analysis.png"), dpi=150, bbox_inches='tight')
+            plt.close()
         
         # Cell 7: Period-symbol matching (CP-based technique from notebook)
         log_file.write(f"\n--- Cell 7: Period-Symbol Matching (CP-based) ---\n")
@@ -2097,7 +2580,7 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
                     bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
             
             plt.tight_layout()
-            plt.savefig(os.path.join(figures_dir, f"cell7_all_matches_signal{signal_idx}.png"), 
+            plt.savefig(os.path.join(signal_figures_dir, f"cell7_all_matches_signal{signal_idx}.png"), 
                        dpi=150, bbox_inches='tight')
             plt.close()
         

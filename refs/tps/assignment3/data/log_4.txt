@@ -1,0 +1,60 @@
+DTMF Detection Log for Signal 4
+Timestamp: 2025-12-16T22:24:49.449404
+
+================================================================================
+Processing Signal 4
+================================================================================
+Signal length: 54117 samples (2.454 seconds)
+Ground truth symbols: ['5', 'C', 'C', '9', '#', '7', 'C', 'C', '4']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 424)
+Frequency bins: 129, Time frames: 424
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 9
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 1
+  Cluster 0: center=1507.3 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 5 (center=1507.3 Hz, 2 freqs):
+  Freq 1464.3 Hz: 6 CPs
+  Freq 1550.4 Hz: 7 CPs
+  -> Selected freq: 1464.3 Hz with 6 CPs (minimum)
+
+Low frequency clusters: 0
+High frequency clusters: 1
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 5
+Removed outliers: 0
+Filtered periods: 5
+
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Number of ground truth symbols: 9
+Number of filtered periods available: 5
+WARNING: Only 5 filtered periods available for 9 symbols!
+  This may indicate insufficient changepoints detected or too aggressive filtering.
+Selected 5 biggest periods (by duration) for matching
+Low frequency clusters available: 0
+High frequency clusters available: 1
+  WARNING: No low frequency clusters detected! This explains why only high frequencies are found.
+  Match 1 diagnostic: period [0.958, 1.138]s
+    Available low clusters: 0
+    Available high clusters: 1
+      High cluster: freq=1464.3Hz, CPs near period: 2
+    Found active low: 0, active high: 1
+  Match 1: '5' -> period [0.958, 1.138]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 2: 'C' -> period [1.138, 1.295]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 3: 'C' -> period [1.295, 1.405]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 4: '9' -> period [1.405, 1.614]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 5: '#' -> period [1.614, 1.631]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_4.npz
+  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_4.json
+  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_4.txt
+================================================================================

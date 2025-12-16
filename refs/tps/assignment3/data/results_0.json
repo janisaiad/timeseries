@@ -1,0 +1,101 @@
+{
+  "signal_idx": 0,
+  "signal_length": 19562,
+  "ground_truth_symbols": [
+    "5",
+    "C",
+    "3"
+  ],
+  "timestamp": "2025-12-16T22:24:16.767488",
+  "success": true,
+  "stft_params": {
+    "window_length": 256,
+    "overlap": 128,
+    "frame_step": 128
+  },
+  "freq_clustering": {
+    "n_clusters": 3,
+    "cluster_centers": [
+      732.12890625,
+      732.12890625,
+      1464.2578125
+    ]
+  },
+  "changepoints_summary": [
+    {
+      "cluster_id": 1,
+      "selected_freq": 689.0625,
+      "n_changepoints": 2,
+      "changepoints": [
+        11776,
+        15616
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "selected_freq": 861.328125,
+      "n_changepoints": 2,
+      "changepoints": [
+        8448,
+        9984
+      ]
+    },
+    {
+      "cluster_id": 0,
+      "selected_freq": 1378.125,
+      "n_changepoints": 4,
+      "changepoints": [
+        4096,
+        6272,
+        10368,
+        10624
+      ]
+    }
+  ],
+  "period_analysis": {
+    "n_original_periods": 7,
+    "n_filtered_periods": 7,
+    "n_removed_outliers": 0,
+    "statistics": {
+      "q25": 0.034829931972789115,
+      "q75": 0.09868480725623582,
+      "iqr": 0.06385487528344672,
+      "lower_bound": -0.06095238095238096
+    }
+  },
+  "matches": [
+    {
+      "match_index": 0,
+      "assigned_symbol": "5",
+      "verified_symbol": "8",
+      "primary_low_freq": 861.328125,
+      "primary_high_freq": 1378.125,
+      "period_start": 0.18575963718820862,
+      "period_end": 0.28444444444444444,
+      "period_duration": 0.09868480725623582,
+      "symbol_match": false
+    },
+    {
+      "match_index": 1,
+      "assigned_symbol": "C",
+      "verified_symbol": "8",
+      "primary_low_freq": 861.328125,
+      "primary_high_freq": 1378.125,
+      "period_start": 0.28444444444444444,
+      "period_end": 0.3831292517006803,
+      "period_duration": 0.09868480725623582,
+      "symbol_match": false
+    },
+    {
+      "match_index": 2,
+      "assigned_symbol": "3",
+      "verified_symbol": "2",
+      "primary_low_freq": 689.0625,
+      "primary_high_freq": 1378.125,
+      "period_start": 0.5340589569160997,
+      "period_end": 0.7082086167800453,
+      "period_duration": 0.17414965986394557,
+      "symbol_match": false
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+DTMF Detection Log for Signal 11
+Timestamp: 2025-12-16T22:25:26.796674
+
+================================================================================
+Processing Signal 11
+================================================================================
+Signal length: 23060 samples (1.046 seconds)
+Ground truth symbols: ['8', 'A', '#', '3', '4']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 182)
+Frequency bins: 129, Time frames: 182
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 9
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 1
+  Cluster 0: center=818.3 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 3 (center=818.3 Hz, 2 freqs):
+  Freq 775.2 Hz: 4 CPs
+  Freq 861.3 Hz: 6 CPs
+  -> Selected freq: 775.2 Hz with 4 CPs (minimum)
+
+Low frequency clusters: 1
+High frequency clusters: 0
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 3
+Removed outliers: 0
+Filtered periods: 3
+
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Number of ground truth symbols: 5
+Number of filtered periods available: 3
+WARNING: Only 3 filtered periods available for 5 symbols!
+  This may indicate insufficient changepoints detected or too aggressive filtering.
+Selected 3 biggest periods (by duration) for matching
+Low frequency clusters available: 1
+High frequency clusters available: 0
+  Match 1 diagnostic: period [0.697, 0.720]s
+    Available low clusters: 1
+      Low cluster: freq=775.2Hz, CPs near period: 2
+    Available high clusters: 0
+    Found active low: 1, active high: 0
+  Match 1: '8' -> period [0.697, 0.720]s, freqs: low-only: 775Hz, verified: 'None', match: ✗
+  Match 2: 'A' -> period [0.720, 0.946]s, freqs: low-only: 775Hz, verified: 'None', match: ✗
+  Match 3: '#' -> period [0.946, 0.993]s, freqs: low-only: 775Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_11.npz
+  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_11.json
+  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_11.txt
+================================================================================

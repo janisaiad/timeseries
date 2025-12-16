@@ -1,0 +1,92 @@
+{
+  "signal_idx": 98,
+  "signal_length": 21837,
+  "ground_truth_symbols": [
+    "6",
+    "A",
+    "7"
+  ],
+  "timestamp": "2025-12-16T22:34:40.459335",
+  "success": true,
+  "stft_params": {
+    "window_length": 256,
+    "overlap": 128,
+    "frame_step": 128
+  },
+  "freq_clustering": {
+    "n_clusters": 2,
+    "cluster_centers": [
+      732.12890625,
+      1507.32421875
+    ]
+  },
+  "changepoints_summary": [
+    {
+      "cluster_id": 7,
+      "selected_freq": 689.0625,
+      "n_changepoints": 4,
+      "changepoints": [
+        7296,
+        11008,
+        15104,
+        15488
+      ]
+    },
+    {
+      "cluster_id": 0,
+      "selected_freq": 1464.2578125,
+      "n_changepoints": 3,
+      "changepoints": [
+        4096,
+        4864,
+        5504
+      ]
+    }
+  ],
+  "period_analysis": {
+    "n_original_periods": 6,
+    "n_filtered_periods": 6,
+    "n_removed_outliers": 0,
+    "statistics": {
+      "q25": 0.030476190476190476,
+      "q75": 0.14657596371882087,
+      "iqr": 0.11609977324263039,
+      "lower_bound": -0.1436734693877551
+    }
+  },
+  "matches": [
+    {
+      "match_index": 0,
+      "assigned_symbol": "6",
+      "verified_symbol": "3",
+      "primary_low_freq": 689.0625,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 0.24961451247165534,
+      "period_end": 0.3308843537414966,
+      "period_duration": 0.08126984126984127,
+      "symbol_match": false
+    },
+    {
+      "match_index": 1,
+      "assigned_symbol": "A",
+      "verified_symbol": "3",
+      "primary_low_freq": 689.0625,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 0.3308843537414966,
+      "period_end": 0.4992290249433107,
+      "period_duration": 0.16834467120181407,
+      "symbol_match": false
+    },
+    {
+      "match_index": 2,
+      "assigned_symbol": "7",
+      "verified_symbol": "3",
+      "primary_low_freq": 689.0625,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 0.4992290249433107,
+      "period_end": 0.6849886621315193,
+      "period_duration": 0.18575963718820862,
+      "symbol_match": false
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+DTMF Detection Log for Signal 59
+Timestamp: 2025-12-16T22:30:27.885107
+
+================================================================================
+Processing Signal 59
+================================================================================
+Signal length: 35046 samples (1.589 seconds)
+Ground truth symbols: ['7', '9', '0', 'D', 'C', '3', 'A']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 275)
+Frequency bins: 129, Time frames: 275
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 10
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 2
+  Cluster 0: center=559.9 Hz, n_bins=2
+  Cluster 1: center=818.3 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 3 (center=559.9 Hz, 2 freqs):
+  Freq 516.8 Hz: 4 CPs
+  Freq 602.9 Hz: 6 CPs
+  -> Selected freq: 516.8 Hz with 4 CPs (minimum)
+Cluster 0 (center=818.3 Hz, 2 freqs):
+  Freq 689.1 Hz: 4 CPs
+  Freq 947.5 Hz: 5 CPs
+  -> Selected freq: 689.1 Hz with 4 CPs (minimum)
+
+Low frequency clusters: 2
+High frequency clusters: 0
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 7
+Removed outliers: 0
+Filtered periods: 7
+
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Number of ground truth symbols: 7
+Number of filtered periods available: 7
+Selected 7 biggest periods (by duration) for matching
+Low frequency clusters available: 2
+High frequency clusters available: 0
+  Match 1 diagnostic: period [0.598, 0.673]s
+    Available low clusters: 2
+      Low cluster: freq=516.8Hz, CPs near period: 2
+      Low cluster: freq=689.1Hz, CPs near period: 0
+    Available high clusters: 0
+    Found active low: 1, active high: 0
+  Match 1: '7' -> period [0.598, 0.673]s, freqs: low-only: 517Hz, verified: 'None', match: ✗
+  Match 2: '9' -> period [0.673, 1.225]s, freqs: low-only: 517Hz, verified: 'None', match: ✗
+  Match 3: '0' -> period [1.225, 1.382]s, freqs: low-only: 689Hz, verified: 'None', match: ✗
+  Match 4: 'D' -> period [1.382, 1.405]s, freqs: low-only: 689Hz, verified: 'None', match: ✗
+  Match 5: 'C' -> period [1.405, 1.416]s, freqs: low-only: 517Hz, verified: 'None', match: ✗
+  Match 6: '3' -> period [1.416, 1.463]s, freqs: low-only: 517Hz, verified: 'None', match: ✗
+  Match 7: 'A' -> period [1.463, 1.492]s, freqs: low-only: 517Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_59.npz
+  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_59.json
+  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_59.txt
+================================================================================

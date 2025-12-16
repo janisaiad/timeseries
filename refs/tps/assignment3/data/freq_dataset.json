@@ -1,0 +1,3139 @@
+{
+  "total_signals": 100,
+  "timestamp": "2025-12-16T22:34:53.714178",
+  "signals": [
+    {
+      "signal_idx": 0,
+      "ground_truth_symbols": [
+        "5",
+        "C",
+        "3"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 1,
+      "ground_truth_symbols": [
+        "8",
+        "7",
+        "C",
+        "B",
+        "5",
+        "A",
+        "3"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        }
+      ]
+    },
+    {
+      "signal_idx": 2,
+      "ground_truth_symbols": [
+        "D",
+        "6",
+        "A",
+        "8",
+        "3",
+        "D",
+        "1",
+        "8",
+        "B",
+        "9"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        }
+      ]
+    },
+    {
+      "signal_idx": 3,
+      "ground_truth_symbols": [
+        "A",
+        "*",
+        "A",
+        "6",
+        "5",
+        "D",
+        "5",
+        "C"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 4,
+      "ground_truth_symbols": [
+        "5",
+        "C",
+        "C",
+        "9",
+        "#",
+        "7",
+        "C",
+        "C",
+        "4"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 5,
+      "ground_truth_symbols": [
+        "C",
+        "9",
+        "5",
+        "4"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 6,
+      "ground_truth_symbols": [
+        "*",
+        "2",
+        "8",
+        "#",
+        "3",
+        "C",
+        "8",
+        "5",
+        "*",
+        "4"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 7,
+      "ground_truth_symbols": [
+        "#",
+        "3",
+        "A",
+        "9",
+        "C",
+        "9",
+        "4",
+        "A",
+        "9"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 8,
+      "ground_truth_symbols": [
+        "4",
+        "8",
+        "6",
+        "*"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 9,
+      "ground_truth_symbols": [
+        "5",
+        "8",
+        "*",
+        "7",
+        "2"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 10,
+      "ground_truth_symbols": [
+        "4",
+        "0",
+        "B",
+        "B",
+        "2",
+        "4",
+        "0",
+        "5",
+        "D",
+        "2"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 11,
+      "ground_truth_symbols": [
+        "8",
+        "A",
+        "#",
+        "3",
+        "4"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 12,
+      "ground_truth_symbols": [
+        "5",
+        "6",
+        "7",
+        "A",
+        "A",
+        "9",
+        "8",
+        "2",
+        "A",
+        "D",
+        "3"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 13,
+      "ground_truth_symbols": [
+        "D",
+        "0",
+        "5",
+        "D",
+        "8"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 14,
+      "ground_truth_symbols": [
+        "0",
+        "5",
+        "*",
+        "9",
+        "3",
+        "B",
+        "A",
+        "1",
+        "#",
+        "9"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 15,
+      "ground_truth_symbols": [
+        "7",
+        "1",
+        "A",
+        "0",
+        "1",
+        "*",
+        "8"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1119.7265625
+        }
+      ]
+    },
+    {
+      "signal_idx": 16,
+      "ground_truth_symbols": [
+        "6",
+        "*",
+        "C",
+        "A",
+        "8",
+        "B",
+        "*",
+        "2",
+        "9"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 17,
+      "ground_truth_symbols": [
+        "D",
+        "0",
+        "D"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 18,
+      "ground_truth_symbols": [
+        "D",
+        "6",
+        "2",
+        "0",
+        "A",
+        "5"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        }
+      ]
+    },
+    {
+      "signal_idx": 19,
+      "ground_truth_symbols": [
+        "3",
+        "5",
+        "7"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 20,
+      "ground_truth_symbols": [
+        "D",
+        "2",
+        "6",
+        "8",
+        "8",
+        "3",
+        "*",
+        "2",
+        "D",
+        "*"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 21,
+      "ground_truth_symbols": [
+        "7",
+        "0",
+        "7",
+        "1"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 22,
+      "ground_truth_symbols": [
+        "A",
+        "*",
+        "*",
+        "D",
+        "7",
+        "2",
+        "2",
+        "B",
+        "4",
+        "2",
+        "9"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        }
+      ]
+    },
+    {
+      "signal_idx": 23,
+      "ground_truth_symbols": [
+        "4",
+        "3",
+        "*",
+        "7",
+        "5",
+        "A",
+        "6",
+        "A",
+        "4"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 24,
+      "ground_truth_symbols": [
+        "1",
+        "2",
+        "4",
+        "D",
+        "9",
+        "1",
+        "C",
+        "7",
+        "9"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 25,
+      "ground_truth_symbols": [
+        "8",
+        "5",
+        "2",
+        "7",
+        "D",
+        "6",
+        "7",
+        "C",
+        "3"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 26,
+      "ground_truth_symbols": [
+        "9",
+        "6",
+        "4"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 27,
+      "ground_truth_symbols": [
+        "8",
+        "6",
+        "6"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 28,
+      "ground_truth_symbols": [
+        "7",
+        "0",
+        "*",
+        "9",
+        "1",
+        "3",
+        "D",
+        "7"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 29,
+      "ground_truth_symbols": [
+        "3",
+        "7",
+        "8",
+        "D",
+        "9",
+        "A",
+        "8",
+        "9",
+        "9",
+        "*",
+        "3"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1550.390625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1550.390625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1550.390625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1550.390625
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1550.390625
+        }
+      ]
+    },
+    {
+      "signal_idx": 30,
+      "ground_truth_symbols": [
+        "6",
+        "8",
+        "C",
+        "9",
+        "9",
+        "7",
+        "#"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 31,
+      "ground_truth_symbols": [
+        "*",
+        "9",
+        "*"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 32,
+      "ground_truth_symbols": [
+        "#",
+        "5",
+        "D",
+        "3",
+        "4"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 33,
+      "ground_truth_symbols": [
+        "7",
+        "C",
+        "0",
+        "8",
+        "7",
+        "0",
+        "*",
+        "8",
+        "3",
+        "2",
+        "B"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 34,
+      "ground_truth_symbols": [
+        "7",
+        "4",
+        "2",
+        "*",
+        "1",
+        "1"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 35,
+      "ground_truth_symbols": [
+        "5",
+        "*",
+        "*",
+        "4",
+        "2",
+        "4",
+        "*",
+        "1",
+        "2",
+        "*"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1119.7265625
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1119.7265625
+        }
+      ]
+    },
+    {
+      "signal_idx": 36,
+      "ground_truth_symbols": [
+        "8",
+        "A",
+        "2",
+        "2",
+        "A",
+        "1"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 37,
+      "ground_truth_symbols": [
+        "7",
+        "D",
+        "8",
+        "3",
+        "9",
+        "B",
+        "2",
+        "3",
+        "2",
+        "*",
+        "C"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 38,
+      "ground_truth_symbols": [
+        "1",
+        "6",
+        "4",
+        "1",
+        "D",
+        "*",
+        "8",
+        "0",
+        "6"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1464.2578125
+        }
+      ]
+    },
+    {
+      "signal_idx": 39,
+      "ground_truth_symbols": [
+        "9",
+        "A",
+        "0",
+        "8",
+        "*",
+        "8",
+        "8"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 40,
+      "ground_truth_symbols": [
+        "1",
+        "A",
+        "1",
+        "4",
+        "7",
+        "7",
+        "4",
+        "0",
+        "*"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 41,
+      "ground_truth_symbols": [
+        "A",
+        "D",
+        "3",
+        "*",
+        "5",
+        "9",
+        "A",
+        "3",
+        "6",
+        "5",
+        "5"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        }
+      ]
+    },
+    {
+      "signal_idx": 42,
+      "ground_truth_symbols": [
+        "5",
+        "5",
+        "*",
+        "3",
+        "3",
+        "C",
+        "3",
+        "C",
+        "*",
+        "2",
+        "B"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 43,
+      "ground_truth_symbols": [
+        "0",
+        "0",
+        "5",
+        "#",
+        "A",
+        "B",
+        "C",
+        "0",
+        "3"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        }
+      ]
+    },
+    {
+      "signal_idx": 44,
+      "ground_truth_symbols": [
+        "0",
+        "C",
+        "3",
+        "8",
+        "3",
+        "*"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 45,
+      "ground_truth_symbols": [
+        "9",
+        "B",
+        "7",
+        "7",
+        "0",
+        "A",
+        "3",
+        "3",
+        "*",
+        "5",
+        "D"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1291.9921875
+        }
+      ]
+    },
+    {
+      "signal_idx": 46,
+      "ground_truth_symbols": [
+        "6",
+        "8",
+        "0",
+        "6",
+        "8",
+        "A",
+        "A",
+        "C",
+        "9"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        }
+      ]
+    },
+    {
+      "signal_idx": 47,
+      "ground_truth_symbols": [
+        "2",
+        "#",
+        "2",
+        "*",
+        "2"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 48,
+      "ground_truth_symbols": [
+        "3",
+        "B",
+        "3",
+        "4",
+        "A",
+        "C",
+        "1",
+        "D",
+        "5"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 49,
+      "ground_truth_symbols": [
+        "7",
+        "2",
+        "6",
+        "8"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 50,
+      "ground_truth_symbols": [
+        "A",
+        "6",
+        "3"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 51,
+      "ground_truth_symbols": [
+        "3",
+        "1",
+        "0",
+        "0",
+        "0",
+        "*"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 52,
+      "ground_truth_symbols": [
+        "8",
+        "A",
+        "C"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 53,
+      "ground_truth_symbols": [
+        "3",
+        "8",
+        "6",
+        "8",
+        "1",
+        "0",
+        "C",
+        "C",
+        "A",
+        "8",
+        "3"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        }
+      ]
+    },
+    {
+      "signal_idx": 54,
+      "ground_truth_symbols": [
+        "0",
+        "2",
+        "D",
+        "7",
+        "B",
+        "C",
+        "#"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        }
+      ]
+    },
+    {
+      "signal_idx": 55,
+      "ground_truth_symbols": [
+        "6",
+        "6",
+        "7",
+        "#",
+        "C",
+        "3",
+        "4",
+        "0"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 56,
+      "ground_truth_symbols": [
+        "#",
+        "0",
+        "9"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 57,
+      "ground_truth_symbols": [
+        "9",
+        "4",
+        "A",
+        "5",
+        "0",
+        "6"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 58,
+      "ground_truth_symbols": [
+        "7",
+        "A",
+        "0",
+        "1"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1291.9921875
+        }
+      ]
+    },
+    {
+      "signal_idx": 59,
+      "ground_truth_symbols": [
+        "7",
+        "9",
+        "0",
+        "D",
+        "C",
+        "3",
+        "A"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 60,
+      "ground_truth_symbols": [
+        "4",
+        "A",
+        "*",
+        "4",
+        "7",
+        "8",
+        "C"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 61,
+      "ground_truth_symbols": [
+        "9",
+        "C",
+        "4",
+        "D",
+        "4",
+        "#",
+        "D",
+        "5",
+        "*",
+        "4",
+        "A"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 62,
+      "ground_truth_symbols": [
+        "5",
+        "8",
+        "8",
+        "B",
+        "C",
+        "A"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 63,
+      "ground_truth_symbols": [
+        "2",
+        "B",
+        "B"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 64,
+      "ground_truth_symbols": [
+        "A",
+        "6",
+        "A",
+        "6",
+        "5",
+        "2",
+        "2",
+        "A"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 65,
+      "ground_truth_symbols": [
+        "*",
+        "2",
+        "C",
+        "B",
+        "#",
+        "A",
+        "2",
+        "#",
+        "7",
+        "8",
+        "A"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        }
+      ]
+    },
+    {
+      "signal_idx": 66,
+      "ground_truth_symbols": [
+        "1",
+        "9",
+        "*",
+        "4",
+        "8",
+        "4",
+        "8",
+        "5",
+        "8",
+        "D"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 67,
+      "ground_truth_symbols": [
+        "#",
+        "8",
+        "C",
+        "2"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1291.9921875
+        }
+      ]
+    },
+    {
+      "signal_idx": 68,
+      "ground_truth_symbols": [
+        "*",
+        "A",
+        "3",
+        "9",
+        "C",
+        "C",
+        "8",
+        "*",
+        "#",
+        "D",
+        "C"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 69,
+      "ground_truth_symbols": [
+        "7",
+        "2",
+        "2",
+        "3",
+        "3",
+        "8",
+        "2",
+        "D"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 70,
+      "ground_truth_symbols": [
+        "1",
+        "7",
+        "4",
+        "8"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 71,
+      "ground_truth_symbols": [
+        "C",
+        "4",
+        "*",
+        "#",
+        "7"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 72,
+      "ground_truth_symbols": [
+        "9",
+        "3",
+        "D",
+        "1",
+        "7",
+        "D",
+        "0",
+        "*",
+        "8",
+        "5"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 73,
+      "ground_truth_symbols": [
+        "2",
+        "9",
+        "B",
+        "9",
+        "8",
+        "5",
+        "1"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        }
+      ]
+    },
+    {
+      "signal_idx": 74,
+      "ground_truth_symbols": [
+        "2",
+        "1",
+        "2",
+        "4",
+        "1",
+        "0",
+        "#",
+        "D",
+        "D"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 602.9296875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 75,
+      "ground_truth_symbols": [
+        "5",
+        "5",
+        "1",
+        "D",
+        "*"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 76,
+      "ground_truth_symbols": [
+        "*",
+        "7",
+        "0",
+        "*"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 77,
+      "ground_truth_symbols": [
+        "D",
+        "6",
+        "0",
+        "7",
+        "#",
+        "1",
+        "2",
+        "0",
+        "#",
+        "9"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 78,
+      "ground_truth_symbols": [
+        "9",
+        "6",
+        "C",
+        "0",
+        "8",
+        "8",
+        "4",
+        "4",
+        "A",
+        "C",
+        "1"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        }
+      ]
+    },
+    {
+      "signal_idx": 79,
+      "ground_truth_symbols": [
+        "A",
+        "3",
+        "3",
+        "3",
+        "*",
+        "4",
+        "*",
+        "6",
+        "#",
+        "0",
+        "D"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        }
+      ]
+    },
+    {
+      "signal_idx": 80,
+      "ground_truth_symbols": [
+        "1",
+        "2",
+        "*",
+        "3",
+        "8",
+        "1",
+        "9"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 947.4609375,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 81,
+      "ground_truth_symbols": [
+        "3",
+        "*",
+        "0",
+        "#",
+        "7",
+        "9",
+        "D",
+        "0"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1033.59375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1033.59375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        }
+      ]
+    },
+    {
+      "signal_idx": 82,
+      "ground_truth_symbols": [
+        "1",
+        "8",
+        "A",
+        "#",
+        "6",
+        "C",
+        "5",
+        "*",
+        "5",
+        "B"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 83,
+      "ground_truth_symbols": [
+        "1",
+        "#",
+        "2",
+        "1",
+        "3"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 84,
+      "ground_truth_symbols": [
+        "1",
+        "4",
+        "#"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 85,
+      "ground_truth_symbols": [
+        "5",
+        "D",
+        "#",
+        "*",
+        "*",
+        "C",
+        "A"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1550.390625
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1550.390625
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1550.390625
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1550.390625
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1550.390625
+        }
+      ]
+    },
+    {
+      "signal_idx": 86,
+      "ground_truth_symbols": [
+        "D",
+        "9",
+        "D",
+        "#",
+        "2",
+        "9"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        }
+      ]
+    },
+    {
+      "signal_idx": 87,
+      "ground_truth_symbols": [
+        "5",
+        "1",
+        "5",
+        "4",
+        "C"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 88,
+      "ground_truth_symbols": [
+        "5",
+        "B",
+        "#",
+        "9",
+        "1",
+        "8",
+        "6",
+        "3",
+        "D",
+        "D"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        }
+      ]
+    },
+    {
+      "signal_idx": 89,
+      "ground_truth_symbols": [
+        "9",
+        "4",
+        "1"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 90,
+      "ground_truth_symbols": [
+        "5",
+        "5",
+        "7",
+        "3",
+        "6",
+        "9"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 91,
+      "ground_truth_symbols": [
+        "4",
+        "5",
+        "*",
+        "6",
+        "*"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 92,
+      "ground_truth_symbols": [
+        "7",
+        "1",
+        "4"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 93,
+      "ground_truth_symbols": [
+        "2",
+        "2",
+        "9",
+        "4",
+        "9",
+        "2",
+        "3",
+        "A",
+        "B",
+        "4"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1636.5234375
+        }
+      ]
+    },
+    {
+      "signal_idx": 94,
+      "ground_truth_symbols": [
+        "0",
+        "9",
+        "6",
+        "C",
+        "#",
+        "3",
+        "4",
+        "B",
+        "#",
+        "1"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        },
+        {
+          "low_freq": 775.1953125,
+          "high_freq": 1378.125
+        }
+      ]
+    },
+    {
+      "signal_idx": 95,
+      "ground_truth_symbols": [
+        "0",
+        "3",
+        "5",
+        "7"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1205.859375
+        }
+      ]
+    },
+    {
+      "signal_idx": 96,
+      "ground_truth_symbols": [
+        "A",
+        "0",
+        "#",
+        "0",
+        "B"
+      ],
+      "detected_pairs": []
+    },
+    {
+      "signal_idx": 97,
+      "ground_truth_symbols": [
+        "3",
+        "2",
+        "*",
+        "C",
+        "2",
+        "A"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1205.859375
+        },
+        {
+          "low_freq": 861.328125,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        }
+      ]
+    },
+    {
+      "signal_idx": 98,
+      "ground_truth_symbols": [
+        "6",
+        "A",
+        "7"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        },
+        {
+          "low_freq": 689.0625,
+          "high_freq": 1464.2578125
+        }
+      ]
+    },
+    {
+      "signal_idx": 99,
+      "ground_truth_symbols": [
+        "7",
+        "5",
+        "9",
+        "7",
+        "4",
+        "*",
+        "9",
+        "D"
+      ],
+      "detected_pairs": [
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1291.9921875
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        },
+        {
+          "low_freq": 516.796875,
+          "high_freq": 1636.5234375
+        }
+      ]
+    }
+  ],
+  "overall": {
+    "total_pairs": 441,
+    "signals_with_at_least_one_pair": 53,
+    "average_pairs_per_signal": 4.41
+  }
+}

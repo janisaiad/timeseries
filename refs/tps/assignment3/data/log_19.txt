@@ -1,0 +1,54 @@
+DTMF Detection Log for Signal 19
+Timestamp: 2025-12-16T22:26:16.344754
+
+================================================================================
+Processing Signal 19
+================================================================================
+Signal length: 13877 samples (0.629 seconds)
+Ground truth symbols: ['3', '5', '7']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 110)
+Frequency bins: 129, Time frames: 110
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 6
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 0
+
+--- Cell 4: Changepoint Detection ---
+
+Low frequency clusters: 0
+High frequency clusters: 0
+
+--- Cell 6: Distribution Analysis ---
+
+ERROR processing signal 19: index -1 is out of bounds for axis 0 with size 0
+Traceback (most recent call last):
+  File "/home/janis/4A/timeseries/refs/tps/assignment3/Assignment 3.py", line 2169, in process_single_signal
+    q25 = np.percentile(period_durations, 25)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4273, in percentile
+    return _quantile_unchecked(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4550, in _quantile_unchecked
+    return _ureduce(a,
+           ^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 3894, in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4727, in _quantile_ureduce_func
+    result = _quantile(arr,
+             ^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4849, in _quantile
+    slices_having_nans = np.isnan(arr[-1, ...])
+                                  ~~~^^^^^^^^^
+IndexError: index -1 is out of bounds for axis 0 with size 0
+
+================================================================================
+Results saved to:
+  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_19.npz
+  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_19.json
+  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_19.txt
+================================================================================
