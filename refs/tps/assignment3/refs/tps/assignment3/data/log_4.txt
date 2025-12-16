@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 4
-Timestamp: 2025-12-16T14:02:51.119316
+Timestamp: 2025-12-16T18:23:30.154779
 
 ================================================================================
 Processing Signal 4
@@ -21,8 +21,6 @@ Number of major frequency clusters: 1
 --- Cell 4: Changepoint Detection ---
 Cluster 5: selected freq 1464.3 Hz with 6 CPs
 
-Total energy density intervals collected: 13
-
 Low frequency clusters: 0
 High frequency clusters: 1
 
@@ -31,19 +29,13 @@ Original periods: 5
 Removed outliers: 0
 Filtered periods: 5
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 13 intervals (2n=18) by energy density for 9 symbols
-  Low frequency intervals: 0
-  High frequency intervals: 13
-Match 1: '5' -> period [1.620, 1.631]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=9.92e+01
-Match 2: 'C' -> period [1.614, 1.631]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=5.96e+01
-Match 3: 'C' -> period [0.795, 0.807]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=5.63e+01
-Match 4: '9' -> period [0.958, 1.138]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=5.06e+01
-Match 5: '#' -> period [1.295, 1.405]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=3.74e+01
-Match 6: '7' -> period [0.418, 0.580]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=1.76e+01
-Match 7: 'C' -> period [1.631, 2.009]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=1.33e+01
-Match 8: 'C' -> period [0.807, 1.620]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=1.21e+01
-Match 9: '4' -> period [2.009, 2.454]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=5.55e+00
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 5 biggest periods (by duration) for 9 symbols
+  Match 1: '5' -> period [0.958, 1.138]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 2: 'C' -> period [1.138, 1.295]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 3: 'C' -> period [1.295, 1.405]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 4: '9' -> period [1.405, 1.614]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 5: '#' -> period [1.614, 1.631]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

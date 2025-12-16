@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 98
-Timestamp: 2025-12-16T14:05:47.226754
+Timestamp: 2025-12-16T18:26:40.447959
 
 ================================================================================
 Processing Signal 98
@@ -23,8 +23,6 @@ Number of major frequency clusters: 2
 Cluster 7: selected freq 689.1 Hz with 4 CPs
 Cluster 0: selected freq 1464.3 Hz with 3 CPs
 
-Total energy density intervals collected: 14
-
 Low frequency clusters: 1
 High frequency clusters: 1
 
@@ -33,13 +31,11 @@ Original periods: 6
 Removed outliers: 0
 Filtered periods: 6
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 6 intervals (2n=6) by energy density for 3 symbols
-  Low frequency intervals: 4
-  High frequency intervals: 2
-Match 1: '6' -> period [0.168, 0.244]s, freqs: 775+1464Hz, verified: '6', energy_density: low=5.78e+01, high=6.23e+01
-Match 2: 'A' -> period [0.453, 0.726]s, freqs: 775+1550Hz, verified: 'None', energy_density: low=8.02e+01, high=6.11e+01
-Match 3: '7' -> period [0.685, 0.702]s, freqs: low-only: 689Hz, verified: 'None', energy_density: low=7.33e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 3 biggest periods (by duration) for 3 symbols
+  Match 1: '6' -> period [0.250, 0.331]s, freqs: 689+1464Hz, verified: '3', match: ✗
+  Match 2: 'A' -> period [0.331, 0.499]s, freqs: 689+1464Hz, verified: '3', match: ✗
+  Match 3: '7' -> period [0.499, 0.685]s, freqs: 689+1464Hz, verified: '3', match: ✗
 
 ================================================================================
 Results saved to:

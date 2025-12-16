@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 93
-Timestamp: 2025-12-16T14:05:36.302884
+Timestamp: 2025-12-16T18:26:28.078053
 
 ================================================================================
 Processing Signal 93
@@ -25,8 +25,6 @@ Cluster 4: selected freq 861.3 Hz with 8 CPs
 Cluster 3: selected freq 1378.1 Hz with 6 CPs
 Cluster 7: selected freq 1636.5 Hz with 6 CPs
 
-Total energy density intervals collected: 52
-
 Low frequency clusters: 1
 High frequency clusters: 2
 
@@ -35,20 +33,18 @@ Original periods: 19
 Removed outliers: 0
 Filtered periods: 19
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 20 intervals (2n=20) by energy density for 10 symbols
-  Low frequency intervals: 7
-  High frequency intervals: 13
-Match 1: '2' -> period [0.592, 0.662]s, freqs: 861+1464Hz, verified: '9', energy_density: low=5.58e+01, high=4.46e+01
-Match 2: '2' -> period [1.120, 1.236]s, freqs: 861+1464Hz, verified: '9', energy_density: low=4.83e+01, high=5.42e+01
-Match 3: '9' -> period [2.171, 2.258]s, freqs: 861+1637Hz, verified: 'C', energy_density: low=7.06e+01, high=5.99e+01
-Match 4: '4' -> period [0.772, 1.521]s, freqs: 603+1292Hz, verified: 'None', energy_density: low=5.98e+01, high=7.38e+01
-Match 5: '9' -> period [0.569, 2.467]s, freqs: 603+1550Hz, verified: 'None', energy_density: low=4.84e+01, high=6.97e+01
-Match 6: '2' -> period [1.353, 1.521]s, freqs: 861+1378Hz, verified: '8', energy_density: low=4.33e+01, high=3.48e+01
-Match 7: '3' -> period [0.650, 1.643]s, freqs: 603+1637Hz, verified: 'None', energy_density: low=3.55e+01, high=6.14e+01
-Match 8: 'A' -> period [1.689, 1.823]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=5.28e+01
-Match 9: 'B' -> period [1.962, 2.061]s, freqs: high-only: 1637Hz, verified: 'None', energy_density: high=5.17e+01
-Match 10: '4' -> period [1.289, 1.306]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=4.47e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 10 biggest periods (by duration) for 10 symbols
+  Match 1: '2' -> period [0.087, 0.221]s, freqs: 861+1378Hz, verified: '8', match: ✗
+  Match 2: '2' -> period [0.221, 0.383]s, freqs: 861+1378Hz, verified: '8', match: ✗
+  Match 3: '9' -> period [0.476, 0.592]s, freqs: 861+1378Hz, verified: '8', match: ✗
+  Match 4: '4' -> period [0.662, 1.120]s, freqs: 861+1378Hz, verified: '8', match: ✗
+  Match 5: '9' -> period [1.120, 1.225]s, freqs: 861+1378Hz, verified: '8', match: ✗
+  Match 6: '2' -> period [1.225, 1.353]s, freqs: 861+1378Hz, verified: '8', match: ✗
+  Match 7: '3' -> period [1.382, 1.521]s, freqs: 861+1378Hz, verified: '8', match: ✗
+  Match 8: 'A' -> period [1.521, 1.631]s, freqs: 861+1378Hz, verified: '8', match: ✗
+  Match 9: 'B' -> period [1.643, 1.962]s, freqs: 861+1637Hz, verified: 'C', match: ✗
+  Match 10: '4' -> period [2.061, 2.171]s, freqs: 861+1637Hz, verified: 'C', match: ✗
 
 ================================================================================
 Results saved to:

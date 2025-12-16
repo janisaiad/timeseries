@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 18
-Timestamp: 2025-12-16T14:03:13.603157
+Timestamp: 2025-12-16T18:23:55.903673
 
 ================================================================================
 Processing Signal 18
@@ -25,8 +25,6 @@ Cluster 6: selected freq 775.2 Hz with 5 CPs
 Cluster 0: selected freq 1292.0 Hz with 6 CPs
 Cluster 1: selected freq 1464.3 Hz with 2 CPs
 
-Total energy density intervals collected: 34
-
 Low frequency clusters: 1
 High frequency clusters: 2
 
@@ -35,16 +33,14 @@ Original periods: 11
 Removed outliers: 0
 Filtered periods: 11
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 12 intervals (2n=12) by energy density for 6 symbols
-  Low frequency intervals: 5
-  High frequency intervals: 7
-Match 1: 'D' -> period [0.842, 0.969]s, freqs: 689+1378Hz, verified: '2', energy_density: low=4.69e+01, high=4.05e+01
-Match 2: '6' -> period [1.759, 1.950]s, freqs: 775+1378Hz, verified: '5', energy_density: low=4.47e+01, high=3.72e+01
-Match 3: '2' -> period [0.534, 0.691]s, freqs: 775+1464Hz, verified: '6', energy_density: low=4.22e+01, high=4.47e+01
-Match 4: '0' -> period [0.540, 2.130]s, freqs: 775+1550Hz, verified: 'None', energy_density: low=9.38e+01, high=6.65e+01
-Match 5: 'A' -> period [0.842, 1.521]s, freqs: 689+1292Hz, verified: '2', energy_density: low=6.38e+01, high=3.88e+01
-Match 6: '5' -> period [1.759, 1.950]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=3.61e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 6 biggest periods (by duration) for 6 symbols
+  Match 1: 'D' -> period [0.551, 0.685]s, freqs: 775+1464Hz, verified: '6', match: ✗
+  Match 2: '6' -> period [0.691, 0.842]s, freqs: 775+1292Hz, verified: '5', match: ✗
+  Match 3: '2' -> period [0.969, 1.109]s, freqs: 775+1292Hz, verified: '5', match: ✗
+  Match 4: '0' -> period [1.109, 1.271]s, freqs: 775+1292Hz, verified: '5', match: ✗
+  Match 5: 'A' -> period [1.271, 1.759]s, freqs: 775+1292Hz, verified: '5', match: ✗
+  Match 6: '5' -> period [1.771, 1.950]s, freqs: 775+1292Hz, verified: '5', match: ✓
 
 ================================================================================
 Results saved to:

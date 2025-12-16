@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 12
-Timestamp: 2025-12-16T14:03:01.728435
+Timestamp: 2025-12-16T18:23:42.845455
 
 ================================================================================
 Processing Signal 12
@@ -23,8 +23,6 @@ Number of major frequency clusters: 2
 Cluster 7: selected freq 947.5 Hz with 6 CPs
 Cluster 0: selected freq 1378.1 Hz with 7 CPs
 
-Total energy density intervals collected: 52
-
 Low frequency clusters: 1
 High frequency clusters: 1
 
@@ -33,21 +31,19 @@ Original periods: 12
 Removed outliers: 0
 Filtered periods: 12
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 22 intervals (2n=22) by energy density for 11 symbols
-  Low frequency intervals: 8
-  High frequency intervals: 14
-Match 1: '5' -> period [1.265, 1.364]s, freqs: 947+1464Hz, verified: '#', energy_density: low=8.85e+01, high=4.36e+01
-Match 2: '6' -> period [1.474, 1.631]s, freqs: 603+1292Hz, verified: 'None', energy_density: low=4.51e+01, high=3.73e+01
-Match 3: '7' -> period [1.556, 1.631]s, freqs: 947+1464Hz, verified: '#', energy_density: low=5.72e+01, high=6.59e+01
-Match 4: 'A' -> period [0.668, 1.631]s, freqs: 603+1378Hz, verified: 'None', energy_density: low=5.15e+01, high=6.50e+01
-Match 5: 'A' -> period [1.405, 2.467]s, freqs: 603+1550Hz, verified: 'None', energy_density: low=5.12e+01, high=6.31e+01
-Match 6: '9' -> period [0.789, 2.252]s, freqs: 603+1550Hz, verified: 'None', energy_density: low=5.09e+01, high=5.96e+01
-Match 7: '8' -> period [0.766, 2.409]s, freqs: 947+1292Hz, verified: '0', energy_density: low=4.36e+01, high=5.93e+01
-Match 8: '2' -> period [0.406, 2.357]s, freqs: 603+1550Hz, verified: 'None', energy_density: low=3.84e+01, high=5.62e+01
-Match 9: 'A' -> period [0.372, 0.476]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=5.05e+01
-Match 10: 'D' -> period [2.543, 2.630]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=4.73e+01
-Match 11: '3' -> period [1.933, 1.945]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=4.59e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 11 biggest periods (by duration) for 11 symbols
+  Match 1: '5' -> period [0.093, 0.226]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 2: '6' -> period [0.226, 1.347]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 3: '7' -> period [1.347, 1.364]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 4: 'A' -> period [1.364, 1.474]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 5: 'A' -> period [1.474, 1.556]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 6: '9' -> period [1.573, 1.608]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 7: '8' -> period [1.608, 1.631]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 8: '2' -> period [1.631, 1.794]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 9: 'A' -> period [1.794, 1.858]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 10: 'D' -> period [1.858, 2.235]s, freqs: 947+1378Hz, verified: '0', match: ✗
+  Match 11: '3' -> period [2.235, 2.409]s, freqs: 947+1378Hz, verified: '0', match: ✗
 
 ================================================================================
 Results saved to:

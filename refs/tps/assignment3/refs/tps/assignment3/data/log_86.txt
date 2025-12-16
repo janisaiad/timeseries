@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 86
-Timestamp: 2025-12-16T14:05:24.772779
+Timestamp: 2025-12-16T18:26:16.319663
 
 ================================================================================
 Processing Signal 86
@@ -23,8 +23,6 @@ Number of major frequency clusters: 2
 Cluster 0: selected freq 516.8 Hz with 4 CPs
 Cluster 1: selected freq 1636.5 Hz with 4 CPs
 
-Total energy density intervals collected: 27
-
 Low frequency clusters: 1
 High frequency clusters: 1
 
@@ -33,16 +31,14 @@ Original periods: 7
 Removed outliers: 0
 Filtered periods: 7
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 12 intervals (2n=12) by energy density for 6 symbols
-  Low frequency intervals: 7
-  High frequency intervals: 5
-Match 1: 'D' -> period [0.505, 0.668]s, freqs: 517+1550Hz, verified: 'None', energy_density: low=5.15e+01, high=2.42e+01
-Match 2: '9' -> period [1.498, 1.631]s, freqs: 603+1550Hz, verified: 'None', energy_density: low=5.24e+01, high=7.24e+01
-Match 3: 'D' -> period [0.569, 0.911]s, freqs: 603+1637Hz, verified: 'None', energy_density: low=5.11e+01, high=5.67e+01
-Match 4: '#' -> period [0.789, 1.405]s, freqs: 689+1550Hz, verified: 'None', energy_density: low=4.71e+01, high=5.10e+01
-Match 5: '2' -> period [0.192, 1.509]s, freqs: 517+1637Hz, verified: 'None', energy_density: low=4.26e+01, high=4.58e+01
-Match 6: '9' -> period [0.551, 0.580]s, freqs: low-only: 689Hz, verified: 'None', energy_density: low=3.86e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 6 biggest periods (by duration) for 6 symbols
+  Match 1: 'D' -> period [0.192, 0.331]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+  Match 2: '9' -> period [0.331, 0.580]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+  Match 3: 'D' -> period [0.580, 0.668]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+  Match 4: '#' -> period [0.668, 0.824]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+  Match 5: '2' -> period [0.911, 1.416]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+  Match 6: '9' -> period [1.416, 1.509]s, freqs: 517+1637Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

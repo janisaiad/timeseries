@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 35
-Timestamp: 2025-12-16T14:03:43.627542
+Timestamp: 2025-12-16T18:24:27.337810
 
 ================================================================================
 Processing Signal 35
@@ -23,8 +23,6 @@ Number of major frequency clusters: 2
 Cluster 3: selected freq 775.2 Hz with 6 CPs
 Cluster 0: selected freq 1119.7 Hz with 4 CPs
 
-Total energy density intervals collected: 30
-
 Low frequency clusters: 1
 High frequency clusters: 1
 
@@ -33,20 +31,17 @@ Original periods: 9
 Removed outliers: 0
 Filtered periods: 9
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 20 intervals (2n=20) by energy density for 10 symbols
-  Low frequency intervals: 17
-  High frequency intervals: 3
-Match 1: '5' -> period [0.720, 0.749]s, freqs: 947+1120Hz, verified: 'None', energy_density: low=1.08e+02, high=1.11e+02
-Match 2: '*' -> period [0.749, 2.148]s, freqs: 861+1120Hz, verified: 'None', energy_density: low=9.42e+00, high=9.49e+00
-Match 3: '*' -> period [0.720, 2.188]s, freqs: 861+1120Hz, verified: 'None', energy_density: low=8.42e+01, high=3.92e+01
-Match 4: '4' -> period [0.842, 0.975]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=5.78e+01
-Match 5: '2' -> period [2.392, 2.403]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=5.62e+01
-Match 6: '4' -> period [0.209, 0.267]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=5.44e+01
-Match 7: '*' -> period [0.517, 0.528]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=5.18e+01
-Match 8: '1' -> period [1.672, 1.852]s, freqs: low-only: 947Hz, verified: 'None', energy_density: low=4.83e+01
-Match 9: '2' -> period [0.668, 0.720]s, freqs: low-only: 947Hz, verified: 'None', energy_density: low=4.58e+01
-Match 10: '*' -> period [1.318, 1.492]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=4.52e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 9 biggest periods (by duration) for 10 symbols
+  Match 1: '5' -> period [0.209, 0.267]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+  Match 2: '*' -> period [0.267, 0.737]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+  Match 3: '*' -> period [0.737, 0.749]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+  Match 4: '4' -> period [0.749, 0.842]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+  Match 5: '2' -> period [0.842, 0.975]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+  Match 6: '4' -> period [0.975, 1.318]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+  Match 7: '*' -> period [1.318, 1.492]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+  Match 8: '1' -> period [1.492, 2.148]s, freqs: 775+1120Hz, verified: 'None', match: ✗
+  Match 9: '2' -> period [2.148, 2.188]s, freqs: 775+1120Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

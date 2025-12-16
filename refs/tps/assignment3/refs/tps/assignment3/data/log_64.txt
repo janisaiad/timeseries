@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 64
-Timestamp: 2025-12-16T14:04:41.492739
+Timestamp: 2025-12-16T18:25:27.105432
 
 ================================================================================
 Processing Signal 64
@@ -21,8 +21,6 @@ Number of major frequency clusters: 1
 --- Cell 4: Changepoint Detection ---
 Cluster 5: selected freq 1464.3 Hz with 4 CPs
 
-Total energy density intervals collected: 15
-
 Low frequency clusters: 0
 High frequency clusters: 1
 
@@ -31,18 +29,11 @@ Original periods: 3
 Removed outliers: 0
 Filtered periods: 3
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 15 intervals (2n=16) by energy density for 8 symbols
-  Low frequency intervals: 0
-  High frequency intervals: 15
-Match 1: 'A' -> period [2.450, 2.461]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=7.15e+01
-Match 2: '6' -> period [1.625, 1.637]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=4.89e+01
-Match 3: 'A' -> period [1.132, 1.248]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=4.72e+01
-Match 4: '6' -> period [2.125, 2.136]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=4.65e+01
-Match 5: '5' -> period [0.464, 0.633]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=4.23e+01
-Match 6: '2' -> period [1.161, 1.248]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=2.51e+01
-Match 7: '2' -> period [0.168, 0.313]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=2.17e+01
-Match 8: 'A' -> period [2.461, 2.589]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=1.91e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 3 biggest periods (by duration) for 8 symbols
+  Match 1: 'A' -> period [0.464, 0.633]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 2: '6' -> period [0.633, 1.132]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
+  Match 3: 'A' -> period [1.132, 1.248]s, freqs: high-only: 1464Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

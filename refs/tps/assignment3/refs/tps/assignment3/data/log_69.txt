@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 69
-Timestamp: 2025-12-16T14:04:49.433748
+Timestamp: 2025-12-16T18:25:36.990802
 
 ================================================================================
 Processing Signal 69
@@ -21,8 +21,6 @@ Number of major frequency clusters: 1
 --- Cell 4: Changepoint Detection ---
 Cluster 5: selected freq 861.3 Hz with 5 CPs
 
-Total energy density intervals collected: 12
-
 Low frequency clusters: 1
 High frequency clusters: 0
 
@@ -31,18 +29,12 @@ Original periods: 4
 Removed outliers: 0
 Filtered periods: 4
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 12 intervals (2n=16) by energy density for 8 symbols
-  Low frequency intervals: 12
-  High frequency intervals: 0
-Match 1: '7' -> period [1.358, 1.382]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=9.42e+01
-Match 2: '2' -> period [1.370, 1.382]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=6.27e+01
-Match 3: '2' -> period [0.528, 0.546]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=5.67e+01
-Match 4: '3' -> period [0.151, 0.238]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=4.88e+01
-Match 5: '3' -> period [0.697, 0.726]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=4.16e+01
-Match 6: '8' -> period [1.382, 1.486]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=3.89e+01
-Match 7: '2' -> period [1.382, 1.701]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=1.55e+01
-Match 8: 'D' -> period [0.546, 0.697]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=1.24e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 4 biggest periods (by duration) for 8 symbols
+  Match 1: '7' -> period [0.151, 0.238]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
+  Match 2: '2' -> period [0.238, 1.358]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
+  Match 3: '2' -> period [1.358, 1.382]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
+  Match 4: '3' -> period [1.382, 1.486]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

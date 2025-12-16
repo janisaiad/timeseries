@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 89
-Timestamp: 2025-12-16T14:05:33.384408
+Timestamp: 2025-12-16T18:26:25.266112
 
 ================================================================================
 Processing Signal 89
@@ -19,8 +19,6 @@ Number of major frequency clusters: 0
 
 --- Cell 4: Changepoint Detection ---
 
-Total energy density intervals collected: 0
-
 Low frequency clusters: 0
 High frequency clusters: 0
 
@@ -28,9 +26,8 @@ High frequency clusters: 0
 
 ERROR processing signal 89: index -1 is out of bounds for axis 0 with size 0
 Traceback (most recent call last):
-  File "/home/janis/4A/timeseries/refs/tps/assignment3/Assignment 3.py", line 1888, in process_single_signal
-    q25 = np.percentile(period_durations, 25)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/refs/tps/assignment3/Assignment 3.py", line 1840, in process_single_signal
+    'index': i
   File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4273, in percentile
     return _quantile_unchecked(
            ^^^^^^^^^^^^^^^^^^^^

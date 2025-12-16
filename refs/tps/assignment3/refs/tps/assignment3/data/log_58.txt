@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 58
-Timestamp: 2025-12-16T14:04:33.974290
+Timestamp: 2025-12-16T18:25:19.377012
 
 ================================================================================
 Processing Signal 58
@@ -25,8 +25,6 @@ Cluster 6: selected freq 602.9 Hz with 3 CPs
 Cluster 3: selected freq 1378.1 Hz with 4 CPs
 Cluster 0: selected freq 1292.0 Hz with 2 CPs
 
-Total energy density intervals collected: 24
-
 Low frequency clusters: 1
 High frequency clusters: 2
 
@@ -35,14 +33,12 @@ Original periods: 7
 Removed outliers: 0
 Filtered periods: 7
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 8 intervals (2n=8) by energy density for 4 symbols
-  Low frequency intervals: 5
-  High frequency intervals: 3
-Match 1: '7' -> period [0.093, 0.168]s, freqs: 861+1206Hz, verified: '7', energy_density: low=5.54e+01, high=4.78e+01
-Match 2: 'A' -> period [0.470, 0.685]s, freqs: 603+1378Hz, verified: 'None', energy_density: low=5.44e+01, high=6.27e+01
-Match 3: '0' -> period [0.528, 0.888]s, freqs: 861+1206Hz, verified: '7', energy_density: low=5.22e+01, high=4.89e+01
-Match 4: '1' -> period [0.702, 0.714]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=5.19e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 4 biggest periods (by duration) for 4 symbols
+  Match 1: '7' -> period [0.482, 0.534]s, freqs: 603+1292Hz, verified: 'None', match: ✗
+  Match 2: 'A' -> period [0.534, 0.551]s, freqs: 603+1378Hz, verified: 'None', match: ✗
+  Match 3: '0' -> period [0.557, 0.656]s, freqs: 603+1378Hz, verified: 'None', match: ✗
+  Match 4: '1' -> period [0.668, 0.685]s, freqs: 603+1292Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

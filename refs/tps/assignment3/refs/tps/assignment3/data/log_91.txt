@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 91
-Timestamp: 2025-12-16T14:05:35.012165
+Timestamp: 2025-12-16T18:26:26.768168
 
 ================================================================================
 Processing Signal 91
@@ -21,8 +21,6 @@ Number of major frequency clusters: 1
 --- Cell 4: Changepoint Detection ---
 Cluster 3: selected freq 947.5 Hz with 4 CPs
 
-Total energy density intervals collected: 10
-
 Low frequency clusters: 1
 High frequency clusters: 0
 
@@ -31,15 +29,11 @@ Original periods: 3
 Removed outliers: 0
 Filtered periods: 3
 
---- Cell 7: Period-Symbol Matching (Energy Density Based) ---
-Selected top 10 intervals (2n=10) by energy density for 5 symbols
-  Low frequency intervals: 10
-  High frequency intervals: 0
-Match 1: '4' -> period [0.470, 0.534]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=5.50e+01
-Match 2: '5' -> period [0.830, 0.877]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=5.19e+01
-Match 3: '*' -> period [0.180, 0.302]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=4.89e+01
-Match 4: '6' -> period [0.940, 1.109]s, freqs: low-only: 947Hz, verified: 'None', energy_density: low=4.79e+01
-Match 5: '*' -> period [0.610, 0.714]s, freqs: low-only: 947Hz, verified: 'None', energy_density: low=4.42e+01
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Selected 3 biggest periods (by duration) for 5 symbols
+  Match 1: '4' -> period [0.610, 0.714]s, freqs: low-only: 947Hz, verified: 'None', match: ✗
+  Match 2: '5' -> period [0.714, 0.940]s, freqs: low-only: 947Hz, verified: 'None', match: ✗
+  Match 3: '*' -> period [0.940, 1.109]s, freqs: low-only: 947Hz, verified: 'None', match: ✗
 
 ================================================================================
 Results saved to:

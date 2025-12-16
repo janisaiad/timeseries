@@ -8,7 +8,7 @@
     "1",
     "3"
   ],
-  "timestamp": "2025-12-16T14:05:20.646771",
+  "timestamp": "2025-12-16T18:26:11.886063",
   "success": true,
   "stft_params": {
     "window_length": 256,
@@ -51,53 +51,20 @@
       "verified_symbol": null,
       "primary_low_freq": 947.4609375,
       "primary_high_freq": null,
-      "period_start": 0.5166439909297053,
-      "period_end": 0.5282539682539683,
-      "period_duration": 0.011609977324263039,
-      "symbol_match": false
-    },
-    {
-      "match_index": 1,
-      "assigned_symbol": "#",
-      "verified_symbol": null,
-      "primary_low_freq": 775.1953125,
-      "primary_high_freq": null,
-      "period_start": 0.7082086167800453,
-      "period_end": 0.7256235827664399,
-      "period_duration": 0.017414965986394557,
-      "symbol_match": false
-    },
-    {
-      "match_index": 2,
-      "assigned_symbol": "2",
-      "verified_symbol": null,
-      "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
       "period_start": 0.40634920634920635,
       "period_end": 0.5166439909297053,
       "period_duration": 0.11029478458049886,
       "symbol_match": false
     },
     {
-      "match_index": 3,
-      "assigned_symbol": "1",
+      "match_index": 1,
+      "assigned_symbol": "#",
       "verified_symbol": null,
-      "primary_low_freq": 775.1953125,
+      "primary_low_freq": 947.4609375,
       "primary_high_freq": null,
-      "period_start": 0.5340589569160997,
-      "period_end": 0.5572789115646258,
-      "period_duration": 0.023219954648526078,
-      "symbol_match": false
-    },
-    {
-      "match_index": 4,
-      "assigned_symbol": "3",
-      "verified_symbol": null,
-      "primary_low_freq": 775.1953125,
-      "primary_high_freq": null,
-      "period_start": 0.7256235827664399,
-      "period_end": 1.067482993197279,
-      "period_duration": 0.34829931972789113,
+      "period_start": 0.5166439909297053,
+      "period_end": 0.5282539682539683,
+      "period_duration": 0.011609977324263039,
       "symbol_match": false
     }
   ]

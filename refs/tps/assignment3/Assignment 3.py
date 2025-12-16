@@ -1756,79 +1756,38 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             'clusters': major_freq_clusters
         }
         
-        # Cell 4: Changepoint detection with energy density computation
+        # Cell 4: Changepoint detection
         log_file.write(f"\n--- Cell 4: Changepoint Detection ---\n")
         t_max = len(t)
         all_changepoints = []
-        all_energy_intervals = []  # collect all segments with mean energy from all frequencies
         
         for cluster in major_freq_clusters:
             freq_indices = cluster['freq_indices']
             freq_cp_results = []
             
+            log_file.write(f"Cluster {cluster['cluster_id']} (center={cluster['center_freq']:.1f} Hz, {len(freq_indices)} freqs):\n")
+            
             for freq_idx in freq_indices:
-                freq_energy = np.abs(Zxx[freq_idx, :])**2  # energy over time for this frequency bin
-                sigma_est = np.std(freq_energy)  # estimate noise level for BIC penalty
+                freq_energy = np.abs(Zxx[freq_idx, :])**2
+                sigma_est = np.std(freq_energy)
                 pen_bic = 2 * sigma_est**2 * np.log(t_max)
                 
                 algo = rpt.Pelt(model="l2", jump=1)
-                predicted_bkps = algo.fit_predict(freq_energy, pen=pen_bic)  # breakpoints in frame indices (including last)
-                
-                # compute mean energy (energy per frame) for each segment between changepoints
-                for j in range(len(predicted_bkps) - 1):
-                    start_frame_cp = int(predicted_bkps[j])
-                    end_frame_cp = int(predicted_bkps[j + 1])
-                    
-                    if end_frame_cp > start_frame_cp:
-                        # compute segment energy
-                        seg_energy = float(np.sum(freq_energy[start_frame_cp:end_frame_cp]))
-                        
-                        # compute segment duration in frames and seconds
-                        seg_duration_frames = end_frame_cp - start_frame_cp
-                        seg_duration_seconds = seg_duration_frames * frame_step / FS
-                        
-                        # compute mean energy per frame (not per second)
-                        if seg_duration_frames > 0:
-                            mean_energy = seg_energy / seg_duration_frames
-                        else:
-                            mean_energy = 0.0
-                        
-                        # convert frame indices to sample indices
-                        start_sample = min(int(start_frame_cp * frame_step), len(signal))
-                        end_sample = min(int(end_frame_cp * frame_step), len(signal))
-                        
-                        # determine if this is low or high frequency
-                        freq_value = f[freq_idx]
-                        is_low = freq_value < 1000
-                        
-                        # store interval with mean energy
-                        all_energy_intervals.append({
-                            'freq': float(freq_value),
-                            'freq_idx': int(freq_idx),
-                            'cluster_id': cluster['cluster_id'],
-                            'start_frame': start_frame_cp,
-                            'end_frame': end_frame_cp,
-                            'start_sample': start_sample,
-                            'end_sample': end_sample,
-                            'duration_seconds': seg_duration_seconds,
-                            'energy': seg_energy,
-                            'mean_energy': mean_energy,  # changed from energy_density
-                            'is_low': is_low
-                        })
-                
-                # for changepoint tracking, use all changepoints (we'll filter by energy density later)
-                frame_bkps_filtered = predicted_bkps[:-1]
-                signal_bkps_filtered = [min(int(idx * frame_step), len(signal)) 
-                                        for idx in frame_bkps_filtered]
+                predicted_bkps = algo.fit_predict(freq_energy, pen=pen_bic)
+                signal_bkps = [min(int(idx * frame_step), len(signal)) 
+                              for idx in predicted_bkps[:-1]]
                 
                 freq_cp_results.append({
                     'freq_idx': freq_idx,
                     'freq_value': f[freq_idx],
-                    'changepoints': signal_bkps_filtered,  # sample indices of selected changepoints
-                    'frame_bkps': frame_bkps_filtered,     # corresponding frame indices
-                    'n_cps': len(signal_bkps_filtered),
+                    'changepoints': signal_bkps,
+                    'frame_bkps': predicted_bkps[:-1],
+                    'n_cps': len(signal_bkps),
                     'energy_signal': freq_energy
                 })
+                
+                # log each frequency's CP count
+                log_file.write(f"  Freq {f[freq_idx]:.1f} Hz: {len(signal_bkps)} CPs\n")
             
             best_freq_result = min(freq_cp_results, key=lambda x: x['n_cps'])
             
@@ -1843,14 +1802,11 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
                 'n_cps': best_freq_result['n_cps']
             })
             
-            log_file.write(f"Cluster {cluster['cluster_id']}: selected freq {best_freq_result['freq_value']:.1f} Hz "
-                          f"with {best_freq_result['n_cps']} CPs\n")
+            log_file.write(f"  -> Selected freq: {best_freq_result['freq_value']:.1f} Hz with {best_freq_result['n_cps']} CPs (minimum)\n")
         
-        log_file.write(f"\nTotal energy intervals collected: {len(all_energy_intervals)}\n")
         log_file.flush()
         
         results['changepoints'] = all_changepoints
-        results['all_energy_intervals'] = all_energy_intervals
         
         # group into low and high frequency clusters
         dtmf_low_freqs = [697, 770, 852, 941]
@@ -1923,22 +1879,31 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             }
         }
         
-        # Cell 7: Period-symbol matching - TWO METHODS
+        # Cell 7: Period-symbol matching (CP-based technique from notebook)
+        log_file.write(f"\n--- Cell 7: Period-Symbol Matching (CP-based) ---\n")
         n_symbols = len(ground_truth_symbols)
         
-        # ========================================================================
-        # METHOD A: CP-based matching (from notebook: filtered periods + find_active_frequencies)
-        # ========================================================================
-        log_file.write(f"\n--- Method A: CP-based Period Matching ---\n")
+        log_file.write(f"Number of ground truth symbols: {n_symbols}\n")
+        log_file.write(f"Number of filtered periods available: {len(filtered_periods)}\n")
         
-        # select N biggest periods from filtered_periods
-        selected_periods_cp = sorted(filtered_periods, key=lambda x: x['duration_seconds'], reverse=True)[:n_symbols]
-        periods_ordered_by_time_cp = sorted(selected_periods_cp, key=lambda x: x['start_cp'])
+        if len(filtered_periods) < n_symbols:
+            log_file.write(f"WARNING: Only {len(filtered_periods)} filtered periods available for {n_symbols} symbols!\n")
+            log_file.write(f"  This may indicate insufficient changepoints detected or too aggressive filtering.\n")
         
-        log_file.write(f"Selected {len(selected_periods_cp)} biggest periods (by duration) for {n_symbols} symbols\n")
+        # select N biggest periods from filtered_periods (or all available if fewer than n_symbols)
+        n_to_select = min(n_symbols, len(filtered_periods))
+        selected_periods = sorted(filtered_periods, key=lambda x: x['duration_seconds'], reverse=True)[:n_to_select]
+        periods_ordered_by_time = sorted(selected_periods, key=lambda x: x['start_cp'])
         
-        complete_matches_cp = []
-        for symbol_idx, (period, symbol) in enumerate(zip(periods_ordered_by_time_cp, ground_truth_symbols)):
+        log_file.write(f"Selected {len(selected_periods)} biggest periods (by duration) for matching\n")
+        log_file.write(f"Low frequency clusters available: {len(low_freq_clusters)}\n")
+        log_file.write(f"High frequency clusters available: {len(high_freq_clusters)}\n")
+        if len(low_freq_clusters) == 0:
+            log_file.write(f"  WARNING: No low frequency clusters detected! This explains why only high frequencies are found.\n")
+        log_file.flush()
+        
+        complete_matches = []
+        for symbol_idx, (period, symbol) in enumerate(zip(periods_ordered_by_time, ground_truth_symbols)):
             # find active frequencies using the improved function
             active_freqs = find_active_frequencies_in_period(
                 period, low_freq_clusters, high_freq_clusters, frame_step,
@@ -1947,8 +1912,22 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             active_low = active_freqs['low_clusters']
             active_high = active_freqs['high_clusters']
             
+            # get primary frequency pair (strongest in each group), but always carry at least one frequency
             primary_low = active_freqs['low_freqs'][0] if active_freqs['low_freqs'] else None
             primary_high = active_freqs['high_freqs'][0] if active_freqs['high_freqs'] else None
+            
+            # diagnostic logging for first match or when no frequencies found
+            if symbol_idx == 0 or (primary_low is None and primary_high is None):
+                log_file.write(f"  Match {symbol_idx+1} diagnostic: period [{period['start_cp']/FS:.3f}, {period['end_cp']/FS:.3f}]s\n")
+                log_file.write(f"    Available low clusters: {len(low_freq_clusters)}\n")
+                if len(low_freq_clusters) > 0:
+                    for lc in low_freq_clusters:
+                        log_file.write(f"      Low cluster: freq={lc['selected_freq']:.1f}Hz, CPs near period: {sum(1 for cp in lc['changepoints'] if abs(cp - period['start_cp']) < 3000 or abs(cp - period['end_cp']) < 3000)}\n")
+                log_file.write(f"    Available high clusters: {len(high_freq_clusters)}\n")
+                if len(high_freq_clusters) > 0:
+                    for hc in high_freq_clusters:
+                        log_file.write(f"      High cluster: freq={hc['selected_freq']:.1f}Hz, CPs near period: {sum(1 for cp in hc['changepoints'] if abs(cp - period['start_cp']) < 3000 or abs(cp - period['end_cp']) < 3000)}\n")
+                log_file.write(f"    Found active low: {len(active_low)}, active high: {len(active_high)}\n")
             
             # verify symbol
             verified_symbol = None
@@ -1980,12 +1959,11 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
                 'active_low_freqs': [f['freq'] for f in active_low],
                 'active_high_freqs': [f['freq'] for f in active_high],
                 'match_index': symbol_idx,
-                'symbol_match': (symbol == verified_symbol) if verified_symbol else False,
-                'method': 'cp_based'
+                'symbol_match': (symbol == verified_symbol) if verified_symbol else False
             }
-            complete_matches_cp.append(match)
+            complete_matches.append(match)
             
-            # format frequencies safely
+            # format frequencies safely (handle None values) - partial pair reporting
             low_freq_str = f"{primary_low:.0f}" if primary_low is not None else "None"
             high_freq_str = f"{primary_high:.0f}" if primary_high is not None else "None"
             if primary_low is not None and primary_high is not None:
@@ -1998,206 +1976,19 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
                 freq_pair_str = "no freq"
             
             log_file.write(f"  Match {symbol_idx+1}: '{symbol}' -> period [{period['start_cp']/FS:.3f}, {period['end_cp']/FS:.3f}]s, "
-                          f"freqs: {freq_pair_str}, verified: '{verified_symbol}'\n")
-        
-        # ========================================================================
-        # METHOD B: Energy-interval matching with non-overlapping selection
-        # ========================================================================
-        log_file.write(f"\n--- Method B: Energy-Interval Matching (Non-overlapping) ---\n")
-        
-        # sort all intervals by mean energy (descending)
-        sorted_intervals = sorted(all_energy_intervals, key=lambda x: x['mean_energy'], reverse=True)
-        
-        # greedy non-overlapping selection: select top intervals that don't overlap
-        def intervals_overlap(iv1, iv2):
-            """check if two intervals overlap in time"""
-            return not (iv1['end_sample'] <= iv2['start_sample'] or iv2['end_sample'] <= iv1['start_sample'])
-        
-        selected_intervals = []
-        for iv in sorted_intervals:
-            # check if this interval overlaps with any already selected
-            overlaps = False
-            for selected_iv in selected_intervals:
-                if intervals_overlap(iv, selected_iv):
-                    overlaps = True
-                    break
-            if not overlaps:
-                selected_intervals.append(iv)
-                if len(selected_intervals) >= 2 * n_symbols:
-                    break
-        
-        log_file.write(f"Selected {len(selected_intervals)} non-overlapping intervals (target: 2n={2*n_symbols}) by mean energy\n")
-        
-        # separate into low and high frequency intervals
-        low_intervals = [iv for iv in selected_intervals if iv['is_low']]
-        high_intervals = [iv for iv in selected_intervals if not iv['is_low']]
-        
-        log_file.write(f"  Low frequency intervals: {len(low_intervals)}\n")
-        log_file.write(f"  High frequency intervals: {len(high_intervals)}\n")
-        
-        # pair low and high intervals for each symbol
-        complete_matches_energy = []
-        
-        # sort intervals by mean energy and then by time
-        low_intervals_available = sorted(low_intervals, key=lambda x: (-x['mean_energy'], x['start_sample']))
-        high_intervals_available = sorted(high_intervals, key=lambda x: (-x['mean_energy'], x['start_sample']))
-        
-        # for each symbol, pair one low and one high interval
-        for symbol_idx, symbol in enumerate(ground_truth_symbols):
-            # find best low and high intervals for this symbol position
-            # try to pair intervals that overlap in time, prioritizing high energy density
-            
-            best_low = None
-            best_high = None
-            best_score = -1
-            
-            # try all combinations of available low and high intervals
-            for low_iv in low_intervals_available:
-                for high_iv in high_intervals_available:
-                    # compute overlap
-                    low_start = low_iv['start_sample']
-                    low_end = low_iv['end_sample']
-                    high_start = high_iv['start_sample']
-                    high_end = high_iv['end_sample']
-                    
-                    overlap_start = max(low_start, high_start)
-                    overlap_end = min(low_end, high_end)
-                    overlap = max(0, overlap_end - overlap_start)
-                    
-                    # score combines overlap and mean energy
-                    overlap_ratio = overlap / max(low_end - low_start, high_end - high_start, 1)
-                    energy_score = (low_iv['mean_energy'] + high_iv['mean_energy']) / 2.0
-                    max_mean_energy = max([iv['mean_energy'] for iv in selected_intervals] + [1])
-                    combined_score = overlap_ratio * 0.7 + (energy_score / max_mean_energy) * 0.3
-                    
-                    if combined_score > best_score:
-                        best_score = combined_score
-                        best_low = low_iv
-                        best_high = high_iv
-            
-            # if no good pair found, take the highest energy density intervals available
-            if best_low is None and len(low_intervals_available) > 0:
-                best_low = low_intervals_available[0]
-            if best_high is None and len(high_intervals_available) > 0:
-                best_high = high_intervals_available[0]
-            
-            # remove used intervals to avoid reusing them
-            if best_low and best_low in low_intervals_available:
-                low_intervals_available.remove(best_low)
-            if best_high and best_high in high_intervals_available:
-                high_intervals_available.remove(best_high)
-            
-            # create a combined period from low and high intervals
-            if best_low and best_high:
-                period_start = min(best_low['start_sample'], best_high['start_sample'])
-                period_end = max(best_low['end_sample'], best_high['end_sample'])
-                period_duration = (period_end - period_start) / FS
-                
-                primary_low = best_low['freq']
-                primary_high = best_high['freq']
-            elif best_low:
-                period_start = best_low['start_sample']
-                period_end = best_low['end_sample']
-                period_duration = best_low['duration_seconds']
-                primary_low = best_low['freq']
-                primary_high = None
-            elif best_high:
-                period_start = best_high['start_sample']
-                period_end = best_high['end_sample']
-                period_duration = best_high['duration_seconds']
-                primary_low = None
-                primary_high = best_high['freq']
-            else:
-                # fallback: use filtered periods if no intervals found
-                if symbol_idx < len(filtered_periods):
-                    fallback_period = sorted(filtered_periods, key=lambda x: x['duration_seconds'], reverse=True)[symbol_idx]
-                    period_start = fallback_period['start_cp']
-                    period_end = fallback_period['end_cp']
-                    period_duration = fallback_period['duration_seconds']
-                    primary_low = None
-                    primary_high = None
-                else:
-                    continue
-            
-            # create period dict for compatibility
-            period = {
-                'start_cp': period_start,
-                'end_cp': period_end,
-                'duration_samples': period_end - period_start,
-                'duration_seconds': period_duration,
-                'index': symbol_idx
-            }
-            
-            # verify symbol
-            verified_symbol = None
-            if primary_low and primary_high:
-                def freq_to_dtmf_index(freq, freq_list):
-                    distances = [abs(freq - dtmf_f) for dtmf_f in freq_list]
-                    min_idx = np.argmin(distances)
-                    min_dist = distances[min_idx]
-                    return min_idx if min_dist < 50 else None
-                
-                dtmf_symbols = [
-                    ['1', '2', '3', 'A'],
-                    ['4', '5', '6', 'B'],
-                    ['7', '8', '9', 'C'],
-                    ['*', '0', '#', 'D']
-                ]
-                
-                low_idx = freq_to_dtmf_index(primary_low, dtmf_low_freqs)
-                high_idx = freq_to_dtmf_index(primary_high, dtmf_high_freqs)
-                if low_idx is not None and high_idx is not None:
-                    verified_symbol = dtmf_symbols[low_idx][high_idx]
-            
-            match = {
-                'period': period,
-                'assigned_symbol': symbol,
-                'verified_symbol': verified_symbol,
-                'primary_low_freq': primary_low,
-                'primary_high_freq': primary_high,
-                'match_index': symbol_idx,
-                'symbol_match': (symbol == verified_symbol) if verified_symbol else False,
-                'low_interval_mean_energy': best_low['mean_energy'] if best_low else None,
-                'high_interval_mean_energy': best_high['mean_energy'] if best_high else None,
-                'method': 'energy_interval'
-            }
-            complete_matches_energy.append(match)
-            
-            # format frequencies safely (handle None values)
-            low_freq_str = f"{primary_low:.0f}" if primary_low is not None else "None"
-            high_freq_str = f"{primary_high:.0f}" if primary_high is not None else "None"
-            if primary_low is not None and primary_high is not None:
-                freq_pair_str = f"{low_freq_str}+{high_freq_str}Hz"
-            elif primary_low is not None:
-                freq_pair_str = f"low-only: {low_freq_str}Hz"
-            elif primary_high is not None:
-                freq_pair_str = f"high-only: {high_freq_str}Hz"
-            else:
-                freq_pair_str = "no freq"
-            
-            energy_info = ""
-            if best_low and best_high:
-                energy_info = f", mean_energy: low={best_low['mean_energy']:.2e}, high={best_high['mean_energy']:.2e}"
-            elif best_low:
-                energy_info = f", mean_energy: low={best_low['mean_energy']:.2e}"
-            elif best_high:
-                energy_info = f", mean_energy: high={best_high['mean_energy']:.2e}"
-            
-            log_file.write(f"  Match {symbol_idx+1}: '{symbol}' -> period [{period['start_cp']/FS:.3f}, {period['end_cp']/FS:.3f}]s, "
-                          f"freqs: {freq_pair_str}, verified: '{verified_symbol}'{energy_info}\n")
+                          f"freqs: {freq_pair_str}, verified: '{verified_symbol}', "
+                          f"match: {'✓' if match['symbol_match'] else '✗'}\n")
         
         log_file.flush()
         
-        # store both methods' results
-        results['matches_cp_method'] = complete_matches_cp
-        results['matches_energy_method'] = complete_matches_energy
-        results['matches'] = complete_matches_energy  # keep for backward compatibility
+        # store results
+        results['matches'] = complete_matches
         results['success'] = True
         
-        # generate visualization plot with ALL matches for this signal (using energy method)
-        if len(complete_matches_energy) > 0:
+        # generate visualization plot with ALL matches for this signal
+        if len(complete_matches) > 0:
             # create figure with subplots for all matches
-            n_matches = len(complete_matches_energy)
+            n_matches = len(complete_matches)
             fig, axes = plt.subplots(3, 1, figsize=(16, 10))
             
             # plot 1: signal with all periods highlighted
@@ -2207,7 +1998,7 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             
             # use different colors for each period
             colors = plt.cm.tab10(np.linspace(0, 1, n_matches))
-            for idx, match in enumerate(complete_matches_energy):
+            for idx, match in enumerate(complete_matches):
                 period = match['period']
                 period_start = period['start_cp'] / FS
                 period_end = period['end_cp'] / FS
@@ -2236,7 +2027,7 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
                                shading='gouraud', cmap='viridis')
             
             # highlight all periods and mark frequencies
-            for idx, match in enumerate(complete_matches_energy):
+            for idx, match in enumerate(complete_matches):
                 period = match['period']
                 period_start = period['start_cp'] / FS
                 period_end = period['end_cp'] / FS
@@ -2280,7 +2071,7 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             summary_text += f"{'Match':<8} {'Symbol':<10} {'Period (s)':<15} {'Frequencies (Hz)':<25} {'Verified':<10}\n"
             summary_text += f"{'-'*80}\n"
             
-            for idx, match in enumerate(complete_matches_energy):
+            for idx, match in enumerate(complete_matches):
                 period = match['period']
                 symbol = match['assigned_symbol']
                 period_str = f"[{period['start_cp']/FS:.3f}, {period['end_cp']/FS:.3f}]"
@@ -2589,7 +2380,7 @@ for i in range(len(X_train)):
                 'n_removed_outliers': len(results.get('period_analysis', {}).get('removed_outliers', [])),
                 'statistics': results.get('period_analysis', {}).get('statistics', {})
             },
-            'matches_cp_method': [
+            'matches': [
                 {
                     'match_index': m['match_index'],
                     'assigned_symbol': m['assigned_symbol'],
@@ -2601,25 +2392,8 @@ for i in range(len(X_train)):
                     'period_duration': float(m['period']['duration_seconds']),
                     'symbol_match': m['symbol_match']
                 }
-                for m in results.get('matches_cp_method', [])
-            ],
-            'matches_energy_method': [
-                {
-                    'match_index': m['match_index'],
-                    'assigned_symbol': m['assigned_symbol'],
-                    'verified_symbol': m.get('verified_symbol'),
-                    'primary_low_freq': float(m.get('primary_low_freq', 0)) if m.get('primary_low_freq') else None,
-                    'primary_high_freq': float(m.get('primary_high_freq', 0)) if m.get('primary_high_freq') else None,
-                    'period_start': float(m['period']['start_cp'] / FS),
-                    'period_end': float(m['period']['end_cp'] / FS),
-                    'period_duration': float(m['period']['duration_seconds']),
-                    'symbol_match': m['symbol_match'],
-                    'low_interval_mean_energy': m.get('low_interval_mean_energy'),
-                    'high_interval_mean_energy': m.get('high_interval_mean_energy')
-                }
-                for m in results.get('matches_energy_method', [])
-            ],
-            'matches': results.get('matches_energy_method', [])  # backward compatibility
+                for m in results.get('matches', [])
+            ]
         }
         
         if 'error' in results:
@@ -2661,14 +2435,12 @@ for i in range(len(X_train)):
             summary['signals_processed'].append({
                 'signal_idx': i,
                 'success': data.get('success', False),
-                'n_matches_cp': len(data.get('matches_cp_method', [])),
-                'n_matches_energy': len(data.get('matches_energy_method', [])),
-                'n_correct_cp': sum(1 for m in data.get('matches_cp_method', []) if m.get('symbol_match', False)),
-                'n_correct_energy': sum(1 for m in data.get('matches_energy_method', []) if m.get('symbol_match', False))
+                'n_matches': len(data.get('matches', [])),
+                'n_correct': sum(1 for m in data.get('matches', []) if m.get('symbol_match', False))
             })
             if data.get('success', False):
-                summary['overall_statistics']['total_matches'] += len(data.get('matches_energy_method', []))
-                summary['overall_statistics']['correct_matches'] += sum(1 for m in data.get('matches_energy_method', []) if m.get('symbol_match', False))
+                summary['overall_statistics']['total_matches'] += len(data.get('matches', []))
+                summary['overall_statistics']['correct_matches'] += sum(1 for m in data.get('matches', []) if m.get('symbol_match', False))
             else:
                 summary['overall_statistics']['signals_with_errors'] += 1
 
@@ -2707,22 +2479,12 @@ for i in range(len(X_train)):
         with open(json_path, 'r') as f:
             data = json.load(f)
         
-        pairs_cp = []
-        for m in data.get('matches_cp_method', []):
+        pairs = []
+        for m in data.get('matches', []):
             low = m.get('primary_low_freq')
             high = m.get('primary_high_freq')
             if (low is not None) and (high is not None):
-                pairs_cp.append({
-                    'low_freq': float(low),
-                    'high_freq': float(high)
-                })
-        
-        pairs_energy = []
-        for m in data.get('matches_energy_method', []):
-            low = m.get('primary_low_freq')
-            high = m.get('primary_high_freq')
-            if (low is not None) and (high is not None):
-                pairs_energy.append({
+                pairs.append({
                     'low_freq': float(low),
                     'high_freq': float(high)
                 })
@@ -2730,12 +2492,11 @@ for i in range(len(X_train)):
         freq_dataset['signals'].append({
             'signal_idx': i,
             'ground_truth_symbols': data.get('ground_truth_symbols', []),
-            'detected_pairs_cp_method': pairs_cp,
-            'detected_pairs_energy_method': pairs_energy
+            'detected_pairs': pairs
         })
         
-        freq_dataset['overall']['total_pairs'] += len(pairs_energy)  # use energy method for main count
-        if len(pairs_energy) > 0:
+        freq_dataset['overall']['total_pairs'] += len(pairs)
+        if len(pairs) > 0:
             freq_dataset['overall']['signals_with_at_least_one_pair'] += 1
 
 if freq_dataset['signals']:
