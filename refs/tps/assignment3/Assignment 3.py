@@ -1501,13 +1501,18 @@ if len(complete_matches) > 0:
     print(f"\n=== All Matches Summary ===")
     for i, match in enumerate(complete_matches):
         status = "✓" if match['symbol_match'] else "✗"
-        if match['primary_low_freq'] and match['primary_high_freq']:
-            print(f"{status} Match {i+1}: '{match['assigned_symbol']}' "
-                  f"(period: {match['period']['duration_seconds']:.4f}s, "
-                  f"freqs: {match['primary_low_freq']:.0f}+{match['primary_high_freq']:.0f} Hz)")
+        low_f = match.get('primary_low_freq')
+        high_f = match.get('primary_high_freq')
+        if low_f is not None and high_f is not None:
+            freq_desc = f"{low_f:.0f}+{high_f:.0f} Hz"
+        elif low_f is not None:
+            freq_desc = f"low-only: {low_f:.0f} Hz"
+        elif high_f is not None:
+            freq_desc = f"high-only: {high_f:.0f} Hz"
         else:
-            print(f"{status} Match {i+1}: '{match['assigned_symbol']}' "
-                  f"(period: {match['period']['duration_seconds']:.4f}s, no freq pair)")
+            freq_desc = "no freq"
+        print(f"{status} Match {i+1}: '{match['assigned_symbol']}' "
+              f"(period: {match['period']['duration_seconds']:.4f}s, freqs: {freq_desc})")
 else:
     print("\nNo matches found!")
 
@@ -2065,7 +2070,14 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             # format frequencies safely (handle None values)
             low_freq_str = f"{primary_low:.0f}" if primary_low is not None else "None"
             high_freq_str = f"{primary_high:.0f}" if primary_high is not None else "None"
-            freq_pair_str = f"{low_freq_str}+{high_freq_str}Hz" if (primary_low is not None and primary_high is not None) else "no freq pair"
+            if primary_low is not None and primary_high is not None:
+                freq_pair_str = f"{low_freq_str}+{high_freq_str}Hz"
+            elif primary_low is not None:
+                freq_pair_str = f"low-only: {low_freq_str}Hz"
+            elif primary_high is not None:
+                freq_pair_str = f"high-only: {high_freq_str}Hz"
+            else:
+                freq_pair_str = "no freq"
             
             energy_info = ""
             if best_low and best_high:
