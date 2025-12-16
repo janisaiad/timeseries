@@ -25,6 +25,7 @@ import IPython
 import geopandas
 import contextily as cx
 from math import asin, cos, radians, sin, sqrt
+import os
 
 
 from loadmydata.load_molene_meteo import load_molene_meteo_dataset
@@ -55,6 +56,10 @@ FS = 22050  # sampling frequency (Hz)
 
 X_train = np.load("X_train.npy", allow_pickle=True).tolist()
 y_train = np.load("y_train.npy", allow_pickle=True).tolist()
+
+# create figures directory
+figures_dir = "refs/tps/assignment3/data/figures"
+os.makedirs(figures_dir, exist_ok=True)
 
 # %%
 
@@ -114,7 +119,8 @@ axes[1, 1].set_xlim([0, 4000])
 axes[1, 1].grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(figures_dir, "cell1_stft_energy.png"), dpi=150, bbox_inches='tight')
+plt.close()
 
 # %%
 # Cell 2: First k-means (k=2) to separate signal from noise
@@ -208,7 +214,8 @@ axes[1, 1].set_ylim([0, 4000])
 plt.colorbar(im, ax=axes[1, 1], label="Magnitude (dB)")
 
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(figures_dir, "cell2_energy_clustering.png"), dpi=150, bbox_inches='tight')
+plt.close()
 
 # %%
 # Cell 3: Second k-means (k=8) to group frequency bins into DTMF frequency bands
@@ -347,7 +354,8 @@ if n_clusters > 0:
                        f'{size} bins', ha='center', va='bottom', fontsize=9, fontweight='bold')
 
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(figures_dir, "cell3_freq_clustering_2d.png"), dpi=150, bbox_inches='tight')
+plt.close()
 
 # additional visualization: 2D clustering with Voronoi-like regions
 fig2, ax2 = plt.subplots(1, 1, figsize=(12, 8))
@@ -379,7 +387,8 @@ ax2.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
 ax2.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(figures_dir, "cell3_freq_clustering_voronoi.png"), dpi=150, bbox_inches='tight')
+plt.close()
 
 # %%
 # Cell 4: Changepoint detection on each frequency cluster
@@ -545,7 +554,8 @@ for bar, n_cp, sel_freq in zip(bars, n_changepoints, selected_freqs):
             f'{n_cp} CPs', ha='center', va='bottom', fontsize=9, fontweight='bold')
 
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(figures_dir, "cell4_changepoint_detection.png"), dpi=150, bbox_inches='tight')
+plt.close()
 
 # additional detailed visualization: frequency comparison for all clusters
 n_clusters = len(all_changepoints)
@@ -594,7 +604,8 @@ for idx in range(n_clusters, len(axes2)):
     axes2[idx].axis('off')
 
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(figures_dir, "cell4_changepoint_freq_comparison.png"), dpi=150, bbox_inches='tight')
+plt.close()
 
 # %%
 # Cell 5: Order changepoints and assign DTMF symbols
@@ -842,7 +853,8 @@ ax3.set_yticklabels(list(y_positions.keys()))
 ax3.grid(True, alpha=0.3, axis='x')
 
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(figures_dir, "cell5_detected_symbols.png"), dpi=150, bbox_inches='tight')
+plt.close()
 
 # summary statistics
 print(f"\n=== Summary ===")
@@ -1022,7 +1034,8 @@ ax4.set_ylabel("Period Index")
 ax4.grid(True, alpha=0.3, axis='x')
 
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(figures_dir, "cell6_distribution_analysis.png"), dpi=150, bbox_inches='tight')
+plt.close()
 
 # summary statistics
 print(f"\n=== Filtering Summary ===")
@@ -1481,7 +1494,8 @@ if len(complete_matches) > 0:
     ax3.grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.show()
+    plt.savefig(os.path.join(figures_dir, f"cell7_example_match_signal{signal_idx}.png"), dpi=150, bbox_inches='tight')
+    plt.close()
     
     # summary of all matches
     print(f"\n=== All Matches Summary ===")
@@ -1523,7 +1537,8 @@ plt.plot(freqs[:len(freqs)//2], fft_vals[:len(fft_vals)//2])
 plt.title("FFT of selected signal")
 plt.xlabel("Frequency (Hz)")
 plt.ylabel("Amplitude")
-plt.show()
+plt.savefig(os.path.join(figures_dir, "fft_signal.png"), dpi=150, bbox_inches='tight')
+plt.close()
 
 # %%
 X_test = np.load("X_test.npy", allow_pickle=True).tolist()
@@ -2107,5 +2122,58 @@ print(f"  Total signals: {summary['overall_statistics']['total_matches']}")
 print(f"  Correct matches: {summary['overall_statistics']['correct_matches']}")
 print(f"  Accuracy: {summary['overall_statistics']['accuracy']:.2%}")
 print(f"  Signals with errors: {summary['overall_statistics']['signals_with_errors']}")
+
+# build global frequency dataset: ground truth symbols + detected frequency pairs for each signal
+print("\nBuilding frequency dataset (ground truth symbols + detected frequency pairs)...")
+freq_dataset = {
+    'total_signals': len(X_train),
+    'timestamp': dt.datetime.now().isoformat(),
+    'signals': [],
+    'overall': {
+        'total_pairs': 0,
+        'signals_with_at_least_one_pair': 0
+    }
+}
+
+for i in range(len(X_train)):
+    json_path = os.path.join(output_dir, f"results_{i}.json")
+    if os.path.exists(json_path):
+        with open(json_path, 'r') as f:
+            data = json.load(f)
+        
+        pairs = []
+        for m in data.get('matches', []):
+            low = m.get('primary_low_freq')
+            high = m.get('primary_high_freq')
+            if (low is not None) and (high is not None):
+                pairs.append({
+                    'low_freq': float(low),
+                    'high_freq': float(high)
+                })
+        
+        freq_dataset['signals'].append({
+            'signal_idx': i,
+            'ground_truth_symbols': data.get('ground_truth_symbols', []),
+            'detected_pairs': pairs
+        })
+        
+        freq_dataset['overall']['total_pairs'] += len(pairs)
+        if len(pairs) > 0:
+            freq_dataset['overall']['signals_with_at_least_one_pair'] += 1
+
+if freq_dataset['signals']:
+    freq_dataset['overall']['average_pairs_per_signal'] = (
+        freq_dataset['overall']['total_pairs'] / len(freq_dataset['signals'])
+    )
+else:
+    freq_dataset['overall']['average_pairs_per_signal'] = 0.0
+
+freq_dataset_path = os.path.join(output_dir, 'freq_dataset.json')
+with open(freq_dataset_path, 'w') as f:
+    json.dump(freq_dataset, f, indent=2)
+
+print(f"\nFrequency dataset saved to: {freq_dataset_path}")
+print(f"  Total \"true\" frequency pairs (both low+high found): {freq_dataset['overall']['total_pairs']}")
+print(f"  Signals with at least one pair: {freq_dataset['overall']['signals_with_at_least_one_pair']}")
 
 # %%
