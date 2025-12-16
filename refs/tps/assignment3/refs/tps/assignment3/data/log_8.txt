@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 8
-Timestamp: 2025-12-16T18:23:37.549166
+Timestamp: 2025-12-16T18:27:49.398746
 
 ================================================================================
 Processing Signal 8
@@ -19,7 +19,10 @@ Number of major frequency clusters: 1
   Cluster 0: center=1378.1 Hz, n_bins=2
 
 --- Cell 4: Changepoint Detection ---
-Cluster 4: selected freq 1292.0 Hz with 2 CPs
+Cluster 4 (center=1378.1 Hz, 2 freqs):
+  Freq 1292.0 Hz: 2 CPs
+  Freq 1464.3 Hz: 2 CPs
+  -> Selected freq: 1292.0 Hz with 2 CPs (minimum)
 
 Low frequency clusters: 0
 High frequency clusters: 1
@@ -30,7 +33,19 @@ Removed outliers: 0
 Filtered periods: 1
 
 --- Cell 7: Period-Symbol Matching (CP-based) ---
-Selected 1 biggest periods (by duration) for 4 symbols
+Number of ground truth symbols: 4
+Number of filtered periods available: 1
+WARNING: Only 1 filtered periods available for 4 symbols!
+  This may indicate insufficient changepoints detected or too aggressive filtering.
+Selected 1 biggest periods (by duration) for matching
+Low frequency clusters available: 0
+High frequency clusters available: 1
+  WARNING: No low frequency clusters detected! This explains why only high frequencies are found.
+  Match 1 diagnostic: period [0.296, 0.406]s
+    Available low clusters: 0
+    Available high clusters: 1
+      High cluster: freq=1292.0Hz, CPs near period: 2
+    Found active low: 0, active high: 1
   Match 1: '4' -> period [0.296, 0.406]s, freqs: high-only: 1292Hz, verified: 'None', match: ✗
 
 ================================================================================

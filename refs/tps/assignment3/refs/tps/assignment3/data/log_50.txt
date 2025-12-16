@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 50
-Timestamp: 2025-12-16T18:25:05.232850
+Timestamp: 2025-12-16T18:29:22.465112
 
 ================================================================================
 Processing Signal 50
@@ -19,7 +19,10 @@ Number of major frequency clusters: 1
   Cluster 0: center=559.9 Hz, n_bins=2
 
 --- Cell 4: Changepoint Detection ---
-Cluster 3: selected freq 516.8 Hz with 2 CPs
+Cluster 3 (center=559.9 Hz, 2 freqs):
+  Freq 516.8 Hz: 2 CPs
+  Freq 602.9 Hz: 2 CPs
+  -> Selected freq: 516.8 Hz with 2 CPs (minimum)
 
 Low frequency clusters: 1
 High frequency clusters: 0
@@ -30,7 +33,18 @@ Removed outliers: 0
 Filtered periods: 1
 
 --- Cell 7: Period-Symbol Matching (CP-based) ---
-Selected 1 biggest periods (by duration) for 3 symbols
+Number of ground truth symbols: 3
+Number of filtered periods available: 1
+WARNING: Only 1 filtered periods available for 3 symbols!
+  This may indicate insufficient changepoints detected or too aggressive filtering.
+Selected 1 biggest periods (by duration) for matching
+Low frequency clusters available: 1
+High frequency clusters available: 0
+  Match 1 diagnostic: period [0.586, 0.662]s
+    Available low clusters: 1
+      Low cluster: freq=516.8Hz, CPs near period: 2
+    Available high clusters: 0
+    Found active low: 1, active high: 0
   Match 1: 'A' -> period [0.586, 0.662]s, freqs: low-only: 517Hz, verified: 'None', match: ✗
 
 ================================================================================

@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 90
-Timestamp: 2025-12-16T18:26:25.306214
+Timestamp: 2025-12-16T18:30:45.329302
 
 ================================================================================
 Processing Signal 90
@@ -19,7 +19,11 @@ Number of major frequency clusters: 1
   Cluster 0: center=1292.0 Hz, n_bins=3
 
 --- Cell 4: Changepoint Detection ---
-Cluster 0: selected freq 1205.9 Hz with 2 CPs
+Cluster 0 (center=1292.0 Hz, 3 freqs):
+  Freq 1205.9 Hz: 2 CPs
+  Freq 1292.0 Hz: 6 CPs
+  Freq 1378.1 Hz: 4 CPs
+  -> Selected freq: 1205.9 Hz with 2 CPs (minimum)
 
 Low frequency clusters: 0
 High frequency clusters: 1
@@ -30,7 +34,19 @@ Removed outliers: 0
 Filtered periods: 1
 
 --- Cell 7: Period-Symbol Matching (CP-based) ---
-Selected 1 biggest periods (by duration) for 6 symbols
+Number of ground truth symbols: 6
+Number of filtered periods available: 1
+WARNING: Only 1 filtered periods available for 6 symbols!
+  This may indicate insufficient changepoints detected or too aggressive filtering.
+Selected 1 biggest periods (by duration) for matching
+Low frequency clusters available: 0
+High frequency clusters available: 1
+  WARNING: No low frequency clusters detected! This explains why only high frequencies are found.
+  Match 1 diagnostic: period [0.488, 0.662]s
+    Available low clusters: 0
+    Available high clusters: 1
+      High cluster: freq=1205.9Hz, CPs near period: 2
+    Found active low: 0, active high: 1
   Match 1: '5' -> period [0.488, 0.662]s, freqs: high-only: 1206Hz, verified: 'None', match: ✗
 
 ================================================================================

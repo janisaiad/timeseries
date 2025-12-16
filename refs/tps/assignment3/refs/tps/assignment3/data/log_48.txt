@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 48
-Timestamp: 2025-12-16T18:25:00.575780
+Timestamp: 2025-12-16T18:29:18.721232
 
 ================================================================================
 Processing Signal 48
@@ -21,9 +21,18 @@ Number of major frequency clusters: 3
   Cluster 2: center=1507.3 Hz, n_bins=2
 
 --- Cell 4: Changepoint Detection ---
-Cluster 4: selected freq 516.8 Hz with 6 CPs
-Cluster 0: selected freq 1205.9 Hz with 4 CPs
-Cluster 6: selected freq 1464.3 Hz with 4 CPs
+Cluster 4 (center=559.9 Hz, 2 freqs):
+  Freq 516.8 Hz: 6 CPs
+  Freq 602.9 Hz: 9 CPs
+  -> Selected freq: 516.8 Hz with 6 CPs (minimum)
+Cluster 0 (center=1033.6 Hz, 2 freqs):
+  Freq 861.3 Hz: 8 CPs
+  Freq 1205.9 Hz: 4 CPs
+  -> Selected freq: 1205.9 Hz with 4 CPs (minimum)
+Cluster 6 (center=1507.3 Hz, 2 freqs):
+  Freq 1464.3 Hz: 4 CPs
+  Freq 1550.4 Hz: 10 CPs
+  -> Selected freq: 1464.3 Hz with 4 CPs (minimum)
 
 Low frequency clusters: 1
 High frequency clusters: 2
@@ -34,7 +43,18 @@ Removed outliers: 0
 Filtered periods: 13
 
 --- Cell 7: Period-Symbol Matching (CP-based) ---
-Selected 9 biggest periods (by duration) for 9 symbols
+Number of ground truth symbols: 9
+Number of filtered periods available: 13
+Selected 9 biggest periods (by duration) for matching
+Low frequency clusters available: 1
+High frequency clusters available: 2
+  Match 1 diagnostic: period [0.058, 0.139]s
+    Available low clusters: 1
+      Low cluster: freq=516.8Hz, CPs near period: 0
+    Available high clusters: 2
+      High cluster: freq=1205.9Hz, CPs near period: 0
+      High cluster: freq=1464.3Hz, CPs near period: 2
+    Found active low: 1, active high: 1
   Match 1: '3' -> period [0.058, 0.139]s, freqs: 517+1464Hz, verified: 'None', match: ✗
   Match 2: 'B' -> period [0.139, 0.551]s, freqs: 517+1464Hz, verified: 'None', match: ✗
   Match 3: '3' -> period [0.580, 0.679]s, freqs: 517+1464Hz, verified: 'None', match: ✗

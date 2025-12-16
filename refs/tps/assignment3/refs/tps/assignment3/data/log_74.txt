@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 74
-Timestamp: 2025-12-16T18:25:44.522387
+Timestamp: 2025-12-16T18:30:02.680514
 
 ================================================================================
 Processing Signal 74
@@ -20,8 +20,14 @@ Number of major frequency clusters: 2
   Cluster 1: center=1076.7 Hz, n_bins=2
 
 --- Cell 4: Changepoint Detection ---
-Cluster 4: selected freq 602.9 Hz with 8 CPs
-Cluster 0: selected freq 1205.9 Hz with 6 CPs
+Cluster 4 (center=732.1 Hz, 2 freqs):
+  Freq 602.9 Hz: 8 CPs
+  Freq 861.3 Hz: 8 CPs
+  -> Selected freq: 602.9 Hz with 8 CPs (minimum)
+Cluster 0 (center=1076.7 Hz, 2 freqs):
+  Freq 947.5 Hz: 10 CPs
+  Freq 1205.9 Hz: 6 CPs
+  -> Selected freq: 1205.9 Hz with 6 CPs (minimum)
 
 Low frequency clusters: 1
 High frequency clusters: 1
@@ -32,7 +38,17 @@ Removed outliers: 0
 Filtered periods: 13
 
 --- Cell 7: Period-Symbol Matching (CP-based) ---
-Selected 9 biggest periods (by duration) for 9 symbols
+Number of ground truth symbols: 9
+Number of filtered periods available: 13
+Selected 9 biggest periods (by duration) for matching
+Low frequency clusters available: 1
+High frequency clusters available: 1
+  Match 1 diagnostic: period [0.290, 0.476]s
+    Available low clusters: 1
+      Low cluster: freq=602.9Hz, CPs near period: 2
+    Available high clusters: 1
+      High cluster: freq=1205.9Hz, CPs near period: 2
+    Found active low: 1, active high: 1
   Match 1: '2' -> period [0.290, 0.476]s, freqs: 603+1206Hz, verified: 'None', match: ✗
   Match 2: '1' -> period [0.476, 0.563]s, freqs: 603+1206Hz, verified: 'None', match: ✗
   Match 3: '2' -> period [0.575, 0.819]s, freqs: 603+1206Hz, verified: 'None', match: ✗

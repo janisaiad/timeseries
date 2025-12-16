@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 14
-Timestamp: 2025-12-16T18:23:46.000598
+Timestamp: 2025-12-16T18:27:57.034022
 
 ================================================================================
 Processing Signal 14
@@ -22,10 +22,23 @@ Number of major frequency clusters: 4
   Cluster 3: center=1464.3 Hz, n_bins=3
 
 --- Cell 4: Changepoint Detection ---
-Cluster 4: selected freq 516.8 Hz with 6 CPs
-Cluster 3: selected freq 947.5 Hz with 6 CPs
-Cluster 0: selected freq 1292.0 Hz with 10 CPs
-Cluster 7: selected freq 1205.9 Hz with 4 CPs
+Cluster 4 (center=559.9 Hz, 2 freqs):
+  Freq 516.8 Hz: 6 CPs
+  Freq 602.9 Hz: 8 CPs
+  -> Selected freq: 516.8 Hz with 6 CPs (minimum)
+Cluster 3 (center=818.3 Hz, 2 freqs):
+  Freq 689.1 Hz: 10 CPs
+  Freq 947.5 Hz: 6 CPs
+  -> Selected freq: 947.5 Hz with 6 CPs (minimum)
+Cluster 0 (center=1335.1 Hz, 2 freqs):
+  Freq 1292.0 Hz: 10 CPs
+  Freq 1378.1 Hz: 10 CPs
+  -> Selected freq: 1292.0 Hz with 10 CPs (minimum)
+Cluster 7 (center=1464.3 Hz, 3 freqs):
+  Freq 1205.9 Hz: 4 CPs
+  Freq 1550.4 Hz: 9 CPs
+  Freq 1636.5 Hz: 4 CPs
+  -> Selected freq: 1205.9 Hz with 4 CPs (minimum)
 
 Low frequency clusters: 2
 High frequency clusters: 2
@@ -36,7 +49,19 @@ Removed outliers: 0
 Filtered periods: 22
 
 --- Cell 7: Period-Symbol Matching (CP-based) ---
-Selected 10 biggest periods (by duration) for 10 symbols
+Number of ground truth symbols: 10
+Number of filtered periods available: 22
+Selected 10 biggest periods (by duration) for matching
+Low frequency clusters available: 2
+High frequency clusters available: 2
+  Match 1 diagnostic: period [0.197, 0.279]s
+    Available low clusters: 2
+      Low cluster: freq=516.8Hz, CPs near period: 0
+      Low cluster: freq=947.5Hz, CPs near period: 2
+    Available high clusters: 2
+      High cluster: freq=1292.0Hz, CPs near period: 4
+      High cluster: freq=1205.9Hz, CPs near period: 0
+    Found active low: 1, active high: 1
   Match 1: '0' -> period [0.197, 0.279]s, freqs: 947+1292Hz, verified: '0', match: ✓
   Match 2: '5' -> period [0.279, 0.401]s, freqs: 947+1292Hz, verified: '0', match: ✗
   Match 3: '*' -> period [0.401, 0.540]s, freqs: 947+1206Hz, verified: '*', match: ✓

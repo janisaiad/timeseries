@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 40
-Timestamp: 2025-12-16T18:24:39.273780
+Timestamp: 2025-12-16T18:28:52.523023
 
 ================================================================================
 Processing Signal 40
@@ -19,7 +19,11 @@ Number of major frequency clusters: 1
   Cluster 0: center=861.3 Hz, n_bins=3
 
 --- Cell 4: Changepoint Detection ---
-Cluster 0: selected freq 861.3 Hz with 4 CPs
+Cluster 0 (center=861.3 Hz, 3 freqs):
+  Freq 775.2 Hz: 10 CPs
+  Freq 861.3 Hz: 4 CPs
+  Freq 947.5 Hz: 6 CPs
+  -> Selected freq: 861.3 Hz with 4 CPs (minimum)
 
 Low frequency clusters: 1
 High frequency clusters: 0
@@ -30,7 +34,18 @@ Removed outliers: 0
 Filtered periods: 3
 
 --- Cell 7: Period-Symbol Matching (CP-based) ---
-Selected 3 biggest periods (by duration) for 9 symbols
+Number of ground truth symbols: 9
+Number of filtered periods available: 3
+WARNING: Only 3 filtered periods available for 9 symbols!
+  This may indicate insufficient changepoints detected or too aggressive filtering.
+Selected 3 biggest periods (by duration) for matching
+Low frequency clusters available: 1
+High frequency clusters available: 0
+  Match 1 diagnostic: period [0.528, 0.546]s
+    Available low clusters: 1
+      Low cluster: freq=861.3Hz, CPs near period: 2
+    Available high clusters: 0
+    Found active low: 1, active high: 0
   Match 1: '1' -> period [0.528, 0.546]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
   Match 2: 'A' -> period [0.546, 1.445]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
   Match 3: '1' -> period [1.445, 1.602]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
