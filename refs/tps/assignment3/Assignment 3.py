@@ -1761,21 +1761,57 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
             freq_cp_results = []
             
             for freq_idx in freq_indices:
-                freq_energy = np.abs(Zxx[freq_idx, :])**2
-                sigma_est = np.std(freq_energy)
+                freq_energy = np.abs(Zxx[freq_idx, :])**2  # energy over time for this frequency bin
+                sigma_est = np.std(freq_energy)  # estimate noise level for BIC penalty
                 pen_bic = 2 * sigma_est**2 * np.log(t_max)
                 
                 algo = rpt.Pelt(model="l2", jump=1)
-                predicted_bkps = algo.fit_predict(freq_energy, pen=pen_bic)
-                signal_bkps = [min(int(idx * frame_step), len(signal)) 
-                              for idx in predicted_bkps[:-1]]
+                predicted_bkps = algo.fit_predict(freq_energy, pen=pen_bic)  # breakpoints in frame indices (including last)
+                
+                # compute partial energy between consecutive changepoints (segments)
+                segment_energies = []
+                for j in range(len(predicted_bkps) - 1):
+                    start_frame_cp = predicted_bkps[j]
+                    end_frame_cp = predicted_bkps[j + 1]
+                    if end_frame_cp > start_frame_cp:
+                        seg_energy = float(np.sum(freq_energy[start_frame_cp:end_frame_cp]))  # energy in this segment
+                    else:
+                        seg_energy = 0.0
+                    segment_energies.append(seg_energy)
+                
+                # by default, use all changepoints except the last one (as before)
+                frame_bkps_filtered = predicted_bkps[:-1]
+                signal_bkps_filtered = [min(int(idx * frame_step), len(signal)) 
+                                        for idx in frame_bkps_filtered]
+                
+                # new logic: for robustness, select high-energy segments via 1D k-means (k=2) on segment energies
+                if len(segment_energies) >= 2:
+                    seg_array = np.array(segment_energies, dtype=float).reshape(-1, 1)
+                    kmeans_seg = KMeans(n_clusters=2, random_state=0, n_init=10)
+                    seg_labels = kmeans_seg.fit_predict(seg_array)
+                    seg_centers = kmeans_seg.cluster_centers_.flatten()
+                    high_label = int(np.argmax(seg_centers))  # cluster with highest energy
+                    
+                    # collect changepoints that bound high-energy segments
+                    high_frame_bkps = []
+                    for j, label in enumerate(seg_labels):
+                        if label == high_label:
+                            high_frame_bkps.append(predicted_bkps[j])
+                            high_frame_bkps.append(predicted_bkps[j + 1])
+                    
+                    if len(high_frame_bkps) > 0:
+                        # keep only unique, sorted changepoints; drop final endpoint for consistency
+                        high_frame_bkps = sorted(set(high_frame_bkps))
+                        frame_bkps_filtered = high_frame_bkps[:-1] if len(high_frame_bkps) > 1 else high_frame_bkps
+                        signal_bkps_filtered = [min(int(idx * frame_step), len(signal)) 
+                                                for idx in frame_bkps_filtered]
                 
                 freq_cp_results.append({
                     'freq_idx': freq_idx,
                     'freq_value': f[freq_idx],
-                    'changepoints': signal_bkps,
-                    'frame_bkps': predicted_bkps[:-1],
-                    'n_cps': len(signal_bkps),
+                    'changepoints': signal_bkps_filtered,  # sample indices of selected changepoints
+                    'frame_bkps': frame_bkps_filtered,     # corresponding frame indices
+                    'n_cps': len(signal_bkps_filtered),
                     'energy_signal': freq_energy
                 })
             
@@ -1942,6 +1978,113 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
         results['matches'] = complete_matches
         results['success'] = True
         
+        # generate visualization plot with ALL matches for this signal
+        if len(complete_matches) > 0:
+            # create figure with subplots for all matches
+            n_matches = len(complete_matches)
+            fig, axes = plt.subplots(3, 1, figsize=(16, 10))
+            
+            # plot 1: signal with all periods highlighted
+            ax1 = axes[0]
+            time_axis = np.arange(len(signal)) / FS
+            ax1.plot(time_axis, signal, 'b-', linewidth=0.8, alpha=0.5, label='Signal')
+            
+            # use different colors for each period
+            colors = plt.cm.tab10(np.linspace(0, 1, n_matches))
+            for idx, match in enumerate(complete_matches):
+                period = match['period']
+                period_start = period['start_cp'] / FS
+                period_end = period['end_cp'] / FS
+                symbol = match['assigned_symbol']
+                ax1.axvspan(period_start, period_end, alpha=0.3, color=colors[idx], 
+                           label=f"Period {idx+1}: '{symbol}' ({period['duration_seconds']:.3f}s)")
+                ax1.axvline(period_start, color=colors[idx], linestyle='--', linewidth=1.5, alpha=0.7)
+                ax1.axvline(period_end, color=colors[idx], linestyle='--', linewidth=1.5, alpha=0.7)
+                # add symbol annotation
+                mid_time = (period_start + period_end) / 2
+                ax1.text(mid_time, ax1.get_ylim()[1] * 0.9, symbol, 
+                        ha='center', va='top', fontsize=12, fontweight='bold',
+                        color=colors[idx], bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+            
+            ax1.set_title(f"Signal {signal_idx}: All Matched Periods (n={n_matches})", 
+                         fontsize=14, fontweight='bold')
+            ax1.set_xlabel("Time (s)")
+            ax1.set_ylabel("Amplitude")
+            ax1.legend(loc='upper right', fontsize=8, ncol=2)
+            ax1.grid(True, alpha=0.3)
+            
+            # plot 2: spectrogram with all periods and frequencies
+            ax2 = axes[1]
+            spectrogram = np.abs(Zxx)
+            im = ax2.pcolormesh(t, f, 20 * np.log10(spectrogram + 1e-10), 
+                               shading='gouraud', cmap='viridis')
+            
+            # highlight all periods and mark frequencies
+            for idx, match in enumerate(complete_matches):
+                period = match['period']
+                period_start = period['start_cp'] / FS
+                period_end = period['end_cp'] / FS
+                symbol = match['assigned_symbol']
+                
+                # highlight period
+                ax2.axvspan(period_start, period_end, alpha=0.15, color=colors[idx])
+                ax2.axvline(period_start, color=colors[idx], linestyle='--', linewidth=1.5, alpha=0.7)
+                ax2.axvline(period_end, color=colors[idx], linestyle='--', linewidth=1.5, alpha=0.7)
+                
+                # mark active frequencies
+                if match['primary_low_freq']:
+                    ax2.axhline(match['primary_low_freq'], color=colors[idx], linestyle='-', 
+                               linewidth=2, alpha=0.6, label=f"Low: {match['primary_low_freq']:.0f}Hz" if idx == 0 else "")
+                if match['primary_high_freq']:
+                    ax2.axhline(match['primary_high_freq'], color=colors[idx], linestyle=':', 
+                               linewidth=2, alpha=0.6, label=f"High: {match['primary_high_freq']:.0f}Hz" if idx == 0 else "")
+                
+                # add symbol annotation
+                mid_time = (period_start + period_end) / 2
+                freq_text = f"{match['primary_low_freq']:.0f}+{match['primary_high_freq']:.0f}" if (match['primary_low_freq'] and match['primary_high_freq']) else "no pair"
+                ax2.text(mid_time, 3500, f"{symbol}\n({freq_text})", 
+                        ha='center', va='bottom', fontsize=10, fontweight='bold',
+                        color='white', bbox=dict(boxstyle='round', facecolor=colors[idx], alpha=0.9))
+            
+            ax2.set_title(f"Spectrogram: All Matched Periods with Frequency Pairs", 
+                         fontsize=14, fontweight='bold')
+            ax2.set_xlabel("Time (s)")
+            ax2.set_ylabel("Frequency (Hz)")
+            ax2.set_ylim([0, 4000])
+            ax2.legend(loc='upper right', fontsize=8)
+            plt.colorbar(im, ax=ax2, label="Magnitude (dB)")
+            
+            # plot 3: summary table of all matches
+            ax3 = axes[2]
+            ax3.axis('off')
+            
+            # create summary text
+            summary_text = f"Signal {signal_idx} - All Matches Summary\n"
+            summary_text += f"{'='*80}\n"
+            summary_text += f"{'Match':<8} {'Symbol':<10} {'Period (s)':<15} {'Frequencies (Hz)':<25} {'Verified':<10}\n"
+            summary_text += f"{'-'*80}\n"
+            
+            for idx, match in enumerate(complete_matches):
+                period = match['period']
+                symbol = match['assigned_symbol']
+                period_str = f"[{period['start_cp']/FS:.3f}, {period['end_cp']/FS:.3f}]"
+                freq_str = f"{match['primary_low_freq']:.0f}+{match['primary_high_freq']:.0f}" if (match['primary_low_freq'] and match['primary_high_freq']) else "no pair"
+                verified = match.get('verified_symbol', 'None') or 'None'
+                
+                summary_text += f"{idx+1:<8} {symbol:<10} {period_str:<15} {freq_str:<25} {verified:<10}\n"
+            
+            summary_text += f"\nGround truth symbols: {ground_truth_symbols}\n"
+            summary_text += f"Total matches: {n_matches}"
+            
+            ax3.text(0.05, 0.95, summary_text, transform=ax3.transAxes, 
+                    fontsize=10, verticalalignment='top', family='monospace',
+                    bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+            
+            plt.tight_layout()
+            plt.savefig(os.path.join(figures_dir, f"cell7_all_matches_signal{signal_idx}.png"), 
+                       dpi=150, bbox_inches='tight')
+            plt.close()
+        
     except Exception as e:
         log_file.write(f"\nERROR processing signal {signal_idx}: {str(e)}\n")
         import traceback
@@ -1951,6 +2094,185 @@ def process_single_signal(signal, ground_truth_symbols, signal_idx, log_file):
         log_file.flush()
     
     return results
+
+def find_active_frequencies_in_period(period, low_freq_clusters, high_freq_clusters, 
+                                     frame_step, energy_threshold_ratio=0.05, cp_tolerance=3000):
+    """
+    find which low and high frequencies are active during a time period
+    since periods are defined by changepoints from different frequency clusters,
+    we check which clusters have changepoints that define or are near this period
+    uses multiple methods with increasing permissiveness
+    """
+    start_time = period['start_cp']
+    end_time = period['end_cp']
+    period_mid = (start_time + end_time) / 2
+    
+    active_low = []
+    active_high = []
+    
+    # method 1: check which clusters have changepoints near the period boundaries
+    for cp_dict in low_freq_clusters:
+        cps = sorted(cp_dict['changepoints'])
+        near_start = any(abs(cp - start_time) < cp_tolerance for cp in cps)
+        near_end = any(abs(cp - end_time) < cp_tolerance for cp in cps)
+        period_in_segment = False
+        for i in range(len(cps) - 1):
+            if cps[i] <= period_mid <= cps[i+1]:
+                period_in_segment = True
+                break
+        
+        if near_start or near_end or period_in_segment:
+            start_frame = max(0, int(start_time / frame_step))
+            end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
+            if start_frame < end_frame:
+                segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
+                if len(segment_energy) > 0:
+                    max_energy = np.max(cp_dict['energy_signal'])
+                    avg_energy = np.mean(segment_energy)
+                    energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
+                    
+                    if (near_start or near_end or period_in_segment) or (energy_ratio > energy_threshold_ratio):
+                        active_low.append({
+                            'freq': cp_dict['selected_freq'],
+                            'cluster_id': cp_dict['cluster_id'],
+                            'avg_energy': float(avg_energy),
+                            'max_energy': float(max_energy),
+                            'energy_ratio': float(energy_ratio),
+                            'method': 'changepoint' if (near_start or near_end or period_in_segment) else 'energy'
+                        })
+    
+    for cp_dict in high_freq_clusters:
+        cps = sorted(cp_dict['changepoints'])
+        near_start = any(abs(cp - start_time) < cp_tolerance for cp in cps)
+        near_end = any(abs(cp - end_time) < cp_tolerance for cp in cps)
+        period_in_segment = False
+        for i in range(len(cps) - 1):
+            if cps[i] <= period_mid <= cps[i+1]:
+                period_in_segment = True
+                break
+        
+        if near_start or near_end or period_in_segment:
+            start_frame = max(0, int(start_time / frame_step))
+            end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
+            if start_frame < end_frame:
+                segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
+                if len(segment_energy) > 0:
+                    max_energy = np.max(cp_dict['energy_signal'])
+                    avg_energy = np.mean(segment_energy)
+                    energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
+                    
+                    if (near_start or near_end or period_in_segment) or (energy_ratio > energy_threshold_ratio):
+                        active_high.append({
+                            'freq': cp_dict['selected_freq'],
+                            'cluster_id': cp_dict['cluster_id'],
+                            'avg_energy': float(avg_energy),
+                            'max_energy': float(max_energy),
+                            'energy_ratio': float(energy_ratio),
+                            'method': 'changepoint' if (near_start or near_end or period_in_segment) else 'energy'
+                        })
+    
+    # if still no frequencies found, use pure energy-based method as last resort
+    if len(active_low) == 0:
+        for cp_dict in low_freq_clusters:
+            start_frame = max(0, int(start_time / frame_step))
+            end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
+            if start_frame < end_frame:
+                segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
+                if len(segment_energy) > 0:
+                    max_energy = np.max(cp_dict['energy_signal'])
+                    avg_energy = np.mean(segment_energy)
+                    energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
+                    if energy_ratio > energy_threshold_ratio:
+                        active_low.append({
+                            'freq': cp_dict['selected_freq'],
+                            'cluster_id': cp_dict['cluster_id'],
+                            'avg_energy': float(avg_energy),
+                            'max_energy': float(max_energy),
+                            'energy_ratio': float(energy_ratio),
+                            'method': 'energy_fallback'
+                        })
+    
+    if len(active_high) == 0:
+        for cp_dict in high_freq_clusters:
+            start_frame = max(0, int(start_time / frame_step))
+            end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
+            if start_frame < end_frame:
+                segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
+                if len(segment_energy) > 0:
+                    max_energy = np.max(cp_dict['energy_signal'])
+                    avg_energy = np.mean(segment_energy)
+                    energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
+                    if energy_ratio > energy_threshold_ratio:
+                        active_high.append({
+                            'freq': cp_dict['selected_freq'],
+                            'cluster_id': cp_dict['cluster_id'],
+                            'avg_energy': float(avg_energy),
+                            'max_energy': float(max_energy),
+                            'energy_ratio': float(energy_ratio),
+                            'method': 'energy_fallback'
+                        })
+    
+    # final fallback: if still no frequencies, take the one with highest energy in the period
+    if len(active_low) == 0 and len(low_freq_clusters) > 0:
+        best_low = None
+        best_energy_ratio = 0
+        for cp_dict in low_freq_clusters:
+            start_frame = max(0, int(start_time / frame_step))
+            end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
+            if start_frame < end_frame:
+                segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
+                if len(segment_energy) > 0:
+                    max_energy = np.max(cp_dict['energy_signal'])
+                    avg_energy = np.mean(segment_energy)
+                    energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
+                    if energy_ratio > best_energy_ratio:
+                        best_energy_ratio = energy_ratio
+                        best_low = {
+                            'freq': cp_dict['selected_freq'],
+                            'cluster_id': cp_dict['cluster_id'],
+                            'avg_energy': float(avg_energy),
+                            'max_energy': float(max_energy),
+                            'energy_ratio': float(energy_ratio),
+                            'method': 'best_energy_fallback'
+                        }
+        if best_low is not None:
+            active_low.append(best_low)
+    
+    if len(active_high) == 0 and len(high_freq_clusters) > 0:
+        best_high = None
+        best_energy_ratio = 0
+        for cp_dict in high_freq_clusters:
+            start_frame = max(0, int(start_time / frame_step))
+            end_frame = min(len(cp_dict['energy_signal']), int(end_time / frame_step) + 1)
+            if start_frame < end_frame:
+                segment_energy = cp_dict['energy_signal'][start_frame:end_frame]
+                if len(segment_energy) > 0:
+                    max_energy = np.max(cp_dict['energy_signal'])
+                    avg_energy = np.mean(segment_energy)
+                    energy_ratio = avg_energy / max_energy if max_energy > 0 else 0
+                    if energy_ratio > best_energy_ratio:
+                        best_energy_ratio = energy_ratio
+                        best_high = {
+                            'freq': cp_dict['selected_freq'],
+                            'cluster_id': cp_dict['cluster_id'],
+                            'avg_energy': float(avg_energy),
+                            'max_energy': float(max_energy),
+                            'energy_ratio': float(energy_ratio),
+                            'method': 'best_energy_fallback'
+                        }
+        if best_high is not None:
+            active_high.append(best_high)
+    
+    # sort by energy ratio (strongest first), but prioritize changepoint method
+    active_low.sort(key=lambda x: (x.get('method') != 'changepoint', -x['energy_ratio']))
+    active_high.sort(key=lambda x: (x.get('method') != 'changepoint', -x['energy_ratio']))
+    
+    return {
+        'low_freqs': [f['freq'] for f in active_low],
+        'high_freqs': [f['freq'] for f in active_high],
+        'low_clusters': active_low,
+        'high_clusters': active_high
+    }
 
 # process all signals
 print(f"Processing {len(X_train)} signals...")
