@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 0
-Timestamp: 2025-12-16T13:39:23.811250
+Timestamp: 2025-12-16T14:02:41.594216
 
 ================================================================================
 Processing Signal 0
@@ -41,7 +41,7 @@ Selected top 6 intervals (2n=6) by energy density for 3 symbols
   High frequency intervals: 2
 Match 1: '5' -> period [0.447, 0.546]s, freqs: 775+1550Hz, verified: 'None', energy_density: low=6.47e+01, high=5.79e+01
 Match 2: 'C' -> period [0.470, 0.586]s, freqs: 603+1378Hz, verified: 'None', energy_density: low=5.98e+01, high=5.33e+01
-Match 3: '3' -> period [0.186, 0.284]s, freqs: no freq pair, verified: 'None', energy_density: low=4.68e+01
+Match 3: '3' -> period [0.186, 0.284]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=4.68e+01
 
 ================================================================================
 Results saved to:

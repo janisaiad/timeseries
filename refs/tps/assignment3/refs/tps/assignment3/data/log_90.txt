@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 90
-Timestamp: 2025-12-16T13:42:04.798197
+Timestamp: 2025-12-16T14:05:33.426946
 
 ================================================================================
 Processing Signal 90
@@ -35,12 +35,12 @@ Filtered periods: 1
 Selected top 12 intervals (2n=12) by energy density for 6 symbols
   Low frequency intervals: 0
   High frequency intervals: 12
-Match 1: '5' -> period [1.312, 1.324]s, freqs: no freq pair, verified: 'None', energy_density: high=5.39e+01
-Match 2: '5' -> period [0.488, 0.662]s, freqs: no freq pair, verified: 'None', energy_density: high=4.15e+01
-Match 3: '7' -> period [0.110, 0.221]s, freqs: no freq pair, verified: 'None', energy_density: high=3.57e+01
-Match 4: '3' -> period [0.110, 0.221]s, freqs: no freq pair, verified: 'None', energy_density: high=3.41e+01
-Match 5: '6' -> period [0.337, 0.418]s, freqs: no freq pair, verified: 'None', energy_density: high=3.13e+01
-Match 6: '9' -> period [0.337, 0.418]s, freqs: no freq pair, verified: 'None', energy_density: high=3.02e+01
+Match 1: '5' -> period [1.312, 1.324]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=5.39e+01
+Match 2: '5' -> period [0.488, 0.662]s, freqs: high-only: 1206Hz, verified: 'None', energy_density: high=4.15e+01
+Match 3: '7' -> period [0.110, 0.221]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=3.57e+01
+Match 4: '3' -> period [0.110, 0.221]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=3.41e+01
+Match 5: '6' -> period [0.337, 0.418]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=3.13e+01
+Match 6: '9' -> period [0.337, 0.418]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=3.02e+01
 
 ================================================================================
 Results saved to:

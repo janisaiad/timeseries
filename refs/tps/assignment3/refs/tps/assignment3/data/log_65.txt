@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 65
-Timestamp: 2025-12-16T13:41:20.340585
+Timestamp: 2025-12-16T14:04:43.531200
 
 ================================================================================
 Processing Signal 65
@@ -48,12 +48,12 @@ Match 2: '2' -> period [1.608, 2.206]s, freqs: 861+1378Hz, verified: '8', energy
 Match 3: 'C' -> period [1.498, 2.165]s, freqs: 603+1206Hz, verified: 'None', energy_density: low=8.27e+01, high=1.25e+02
 Match 4: 'B' -> period [1.486, 1.660]s, freqs: 689+1206Hz, verified: '1', energy_density: low=4.68e+01, high=5.30e+01
 Match 5: '#' -> period [0.488, 1.300]s, freqs: 861+1550Hz, verified: 'None', energy_density: low=7.54e+01, high=6.59e+01
-Match 6: 'A' -> period [0.534, 0.557]s, freqs: no freq pair, verified: 'None', energy_density: low=6.79e+01
-Match 7: '2' -> period [2.310, 2.334]s, freqs: no freq pair, verified: 'None', energy_density: low=6.47e+01
-Match 8: '#' -> period [2.194, 2.218]s, freqs: no freq pair, verified: 'None', energy_density: low=5.89e+01
-Match 9: '7' -> period [2.490, 2.566]s, freqs: no freq pair, verified: 'None', energy_density: low=5.56e+01
-Match 10: '8' -> period [0.348, 0.401]s, freqs: no freq pair, verified: 'None', energy_density: low=5.54e+01
-Match 11: 'A' -> period [0.842, 0.888]s, freqs: no freq pair, verified: 'None', energy_density: low=5.50e+01
+Match 6: 'A' -> period [0.534, 0.557]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=6.79e+01
+Match 7: '2' -> period [2.310, 2.334]s, freqs: low-only: 517Hz, verified: 'None', energy_density: low=6.47e+01
+Match 8: '#' -> period [2.194, 2.218]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=5.89e+01
+Match 9: '7' -> period [2.490, 2.566]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=5.56e+01
+Match 10: '8' -> period [0.348, 0.401]s, freqs: low-only: 689Hz, verified: 'None', energy_density: low=5.54e+01
+Match 11: 'A' -> period [0.842, 0.888]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=5.50e+01
 
 ================================================================================
 Results saved to:

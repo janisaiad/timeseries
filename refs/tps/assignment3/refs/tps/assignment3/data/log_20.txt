@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 20
-Timestamp: 2025-12-16T13:39:57.439846
+Timestamp: 2025-12-16T14:03:15.944824
 
 ================================================================================
 Processing Signal 20
@@ -50,7 +50,7 @@ Match 6: '3' -> period [2.357, 2.397]s, freqs: 861+1206Hz, verified: '7', energy
 Match 7: '*' -> period [0.737, 2.339]s, freqs: 517+1034Hz, verified: 'None', energy_density: low=5.85e+01, high=6.58e+01
 Match 8: '2' -> period [0.470, 2.258]s, freqs: 603+1378Hz, verified: 'None', energy_density: low=5.64e+01, high=6.40e+01
 Match 9: 'D' -> period [1.213, 2.223]s, freqs: 775+1464Hz, verified: '6', energy_density: low=4.99e+01, high=4.71e+01
-Match 10: '*' -> period [1.416, 1.503]s, freqs: no freq pair, verified: 'None', energy_density: low=4.80e+01
+Match 10: '*' -> period [1.416, 1.503]s, freqs: low-only: 517Hz, verified: 'None', energy_density: low=4.80e+01
 
 ================================================================================
 Results saved to:

@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 8
-Timestamp: 2025-12-16T13:39:39.146022
+Timestamp: 2025-12-16T14:02:57.150540
 
 ================================================================================
 Processing Signal 8
@@ -35,10 +35,10 @@ Filtered periods: 1
 Selected top 4 intervals (2n=8) by energy density for 4 symbols
   Low frequency intervals: 0
   High frequency intervals: 4
-Match 1: '4' -> period [0.534, 0.691]s, freqs: no freq pair, verified: 'None', energy_density: high=4.60e+01
-Match 2: '8' -> period [0.296, 0.406]s, freqs: no freq pair, verified: 'None', energy_density: high=3.50e+01
-Match 3: '6' -> period [0.406, 1.019]s, freqs: no freq pair, verified: 'None', energy_density: high=7.35e+00
-Match 4: '*' -> period [0.691, 1.019]s, freqs: no freq pair, verified: 'None', energy_density: high=4.00e+00
+Match 1: '4' -> period [0.534, 0.691]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=4.60e+01
+Match 2: '8' -> period [0.296, 0.406]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=3.50e+01
+Match 3: '6' -> period [0.406, 1.019]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=7.35e+00
+Match 4: '*' -> period [0.691, 1.019]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=4.00e+00
 
 ================================================================================
 Results saved to:

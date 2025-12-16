@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 99
-Timestamp: 2025-12-16T13:42:18.497683
+Timestamp: 2025-12-16T14:05:48.510290
 
 ================================================================================
 Processing Signal 99
@@ -45,8 +45,8 @@ Match 3: '9' -> period [0.546, 0.784]s, freqs: 689+1378Hz, verified: '2', energy
 Match 4: '7' -> period [1.422, 2.055]s, freqs: 517+1637Hz, verified: 'None', energy_density: low=4.08e+01, high=4.89e+01
 Match 5: '4' -> period [1.515, 1.614]s, freqs: 689+1464Hz, verified: '3', energy_density: low=3.94e+01, high=4.56e+01
 Match 6: '*' -> period [1.382, 1.759]s, freqs: 689+1464Hz, verified: '3', energy_density: low=3.84e+01, high=3.76e+01
-Match 7: '9' -> period [0.702, 0.760]s, freqs: no freq pair, verified: 'None', energy_density: high=3.72e+01
-Match 8: 'D' -> period [0.308, 0.505]s, freqs: no freq pair, verified: 'None', energy_density: high=3.42e+01
+Match 7: '9' -> period [0.702, 0.760]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=3.72e+01
+Match 8: 'D' -> period [0.308, 0.505]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=3.42e+01
 
 ================================================================================
 Results saved to:

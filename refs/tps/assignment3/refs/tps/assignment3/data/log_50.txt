@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 50
-Timestamp: 2025-12-16T13:40:59.167619
+Timestamp: 2025-12-16T14:04:20.908435
 
 ================================================================================
 Processing Signal 50
@@ -35,9 +35,9 @@ Filtered periods: 1
 Selected top 4 intervals (2n=6) by energy density for 3 symbols
   Low frequency intervals: 4
   High frequency intervals: 0
-Match 1: 'A' -> period [0.586, 0.662]s, freqs: no freq pair, verified: 'None', energy_density: low=5.48e+01
-Match 2: '6' -> period [0.563, 0.604]s, freqs: no freq pair, verified: 'None', energy_density: low=4.31e+01
-Match 3: '3' -> period [0.604, 0.668]s, freqs: no freq pair, verified: 'None', energy_density: low=1.76e+01
+Match 1: 'A' -> period [0.586, 0.662]s, freqs: low-only: 517Hz, verified: 'None', energy_density: low=5.48e+01
+Match 2: '6' -> period [0.563, 0.604]s, freqs: low-only: 603Hz, verified: 'None', energy_density: low=4.31e+01
+Match 3: '3' -> period [0.604, 0.668]s, freqs: low-only: 603Hz, verified: 'None', energy_density: low=1.76e+01
 
 ================================================================================
 Results saved to:

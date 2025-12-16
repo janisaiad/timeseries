@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 61
-Timestamp: 2025-12-16T13:41:14.278308
+Timestamp: 2025-12-16T14:04:37.284603
 
 ================================================================================
 Processing Signal 61
@@ -43,11 +43,11 @@ Match 3: '4' -> period [0.522, 2.479]s, freqs: 947+1723Hz, verified: 'None', ene
 Match 4: 'D' -> period [0.807, 1.068]s, freqs: 947+1723Hz, verified: 'None', energy_density: low=4.99e+01, high=6.84e+01
 Match 5: '4' -> period [0.441, 2.096]s, freqs: 947+1723Hz, verified: 'None', energy_density: low=4.89e+01, high=6.34e+01
 Match 6: '#' -> period [0.470, 0.795]s, freqs: 861+1464Hz, verified: '9', energy_density: low=4.68e+01, high=6.33e+01
-Match 7: 'D' -> period [1.295, 1.306]s, freqs: no freq pair, verified: 'None', energy_density: high=5.88e+01
-Match 8: '5' -> period [0.760, 0.772]s, freqs: no freq pair, verified: 'None', energy_density: high=5.42e+01
-Match 9: '*' -> period [0.702, 0.755]s, freqs: no freq pair, verified: 'None', energy_density: high=5.22e+01
-Match 10: '4' -> period [1.637, 1.654]s, freqs: no freq pair, verified: 'None', energy_density: high=4.94e+01
-Match 11: 'A' -> period [1.312, 1.324]s, freqs: no freq pair, verified: 'None', energy_density: high=4.93e+01
+Match 7: 'D' -> period [1.295, 1.306]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=5.88e+01
+Match 8: '5' -> period [0.760, 0.772]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=5.42e+01
+Match 9: '*' -> period [0.702, 0.755]s, freqs: high-only: 1206Hz, verified: 'None', energy_density: high=5.22e+01
+Match 10: '4' -> period [1.637, 1.654]s, freqs: high-only: 1723Hz, verified: 'None', energy_density: high=4.94e+01
+Match 11: 'A' -> period [1.312, 1.324]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=4.93e+01
 
 ================================================================================
 Results saved to:

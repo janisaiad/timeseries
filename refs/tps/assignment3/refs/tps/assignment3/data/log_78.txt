@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 78
-Timestamp: 2025-12-16T13:41:36.403514
+Timestamp: 2025-12-16T14:05:01.002362
 
 ================================================================================
 Processing Signal 78
@@ -50,8 +50,8 @@ Match 6: '8' -> period [0.766, 1.550]s, freqs: 775+1378Hz, verified: '5', energy
 Match 7: '4' -> period [0.476, 0.731]s, freqs: 775+1378Hz, verified: '5', energy_density: low=6.80e+01, high=5.62e+01
 Match 8: '4' -> period [0.871, 1.637]s, freqs: 947+1550Hz, verified: 'None', energy_density: low=6.27e+01, high=5.34e+01
 Match 9: 'A' -> period [0.563, 1.300]s, freqs: 603+1550Hz, verified: 'None', energy_density: low=5.23e+01, high=4.97e+01
-Match 10: 'C' -> period [0.174, 0.255]s, freqs: no freq pair, verified: 'None', energy_density: low=5.10e+01
-Match 11: '1' -> period [1.434, 1.492]s, freqs: no freq pair, verified: 'None', energy_density: low=4.89e+01
+Match 10: 'C' -> period [0.174, 0.255]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=5.10e+01
+Match 11: '1' -> period [1.434, 1.492]s, freqs: low-only: 517Hz, verified: 'None', energy_density: low=4.89e+01
 
 ================================================================================
 Results saved to:

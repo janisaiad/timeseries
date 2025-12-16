@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 6
-Timestamp: 2025-12-16T13:39:34.935427
+Timestamp: 2025-12-16T14:02:53.053324
 
 ================================================================================
 Processing Signal 6
@@ -35,16 +35,16 @@ Filtered periods: 3
 Selected top 12 intervals (2n=20) by energy density for 10 symbols
   Low frequency intervals: 0
   High frequency intervals: 12
-Match 1: '*' -> period [1.109, 1.231]s, freqs: no freq pair, verified: 'None', energy_density: high=4.89e+01
-Match 2: '2' -> period [0.656, 0.714]s, freqs: no freq pair, verified: 'None', energy_density: high=4.64e+01
-Match 3: '8' -> period [0.784, 0.952]s, freqs: no freq pair, verified: 'None', energy_density: high=4.32e+01
-Match 4: '#' -> period [1.672, 1.858]s, freqs: no freq pair, verified: 'None', energy_density: high=3.29e+01
-Match 5: '3' -> period [0.470, 0.563]s, freqs: no freq pair, verified: 'None', energy_density: high=3.25e+01
-Match 6: 'C' -> period [2.049, 2.154]s, freqs: no freq pair, verified: 'None', energy_density: high=3.05e+01
-Match 7: '8' -> period [0.563, 0.656]s, freqs: no freq pair, verified: 'None', energy_density: high=1.04e+01
-Match 8: '5' -> period [0.714, 1.672]s, freqs: no freq pair, verified: 'None', energy_density: high=7.89e+00
-Match 9: '*' -> period [1.231, 2.608]s, freqs: no freq pair, verified: 'None', energy_density: high=6.09e+00
-Match 10: '4' -> period [2.154, 2.608]s, freqs: no freq pair, verified: 'None', energy_density: high=5.95e+00
+Match 1: '*' -> period [1.109, 1.231]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=4.89e+01
+Match 2: '2' -> period [0.656, 0.714]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=4.64e+01
+Match 3: '8' -> period [0.784, 0.952]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=4.32e+01
+Match 4: '#' -> period [1.672, 1.858]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=3.29e+01
+Match 5: '3' -> period [0.470, 0.563]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=3.25e+01
+Match 6: 'C' -> period [2.049, 2.154]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=3.05e+01
+Match 7: '8' -> period [0.563, 0.656]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=1.04e+01
+Match 8: '5' -> period [0.714, 1.672]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=7.89e+00
+Match 9: '*' -> period [1.231, 2.608]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=6.09e+00
+Match 10: '4' -> period [2.154, 2.608]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=5.95e+00
 
 ================================================================================
 Results saved to:

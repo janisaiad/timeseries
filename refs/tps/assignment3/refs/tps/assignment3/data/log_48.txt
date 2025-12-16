@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 48
-Timestamp: 2025-12-16T13:40:56.447780
+Timestamp: 2025-12-16T14:04:17.871660
 
 ================================================================================
 Processing Signal 48
@@ -47,7 +47,7 @@ Match 5: 'A' -> period [0.911, 2.328]s, freqs: 517+1206Hz, verified: 'None', ene
 Match 6: 'C' -> period [0.453, 1.544]s, freqs: 861+1550Hz, verified: 'None', energy_density: low=4.56e+01, high=4.74e+01
 Match 7: '1' -> period [0.650, 1.956]s, freqs: 603+1206Hz, verified: 'None', energy_density: low=4.55e+01, high=4.60e+01
 Match 8: 'D' -> period [0.058, 2.264]s, freqs: 603+1464Hz, verified: 'None', energy_density: low=4.33e+01, high=3.98e+01
-Match 9: '5' -> period [1.556, 1.602]s, freqs: no freq pair, verified: 'None', energy_density: low=4.24e+01
+Match 9: '5' -> period [1.556, 1.602]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=4.24e+01
 
 ================================================================================
 Results saved to:

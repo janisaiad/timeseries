@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 39
-Timestamp: 2025-12-16T13:40:33.016401
+Timestamp: 2025-12-16T14:03:53.421034
 
 ================================================================================
 Processing Signal 39
@@ -37,13 +37,13 @@ Filtered periods: 7
 Selected top 14 intervals (2n=14) by energy density for 7 symbols
   Low frequency intervals: 0
   High frequency intervals: 14
-Match 1: '9' -> period [0.766, 0.778]s, freqs: no freq pair, verified: 'None', energy_density: high=9.46e+01
-Match 2: 'A' -> period [0.766, 0.784]s, freqs: no freq pair, verified: 'None', energy_density: high=8.87e+01
-Match 3: '0' -> period [1.295, 1.306]s, freqs: no freq pair, verified: 'None', energy_density: high=7.70e+01
-Match 4: '8' -> period [1.289, 1.300]s, freqs: no freq pair, verified: 'None', energy_density: high=7.45e+01
-Match 5: '*' -> period [0.789, 0.801]s, freqs: no freq pair, verified: 'None', energy_density: high=6.46e+01
-Match 6: '8' -> period [0.493, 0.621]s, freqs: no freq pair, verified: 'None', energy_density: high=6.28e+01
-Match 7: '8' -> period [0.128, 0.302]s, freqs: no freq pair, verified: 'None', energy_density: high=5.16e+01
+Match 1: '9' -> period [0.766, 0.778]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=9.46e+01
+Match 2: 'A' -> period [0.766, 0.784]s, freqs: high-only: 1378Hz, verified: 'None', energy_density: high=8.87e+01
+Match 3: '0' -> period [1.295, 1.306]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=7.70e+01
+Match 4: '8' -> period [1.289, 1.300]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=7.45e+01
+Match 5: '*' -> period [0.789, 0.801]s, freqs: high-only: 1550Hz, verified: 'None', energy_density: high=6.46e+01
+Match 6: '8' -> period [0.493, 0.621]s, freqs: high-only: 1637Hz, verified: 'None', energy_density: high=6.28e+01
+Match 7: '8' -> period [0.128, 0.302]s, freqs: high-only: 1464Hz, verified: 'None', energy_density: high=5.16e+01
 
 ================================================================================
 Results saved to:

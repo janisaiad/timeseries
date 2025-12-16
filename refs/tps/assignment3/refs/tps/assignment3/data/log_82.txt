@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 82
-Timestamp: 2025-12-16T13:41:49.285613
+Timestamp: 2025-12-16T14:05:16.064082
 
 ================================================================================
 Processing Signal 82
@@ -49,8 +49,8 @@ Match 5: '6' -> period [1.544, 2.467]s, freqs: 861+1550Hz, verified: 'None', ene
 Match 6: 'C' -> period [0.673, 0.766]s, freqs: 603+1206Hz, verified: 'None', energy_density: low=7.18e+01, high=6.03e+01
 Match 7: '5' -> period [0.563, 1.382]s, freqs: 603+1464Hz, verified: 'None', energy_density: low=5.99e+01, high=4.80e+01
 Match 8: '*' -> period [1.225, 1.434]s, freqs: 603+1464Hz, verified: 'None', energy_density: low=5.44e+01, high=4.59e+01
-Match 9: '5' -> period [0.969, 1.091]s, freqs: no freq pair, verified: 'None', energy_density: low=5.41e+01
-Match 10: 'B' -> period [2.194, 2.287]s, freqs: no freq pair, verified: 'None', energy_density: low=5.02e+01
+Match 9: '5' -> period [0.969, 1.091]s, freqs: low-only: 947Hz, verified: 'None', energy_density: low=5.41e+01
+Match 10: 'B' -> period [2.194, 2.287]s, freqs: low-only: 947Hz, verified: 'None', energy_density: low=5.02e+01
 
 ================================================================================
 Results saved to:

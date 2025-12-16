@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 22
-Timestamp: 2025-12-16T13:40:02.115164
+Timestamp: 2025-12-16T14:03:21.052166
 
 ================================================================================
 Processing Signal 22
@@ -46,8 +46,8 @@ Match 6: '2' -> period [0.517, 2.444]s, freqs: 947+1292Hz, verified: '0', energy
 Match 7: '2' -> period [1.312, 1.387]s, freqs: 775+1292Hz, verified: '5', energy_density: low=8.43e+01, high=1.06e+02
 Match 8: 'B' -> period [1.080, 2.397]s, freqs: 775+1206Hz, verified: '4', energy_density: low=5.26e+01, high=4.54e+01
 Match 9: '4' -> period [0.853, 1.492]s, freqs: 947+1292Hz, verified: '0', energy_density: low=4.79e+01, high=3.40e+01
-Match 10: '2' -> period [1.782, 1.956]s, freqs: no freq pair, verified: 'None', energy_density: low=4.65e+01
-Match 11: '9' -> period [0.406, 0.517]s, freqs: no freq pair, verified: 'None', energy_density: low=1.09e+01
+Match 10: '2' -> period [1.782, 1.956]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=4.65e+01
+Match 11: '9' -> period [0.406, 0.517]s, freqs: low-only: 947Hz, verified: 'None', energy_density: low=1.09e+01
 
 ================================================================================
 Results saved to:

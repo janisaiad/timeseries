@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 11
-Timestamp: 2025-12-16T13:39:42.508437
+Timestamp: 2025-12-16T14:03:00.509346
 
 ================================================================================
 Processing Signal 11
@@ -35,11 +35,11 @@ Filtered periods: 3
 Selected top 10 intervals (2n=10) by energy density for 5 symbols
   Low frequency intervals: 10
   High frequency intervals: 0
-Match 1: '8' -> period [0.528, 0.546]s, freqs: no freq pair, verified: 'None', energy_density: low=6.23e+01
-Match 2: 'A' -> period [0.714, 0.731]s, freqs: no freq pair, verified: 'None', energy_density: low=4.88e+01
-Match 3: '#' -> period [0.052, 0.110]s, freqs: no freq pair, verified: 'None', energy_density: low=4.79e+01
-Match 4: '3' -> period [0.946, 0.993]s, freqs: no freq pair, verified: 'None', energy_density: low=4.58e+01
-Match 5: '4' -> period [0.697, 0.720]s, freqs: no freq pair, verified: 'None', energy_density: low=4.45e+01
+Match 1: '8' -> period [0.528, 0.546]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=6.23e+01
+Match 2: 'A' -> period [0.714, 0.731]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=4.88e+01
+Match 3: '#' -> period [0.052, 0.110]s, freqs: low-only: 861Hz, verified: 'None', energy_density: low=4.79e+01
+Match 4: '3' -> period [0.946, 0.993]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=4.58e+01
+Match 5: '4' -> period [0.697, 0.720]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=4.45e+01
 
 ================================================================================
 Results saved to:

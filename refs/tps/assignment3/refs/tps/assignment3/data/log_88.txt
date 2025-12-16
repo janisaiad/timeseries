@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 88
-Timestamp: 2025-12-16T13:42:01.138976
+Timestamp: 2025-12-16T14:05:28.804917
 
 ================================================================================
 Processing Signal 88
@@ -51,8 +51,8 @@ Match 5: '1' -> period [1.265, 1.416]s, freqs: 689+1292Hz, verified: '2', energy
 Match 6: '8' -> period [1.602, 2.392]s, freqs: 861+1378Hz, verified: '8', energy_density: low=6.64e+01, high=9.01e+01
 Match 7: '6' -> period [2.113, 2.200]s, freqs: 947+1550Hz, verified: 'None', energy_density: low=5.49e+01, high=7.33e+01
 Match 8: '3' -> period [0.557, 0.801]s, freqs: 775+1550Hz, verified: 'None', energy_density: low=5.28e+01, high=5.86e+01
-Match 9: 'D' -> period [0.592, 0.668]s, freqs: no freq pair, verified: 'None', energy_density: low=5.24e+01
-Match 10: 'D' -> period [0.656, 0.789]s, freqs: no freq pair, verified: 'None', energy_density: low=4.88e+01
+Match 9: 'D' -> period [0.592, 0.668]s, freqs: low-only: 517Hz, verified: 'None', energy_density: low=5.24e+01
+Match 10: 'D' -> period [0.656, 0.789]s, freqs: low-only: 947Hz, verified: 'None', energy_density: low=4.88e+01
 
 ================================================================================
 Results saved to:

@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 86
-Timestamp: 2025-12-16T13:41:57.647894
+Timestamp: 2025-12-16T14:05:24.772779
 
 ================================================================================
 Processing Signal 86
@@ -42,7 +42,7 @@ Match 2: '9' -> period [1.498, 1.631]s, freqs: 603+1550Hz, verified: 'None', ene
 Match 3: 'D' -> period [0.569, 0.911]s, freqs: 603+1637Hz, verified: 'None', energy_density: low=5.11e+01, high=5.67e+01
 Match 4: '#' -> period [0.789, 1.405]s, freqs: 689+1550Hz, verified: 'None', energy_density: low=4.71e+01, high=5.10e+01
 Match 5: '2' -> period [0.192, 1.509]s, freqs: 517+1637Hz, verified: 'None', energy_density: low=4.26e+01, high=4.58e+01
-Match 6: '9' -> period [0.551, 0.580]s, freqs: no freq pair, verified: 'None', energy_density: low=3.86e+01
+Match 6: '9' -> period [0.551, 0.580]s, freqs: low-only: 689Hz, verified: 'None', energy_density: low=3.86e+01
 
 ================================================================================
 Results saved to:

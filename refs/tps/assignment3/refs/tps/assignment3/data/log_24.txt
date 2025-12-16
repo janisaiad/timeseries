@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 24
-Timestamp: 2025-12-16T13:40:07.214307
+Timestamp: 2025-12-16T14:03:26.349469
 
 ================================================================================
 Processing Signal 24
@@ -53,7 +53,7 @@ Match 5: '9' -> period [1.492, 1.892]s, freqs: 603+1637Hz, verified: 'None', ene
 Match 6: '1' -> period [1.341, 2.461]s, freqs: 861+1550Hz, verified: 'None', energy_density: low=6.49e+01, high=9.92e+01
 Match 7: 'C' -> period [1.364, 1.614]s, freqs: 775+1292Hz, verified: '5', energy_density: low=6.18e+01, high=7.98e+01
 Match 8: '7' -> period [1.353, 2.177]s, freqs: 947+1120Hz, verified: 'None', energy_density: low=6.12e+01, high=7.26e+01
-Match 9: '9' -> period [2.113, 2.125]s, freqs: no freq pair, verified: 'None', energy_density: high=6.84e+01
+Match 9: '9' -> period [2.113, 2.125]s, freqs: high-only: 1637Hz, verified: 'None', energy_density: high=6.84e+01
 
 ================================================================================
 Results saved to:

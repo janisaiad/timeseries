@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 58
-Timestamp: 2025-12-16T13:41:11.138627
+Timestamp: 2025-12-16T14:04:33.974290
 
 ================================================================================
 Processing Signal 58
@@ -42,7 +42,7 @@ Selected top 8 intervals (2n=8) by energy density for 4 symbols
 Match 1: '7' -> period [0.093, 0.168]s, freqs: 861+1206Hz, verified: '7', energy_density: low=5.54e+01, high=4.78e+01
 Match 2: 'A' -> period [0.470, 0.685]s, freqs: 603+1378Hz, verified: 'None', energy_density: low=5.44e+01, high=6.27e+01
 Match 3: '0' -> period [0.528, 0.888]s, freqs: 861+1206Hz, verified: '7', energy_density: low=5.22e+01, high=4.89e+01
-Match 4: '1' -> period [0.702, 0.714]s, freqs: no freq pair, verified: 'None', energy_density: low=5.19e+01
+Match 4: '1' -> period [0.702, 0.714]s, freqs: low-only: 775Hz, verified: 'None', energy_density: low=5.19e+01
 
 ================================================================================
 Results saved to:

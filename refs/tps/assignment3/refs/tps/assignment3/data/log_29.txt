@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 29
-Timestamp: 2025-12-16T13:40:17.195421
+Timestamp: 2025-12-16T14:03:37.343968
 
 ================================================================================
 Processing Signal 29
@@ -50,8 +50,8 @@ Match 6: 'A' -> period [1.306, 1.498]s, freqs: 517+1378Hz, verified: 'None', ene
 Match 7: '8' -> period [2.235, 2.473]s, freqs: 603+1550Hz, verified: 'None', energy_density: low=5.00e+01, high=6.75e+01
 Match 8: '9' -> period [1.306, 2.206]s, freqs: 947+1292Hz, verified: '0', energy_density: low=4.99e+01, high=5.50e+01
 Match 9: '9' -> period [0.372, 2.409]s, freqs: 947+1206Hz, verified: '*', energy_density: low=4.87e+01, high=5.48e+01
-Match 10: '*' -> period [2.328, 2.351]s, freqs: no freq pair, verified: 'None', energy_density: low=4.81e+01
-Match 11: '3' -> period [0.952, 1.033]s, freqs: no freq pair, verified: 'None', energy_density: low=4.75e+01
+Match 10: '*' -> period [2.328, 2.351]s, freqs: low-only: 603Hz, verified: 'None', energy_density: low=4.81e+01
+Match 11: '3' -> period [0.952, 1.033]s, freqs: low-only: 947Hz, verified: 'None', energy_density: low=4.75e+01
 
 ================================================================================
 Results saved to:

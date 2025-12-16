@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 18
-Timestamp: 2025-12-16T13:39:55.134209
+Timestamp: 2025-12-16T14:03:13.603157
 
 ================================================================================
 Processing Signal 18
@@ -44,7 +44,7 @@ Match 2: '6' -> period [1.759, 1.950]s, freqs: 775+1378Hz, verified: '5', energy
 Match 3: '2' -> period [0.534, 0.691]s, freqs: 775+1464Hz, verified: '6', energy_density: low=4.22e+01, high=4.47e+01
 Match 4: '0' -> period [0.540, 2.130]s, freqs: 775+1550Hz, verified: 'None', energy_density: low=9.38e+01, high=6.65e+01
 Match 5: 'A' -> period [0.842, 1.521]s, freqs: 689+1292Hz, verified: '2', energy_density: low=6.38e+01, high=3.88e+01
-Match 6: '5' -> period [1.759, 1.950]s, freqs: no freq pair, verified: 'None', energy_density: high=3.61e+01
+Match 6: '5' -> period [1.759, 1.950]s, freqs: high-only: 1292Hz, verified: 'None', energy_density: high=3.61e+01
 
 ================================================================================
 Results saved to:
