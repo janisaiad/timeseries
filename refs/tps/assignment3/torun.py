@@ -405,7 +405,38 @@ def process_signal(signal, signal_idx, ground_truth, output_dir, figures_dir):
     plt.savefig(sig_fig_dir / "03_spectrogram_changepoints.png", dpi=100, bbox_inches='tight')
     plt.close()
     
-    # figure 4: detected symbols overlay
+    # figure 4: energy time series with changepoints for each cluster
+    n_clusters = len(all_changepoints)
+    if n_clusters > 0:
+        n_rows = (n_clusters + 1) // 2
+        colors_8 = plt.cm.tab10(np.linspace(0, 1, 8))
+        figE, axesE = plt.subplots(n_rows, 2, figsize=(16, 4*n_rows))
+        if n_rows == 1:
+            axesE = axesE.reshape(1, -1)
+        axesE = axesE.flatten()
+        
+        for idx, cp_dict in enumerate(all_changepoints):
+            ax = axesE[idx]
+            cid = int(cp_dict['cluster_id'])
+            ax.plot(t, cp_dict['energy_signal'], color=colors_8[cid % 8], linewidth=2.0,
+                    label=f"f={cp_dict['selected_freq']:.0f} Hz ({cp_dict['n_cps']} CPs)")
+            for frame_bp in cp_dict['frame_bkps']:
+                if frame_bp < len(t):
+                    ax.axvline(x=t[frame_bp], color='red', linestyle='--', linewidth=1.5, alpha=0.8)
+            ax.set_title(f"Cluster {cp_dict['cluster_id']}: center {cp_dict['center_freq']:.0f} Hz", fontweight='bold')
+            ax.set_xlabel('Time (s)')
+            ax.set_ylabel('Energy')
+            ax.legend(fontsize=8)
+            ax.grid(True, alpha=0.3)
+        
+        for idx in range(n_clusters, len(axesE)):
+            axesE[idx].axis('off')
+        
+        plt.tight_layout()
+        plt.savefig(sig_fig_dir / "04_energy_changepoints_per_cluster.png", dpi=100, bbox_inches='tight')
+        plt.close()
+    
+    # figure 5: detected symbols overlay
     plt.figure(figsize=(16, 5))
     plt.plot(np.arange(len(signal)) / FS, signal, 'b-', linewidth=0.8, alpha=0.7)
     y_pos = float(np.max(signal)) * 0.8 if len(signal) > 0 and np.max(signal) != 0 else 0.8
@@ -420,7 +451,7 @@ def process_signal(signal, signal_idx, ground_truth, output_dir, figures_dir):
     plt.xlabel('Time (s)')
     plt.ylabel('Amplitude')
     plt.grid(True, alpha=0.3)
-    plt.savefig(sig_fig_dir / "04_detected_symbols.png", dpi=100, bbox_inches='tight')
+    plt.savefig(sig_fig_dir / "05_detected_symbols.png", dpi=100, bbox_inches='tight')
     plt.close()
     
     # we prepare results

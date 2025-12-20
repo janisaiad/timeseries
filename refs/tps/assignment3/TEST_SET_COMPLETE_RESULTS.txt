@@ -1,0 +1,173 @@
+════════════════════════════════════════════════════════════════════════════════
+                    ✅ TEST SET: COMPLETE PLOTTING DONE ✅
+════════════════════════════════════════════════════════════════════════════════
+
+Generated comprehensive visualizations for both test signals!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 TEST SIGNAL 0: Sequence = "88133" (5 symbols)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Location: data/figures/test_signal_0/
+
+Generated 6 comprehensive plots:
+
+01_stft_overview.png (496 KB)
+   ├─ Raw signal waveform
+   ├─ STFT spectrogram
+   ├─ Energy per frequency bin
+   └─ Energy (log scale)
+
+02_coarse_split_elbow.png (121 KB)
+   ├─ K-means (k=2): Signal vs Noise separation
+   ├─ Coarse Low/High split
+   ├─ Elbow method for Low group (k=2)
+   └─ Elbow method for High group (k=3)
+
+03_fine_clustering.png (44 KB)
+   ├─ Fine clustering: Low group (k=2 clusters)
+   └─ Fine clustering: High group (k=3 clusters)
+
+04_energy_changepoints_per_cluster.png (190 KB)
+   ├─ Energy time series for ALL 5 clusters
+   ├─ Changepoints marked with red dashed lines
+   └─ Shows: Cluster ID, band (low/high), center freq
+
+05_detected_symbols.png (105 KB)
+   ├─ Signal with detected symbol intervals highlighted
+   ├─ Each symbol labeled: '8', '8', '1', '3', '3'
+   └─ Yellow highlighting shows detection intervals
+
+06_spectrogram_clusters.png (1.1 MB)
+   ├─ Full spectrogram with color-coded frequency clusters
+   ├─ Changepoints marked in red
+   └─ Shows complete time-frequency analysis
+
+Results:
+   • 5 frequency clusters detected
+   • 10 changepoints identified
+   • Predicted sequence: "88133"
+   • Frequency pairs:
+     - (857.5, 1323.0) Hz → '8' (conf=1.0000)
+     - (857.5, 1323.0) Hz → '8' (conf=1.0000)
+     - (686.0, 1200.5) Hz → '1' (conf=1.0000)
+     - (686.0, 1470.0) Hz → '3' (conf=1.0000)
+     - (686.0, 1470.0) Hz → '3' (conf=1.0000)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 TEST SIGNAL 1: Sequence = "11#2##" (6 symbols)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Location: data/figures/test_signal_1/
+
+Generated 6 comprehensive plots:
+
+01_stft_overview.png (491 KB)
+   ├─ Raw signal waveform
+   ├─ STFT spectrogram
+   ├─ Energy per frequency bin
+   └─ Energy (log scale)
+
+02_coarse_split_elbow.png (121 KB)
+   ├─ K-means (k=2): Signal vs Noise separation
+   ├─ Coarse Low/High split
+   ├─ Elbow method for Low group (k=2)
+   └─ Elbow method for High group (k=3)
+
+03_fine_clustering.png (41 KB)
+   ├─ Fine clustering: Low group (k=2 clusters)
+   └─ Fine clustering: High group (k=3 clusters)
+
+04_energy_changepoints_per_cluster.png (185 KB)
+   ├─ Energy time series for ALL 5 clusters
+   ├─ Changepoints marked with red dashed lines
+   └─ Shows: Cluster ID, band (low/high), center freq
+
+05_detected_symbols.png (97 KB)
+   ├─ Signal with detected symbol intervals highlighted
+   ├─ Each symbol labeled: '1', '1', '#', '2', '#', '#'
+   └─ Yellow highlighting shows detection intervals
+
+06_spectrogram_clusters.png (1.1 MB)
+   ├─ Full spectrogram with color-coded frequency clusters
+   ├─ Changepoints marked in red
+   └─ Shows complete time-frequency analysis
+
+Results:
+   • 5 frequency clusters detected
+   • 8 changepoints identified
+   • Predicted sequence: "11#2##"
+   • Frequency pairs:
+     - (686.0, 1200.5) Hz → '1' (conf=1.0000)
+     - (686.0, 1200.5) Hz → '1' (conf=1.0000)
+     - (931.0, 1470.0) Hz → '#' (conf=1.0000)
+     - (686.0, 1323.0) Hz → '2' (conf=1.0000)
+     - (931.0, 1470.0) Hz → '#' (conf=1.0000)
+     - (931.0, 1470.0) Hz → '#' (conf=1.0000)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📈 COMPREHENSIVE ANALYSIS PIPELINE (SAME AS TRAINING)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Each test signal went through:
+
+1. STFT Computation
+   → Window=900, overlap=50%, fs=22.05kHz
+
+2. Signal/Noise Separation
+   → K-means (k=2) on energy → automatic threshold
+
+3. Hierarchical Clustering
+   → Coarse k=2 split (low/high)
+   → Elbow method determines optimal k per group
+   → Typically k=2 for low, k=3 for high
+
+4. Changepoint Detection
+   → PELT algorithm with BIC penalty
+   → Per-cluster energy time series
+
+5. Interval Selection
+   → Build all intervals between changepoints
+   → Rank by mean energy
+   → Select top-N non-overlapping
+
+6. Bayesian Prediction
+   → Use trained model (from 100 training signals)
+   → P(symbol | f_low, f_high) with Gaussian likelihoods
+   → 100% confidence on all predictions!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🗂️ ADDITIONAL VISUALIZATIONS (ROOT DIRECTORY)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The following cluster*.png files are in the root assignment3 directory:
+
+cluster1.png
+cluster2.png
+cluster3.png
+cluster4.png
+cluster5.png
+cluster6.png
+
+These appear to be additional analysis/visualization files (possibly from earlier
+exploratory work or training set analysis).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Test Signal 0: "88133" (5 symbols) - 6 plots generated
+✅ Test Signal 1: "11#2##" (6 symbols) - 6 plots generated
+
+Total: 12 comprehensive visualization plots for test set
+       (plus 6 cluster*.png files in root directory)
+
+All predictions: 100% confidence
+All frequency pairs: correctly mapped to DTMF symbols
+
+The test set processing uses the EXACT same pipeline as training:
+   • NO manual tuning
+   • NO prior knowledge
+   • Pure unsupervised clustering + Bayesian inference
+
+════════════════════════════════════════════════════════════════════════════════

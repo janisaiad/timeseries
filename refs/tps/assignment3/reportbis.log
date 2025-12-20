@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.8.16)  20 DEC 2025 16:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.8.16)  20 DEC 2025 17:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -924,8 +924,8 @@ LaTeX Font Info:    Trying to load font information for T1+ppl on input line 12
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ppl.fd
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
-)
-No file reportbis.aux.
+) (./reportbis.aux
+(./reportbis.xsim))
 \openout1 = `reportbis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
@@ -946,6 +946,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
+
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count358
@@ -1017,6 +1018,8 @@ Package caption Info: End \AtBeginDocument code.
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
 Package hyperref Info: Link coloring ON on input line 12.
+ (./reportbis.out)
+(./reportbis.out)
 \@outlinefile=\write5
 \openout5 = `reportbis.out'.
 
@@ -1108,106 +1111,222 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
 (Font)              scaled to size 6.25204pt on input line 43.
 
-[2]
+[2] [3]
+<cluster1.png, id=90, 1076.1003pt x 715.473pt>
+File: cluster1.png Graphic file (type png)
+<use cluster1.png>
+Package pdftex.def Info: cluster1.png  used on input line 181.
+(pdftex.def)             Requested size: 1076.09767pt x 715.47127pt.
+<cluster2.png, id=92, 1148.3703pt x 860.013pt>
+File: cluster2.png Graphic file (type png)
+<use cluster2.png>
+Package pdftex.def Info: cluster2.png  used on input line 181.
+(pdftex.def)             Requested size: 1148.36751pt x 860.0109pt.
+<cluster3.png, id=93, 433.62pt x 284.0211pt>
+File: cluster3.png Graphic file (type png)
+<use cluster3.png>
+Package pdftex.def Info: cluster3.png  used on input line 181.
+(pdftex.def)             Requested size: 433.61894pt x 284.0204pt.
+<cluster4.png, id=94, 573.8238pt x 228.3732pt>
+File: cluster4.png Graphic file (type png)
+<use cluster4.png>
+Package pdftex.def Info: cluster4.png  used on input line 181.
+(pdftex.def)             Requested size: 573.8224pt x 228.37263pt.
+<cluster5.png, id=95, 1148.3703pt x 860.013pt>
+File: cluster5.png Graphic file (type png)
+<use cluster5.png>
+Package pdftex.def Info: cluster5.png  used on input line 181.
+(pdftex.def)             Requested size: 1148.36751pt x 860.0109pt.
+<cluster6.png, id=96, 1002.3849pt x 281.853pt>
+File: cluster6.png Graphic file (type png)
+<use cluster6.png>
+Package pdftex.def Info: cluster6.png  used on input line 181.
+(pdftex.def)             Requested size: 1002.38246pt x 281.85231pt.
+<signal_66/01_stft_overview.png, id=97, 1076.1003pt x 715.473pt>
+File: signal_66/01_stft_overview.png Graphic file (type png)
+<use signal_66/01_stft_overview.png>
+Package pdftex.def Info: signal_66/01_stft_overview.png  used on input line 181
+.
+(pdftex.def)             Requested size: 1076.09767pt x 715.47127pt.
+<signal_66/04_energy_changepoints_per_cluster.png, id=98, 1148.3703pt x 860.013
+pt>
+File: signal_66/04_energy_changepoints_per_cluster.png Graphic file (type png)
+<use signal_66/04_energy_changepoints_per_cluster.png>
+Package pdftex.def Info: signal_66/04_energy_changepoints_per_cluster.png  used
+ on input line 181.
+(pdftex.def)             Requested size: 1148.36751pt x 860.0109pt.
+<signal_66/05_detected_symbols.png, id=99, 955.4094pt x 339.669pt>
+File: signal_66/05_detected_symbols.png Graphic file (type png)
+<use signal_66/05_detected_symbols.png>
+Package pdftex.def Info: signal_66/05_detected_symbols.png  used on input line 
+181.
+(pdftex.def)             Requested size: 955.40706pt x 339.66817pt.
+<dtmf_4x4_grid_heatmap.png, id=100, 811.833pt x 714.5094pt>
+File: dtmf_4x4_grid_heatmap.png Graphic file (type png)
+<use dtmf_4x4_grid_heatmap.png>
+Package pdftex.def Info: dtmf_4x4_grid_heatmap.png  used on input line 181.
+(pdftex.def)             Requested size: 811.83101pt x 714.50766pt.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 181.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 181.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<frequency_grid_4x4.png, id=101, 1292.1876pt x 568.524pt>
+File: frequency_grid_4x4.png Graphic file (type png)
+<use frequency_grid_4x4.png>
+Package pdftex.def Info: frequency_grid_4x4.png  used on input line 181.
+(pdftex.def)             Requested size: 1292.18446pt x 568.52261pt.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 181.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.91925pt on input line 181.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 181.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.91925pt on input line 181.
+<frequency_distributions_4clusters.png, id=102, 1147.6476pt x 857.604pt>
+File: frequency_distributions_4clusters.png Graphic file (type png)
+<use frequency_distributions_4clusters.png>
+Package pdftex.def Info: frequency_distributions_4clusters.png  used on input l
+ine 181.
+(pdftex.def)             Requested size: 1147.6448pt x 857.60191pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 1184) in paragraph at lines 203--203
+[]\T1/ppl/m/n/10.95 Test sig-nal 0: Fre-quen-cies de-tected were (857.5Hz, 1323
+.0Hz)$\OMS/zplm/m/n/10.95 !$\T1/ppl/m/n/10.95 '8' (twice), (686.0Hz,
+ []
+
+[4 <./cluster1.png> <./cluster2.png> <./cluster3.png> <./cluster4.png> <./clust
+er5.png> <./cluster6.png>]
+
+LaTeX Warning: Text page 5 contains only floats.
+
+[5 <./signal_66/01_stft_overview.png> <./signal_66/04_energy_changepoints_per_c
+luster.png> <./signal_66/05_detected_symbols.png> <./dtmf_4x4_grid_heatmap.png>
+ <./frequency_grid_4x4.png> <./frequency_distributions_4clusters.png>]
+Underfull \hbox (badness 1184) in paragraph at lines 203--203
+[]\T1/ppl/m/n/10.95 Test sig-nal 1: Fre-quen-cies de-tected were (686.0Hz, 1200
+.5Hz)$\OMS/zplm/m/n/10.95 !$\T1/ppl/m/n/10.95 '1' (twice), (931.0Hz,
+ []
+
+
+Underfull \hbox (badness 1902) in paragraph at lines 203--203
+\T1/ppl/m/n/10.95 where pri-ors $\OML/zplm/m/it/10.95 P\OT1/zplm/m/n/10.95 ([])
+$ \T1/ppl/m/n/10.95 are learned from train-ing counts and like-li-hoods are Gau
+s-sian:
+ []
+
+[6]
 LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 
-82.
+211.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-LaTeX Font Info:    Trying to load font information for U+dsrom on input line 9
-5.
+LaTeX Font Info:    Trying to load font information for U+dsrom on input line 2
+24.
 
 (/usr/share/texlive/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
-
-LaTeX Warning: Reference `fig:sagw-kernels' on page 3 undefined on input line 1
-01.
-
-<gm_all_m_R1.png, id=39, 462.528pt x 346.896pt>
+<gm_all_m_R1.png, id=136, 462.528pt x 346.896pt>
 File: gm_all_m_R1.png Graphic file (type png)
 <use gm_all_m_R1.png>
-Package pdftex.def Info: gm_all_m_R1.png  used on input line 122.
+Package pdftex.def Info: gm_all_m_R1.png  used on input line 251.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
-<gm_all_m_R3.png, id=41, 462.528pt x 346.896pt>
+<gm_all_m_R3.png, id=137, 462.528pt x 346.896pt>
 File: gm_all_m_R3.png Graphic file (type png)
 <use gm_all_m_R3.png>
-Package pdftex.def Info: gm_all_m_R3.png  used on input line 122.
+Package pdftex.def Info: gm_all_m_R3.png  used on input line 251.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
-<gm_all_m_R5.png, id=42, 462.528pt x 346.896pt>
+<gm_all_m_R5.png, id=138, 462.528pt x 346.896pt>
 File: gm_all_m_R5.png Graphic file (type png)
 <use gm_all_m_R5.png>
-Package pdftex.def Info: gm_all_m_R5.png  used on input line 122.
+Package pdftex.def Info: gm_all_m_R5.png  used on input line 251.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
-[3 <./gm_all_m_R1.png> <./gm_all_m_R3.png> <./gm_all_m_R5.png>] [4]
-<frequency_least_smooth.png, id=72, 549.4929pt x 586.1097pt>
+ [7 <./gm_all_m_R1.png> <./gm_all_m_R3.png> <./gm_all_m_R5.png>] [8]
+<frequency_least_smooth.png, id=166, 549.4929pt x 586.1097pt>
 File: frequency_least_smooth.png Graphic file (type png)
 <use frequency_least_smooth.png>
-Package pdftex.def Info: frequency_least_smooth.png  used on input line 182.
+Package pdftex.def Info: frequency_least_smooth.png  used on input line 311.
 (pdftex.def)             Requested size: 549.49156pt x 586.10826pt.
-<frequency_most_smooth.png, id=73, 549.4929pt x 586.1097pt>
+<frequency_most_smooth.png, id=167, 549.4929pt x 586.1097pt>
 File: frequency_most_smooth.png Graphic file (type png)
 <use frequency_most_smooth.png>
-Package pdftex.def Info: frequency_most_smooth.png  used on input line 182.
+Package pdftex.def Info: frequency_most_smooth.png  used on input line 311.
 (pdftex.def)             Requested size: 549.49156pt x 586.10826pt.
-<frequency_first_timestamp.png, id=74, 549.4929pt x 586.1097pt>
+<frequency_first_timestamp.png, id=168, 549.4929pt x 586.1097pt>
 File: frequency_first_timestamp.png Graphic file (type png)
 <use frequency_first_timestamp.png>
-Package pdftex.def Info: frequency_first_timestamp.png  used on input line 182.
+Package pdftex.def Info: frequency_first_timestamp.png  used on input line 311.
 
 (pdftex.def)             Requested size: 549.49156pt x 586.10826pt.
- [5]
-[6 <./frequency_least_smooth.png> <./frequency_most_smooth.png> <./frequency_fi
-rst_timestamp.png>]
-<average_temperature_majority_class.png, id=91, 720.291pt x 394.5942pt>
+ [9] [10 <./frequency_least_smooth.png> <./frequency_most_smooth.png> <./freque
+ncy_first_timestamp.png>]
+<average_temperature_majority_class.png, id=185, 720.291pt x 394.5942pt>
 File: average_temperature_majority_class.png Graphic file (type png)
 <use average_temperature_majority_class.png>
 Package pdftex.def Info: average_temperature_majority_class.png  used on input 
-line 197.
+line 326.
 (pdftex.def)             Requested size: 720.28923pt x 394.59322pt.
- [7 <./average_temperature_majority_class.png>]
-<average_temperature_majority_class_timestamps.png, id=103, 720.291pt x 394.594
+
+[11 <./average_temperature_majority_class.png>]
+<average_temperature_majority_class_timestamps.png, id=197, 720.291pt x 394.594
 2pt>
 File: average_temperature_majority_class_timestamps.png Graphic file (type png)
 
 <use average_temperature_majority_class_timestamps.png>
 Package pdftex.def Info: average_temperature_majority_class_timestamps.png  use
-d on input line 229.
+d on input line 358.
 (pdftex.def)             Requested size: 720.28923pt x 394.59322pt.
- [8 <./average_temperature_majority_class_timestamps.png>]
+ [12 <./average_temperature_majority_class_timestamps.png>] [13] [14] [15]
+File: frequency_distributions_4clusters.png Graphic file (type png)
+<use frequency_distributions_4clusters.png>
+Package pdftex.def Info: frequency_distributions_4clusters.png  used on input l
+ine 546.
+(pdftex.def)             Requested size: 1147.6448pt x 857.60191pt.
+<bayesian_gaussians_4clusters.png, id=221, 1141.3842pt x 713.064pt>
+File: bayesian_gaussians_4clusters.png Graphic file (type png)
+<use bayesian_gaussians_4clusters.png>
+Package pdftex.def Info: bayesian_gaussians_4clusters.png  used on input line 5
+51.
+(pdftex.def)             Requested size: 1141.38141pt x 713.06226pt.
+<dtmf_complete_analysis.png, id=222, 1184.7462pt x 815.6874pt>
+File: dtmf_complete_analysis.png Graphic file (type png)
+<use dtmf_complete_analysis.png>
+Package pdftex.def Info: dtmf_complete_analysis.png  used on input line 556.
+(pdftex.def)             Requested size: 1184.74332pt x 815.6854pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[16]
 
 Package xsim Warning: Exercise properties may have changed. Rerun to get them
 (xsim)                synchronized.
 
-[9] (./reportbis.aux (./reportbis.xsim))
+[17 <./bayesian_gaussians_4clusters.png> <./dtmf_complete_analysis.png>]
+(./reportbis.aux (./reportbis.xsim))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `reportbis.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `reportbis.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D824159B9E449E8B0FE043115A27F0B9;601.
+Package rerunfilecheck Info: File `reportbis.out' has not changed.
+(rerunfilecheck)             Checksum: BD56A84BA23C3C319EE40FAE5B8F30E6;2463.
  ) 
 Here is how much of TeX's memory you used:
- 30381 strings out of 474222
- 595312 string characters out of 5748733
- 1934975 words of memory out of 5000000
- 52044 multiletter control sequences out of 15000+600000
- 595596 words of font info for 137 fonts, out of 8000000 for 9000
+ 30588 strings out of 474222
+ 619229 string characters out of 5748733
+ 1963975 words of memory out of 5000000
+ 52207 multiletter control sequences out of 15000+600000
+ 614986 words of font info for 190 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,10n,121p,4949b,571s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,10n,121p,23258b,683s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
@@ -1219,10 +1338,10 @@ lic/mathpazo/fplmri.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on reportbis.pdf (9 pages, 14656714 bytes).
+Output written on reportbis.pdf (17 pages, 17525418 bytes).
 PDF statistics:
- 185 PDF objects out of 1000 (max. 8388607)
- 132 compressed objects within 2 object streams
- 51 named destinations out of 1000 (max. 500000)
- 53 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 307 PDF objects out of 1000 (max. 8388607)
+ 217 compressed objects within 3 object streams
+ 75 named destinations out of 1000 (max. 500000)
+ 219 words of extra memory for PDF output out of 10000 (max. 10000000)
 
