@@ -1,68 +1,22 @@
-DTMF Detection Log for Signal 0
-Timestamp: 2025-12-20T14:00:40.755168
-
-================================================================================
-Processing Signal 0
-================================================================================
+Processing signal 0
 Signal length: 19562 samples (0.887 seconds)
-Ground truth symbols: ['5', 'C', '3']
-
---- Cell 1: STFT and Energy Computation ---
-STFT shape: (129, 154)
-Frequency bins: 129, Time frames: 154
-
---- Cell 2: First k-means (k=2) ---
-High-energy (signal) bins: 8
-
---- Cell 3: Second k-means (elbow method) ---
-Elbow method: tested k in range [2, 8], selected k=4
-Inertias: ['8.72e-01', '4.73e-01', '1.47e-01', '7.21e-02', '1.73e-02', '4.55e-03', '0.00e+00']
-Number of major frequency clusters: 2
-  Cluster 0: center=732.1 Hz, n_bins=2
-  Cluster 1: center=1464.3 Hz, n_bins=4
-
---- Cell 4: Changepoint Detection ---
-Cluster 1 (center=732.1 Hz, 2 freqs):
-  Freq 689.1 Hz: 0 CPs
-  Freq 775.2 Hz: 0 CPs
-  -> Selected freq: 689.1 Hz with 0 CPs (minimum)
-Cluster 0 (center=1464.3 Hz, 4 freqs):
-  Freq 1292.0 Hz: 0 CPs
-  Freq 1378.1 Hz: 0 CPs
-  Freq 1550.4 Hz: 0 CPs
-  Freq 1636.5 Hz: 0 CPs
-  -> Selected freq: 1292.0 Hz with 0 CPs (minimum)
-
-Low frequency clusters: 1
-High frequency clusters: 1
-
---- Cell 6: Distribution Analysis ---
-
-ERROR processing signal 0: index -1 is out of bounds for axis 0 with size 0
-Traceback (most recent call last):
-  File "/tmp/ipykernel_191807/2564205397.py", line 627, in process_single_signal
-    q25 = np.percentile(period_durations, 25)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4273, in percentile
-    return _quantile_unchecked(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4550, in _quantile_unchecked
-    return _ureduce(a,
-           ^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 3894, in _ureduce
-    r = func(a, **kwargs)
-        ^^^^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4727, in _quantile_ureduce_func
-    result = _quantile(arr,
-             ^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4849, in _quantile
-    slices_having_nans = np.isnan(arr[-1, ...])
-                                  ~~~^^^^^^^^^
-IndexError: index -1 is out of bounds for axis 0 with size 0
-
-================================================================================
-Results saved to:
-  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_0.npz
-  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_0.json
-  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_0.txt
-================================================================================
+Ground truth: 5C3 (N=3 symbols)
+STFT computed: 451 freq bins x 45 time frames
+Energy clustering: 12 high-energy bins identified
+DTMF band filtering: 11 bins in [400.0, 2000.0] Hz
+Coarse split: low group n=5 mean=759.5 Hz, high group n=6 mean=1482.2 Hz
+Elbow clustering: k_low=3, k_high=3
+Frequency clusters: 6 total
+  Cluster 2: band=low, center=698.2 Hz, n_bins=2
+  Cluster 0: band=low, center=771.7 Hz, n_bins=2
+  Cluster 1: band=low, center=857.5 Hz, n_bins=1
+  Cluster 4: band=high, center=1335.2 Hz, n_bins=2
+  Cluster 3: band=high, center=1482.2 Hz, n_bins=2
+  Cluster 5: band=high, center=1629.2 Hz, n_bins=2
+Changepoint detection: 8 unique changepoints across all clusters
+Interval grouping: 3 low clusters, 3 high clusters
+Intervals built: 9 low, 9 high
+Top-N selection: 3 low intervals, 3 high intervals (N=3)
+Prediction: 5C3
+Ground truth: 5C3
+Accuracy: 1.000 (3/3 correct)

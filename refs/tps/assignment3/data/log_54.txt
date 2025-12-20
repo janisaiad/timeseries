@@ -1,79 +1,21 @@
-DTMF Detection Log for Signal 54
-Timestamp: 2025-12-16T22:29:51.072510
-
-================================================================================
-Processing Signal 54
-================================================================================
+Processing signal 54
 Signal length: 49390 samples (2.240 seconds)
-Ground truth symbols: ['0', '2', 'D', '7', 'B', 'C', '#']
-
---- Cell 1: STFT and Energy Computation ---
-STFT shape: (129, 387)
-Frequency bins: 129, Time frames: 387
-
---- Cell 2: First k-means (k=2) ---
-High-energy (signal) bins: 14
-
---- Cell 3: Second k-means (k=8) ---
-Number of major frequency clusters: 4
-  Cluster 0: center=602.9 Hz, n_bins=2
-  Cluster 1: center=818.3 Hz, n_bins=2
-  Cluster 2: center=1313.5 Hz, n_bins=4
-  Cluster 3: center=1335.1 Hz, n_bins=2
-
---- Cell 4: Changepoint Detection ---
-Cluster 4 (center=602.9 Hz, 2 freqs):
-  Freq 516.8 Hz: 5 CPs
-  Freq 689.1 Hz: 7 CPs
-  -> Selected freq: 516.8 Hz with 5 CPs (minimum)
-Cluster 6 (center=818.3 Hz, 2 freqs):
-  Freq 775.2 Hz: 6 CPs
-  Freq 861.3 Hz: 8 CPs
-  -> Selected freq: 775.2 Hz with 6 CPs (minimum)
-Cluster 3 (center=1313.5 Hz, 4 freqs):
-  Freq 1033.6 Hz: 7 CPs
-  Freq 1205.9 Hz: 11 CPs
-  Freq 1464.3 Hz: 5 CPs
-  Freq 1550.4 Hz: 7 CPs
-  -> Selected freq: 1464.3 Hz with 5 CPs (minimum)
-Cluster 0 (center=1335.1 Hz, 2 freqs):
-  Freq 1292.0 Hz: 7 CPs
-  Freq 1378.1 Hz: 5 CPs
-  -> Selected freq: 1378.1 Hz with 5 CPs (minimum)
-
-Low frequency clusters: 2
-High frequency clusters: 2
-
---- Cell 6: Distribution Analysis ---
-Original periods: 18
-Removed outliers: 0
-Filtered periods: 18
-
---- Cell 7: Period-Symbol Matching (CP-based) ---
-Number of ground truth symbols: 7
-Number of filtered periods available: 18
-Selected 7 biggest periods (by duration) for matching
-Low frequency clusters available: 2
-High frequency clusters available: 2
-  Match 1 diagnostic: period [0.151, 0.302]s
-    Available low clusters: 2
-      Low cluster: freq=516.8Hz, CPs near period: 0
-      Low cluster: freq=775.2Hz, CPs near period: 0
-    Available high clusters: 2
-      High cluster: freq=1464.3Hz, CPs near period: 0
-      High cluster: freq=1378.1Hz, CPs near period: 2
-    Found active low: 1, active high: 1
-  Match 1: '0' -> period [0.151, 0.302]s, freqs: 517+1378Hz, verified: 'None', match: ✗
-  Match 2: '2' -> period [0.302, 0.464]s, freqs: 517+1464Hz, verified: 'None', match: ✗
-  Match 3: 'D' -> period [0.679, 1.405]s, freqs: 517+1464Hz, verified: 'None', match: ✗
-  Match 4: '7' -> period [1.428, 1.492]s, freqs: 517+1464Hz, verified: 'None', match: ✗
-  Match 5: 'B' -> period [1.567, 1.974]s, freqs: 775+1464Hz, verified: '6', match: ✗
-  Match 6: 'C' -> period [1.974, 2.067]s, freqs: 517+1464Hz, verified: 'None', match: ✗
-  Match 7: '#' -> period [2.067, 2.142]s, freqs: 517+1464Hz, verified: 'None', match: ✗
-
-================================================================================
-Results saved to:
-  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_54.npz
-  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_54.json
-  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_54.txt
-================================================================================
+Ground truth: 02D7BC# (N=7 symbols)
+STFT computed: 451 freq bins x 111 time frames
+Energy clustering: 15 high-energy bins identified
+DTMF band filtering: 14 bins in [400.0, 2000.0] Hz
+Coarse split: low group n=9 mean=781.3 Hz, high group n=5 mean=1479.8 Hz
+Elbow clustering: k_low=3, k_high=2
+Frequency clusters: 5 total
+  Cluster 2: band=low, center=514.5 Hz, n_bins=1
+  Cluster 1: band=low, center=735.0 Hz, n_bins=4
+  Cluster 0: band=low, center=894.2 Hz, n_bins=4
+  Cluster 3: band=high, center=1380.2 Hz, n_bins=3
+  Cluster 4: band=high, center=1629.2 Hz, n_bins=2
+Changepoint detection: 17 unique changepoints across all clusters
+Interval grouping: 3 low clusters, 2 high clusters
+Intervals built: 13 low, 12 high
+Top-N selection: 6 low intervals, 7 high intervals (N=7)
+Prediction: ??8?CC
+Ground truth: 02D7BC#
+Accuracy: 0.167 (1/6 correct)

@@ -1,79 +1,21 @@
-DTMF Detection Log for Signal 38
-Timestamp: 2025-12-16T22:28:02.762272
-
-================================================================================
-Processing Signal 38
-================================================================================
+Processing signal 38
 Signal length: 52059 samples (2.361 seconds)
-Ground truth symbols: ['1', '6', '4', '1', 'D', '*', '8', '0', '6']
-
---- Cell 1: STFT and Energy Computation ---
-STFT shape: (129, 408)
-Frequency bins: 129, Time frames: 408
-
---- Cell 2: First k-means (k=2) ---
-High-energy (signal) bins: 12
-
---- Cell 3: Second k-means (k=8) ---
-Number of major frequency clusters: 4
-  Cluster 0: center=559.9 Hz, n_bins=2
-  Cluster 1: center=818.3 Hz, n_bins=2
-  Cluster 2: center=1378.1 Hz, n_bins=2
-  Cluster 3: center=1464.3 Hz, n_bins=2
-
---- Cell 4: Changepoint Detection ---
-Cluster 4 (center=559.9 Hz, 2 freqs):
-  Freq 516.8 Hz: 6 CPs
-  Freq 602.9 Hz: 7 CPs
-  -> Selected freq: 516.8 Hz with 6 CPs (minimum)
-Cluster 7 (center=818.3 Hz, 2 freqs):
-  Freq 689.1 Hz: 7 CPs
-  Freq 947.5 Hz: 6 CPs
-  -> Selected freq: 947.5 Hz with 6 CPs (minimum)
-Cluster 5 (center=1378.1 Hz, 2 freqs):
-  Freq 1292.0 Hz: 7 CPs
-  Freq 1464.3 Hz: 5 CPs
-  -> Selected freq: 1464.3 Hz with 5 CPs (minimum)
-Cluster 1 (center=1464.3 Hz, 2 freqs):
-  Freq 1378.1 Hz: 5 CPs
-  Freq 1550.4 Hz: 8 CPs
-  -> Selected freq: 1378.1 Hz with 5 CPs (minimum)
-
-Low frequency clusters: 2
-High frequency clusters: 2
-
---- Cell 6: Distribution Analysis ---
-Original periods: 21
-Removed outliers: 0
-Filtered periods: 21
-
---- Cell 7: Period-Symbol Matching (CP-based) ---
-Number of ground truth symbols: 9
-Number of filtered periods available: 21
-Selected 9 biggest periods (by duration) for matching
-Low frequency clusters available: 2
-High frequency clusters available: 2
-  Match 1 diagnostic: period [0.470, 0.586]s
-    Available low clusters: 2
-      Low cluster: freq=516.8Hz, CPs near period: 2
-      Low cluster: freq=947.5Hz, CPs near period: 0
-    Available high clusters: 2
-      High cluster: freq=1464.3Hz, CPs near period: 3
-      High cluster: freq=1378.1Hz, CPs near period: 0
-    Found active low: 1, active high: 1
-  Match 1: '1' -> period [0.470, 0.586]s, freqs: 517+1464Hz, verified: 'None', match: ✗
-  Match 2: '6' -> period [0.662, 1.016]s, freqs: 947+1464Hz, verified: '#', match: ✗
-  Match 3: '4' -> period [1.016, 1.149]s, freqs: 947+1464Hz, verified: '#', match: ✗
-  Match 4: '1' -> period [1.149, 1.300]s, freqs: 947+1464Hz, verified: '#', match: ✗
-  Match 5: 'D' -> period [1.300, 1.416]s, freqs: 947+1464Hz, verified: '#', match: ✗
-  Match 6: '*' -> period [1.683, 1.788]s, freqs: 947+1378Hz, verified: '0', match: ✗
-  Match 7: '8' -> period [1.794, 1.904]s, freqs: 947+1378Hz, verified: '0', match: ✗
-  Match 8: '0' -> period [1.910, 2.043]s, freqs: 517+1464Hz, verified: 'None', match: ✗
-  Match 9: '6' -> period [2.043, 2.200]s, freqs: 947+1464Hz, verified: '#', match: ✗
-
-================================================================================
-Results saved to:
-  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_38.npz
-  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_38.json
-  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_38.txt
-================================================================================
+Ground truth: 1641D*806 (N=9 symbols)
+STFT computed: 451 freq bins x 117 time frames
+Energy clustering: 15 high-energy bins identified
+DTMF band filtering: 14 bins in [400.0, 2000.0] Hz
+Coarse split: low group n=7 mean=763.0 Hz, high group n=7 mean=1386.0 Hz
+Elbow clustering: k_low=3, k_high=2
+Frequency clusters: 5 total
+  Cluster 2: band=low, center=514.5 Hz, n_bins=1
+  Cluster 0: band=low, center=735.0 Hz, n_bins=4
+  Cluster 1: band=low, center=943.2 Hz, n_bins=2
+  Cluster 3: band=high, center=1274.0 Hz, n_bins=4
+  Cluster 4: band=high, center=1535.3 Hz, n_bins=3
+Changepoint detection: 20 unique changepoints across all clusters
+Interval grouping: 3 low clusters, 2 high clusters
+Intervals built: 19 low, 10 high
+Top-N selection: 9 low intervals, 7 high intervals (N=9)
+Prediction: 3?1**#?
+Ground truth: 1641D*806
+Accuracy: 0.000 (0/7 correct)

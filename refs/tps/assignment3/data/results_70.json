@@ -1,30 +1,42 @@
 {
   "signal_idx": 70,
-  "signal_length": 16972,
-  "ground_truth_symbols": [
-    "1",
-    "7",
-    "4",
-    "8"
-  ],
-  "timestamp": "2025-12-16T22:31:30.752816",
-  "success": false,
-  "stft_params": {
-    "window_length": 256,
-    "overlap": 128,
-    "frame_step": 128
-  },
-  "freq_clustering": {
-    "n_clusters": 0,
-    "cluster_centers": []
-  },
-  "changepoints_summary": [],
-  "period_analysis": {
-    "n_original_periods": 0,
-    "n_filtered_periods": 0,
-    "n_removed_outliers": 0,
-    "statistics": {}
-  },
-  "matches": [],
-  "error": "index -1 is out of bounds for axis 0 with size 0"
+  "ground_truth": "1748",
+  "predicted": "77",
+  "accuracy": 0.5,
+  "n_correct": 1,
+  "n_total": 2,
+  "n_clusters": 3,
+  "n_changepoints": 7,
+  "low_intervals": 4,
+  "high_intervals": 2,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "7",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        0,
+        4950
+      ],
+      "high_interval": [
+        0,
+        12150
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "7",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        4950,
+        6750
+      ],
+      "high_interval": [
+        12150,
+        16972
+      ]
+    }
+  ]
 }

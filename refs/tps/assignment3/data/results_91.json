@@ -1,83 +1,84 @@
 {
   "signal_idx": 91,
-  "signal_length": 28352,
-  "ground_truth_symbols": [
-    "4",
-    "5",
-    "*",
-    "6",
-    "*"
-  ],
-  "timestamp": "2025-12-16T22:33:58.678453",
-  "success": true,
-  "stft_params": {
-    "window_length": 256,
-    "overlap": 128,
-    "frame_step": 128
-  },
-  "freq_clustering": {
-    "n_clusters": 1,
-    "cluster_centers": [
-      861.328125
-    ]
-  },
-  "changepoints_summary": [
+  "ground_truth": "45*6*",
+  "predicted": "444**",
+  "accuracy": 0.4,
+  "n_correct": 2,
+  "n_total": 5,
+  "n_clusters": 3,
+  "n_changepoints": 10,
+  "low_intervals": 5,
+  "high_intervals": 5,
+  "pairs": [
     {
-      "cluster_id": 3,
-      "selected_freq": 947.4609375,
-      "n_changepoints": 4,
-      "changepoints": [
-        13440,
-        15744,
-        20736,
-        24448
+      "idx": 0,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        4050,
+        6750
+      ],
+      "high_interval": [
+        0,
+        4050
       ]
-    }
-  ],
-  "period_analysis": {
-    "n_original_periods": 3,
-    "n_filtered_periods": 3,
-    "n_removed_outliers": 0,
-    "statistics": {
-      "q25": 0.13641723356009072,
-      "q75": 0.19736961451247165,
-      "iqr": 0.060952380952380925,
-      "lower_bound": 0.044988662131519336
-    }
-  },
-  "matches": [
-    {
-      "match_index": 0,
-      "assigned_symbol": "4",
-      "verified_symbol": null,
-      "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
-      "period_start": 0.6095238095238096,
-      "period_end": 0.7140136054421768,
-      "period_duration": 0.10448979591836735,
-      "symbol_match": false
     },
     {
-      "match_index": 1,
-      "assigned_symbol": "5",
-      "verified_symbol": null,
-      "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
-      "period_start": 0.7140136054421768,
-      "period_end": 0.9404081632653061,
-      "period_duration": 0.22639455782312926,
-      "symbol_match": false
+      "idx": 1,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        6750,
+        10350
+      ],
+      "high_interval": [
+        4050,
+        7200
+      ]
     },
     {
-      "match_index": 2,
-      "assigned_symbol": "*",
-      "verified_symbol": null,
-      "primary_low_freq": 947.4609375,
-      "primary_high_freq": null,
-      "period_start": 0.9404081632653061,
-      "period_end": 1.1087528344671203,
-      "period_duration": 0.16834467120181407,
-      "symbol_match": false
+      "idx": 2,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        10350,
+        12150
+      ],
+      "high_interval": [
+        7200,
+        21150
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "*",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        13500,
+        15750
+      ],
+      "high_interval": [
+        21150,
+        24750
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "*",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        20700,
+        24750
+      ],
+      "high_interval": [
+        24750,
+        28352
+      ]
     }
   ]
 }

@@ -1,45 +1,56 @@
 {
   "signal_idx": 0,
-  "signal_length": 19562,
-  "ground_truth_symbols": [
-    "5",
-    "C",
-    "3"
-  ],
-  "timestamp": "2025-12-20T14:00:40.755219",
-  "success": false,
-  "stft_params": {
-    "window_length": 256,
-    "overlap": 128,
-    "frame_step": 128
-  },
-  "freq_clustering": {
-    "n_clusters": 2,
-    "cluster_centers": [
-      732.12890625,
-      1464.2578125
-    ]
-  },
-  "changepoints_summary": [
+  "ground_truth": "5C3",
+  "predicted": "5C3",
+  "accuracy": 1.0,
+  "n_correct": 3,
+  "n_total": 3,
+  "n_clusters": 6,
+  "n_changepoints": 8,
+  "low_intervals": 3,
+  "high_intervals": 3,
+  "pairs": [
     {
-      "cluster_id": 1,
-      "selected_freq": 689.0625,
-      "n_changepoints": 0,
-      "changepoints": []
+      "idx": 0,
+      "symbol": "5",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        4500,
+        6300
+      ],
+      "high_interval": [
+        4500,
+        6300
+      ]
     },
     {
-      "cluster_id": 0,
-      "selected_freq": 1291.9921875,
-      "n_changepoints": 0,
-      "changepoints": []
+      "idx": 1,
+      "symbol": "C",
+      "low_freq": 857.4999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        8550,
+        9900
+      ],
+      "high_interval": [
+        8550,
+        10350
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "3",
+      "low_freq": 685.9999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        11700,
+        15750
+      ],
+      "high_interval": [
+        11700,
+        15300
+      ]
     }
-  ],
-  "period_analysis": {
-    "n_original_periods": 0,
-    "n_filtered_periods": 0,
-    "n_removed_outliers": 0,
-    "statistics": {}
-  },
-  "matches": [],
-  "error": "index -1 is out of bounds for axis 0 with size 0"
+  ]
 }

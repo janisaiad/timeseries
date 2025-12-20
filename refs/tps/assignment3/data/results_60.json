@@ -1,33 +1,84 @@
 {
   "signal_idx": 60,
-  "signal_length": 39797,
-  "ground_truth_symbols": [
-    "4",
-    "A",
-    "*",
-    "4",
-    "7",
-    "8",
-    "C"
-  ],
-  "timestamp": "2025-12-16T22:30:35.139128",
-  "success": false,
-  "stft_params": {
-    "window_length": 256,
-    "overlap": 128,
-    "frame_step": 128
-  },
-  "freq_clustering": {
-    "n_clusters": 0,
-    "cluster_centers": []
-  },
-  "changepoints_summary": [],
-  "period_analysis": {
-    "n_original_periods": 0,
-    "n_filtered_periods": 0,
-    "n_removed_outliers": 0,
-    "statistics": {}
-  },
-  "matches": [],
-  "error": "index -1 is out of bounds for axis 0 with size 0"
+  "ground_truth": "4A*478C",
+  "predicted": "44447",
+  "accuracy": 0.6,
+  "n_correct": 3,
+  "n_total": 5,
+  "n_clusters": 3,
+  "n_changepoints": 7,
+  "low_intervals": 6,
+  "high_intervals": 5,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        0,
+        1800
+      ],
+      "high_interval": [
+        0,
+        19800
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        1800,
+        5850
+      ],
+      "high_interval": [
+        19800,
+        22950
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        5850,
+        19800
+      ],
+      "high_interval": [
+        22950,
+        26100
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        19800,
+        22950
+      ],
+      "high_interval": [
+        26100,
+        29250
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "7",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        26100,
+        30600
+      ],
+      "high_interval": [
+        29250,
+        39797
+      ]
+    }
+  ]
 }

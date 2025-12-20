@@ -1,54 +1,18 @@
-DTMF Detection Log for Signal 17
-Timestamp: 2025-12-16T22:26:07.332813
-
-================================================================================
-Processing Signal 17
-================================================================================
+Processing signal 17
 Signal length: 22510 samples (1.021 seconds)
-Ground truth symbols: ['D', '0', 'D']
-
---- Cell 1: STFT and Energy Computation ---
-STFT shape: (129, 177)
-Frequency bins: 129, Time frames: 177
-
---- Cell 2: First k-means (k=2) ---
-High-energy (signal) bins: 2
-
---- Cell 3: Second k-means (k=8) ---
-Number of major frequency clusters: 0
-
---- Cell 4: Changepoint Detection ---
-
-Low frequency clusters: 0
-High frequency clusters: 0
-
---- Cell 6: Distribution Analysis ---
-
-ERROR processing signal 17: index -1 is out of bounds for axis 0 with size 0
-Traceback (most recent call last):
-  File "/home/janis/4A/timeseries/refs/tps/assignment3/Assignment 3.py", line 2169, in process_single_signal
-    q25 = np.percentile(period_durations, 25)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4273, in percentile
-    return _quantile_unchecked(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4550, in _quantile_unchecked
-    return _ureduce(a,
-           ^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 3894, in _ureduce
-    r = func(a, **kwargs)
-        ^^^^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4727, in _quantile_ureduce_func
-    result = _quantile(arr,
-             ^^^^^^^^^^^^^^
-  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4849, in _quantile
-    slices_having_nans = np.isnan(arr[-1, ...])
-                                  ~~~^^^^^^^^^
-IndexError: index -1 is out of bounds for axis 0 with size 0
-
-================================================================================
-Results saved to:
-  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_17.npz
-  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_17.json
-  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_17.txt
-================================================================================
+Ground truth: D0D (N=3 symbols)
+STFT computed: 451 freq bins x 52 time frames
+Energy clustering: 4 high-energy bins identified
+DTMF band filtering: 4 bins in [400.0, 2000.0] Hz
+Coarse split: low group n=2 mean=943.2 Hz, high group n=2 mean=1629.2 Hz
+Elbow clustering: k_low=1, k_high=1
+Frequency clusters: 2 total
+  Cluster 0: band=low, center=943.2 Hz, n_bins=2
+  Cluster 1: band=high, center=1629.2 Hz, n_bins=2
+Changepoint detection: 2 unique changepoints across all clusters
+Interval grouping: 1 low clusters, 1 high clusters
+Intervals built: 3 low, 3 high
+Top-N selection: 3 low intervals, 3 high intervals (N=3)
+Prediction: DDD
+Ground truth: D0D
+Accuracy: 0.667 (2/3 correct)

@@ -1,60 +1,20 @@
-DTMF Detection Log for Signal 10
-Timestamp: 2025-12-16T22:25:19.200489
-
-================================================================================
-Processing Signal 10
-================================================================================
+Processing signal 10
 Signal length: 66211 samples (3.003 seconds)
-Ground truth symbols: ['4', '0', 'B', 'B', '2', '4', '0', '5', 'D', '2']
-
---- Cell 1: STFT and Energy Computation ---
-STFT shape: (129, 519)
-Frequency bins: 129, Time frames: 519
-
---- Cell 2: First k-means (k=2) ---
-High-energy (signal) bins: 9
-
---- Cell 3: Second k-means (k=8) ---
-Number of major frequency clusters: 1
-  Cluster 0: center=1507.3 Hz, n_bins=2
-
---- Cell 4: Changepoint Detection ---
-Cluster 5 (center=1507.3 Hz, 2 freqs):
-  Freq 1378.1 Hz: 11 CPs
-  Freq 1636.5 Hz: 7 CPs
-  -> Selected freq: 1636.5 Hz with 7 CPs (minimum)
-
-Low frequency clusters: 0
-High frequency clusters: 1
-
---- Cell 6: Distribution Analysis ---
-Original periods: 6
-Removed outliers: 1
-Filtered periods: 5
-
---- Cell 7: Period-Symbol Matching (CP-based) ---
-Number of ground truth symbols: 10
-Number of filtered periods available: 5
-WARNING: Only 5 filtered periods available for 10 symbols!
-  This may indicate insufficient changepoints detected or too aggressive filtering.
-Selected 5 biggest periods (by duration) for matching
-Low frequency clusters available: 0
-High frequency clusters available: 1
-  WARNING: No low frequency clusters detected! This explains why only high frequencies are found.
-  Match 1 diagnostic: period [0.772, 0.946]s
-    Available low clusters: 0
-    Available high clusters: 1
-      High cluster: freq=1636.5Hz, CPs near period: 2
-    Found active low: 0, active high: 1
-  Match 1: '4' -> period [0.772, 0.946]s, freqs: high-only: 1637Hz, verified: 'None', match: ✗
-  Match 2: '0' -> period [0.946, 1.132]s, freqs: high-only: 1637Hz, verified: 'None', match: ✗
-  Match 3: 'B' -> period [1.132, 1.277]s, freqs: high-only: 1637Hz, verified: 'None', match: ✗
-  Match 4: 'B' -> period [1.289, 2.456]s, freqs: high-only: 1637Hz, verified: 'None', match: ✗
-  Match 5: '2' -> period [2.456, 2.577]s, freqs: high-only: 1637Hz, verified: 'None', match: ✗
-
-================================================================================
-Results saved to:
-  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_10.npz
-  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_10.json
-  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_10.txt
-================================================================================
+Ground truth: 40BB2405D2 (N=10 symbols)
+STFT computed: 451 freq bins x 149 time frames
+Energy clustering: 11 high-energy bins identified
+DTMF band filtering: 11 bins in [400.0, 2000.0] Hz
+Coarse split: low group n=6 mean=804.4 Hz, high group n=5 mean=1425.9 Hz
+Elbow clustering: k_low=2, k_high=2
+Frequency clusters: 4 total
+  Cluster 0: band=low, center=735.0 Hz, n_bins=4
+  Cluster 1: band=low, center=943.2 Hz, n_bins=2
+  Cluster 2: band=high, center=1290.3 Hz, n_bins=3
+  Cluster 3: band=high, center=1629.2 Hz, n_bins=2
+Changepoint detection: 14 unique changepoints across all clusters
+Interval grouping: 2 low clusters, 2 high clusters
+Intervals built: 12 low, 14 high
+Top-N selection: 8 low intervals, 9 high intervals (N=10)
+Prediction: 00ADD0A2
+Ground truth: 40BB2405D2
+Accuracy: 0.125 (1/8 correct)

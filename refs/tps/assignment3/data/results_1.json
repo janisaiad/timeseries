@@ -1,49 +1,98 @@
 {
   "signal_idx": 1,
-  "signal_length": 43082,
-  "ground_truth_symbols": [
-    "8",
-    "7",
-    "C",
-    "B",
-    "5",
-    "A",
-    "3"
-  ],
-  "timestamp": "2025-12-20T14:00:44.956673",
-  "success": false,
-  "stft_params": {
-    "window_length": 256,
-    "overlap": 128,
-    "frame_step": 128
-  },
-  "freq_clustering": {
-    "n_clusters": 2,
-    "cluster_centers": [
-      990.52734375,
-      1316.6015625
-    ]
-  },
-  "changepoints_summary": [
+  "ground_truth": "87CB5A3",
+  "predicted": "855533",
+  "accuracy": 0.16666666666666666,
+  "n_correct": 1,
+  "n_total": 6,
+  "n_clusters": 5,
+  "n_changepoints": 12,
+  "low_intervals": 7,
+  "high_intervals": 6,
+  "pairs": [
     {
-      "cluster_id": 2,
-      "selected_freq": 689.0625,
-      "n_changepoints": 0,
-      "changepoints": []
+      "idx": 0,
+      "symbol": "8",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        4050,
+        16200
+      ],
+      "high_interval": [
+        0,
+        4500
+      ]
     },
     {
-      "cluster_id": 0,
-      "selected_freq": 602.9296875,
-      "n_changepoints": 0,
-      "changepoints": []
+      "idx": 1,
+      "symbol": "5",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        16650,
+        20700
+      ],
+      "high_interval": [
+        4500,
+        5400
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "5",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        20700,
+        25200
+      ],
+      "high_interval": [
+        5400,
+        25200
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "5",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        25200,
+        27000
+      ],
+      "high_interval": [
+        25200,
+        27000
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "3",
+      "low_freq": 685.9999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        28800,
+        31950
+      ],
+      "high_interval": [
+        35550,
+        39150
+      ]
+    },
+    {
+      "idx": 5,
+      "symbol": "3",
+      "low_freq": 685.9999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        31950,
+        35550
+      ],
+      "high_interval": [
+        39150,
+        43082
+      ]
     }
-  ],
-  "period_analysis": {
-    "n_original_periods": 0,
-    "n_filtered_periods": 0,
-    "n_removed_outliers": 0,
-    "statistics": {}
-  },
-  "matches": [],
-  "error": "index -1 is out of bounds for axis 0 with size 0"
+  ]
 }

@@ -1,75 +1,21 @@
-DTMF Detection Log for Signal 93
-Timestamp: 2025-12-16T22:34:05.992393
-
-================================================================================
-Processing Signal 93
-================================================================================
+Processing signal 93
 Signal length: 54724 samples (2.482 seconds)
-Ground truth symbols: ['2', '2', '9', '4', '9', '2', '3', 'A', 'B', '4']
-
---- Cell 1: STFT and Energy Computation ---
-STFT shape: (129, 429)
-Frequency bins: 129, Time frames: 429
-
---- Cell 2: First k-means (k=2) ---
-High-energy (signal) bins: 12
-
---- Cell 3: Second k-means (k=8) ---
-Number of major frequency clusters: 3
-  Cluster 0: center=732.1 Hz, n_bins=2
-  Cluster 1: center=1378.1 Hz, n_bins=3
-  Cluster 2: center=1593.5 Hz, n_bins=2
-
---- Cell 4: Changepoint Detection ---
-Cluster 4 (center=732.1 Hz, 2 freqs):
-  Freq 602.9 Hz: 9 CPs
-  Freq 861.3 Hz: 8 CPs
-  -> Selected freq: 861.3 Hz with 8 CPs (minimum)
-Cluster 3 (center=1378.1 Hz, 3 freqs):
-  Freq 1292.0 Hz: 9 CPs
-  Freq 1378.1 Hz: 6 CPs
-  Freq 1464.3 Hz: 6 CPs
-  -> Selected freq: 1378.1 Hz with 6 CPs (minimum)
-Cluster 7 (center=1593.5 Hz, 2 freqs):
-  Freq 1550.4 Hz: 8 CPs
-  Freq 1636.5 Hz: 6 CPs
-  -> Selected freq: 1636.5 Hz with 6 CPs (minimum)
-
-Low frequency clusters: 1
-High frequency clusters: 2
-
---- Cell 6: Distribution Analysis ---
-Original periods: 19
-Removed outliers: 0
-Filtered periods: 19
-
---- Cell 7: Period-Symbol Matching (CP-based) ---
-Number of ground truth symbols: 10
-Number of filtered periods available: 19
-Selected 10 biggest periods (by duration) for matching
-Low frequency clusters available: 1
-High frequency clusters available: 2
-  Match 1 diagnostic: period [0.087, 0.221]s
-    Available low clusters: 1
-      Low cluster: freq=861.3Hz, CPs near period: 0
-    Available high clusters: 2
-      High cluster: freq=1378.1Hz, CPs near period: 2
-      High cluster: freq=1636.5Hz, CPs near period: 0
-    Found active low: 1, active high: 1
-  Match 1: '2' -> period [0.087, 0.221]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 2: '2' -> period [0.221, 0.383]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 3: '9' -> period [0.476, 0.592]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 4: '4' -> period [0.662, 1.120]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 5: '9' -> period [1.120, 1.225]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 6: '2' -> period [1.225, 1.353]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 7: '3' -> period [1.382, 1.521]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 8: 'A' -> period [1.521, 1.631]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 9: 'B' -> period [1.643, 1.962]s, freqs: 861+1637Hz, verified: 'C', match: ✗
-  Match 10: '4' -> period [2.061, 2.171]s, freqs: 861+1637Hz, verified: 'C', match: ✗
-
-================================================================================
-Results saved to:
-  NPZ: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_93.npz
-  JSON: /home/janis/4A/timeseries/refs/tps/assignment3/data/results_93.json
-  Log: /home/janis/4A/timeseries/refs/tps/assignment3/data/log_93.txt
-================================================================================
+Ground truth: 2294923AB4 (N=10 symbols)
+STFT computed: 451 freq bins x 123 time frames
+Energy clustering: 16 high-energy bins identified
+DTMF band filtering: 15 bins in [400.0, 2000.0] Hz
+Coarse split: low group n=7 mean=735.0 Hz, high group n=8 mean=1414.9 Hz
+Elbow clustering: k_low=3, k_high=2
+Frequency clusters: 5 total
+  Cluster 2: band=low, center=514.5 Hz, n_bins=1
+  Cluster 1: band=low, center=718.7 Hz, n_bins=3
+  Cluster 0: band=low, center=824.8 Hz, n_bins=3
+  Cluster 4: band=high, center=1274.0 Hz, n_bins=4
+  Cluster 3: band=high, center=1555.7 Hz, n_bins=4
+Changepoint detection: 20 unique changepoints across all clusters
+Interval grouping: 3 low clusters, 2 high clusters
+Intervals built: 15 low, 12 high
+Top-N selection: 9 low intervals, 8 high intervals (N=10)
+Prediction: 39793???
+Ground truth: 2294923AB4
+Accuracy: 0.000 (0/8 correct)
