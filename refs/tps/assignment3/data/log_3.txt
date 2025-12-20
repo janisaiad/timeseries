@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 3
-Timestamp: 2025-12-16T22:24:40.432527
+Timestamp: 2025-12-20T14:01:04.694316
 
 ================================================================================
 Processing Signal 3
@@ -12,64 +12,57 @@ STFT shape: (129, 366)
 Frequency bins: 129, Time frames: 366
 
 --- Cell 2: First k-means (k=2) ---
-High-energy (signal) bins: 15
+High-energy (signal) bins: 13
 
---- Cell 3: Second k-means (k=8) ---
-Number of major frequency clusters: 4
-  Cluster 0: center=559.9 Hz, n_bins=2
-  Cluster 1: center=904.4 Hz, n_bins=2
-  Cluster 2: center=1335.1 Hz, n_bins=2
-  Cluster 3: center=1406.8 Hz, n_bins=3
+--- Cell 3: Second k-means (elbow method) ---
+Elbow method: tested k in range [2, 8], selected k=3
+Inertias: ['9.98e-01', '3.15e-01', '1.98e-01', '1.02e-01', '4.24e-02', '1.44e-02', '6.46e-03']
+Number of major frequency clusters: 2
+  Cluster 0: center=1033.6 Hz, n_bins=3
+  Cluster 1: center=1242.8 Hz, n_bins=7
 
 --- Cell 4: Changepoint Detection ---
-Cluster 4 (center=559.9 Hz, 2 freqs):
-  Freq 516.8 Hz: 4 CPs
-  Freq 602.9 Hz: 7 CPs
-  -> Selected freq: 516.8 Hz with 4 CPs (minimum)
-Cluster 7 (center=904.4 Hz, 2 freqs):
-  Freq 861.3 Hz: 6 CPs
-  Freq 947.5 Hz: 4 CPs
-  -> Selected freq: 947.5 Hz with 4 CPs (minimum)
-Cluster 0 (center=1335.1 Hz, 2 freqs):
-  Freq 1292.0 Hz: 8 CPs
-  Freq 1378.1 Hz: 4 CPs
-  -> Selected freq: 1378.1 Hz with 4 CPs (minimum)
-Cluster 6 (center=1406.8 Hz, 3 freqs):
-  Freq 1205.9 Hz: 2 CPs
-  Freq 1464.3 Hz: 4 CPs
-  Freq 1550.4 Hz: 9 CPs
-  -> Selected freq: 1205.9 Hz with 2 CPs (minimum)
+Cluster 2 (center=1033.6 Hz, 3 freqs):
+  Freq 689.1 Hz: 0 CPs
+  Freq 775.2 Hz: 0 CPs
+  Freq 1636.5 Hz: 0 CPs
+  -> Selected freq: 689.1 Hz with 0 CPs (minimum)
+Cluster 0 (center=1242.8 Hz, 7 freqs):
+  Freq 861.3 Hz: 0 CPs
+  Freq 947.5 Hz: 0 CPs
+  Freq 1205.9 Hz: 0 CPs
+  Freq 1292.0 Hz: 0 CPs
+  Freq 1378.1 Hz: 0 CPs
+  Freq 1464.3 Hz: 0 CPs
+  Freq 1550.4 Hz: 0 CPs
+  -> Selected freq: 861.3 Hz with 0 CPs (minimum)
 
 Low frequency clusters: 2
-High frequency clusters: 2
+High frequency clusters: 0
 
 --- Cell 6: Distribution Analysis ---
-Original periods: 13
-Removed outliers: 0
-Filtered periods: 13
 
---- Cell 7: Period-Symbol Matching (CP-based) ---
-Number of ground truth symbols: 8
-Number of filtered periods available: 13
-Selected 8 biggest periods (by duration) for matching
-Low frequency clusters available: 2
-High frequency clusters available: 2
-  Match 1 diagnostic: period [0.331, 0.482]s
-    Available low clusters: 2
-      Low cluster: freq=516.8Hz, CPs near period: 1
-      Low cluster: freq=947.5Hz, CPs near period: 2
-    Available high clusters: 2
-      High cluster: freq=1378.1Hz, CPs near period: 0
-      High cluster: freq=1205.9Hz, CPs near period: 2
-    Found active low: 2, active high: 1
-  Match 1: 'A' -> period [0.331, 0.482]s, freqs: 947+1206Hz, verified: '*', match: ✗
-  Match 2: '*' -> period [0.499, 0.586]s, freqs: 947+1206Hz, verified: '*', match: ✓
-  Match 3: 'A' -> period [0.586, 0.673]s, freqs: 517+1206Hz, verified: 'None', match: ✗
-  Match 4: '6' -> period [0.673, 1.057]s, freqs: 517+1378Hz, verified: 'None', match: ✗
-  Match 5: '5' -> period [1.057, 1.231]s, freqs: 517+1378Hz, verified: 'None', match: ✗
-  Match 6: 'D' -> period [1.231, 1.411]s, freqs: 517+1378Hz, verified: 'None', match: ✗
-  Match 7: '5' -> period [1.567, 1.695]s, freqs: 517+1378Hz, verified: 'None', match: ✗
-  Match 8: 'C' -> period [1.695, 1.805]s, freqs: 947+1378Hz, verified: '0', match: ✗
+ERROR processing signal 3: index -1 is out of bounds for axis 0 with size 0
+Traceback (most recent call last):
+  File "/tmp/ipykernel_191807/2564205397.py", line 627, in process_single_signal
+    q25 = np.percentile(period_durations, 25)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4273, in percentile
+    return _quantile_unchecked(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4550, in _quantile_unchecked
+    return _ureduce(a,
+           ^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 3894, in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4727, in _quantile_ureduce_func
+    result = _quantile(arr,
+             ^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4849, in _quantile
+    slices_having_nans = np.isnan(arr[-1, ...])
+                                  ~~~^^^^^^^^^
+IndexError: index -1 is out of bounds for axis 0 with size 0
 
 ================================================================================
 Results saved to:

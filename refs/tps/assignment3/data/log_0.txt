@@ -1,5 +1,5 @@
 DTMF Detection Log for Signal 0
-Timestamp: 2025-12-16T22:24:16.767416
+Timestamp: 2025-12-20T14:00:40.755168
 
 ================================================================================
 Processing Signal 0
@@ -12,52 +12,53 @@ STFT shape: (129, 154)
 Frequency bins: 129, Time frames: 154
 
 --- Cell 2: First k-means (k=2) ---
-High-energy (signal) bins: 11
+High-energy (signal) bins: 8
 
---- Cell 3: Second k-means (k=8) ---
-Number of major frequency clusters: 3
+--- Cell 3: Second k-means (elbow method) ---
+Elbow method: tested k in range [2, 8], selected k=4
+Inertias: ['8.72e-01', '4.73e-01', '1.47e-01', '7.21e-02', '1.73e-02', '4.55e-03', '0.00e+00']
+Number of major frequency clusters: 2
   Cluster 0: center=732.1 Hz, n_bins=2
-  Cluster 1: center=732.1 Hz, n_bins=2
-  Cluster 2: center=1464.3 Hz, n_bins=2
+  Cluster 1: center=1464.3 Hz, n_bins=4
 
 --- Cell 4: Changepoint Detection ---
 Cluster 1 (center=732.1 Hz, 2 freqs):
-  Freq 689.1 Hz: 2 CPs
-  Freq 775.2 Hz: 4 CPs
-  -> Selected freq: 689.1 Hz with 2 CPs (minimum)
-Cluster 3 (center=732.1 Hz, 2 freqs):
-  Freq 602.9 Hz: 4 CPs
-  Freq 861.3 Hz: 2 CPs
-  -> Selected freq: 861.3 Hz with 2 CPs (minimum)
-Cluster 0 (center=1464.3 Hz, 2 freqs):
-  Freq 1378.1 Hz: 4 CPs
-  Freq 1550.4 Hz: 4 CPs
-  -> Selected freq: 1378.1 Hz with 4 CPs (minimum)
+  Freq 689.1 Hz: 0 CPs
+  Freq 775.2 Hz: 0 CPs
+  -> Selected freq: 689.1 Hz with 0 CPs (minimum)
+Cluster 0 (center=1464.3 Hz, 4 freqs):
+  Freq 1292.0 Hz: 0 CPs
+  Freq 1378.1 Hz: 0 CPs
+  Freq 1550.4 Hz: 0 CPs
+  Freq 1636.5 Hz: 0 CPs
+  -> Selected freq: 1292.0 Hz with 0 CPs (minimum)
 
-Low frequency clusters: 2
+Low frequency clusters: 1
 High frequency clusters: 1
 
 --- Cell 6: Distribution Analysis ---
-Original periods: 7
-Removed outliers: 0
-Filtered periods: 7
 
---- Cell 7: Period-Symbol Matching (CP-based) ---
-Number of ground truth symbols: 3
-Number of filtered periods available: 7
-Selected 3 biggest periods (by duration) for matching
-Low frequency clusters available: 2
-High frequency clusters available: 1
-  Match 1 diagnostic: period [0.186, 0.284]s
-    Available low clusters: 2
-      Low cluster: freq=689.1Hz, CPs near period: 0
-      Low cluster: freq=861.3Hz, CPs near period: 1
-    Available high clusters: 1
-      High cluster: freq=1378.1Hz, CPs near period: 2
-    Found active low: 1, active high: 1
-  Match 1: '5' -> period [0.186, 0.284]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 2: 'C' -> period [0.284, 0.383]s, freqs: 861+1378Hz, verified: '8', match: ✗
-  Match 3: '3' -> period [0.534, 0.708]s, freqs: 689+1378Hz, verified: '2', match: ✗
+ERROR processing signal 0: index -1 is out of bounds for axis 0 with size 0
+Traceback (most recent call last):
+  File "/tmp/ipykernel_191807/2564205397.py", line 627, in process_single_signal
+    q25 = np.percentile(period_durations, 25)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4273, in percentile
+    return _quantile_unchecked(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4550, in _quantile_unchecked
+    return _ureduce(a,
+           ^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 3894, in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4727, in _quantile_ureduce_func
+    result = _quantile(arr,
+             ^^^^^^^^^^^^^^
+  File "/home/janis/4A/timeseries/.venv/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py", line 4849, in _quantile
+    slices_having_nans = np.isnan(arr[-1, ...])
+                                  ~~~^^^^^^^^^
+IndexError: index -1 is out of bounds for axis 0 with size 0
 
 ================================================================================
 Results saved to:
