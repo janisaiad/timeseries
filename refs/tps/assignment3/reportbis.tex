@@ -15,25 +15,7 @@ Janis Aiad \email{janisaiad.JA@gmail.com} % student 2
 \section{Introduction}
 
 \paragraph{Objective.} The goal is to implement (i) a signal processing pipeline with a change-point detection method and (ii) wavelets for graph signals.
-
-\paragraph{Warning and advice.} 
-\begin{itemize}
-    \item Use code from the tutorials as well as from other sources. Do not code yourself well-known procedures (e.g. cross validation or k-means), use an existing implementation.
-    \item The associated notebook contains some hints and several helper functions.
-    \item Be concise. Answers are not expected to be longer than a few sentences (omitting calculations).
-\end{itemize}
-
-
-
-\paragraph{Instructions.}
-\begin{itemize}
-    \item Fill in your names and emails at the top of the document.
-    \item Hand in one report per pair of students.
-    \item Rename your report and notebook as follows:\\ \texttt{FirstnameLastname1\_FirstnameLastname1.pdf} and\\ \texttt{FirstnameLastname2\_FirstnameLastname2.ipynb}.\\
-    For instance, \texttt{LaurentOudre\_ValerioGuerrini.pdf}.
-    \item Upload your report (PDF file) and notebook (IPYNB file) using the link given in the email.
-\end{itemize}
-
+\tableofcontents
 % ------------------------------------------------------------------------------
 \newpage
 \section{Dual-tone multi-frequency signaling (DTMF)}
@@ -122,7 +104,7 @@ Describe in 5 to 10 lines your methodology and the calibration procedure (give t
     \vskip0.5em
     \begin{minipage}[t]{0.32\textwidth}
     \centerline{\includegraphics[width=\textwidth]{cluster4.png}}
-    \centerline{\scriptsize Elbow (high group)}
+    \centerline{\scriptsize Low/High clustering zoomed}
     \end{minipage}
     \hfill
     \begin{minipage}[t]{0.32\textwidth}
@@ -559,15 +541,5 @@ All 540 predictions were correct (diagonal elements only), demonstrating perfect
     \caption{Additional visualizations of the discovered DTMF structure}
 \end{figure}
 
-\subsection{Summary of Key Achievements}
-
-\begin{itemize}
-    \item \textbf{Zero Prior Knowledge:} No DTMF frequencies or grid structure were provided as input
-    \item \textbf{Perfect Discovery:} Unsupervised clustering recovered the exact 4$\times$4 DTMF grid
-    \item \textbf{High Accuracy:} <1\% average error compared to standard DTMF frequencies
-    \item \textbf{Perfect Classification:} 100\% accuracy on 540 training frequency pairs
-    \item \textbf{Robust Testing:} 99.99\%+ confidence on both test sequences
-    \item \textbf{Minimal Tuning:} Only STFT window size empirically tested; all other parameters at defaults
-\end{itemize}
 
 \end{document}
