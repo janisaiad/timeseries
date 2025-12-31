@@ -61,8 +61,10 @@ def stooq_txt_to_df(file_path: Union[str, Path], tz: Optional[str] = None) -> pd
         "high": "float64",
         "low": "float64",
         "close": "float64",
-        "vol": "Int64",
-        "openint": "Int64",
+        # Stooq volume/openint often appear as floats (e.g. "1702.0714"), so we parse as float.
+        # If you need integer volume later, you can round/cast after loading.
+        "vol": "float64",
+        "openint": "float64",
         }  # we set explicit dtypes for reliability
     
     
