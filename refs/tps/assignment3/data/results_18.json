@@ -1,0 +1,98 @@
+{
+  "signal_idx": 18,
+  "ground_truth": "D620A5",
+  "predicted": "DD20A2",
+  "accuracy": 0.6666666666666666,
+  "n_correct": 4,
+  "n_total": 6,
+  "n_clusters": 4,
+  "n_changepoints": 12,
+  "low_intervals": 6,
+  "high_intervals": 6,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "D",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        0,
+        4500
+      ],
+      "high_interval": [
+        0,
+        4500
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "D",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        4500,
+        8100
+      ],
+      "high_interval": [
+        4500,
+        7200
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "2",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1347.4999999999998,
+      "low_interval": [
+        18900,
+        21600
+      ],
+      "high_interval": [
+        18900,
+        21600
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "0",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1347.4999999999998,
+      "low_interval": [
+        24300,
+        28350
+      ],
+      "high_interval": [
+        24300,
+        28350
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "A",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        31950,
+        35550
+      ],
+      "high_interval": [
+        32400,
+        35550
+      ]
+    },
+    {
+      "idx": 5,
+      "symbol": "2",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1347.4999999999998,
+      "low_interval": [
+        35550,
+        47167
+      ],
+      "high_interval": [
+        39150,
+        43200
+      ]
+    }
+  ]
+}

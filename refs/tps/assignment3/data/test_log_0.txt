@@ -1,0 +1,16 @@
+Processing TEST signal 0
+Signal length: 29505 samples (1.338 seconds)
+STFT computed: 451 freq bins x 67 time frames
+Energy clustering: 13 high-energy bins identified
+DTMF band filtering: 11 bins in [400.0, 2000.0] Hz
+Coarse split: low=5, high=6
+Elbow clustering: k_low=2, k_high=3
+Frequency clusters: 5
+Changepoints: 10
+Pair 1: (857.5, 1323.0) Hz -> '8' (conf=1.0000)
+Pair 2: (857.5, 1323.0) Hz -> '8' (conf=1.0000)
+Pair 3: (686.0, 1200.5) Hz -> '1' (conf=1.0000)
+Pair 4: (686.0, 1470.0) Hz -> '3' (conf=1.0000)
+Pair 5: (686.0, 1470.0) Hz -> '3' (conf=1.0000)
+
+Predicted sequence: 88133

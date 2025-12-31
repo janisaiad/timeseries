@@ -1,0 +1,21 @@
+Processing signal 6
+Signal length: 57513 samples (2.608 seconds)
+Ground truth: *28#3C85*4 (N=10 symbols)
+STFT computed: 451 freq bins x 129 time frames
+Energy clustering: 16 high-energy bins identified
+DTMF band filtering: 15 bins in [400.0, 2000.0] Hz
+Coarse split: low group n=8 mean=814.6 Hz, high group n=7 mean=1386.0 Hz
+Elbow clustering: k_low=3, k_high=2
+Frequency clusters: 5 total
+  Cluster 0: band=low, center=718.7 Hz, n_bins=3
+  Cluster 1: band=low, center=824.8 Hz, n_bins=3
+  Cluster 2: band=low, center=943.2 Hz, n_bins=2
+  Cluster 3: band=high, center=1274.0 Hz, n_bins=4
+  Cluster 4: band=high, center=1535.3 Hz, n_bins=3
+Changepoint detection: 16 unique changepoints across all clusters
+Interval grouping: 3 low clusters, 2 high clusters
+Intervals built: 16 low, 11 high
+Top-N selection: 9 low intervals, 8 high intervals (N=10)
+Prediction: **3#377*
+Ground truth: *28#3C85*4
+Accuracy: 0.375 (3/8 correct)

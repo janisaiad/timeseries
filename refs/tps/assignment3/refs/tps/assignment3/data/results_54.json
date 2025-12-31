@@ -1,0 +1,170 @@
+{
+  "signal_idx": 54,
+  "signal_length": 49390,
+  "ground_truth_symbols": [
+    "0",
+    "2",
+    "D",
+    "7",
+    "B",
+    "C",
+    "#"
+  ],
+  "timestamp": "2025-12-16T18:29:27.616477",
+  "success": true,
+  "stft_params": {
+    "window_length": 256,
+    "overlap": 128,
+    "frame_step": 128
+  },
+  "freq_clustering": {
+    "n_clusters": 4,
+    "cluster_centers": [
+      602.9296875,
+      818.26171875,
+      1313.525390625,
+      1335.05859375
+    ]
+  },
+  "changepoints_summary": [
+    {
+      "cluster_id": 4,
+      "selected_freq": 516.796875,
+      "n_changepoints": 5,
+      "changepoints": [
+        13056,
+        13952,
+        14976,
+        31488,
+        32896
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "selected_freq": 775.1953125,
+      "n_changepoints": 6,
+      "changepoints": [
+        11520,
+        12160,
+        30976,
+        33792,
+        34176,
+        34560
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "selected_freq": 1464.2578125,
+      "n_changepoints": 5,
+      "changepoints": [
+        10240,
+        10496,
+        43520,
+        45568,
+        47232
+      ]
+    },
+    {
+      "cluster_id": 0,
+      "selected_freq": 1378.125,
+      "n_changepoints": 5,
+      "changepoints": [
+        3328,
+        6656,
+        10240,
+        10752,
+        13952
+      ]
+    }
+  ],
+  "period_analysis": {
+    "n_original_periods": 18,
+    "n_filtered_periods": 18,
+    "n_removed_outliers": 0,
+    "statistics": {
+      "q25": 0.024671201814058956,
+      "q75": 0.08852607709750568,
+      "iqr": 0.06385487528344672,
+      "lower_bound": -0.07111111111111112
+    }
+  },
+  "matches": [
+    {
+      "match_index": 0,
+      "assigned_symbol": "0",
+      "verified_symbol": null,
+      "primary_low_freq": 516.796875,
+      "primary_high_freq": 1378.125,
+      "period_start": 0.1509297052154195,
+      "period_end": 0.301859410430839,
+      "period_duration": 0.1509297052154195,
+      "symbol_match": false
+    },
+    {
+      "match_index": 1,
+      "assigned_symbol": "2",
+      "verified_symbol": null,
+      "primary_low_freq": 516.796875,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 0.301859410430839,
+      "period_end": 0.46439909297052157,
+      "period_duration": 0.16253968253968254,
+      "symbol_match": false
+    },
+    {
+      "match_index": 2,
+      "assigned_symbol": "D",
+      "verified_symbol": null,
+      "primary_low_freq": 516.796875,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 0.6791836734693878,
+      "period_end": 1.4048072562358276,
+      "period_duration": 0.7256235827664399,
+      "symbol_match": false
+    },
+    {
+      "match_index": 3,
+      "assigned_symbol": "7",
+      "verified_symbol": null,
+      "primary_low_freq": 516.796875,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 1.4280272108843537,
+      "period_end": 1.4918820861678004,
+      "period_duration": 0.06385487528344672,
+      "symbol_match": false
+    },
+    {
+      "match_index": 4,
+      "assigned_symbol": "B",
+      "verified_symbol": "6",
+      "primary_low_freq": 775.1953125,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 1.5673469387755101,
+      "period_end": 1.9736961451247166,
+      "period_duration": 0.40634920634920635,
+      "symbol_match": false
+    },
+    {
+      "match_index": 5,
+      "assigned_symbol": "C",
+      "verified_symbol": null,
+      "primary_low_freq": 516.796875,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 1.9736961451247166,
+      "period_end": 2.066575963718821,
+      "period_duration": 0.09287981859410431,
+      "symbol_match": false
+    },
+    {
+      "match_index": 6,
+      "assigned_symbol": "#",
+      "verified_symbol": null,
+      "primary_low_freq": 516.796875,
+      "primary_high_freq": 1464.2578125,
+      "period_start": 2.066575963718821,
+      "period_end": 2.1420408163265305,
+      "period_duration": 0.07546485260770976,
+      "symbol_match": false
+    }
+  ]
+}

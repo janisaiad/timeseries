@@ -1,0 +1,112 @@
+{
+  "signal_idx": 16,
+  "ground_truth": "6*CA8B*29",
+  "predicted": "??71739",
+  "accuracy": 0.0,
+  "n_correct": 0,
+  "n_total": 7,
+  "n_clusters": 5,
+  "n_changepoints": 23,
+  "low_intervals": 8,
+  "high_intervals": 7,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "?",
+      "low_freq": 514.4999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        0,
+        13500
+      ],
+      "high_interval": [
+        0,
+        2700
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "?",
+      "low_freq": 514.4999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        13500,
+        14850
+      ],
+      "high_interval": [
+        2700,
+        4500
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "7",
+      "low_freq": 857.4999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        15750,
+        18900
+      ],
+      "high_interval": [
+        6750,
+        11250
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "1",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        22500,
+        26550
+      ],
+      "high_interval": [
+        11250,
+        41850
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "7",
+      "low_freq": 857.4999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        30150,
+        33750
+      ],
+      "high_interval": [
+        41850,
+        42750
+      ]
+    },
+    {
+      "idx": 5,
+      "symbol": "3",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        44100,
+        45900
+      ],
+      "high_interval": [
+        48150,
+        50400
+      ]
+    },
+    {
+      "idx": 6,
+      "symbol": "9",
+      "low_freq": 857.4999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        48600,
+        50400
+      ],
+      "high_interval": [
+        50400,
+        52537
+      ]
+    }
+  ]
+}

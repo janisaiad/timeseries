@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {paragraph}{Objective.}{1}{section*.1}%
+\contentsline {section}{\numberline {2}Dual-tone multi-frequency signaling (DTMF)}{2}{section.2}%
+\contentsline {section}{\numberline {3}Wavelet transform for graph signals}{7}{section.3}%
+\contentsline {section}{\numberline {A}DTMF Detection: Comprehensive Results}{14}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Training Set Performance}{14}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}Discovered Frequency Clusters}{14}{subsection.A.2}%
+\contentsline {subsection}{\numberline {A.3}Per-Symbol Bayesian Model Parameters}{14}{subsection.A.3}%
+\contentsline {subsection}{\numberline {A.4}Accuracy Comparison with Standard DTMF}{15}{subsection.A.4}%
+\contentsline {subsection}{\numberline {A.5}Confusion Matrix}{15}{subsection.A.5}%
+\contentsline {subsection}{\numberline {A.6}Test Set Detailed Results}{16}{subsection.A.6}%
+\contentsline {subsection}{\numberline {A.7}Additional Visualizations}{16}{subsection.A.7}%

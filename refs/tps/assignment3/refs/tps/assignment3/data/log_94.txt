@@ -1,0 +1,70 @@
+DTMF Detection Log for Signal 94
+Timestamp: 2025-12-16T18:30:51.572900
+
+================================================================================
+Processing Signal 94
+================================================================================
+Signal length: 51075 samples (2.316 seconds)
+Ground truth symbols: ['0', '9', '6', 'C', '#', '3', '4', 'B', '#', '1']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 401)
+Frequency bins: 129, Time frames: 401
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 11
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 2
+  Cluster 0: center=861.3 Hz, n_bins=3
+  Cluster 1: center=1292.0 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 1 (center=861.3 Hz, 3 freqs):
+  Freq 775.2 Hz: 5 CPs
+  Freq 861.3 Hz: 6 CPs
+  Freq 947.5 Hz: 6 CPs
+  -> Selected freq: 775.2 Hz with 5 CPs (minimum)
+Cluster 0 (center=1292.0 Hz, 2 freqs):
+  Freq 1205.9 Hz: 6 CPs
+  Freq 1378.1 Hz: 5 CPs
+  -> Selected freq: 1378.1 Hz with 5 CPs (minimum)
+
+Low frequency clusters: 1
+High frequency clusters: 1
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 9
+Removed outliers: 0
+Filtered periods: 9
+
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Number of ground truth symbols: 10
+Number of filtered periods available: 9
+WARNING: Only 9 filtered periods available for 10 symbols!
+  This may indicate insufficient changepoints detected or too aggressive filtering.
+Selected 9 biggest periods (by duration) for matching
+Low frequency clusters available: 1
+High frequency clusters available: 1
+  Match 1 diagnostic: period [0.139, 0.151]s
+    Available low clusters: 1
+      Low cluster: freq=775.2Hz, CPs near period: 0
+    Available high clusters: 1
+      High cluster: freq=1378.1Hz, CPs near period: 3
+    Found active low: 1, active high: 1
+  Match 1: '0' -> period [0.139, 0.151]s, freqs: 775+1378Hz, verified: '5', match: ✗
+  Match 2: '9' -> period [0.151, 0.221]s, freqs: 775+1378Hz, verified: '5', match: ✗
+  Match 3: '6' -> period [0.221, 0.615]s, freqs: 775+1378Hz, verified: '5', match: ✗
+  Match 4: 'C' -> period [0.615, 0.702]s, freqs: 775+1378Hz, verified: '5', match: ✗
+  Match 5: '#' -> period [0.702, 0.720]s, freqs: 775+1378Hz, verified: '5', match: ✗
+  Match 6: '3' -> period [0.720, 1.300]s, freqs: 775+1378Hz, verified: '5', match: ✗
+  Match 7: '4' -> period [1.300, 1.318]s, freqs: 775+1378Hz, verified: '5', match: ✗
+  Match 8: 'B' -> period [1.318, 1.440]s, freqs: 775+1378Hz, verified: '5', match: ✗
+  Match 9: '#' -> period [1.440, 1.654]s, freqs: 775+1378Hz, verified: '5', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_94.npz
+  JSON: refs/tps/assignment3/data/results_94.json
+  Log: refs/tps/assignment3/data/log_94.txt
+================================================================================

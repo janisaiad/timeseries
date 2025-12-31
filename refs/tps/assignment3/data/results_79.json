@@ -1,0 +1,140 @@
+{
+  "signal_idx": 79,
+  "ground_truth": "A333*4*6#0D",
+  "predicted": "3333##***",
+  "accuracy": 0.4444444444444444,
+  "n_correct": 4,
+  "n_total": 9,
+  "n_clusters": 4,
+  "n_changepoints": 17,
+  "low_intervals": 9,
+  "high_intervals": 11,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "3",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        0,
+        8550
+      ],
+      "high_interval": [
+        0,
+        4950
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "3",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        8550,
+        11700
+      ],
+      "high_interval": [
+        4950,
+        6300
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "3",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        11700,
+        15750
+      ],
+      "high_interval": [
+        6300,
+        8550
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "3",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        15750,
+        19800
+      ],
+      "high_interval": [
+        8550,
+        11700
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "#",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        24300,
+        25650
+      ],
+      "high_interval": [
+        11700,
+        15750
+      ]
+    },
+    {
+      "idx": 5,
+      "symbol": "#",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        25650,
+        35100
+      ],
+      "high_interval": [
+        15750,
+        19350
+      ]
+    },
+    {
+      "idx": 6,
+      "symbol": "*",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        35100,
+        38700
+      ],
+      "high_interval": [
+        27900,
+        31500
+      ]
+    },
+    {
+      "idx": 7,
+      "symbol": "*",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        38700,
+        50400
+      ],
+      "high_interval": [
+        31500,
+        35550
+      ]
+    },
+    {
+      "idx": 8,
+      "symbol": "*",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        50400,
+        61936
+      ],
+      "high_interval": [
+        35550,
+        38700
+      ]
+    }
+  ]
+}

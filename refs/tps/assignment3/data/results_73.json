@@ -1,0 +1,112 @@
+{
+  "signal_idx": 73,
+  "ground_truth": "29B9851",
+  "predicted": "88?C?22",
+  "accuracy": 0.0,
+  "n_correct": 0,
+  "n_total": 7,
+  "n_clusters": 6,
+  "n_changepoints": 16,
+  "low_intervals": 7,
+  "high_intervals": 7,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "8",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        0,
+        5400
+      ],
+      "high_interval": [
+        0,
+        1800
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "8",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        5400,
+        9450
+      ],
+      "high_interval": [
+        1800,
+        3600
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "?",
+      "low_freq": 514.4999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        13500,
+        14850
+      ],
+      "high_interval": [
+        5400,
+        9450
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "C",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        23850,
+        26550
+      ],
+      "high_interval": [
+        13950,
+        17100
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "?",
+      "low_freq": 514.4999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        31950,
+        32850
+      ],
+      "high_interval": [
+        20700,
+        22050
+      ]
+    },
+    {
+      "idx": 5,
+      "symbol": "2",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        33300,
+        34200
+      ],
+      "high_interval": [
+        23850,
+        26550
+      ]
+    },
+    {
+      "idx": 6,
+      "symbol": "2",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        34200,
+        35783
+      ],
+      "high_interval": [
+        26550,
+        35783
+      ]
+    }
+  ]
+}

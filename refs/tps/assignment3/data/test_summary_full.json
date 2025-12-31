@@ -1,0 +1,89 @@
+{
+  "n_test_signals": 2,
+  "results": [
+    {
+      "signal_idx": 0,
+      "predicted": "88133",
+      "n_symbols": 5,
+      "frequency_pairs": [
+        {
+          "low_freq": 857.4999999999999,
+          "high_freq": 1322.9999999999998,
+          "symbol": "8",
+          "confidence": 1.0
+        },
+        {
+          "low_freq": 857.4999999999999,
+          "high_freq": 1322.9999999999998,
+          "symbol": "8",
+          "confidence": 1.0
+        },
+        {
+          "low_freq": 685.9999999999999,
+          "high_freq": 1200.4999999999998,
+          "symbol": "1",
+          "confidence": 0.9999999999999933
+        },
+        {
+          "low_freq": 685.9999999999999,
+          "high_freq": 1469.9999999999998,
+          "symbol": "3",
+          "confidence": 1.0
+        },
+        {
+          "low_freq": 685.9999999999999,
+          "high_freq": 1469.9999999999998,
+          "symbol": "3",
+          "confidence": 1.0
+        }
+      ],
+      "n_clusters": 5,
+      "n_changepoints": 10
+    },
+    {
+      "signal_idx": 1,
+      "predicted": "11#2##",
+      "n_symbols": 6,
+      "frequency_pairs": [
+        {
+          "low_freq": 685.9999999999999,
+          "high_freq": 1200.4999999999998,
+          "symbol": "1",
+          "confidence": 0.9999999999999933
+        },
+        {
+          "low_freq": 685.9999999999999,
+          "high_freq": 1200.4999999999998,
+          "symbol": "1",
+          "confidence": 0.9999999999999933
+        },
+        {
+          "low_freq": 930.9999999999999,
+          "high_freq": 1469.9999999999998,
+          "symbol": "#",
+          "confidence": 0.9999999999965218
+        },
+        {
+          "low_freq": 685.9999999999999,
+          "high_freq": 1322.9999999999998,
+          "symbol": "2",
+          "confidence": 1.0
+        },
+        {
+          "low_freq": 930.9999999999999,
+          "high_freq": 1469.9999999999998,
+          "symbol": "#",
+          "confidence": 0.9999999999965218
+        },
+        {
+          "low_freq": 930.9999999999999,
+          "high_freq": 1469.9999999999998,
+          "symbol": "#",
+          "confidence": 0.9999999999965218
+        }
+      ],
+      "n_clusters": 5,
+      "n_changepoints": 8
+    }
+  ]
+}

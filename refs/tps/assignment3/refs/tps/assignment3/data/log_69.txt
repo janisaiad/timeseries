@@ -1,0 +1,58 @@
+DTMF Detection Log for Signal 69
+Timestamp: 2025-12-16T18:29:54.717671
+
+================================================================================
+Processing Signal 69
+================================================================================
+Signal length: 46025 samples (2.087 seconds)
+Ground truth symbols: ['7', '2', '2', '3', '3', '8', '2', 'D']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 361)
+Frequency bins: 129, Time frames: 361
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 9
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 1
+  Cluster 0: center=818.3 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 5 (center=818.3 Hz, 2 freqs):
+  Freq 775.2 Hz: 7 CPs
+  Freq 861.3 Hz: 5 CPs
+  -> Selected freq: 861.3 Hz with 5 CPs (minimum)
+
+Low frequency clusters: 1
+High frequency clusters: 0
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 4
+Removed outliers: 0
+Filtered periods: 4
+
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Number of ground truth symbols: 8
+Number of filtered periods available: 4
+WARNING: Only 4 filtered periods available for 8 symbols!
+  This may indicate insufficient changepoints detected or too aggressive filtering.
+Selected 4 biggest periods (by duration) for matching
+Low frequency clusters available: 1
+High frequency clusters available: 0
+  Match 1 diagnostic: period [0.151, 0.238]s
+    Available low clusters: 1
+      Low cluster: freq=861.3Hz, CPs near period: 2
+    Available high clusters: 0
+    Found active low: 1, active high: 0
+  Match 1: '7' -> period [0.151, 0.238]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
+  Match 2: '2' -> period [0.238, 1.358]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
+  Match 3: '2' -> period [1.358, 1.382]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
+  Match 4: '3' -> period [1.382, 1.486]s, freqs: low-only: 861Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_69.npz
+  JSON: refs/tps/assignment3/data/results_69.json
+  Log: refs/tps/assignment3/data/log_69.txt
+================================================================================

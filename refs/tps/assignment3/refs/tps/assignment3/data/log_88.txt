@@ -1,0 +1,86 @@
+DTMF Detection Log for Signal 88
+Timestamp: 2025-12-16T18:30:40.168298
+
+================================================================================
+Processing Signal 88
+================================================================================
+Signal length: 57221 samples (2.595 seconds)
+Ground truth symbols: ['5', 'B', '#', '9', '1', '8', '6', '3', 'D', 'D']
+
+--- Cell 1: STFT and Energy Computation ---
+STFT shape: (129, 449)
+Frequency bins: 129, Time frames: 449
+
+--- Cell 2: First k-means (k=2) ---
+High-energy (signal) bins: 13
+
+--- Cell 3: Second k-means (k=8) ---
+Number of major frequency clusters: 5
+  Cluster 0: center=559.9 Hz, n_bins=2
+  Cluster 1: center=818.3 Hz, n_bins=2
+  Cluster 2: center=818.3 Hz, n_bins=2
+  Cluster 3: center=1335.1 Hz, n_bins=2
+  Cluster 4: center=1593.5 Hz, n_bins=2
+
+--- Cell 4: Changepoint Detection ---
+Cluster 4 (center=559.9 Hz, 2 freqs):
+  Freq 516.8 Hz: 6 CPs
+  Freq 602.9 Hz: 8 CPs
+  -> Selected freq: 516.8 Hz with 6 CPs (minimum)
+Cluster 0 (center=818.3 Hz, 2 freqs):
+  Freq 689.1 Hz: 6 CPs
+  Freq 947.5 Hz: 8 CPs
+  -> Selected freq: 689.1 Hz with 6 CPs (minimum)
+Cluster 5 (center=818.3 Hz, 2 freqs):
+  Freq 775.2 Hz: 6 CPs
+  Freq 861.3 Hz: 8 CPs
+  -> Selected freq: 775.2 Hz with 6 CPs (minimum)
+Cluster 6 (center=1335.1 Hz, 2 freqs):
+  Freq 1292.0 Hz: 7 CPs
+  Freq 1378.1 Hz: 6 CPs
+  -> Selected freq: 1378.1 Hz with 6 CPs (minimum)
+Cluster 1 (center=1593.5 Hz, 2 freqs):
+  Freq 1550.4 Hz: 10 CPs
+  Freq 1636.5 Hz: 9 CPs
+  -> Selected freq: 1636.5 Hz with 9 CPs (minimum)
+
+Low frequency clusters: 3
+High frequency clusters: 2
+
+--- Cell 6: Distribution Analysis ---
+Original periods: 29
+Removed outliers: 0
+Filtered periods: 29
+
+--- Cell 7: Period-Symbol Matching (CP-based) ---
+Number of ground truth symbols: 10
+Number of filtered periods available: 29
+Selected 10 biggest periods (by duration) for matching
+Low frequency clusters available: 3
+High frequency clusters available: 2
+  Match 1 diagnostic: period [0.116, 0.308]s
+    Available low clusters: 3
+      Low cluster: freq=516.8Hz, CPs near period: 0
+      Low cluster: freq=689.1Hz, CPs near period: 0
+      Low cluster: freq=775.2Hz, CPs near period: 2
+    Available high clusters: 2
+      High cluster: freq=1378.1Hz, CPs near period: 2
+      High cluster: freq=1636.5Hz, CPs near period: 0
+    Found active low: 1, active high: 1
+  Match 1: '5' -> period [0.116, 0.308]s, freqs: 775+1378Hz, verified: '5', match: ✓
+  Match 2: 'B' -> period [0.313, 0.505]s, freqs: 517+1378Hz, verified: 'None', match: ✗
+  Match 3: '#' -> period [0.592, 0.668]s, freqs: 517+1378Hz, verified: 'None', match: ✗
+  Match 4: '9' -> period [0.668, 1.265]s, freqs: 775+1378Hz, verified: '5', match: ✗
+  Match 5: '1' -> period [1.265, 1.416]s, freqs: 689+1378Hz, verified: '2', match: ✗
+  Match 6: '8' -> period [1.620, 1.736]s, freqs: 517+1378Hz, verified: 'None', match: ✗
+  Match 7: '6' -> period [1.736, 2.032]s, freqs: 689+1378Hz, verified: '2', match: ✗
+  Match 8: '3' -> period [2.032, 2.113]s, freqs: 689+1637Hz, verified: 'A', match: ✗
+  Match 9: 'D' -> period [2.142, 2.252]s, freqs: 689+1637Hz, verified: 'A', match: ✗
+  Match 10: 'D' -> period [2.374, 2.467]s, freqs: 517+1637Hz, verified: 'None', match: ✗
+
+================================================================================
+Results saved to:
+  NPZ: refs/tps/assignment3/data/results_88.npz
+  JSON: refs/tps/assignment3/data/results_88.json
+  Log: refs/tps/assignment3/data/log_88.txt
+================================================================================

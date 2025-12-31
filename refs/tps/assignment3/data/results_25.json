@@ -1,0 +1,112 @@
+{
+  "signal_idx": 25,
+  "ground_truth": "8527D67C3",
+  "predicted": "8858497",
+  "accuracy": 0.2857142857142857,
+  "n_correct": 2,
+  "n_total": 7,
+  "n_clusters": 5,
+  "n_changepoints": 14,
+  "low_intervals": 7,
+  "high_intervals": 8,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "8",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        0,
+        1350
+      ],
+      "high_interval": [
+        0,
+        1350
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "8",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        1350,
+        4950
+      ],
+      "high_interval": [
+        1350,
+        5400
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "5",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        9000,
+        13050
+      ],
+      "high_interval": [
+        5400,
+        9000
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "8",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1322.9999999999998,
+      "low_interval": [
+        20700,
+        22950
+      ],
+      "high_interval": [
+        9000,
+        13050
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        27900,
+        31950
+      ],
+      "high_interval": [
+        20700,
+        22500
+      ]
+    },
+    {
+      "idx": 5,
+      "symbol": "9",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1469.9999999999998,
+      "low_interval": [
+        35550,
+        39150
+      ],
+      "high_interval": [
+        27900,
+        31500
+      ]
+    },
+    {
+      "idx": 6,
+      "symbol": "7",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1200.4999999999998,
+      "low_interval": [
+        39150,
+        48387
+      ],
+      "high_interval": [
+        36000,
+        39150
+      ]
+    }
+  ]
+}

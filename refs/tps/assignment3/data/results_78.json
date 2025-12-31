@@ -1,0 +1,112 @@
+{
+  "signal_idx": 78,
+  "ground_truth": "96C08844AC1",
+  "predicted": "77BCC44",
+  "accuracy": 0.14285714285714285,
+  "n_correct": 1,
+  "n_total": 7,
+  "n_clusters": 5,
+  "n_changepoints": 19,
+  "low_intervals": 11,
+  "high_intervals": 7,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "7",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        0,
+        4050
+      ],
+      "high_interval": [
+        0,
+        35550
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "7",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        4050,
+        5850
+      ],
+      "high_interval": [
+        35550,
+        42750
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "B",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        7650,
+        11250
+      ],
+      "high_interval": [
+        46350,
+        50400
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "C",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        14850,
+        16200
+      ],
+      "high_interval": [
+        50400,
+        54000
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "C",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        24300,
+        27900
+      ],
+      "high_interval": [
+        54000,
+        56250
+      ]
+    },
+    {
+      "idx": 5,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        35550,
+        37350
+      ],
+      "high_interval": [
+        58500,
+        62100
+      ]
+    },
+    {
+      "idx": 6,
+      "symbol": "4",
+      "low_freq": 759.4999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        37350,
+        39150
+      ],
+      "high_interval": [
+        62100,
+        65563
+      ]
+    }
+  ]
+}

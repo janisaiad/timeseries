@@ -1,0 +1,112 @@
+{
+  "signal_idx": 38,
+  "ground_truth": "1641D*806",
+  "predicted": "3?1**#?",
+  "accuracy": 0.0,
+  "n_correct": 0,
+  "n_total": 7,
+  "n_clusters": 5,
+  "n_changepoints": 20,
+  "low_intervals": 9,
+  "high_intervals": 7,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "3",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        3600,
+        5850
+      ],
+      "high_interval": [
+        0,
+        8100
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "?",
+      "low_freq": 514.4999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        13050,
+        14850
+      ],
+      "high_interval": [
+        8100,
+        10800
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "1",
+      "low_freq": 710.4999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        16650,
+        19350
+      ],
+      "high_interval": [
+        17100,
+        19350
+      ]
+    },
+    {
+      "idx": 3,
+      "symbol": "*",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        22500,
+        25650
+      ],
+      "high_interval": [
+        19350,
+        28800
+      ]
+    },
+    {
+      "idx": 4,
+      "symbol": "*",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1224.9999999999998,
+      "low_interval": [
+        25650,
+        28800
+      ],
+      "high_interval": [
+        28800,
+        31950
+      ]
+    },
+    {
+      "idx": 5,
+      "symbol": "#",
+      "low_freq": 930.9999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        28800,
+        31950
+      ],
+      "high_interval": [
+        45000,
+        48600
+      ]
+    },
+    {
+      "idx": 6,
+      "symbol": "?",
+      "low_freq": 514.4999999999999,
+      "high_freq": 1494.4999999999998,
+      "low_interval": [
+        31950,
+        32850
+      ],
+      "high_interval": [
+        48600,
+        52059
+      ]
+    }
+  ]
+}

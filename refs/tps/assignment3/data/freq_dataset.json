@@ -1,0 +1,703 @@
+[
+  {
+    "signal_idx": 0,
+    "ground_truth": "5C3",
+    "predicted": "5C3",
+    "success": true,
+    "accuracy": 1.0
+  },
+  {
+    "signal_idx": 1,
+    "ground_truth": "87CB5A3",
+    "predicted": "855533",
+    "success": false,
+    "accuracy": 0.16666666666666666
+  },
+  {
+    "signal_idx": 2,
+    "ground_truth": "D6A83D18B9",
+    "predicted": "##A83D299",
+    "success": false,
+    "accuracy": 0.4444444444444444
+  },
+  {
+    "signal_idx": 3,
+    "ground_truth": "A*A65D5C",
+    "predicted": "DDAD0",
+    "success": false,
+    "accuracy": 0.2
+  },
+  {
+    "signal_idx": 4,
+    "ground_truth": "5CC9#7CC4",
+    "predicted": "CCC",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 5,
+    "ground_truth": "C954",
+    "predicted": "777",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 6,
+    "ground_truth": "*28#3C85*4",
+    "predicted": "**3#377*",
+    "success": false,
+    "accuracy": 0.375
+  },
+  {
+    "signal_idx": 7,
+    "ground_truth": "#3A9C94A9",
+    "predicted": "33C3CC",
+    "success": false,
+    "accuracy": 0.3333333333333333
+  },
+  {
+    "signal_idx": 8,
+    "ground_truth": "486*",
+    "predicted": "7756",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 9,
+    "ground_truth": "58*72",
+    "predicted": "887",
+    "success": false,
+    "accuracy": 0.3333333333333333
+  },
+  {
+    "signal_idx": 10,
+    "ground_truth": "40BB2405D2",
+    "predicted": "00ADD0A2",
+    "success": false,
+    "accuracy": 0.125
+  },
+  {
+    "signal_idx": 11,
+    "ground_truth": "8A#34",
+    "predicted": "AA#33",
+    "success": false,
+    "accuracy": 0.6
+  },
+  {
+    "signal_idx": 12,
+    "ground_truth": "567AA982AD3",
+    "predicted": "556B322CCA3",
+    "success": false,
+    "accuracy": 0.18181818181818182
+  },
+  {
+    "signal_idx": 13,
+    "ground_truth": "D05D8",
+    "predicted": "DD8C",
+    "success": false,
+    "accuracy": 0.25
+  },
+  {
+    "signal_idx": 14,
+    "ground_truth": "05*93BA1#9",
+    "predicted": "??93?1?9",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 15,
+    "ground_truth": "71A01*8",
+    "predicted": "7721118",
+    "success": false,
+    "accuracy": 0.42857142857142855
+  },
+  {
+    "signal_idx": 16,
+    "ground_truth": "6*CA8B*29",
+    "predicted": "??71739",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 17,
+    "ground_truth": "D0D",
+    "predicted": "DDD",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 18,
+    "ground_truth": "D620A5",
+    "predicted": "DD20A2",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 19,
+    "ground_truth": "357",
+    "predicted": "368",
+    "success": false,
+    "accuracy": 0.3333333333333333
+  },
+  {
+    "signal_idx": 20,
+    "ground_truth": "D26883*2D*",
+    "predicted": "DD20200",
+    "success": false,
+    "accuracy": 0.14285714285714285
+  },
+  {
+    "signal_idx": 21,
+    "ground_truth": "7071",
+    "predicted": "7781",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 22,
+    "ground_truth": "A**D722B429",
+    "predicted": "AA***C1A17",
+    "success": false,
+    "accuracy": 0.2
+  },
+  {
+    "signal_idx": 23,
+    "ground_truth": "43*75A6A4",
+    "predicted": "661744",
+    "success": false,
+    "accuracy": 0.16666666666666666
+  },
+  {
+    "signal_idx": 24,
+    "ground_truth": "124D91C79",
+    "predicted": "11317199",
+    "success": false,
+    "accuracy": 0.25
+  },
+  {
+    "signal_idx": 25,
+    "ground_truth": "8527D67C3",
+    "predicted": "8858497",
+    "success": false,
+    "accuracy": 0.2857142857142857
+  },
+  {
+    "signal_idx": 26,
+    "ground_truth": "964",
+    "predicted": "964",
+    "success": true,
+    "accuracy": 1.0
+  },
+  {
+    "signal_idx": 27,
+    "ground_truth": "866",
+    "predicted": "886",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 28,
+    "ground_truth": "70*913D7",
+    "predicted": "991317",
+    "success": false,
+    "accuracy": 0.16666666666666666
+  },
+  {
+    "signal_idx": 29,
+    "ground_truth": "378D9A899*3",
+    "predicted": "99999",
+    "success": false,
+    "accuracy": 0.2
+  },
+  {
+    "signal_idx": 30,
+    "ground_truth": "68C997#",
+    "predicted": "6699",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 31,
+    "ground_truth": "*9*",
+    "predicted": "#9*",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 32,
+    "ground_truth": "#5D34",
+    "predicted": "#?3??",
+    "success": false,
+    "accuracy": 0.2
+  },
+  {
+    "signal_idx": 33,
+    "ground_truth": "7C0870*832B",
+    "predicted": "**0***88",
+    "success": false,
+    "accuracy": 0.25
+  },
+  {
+    "signal_idx": 34,
+    "ground_truth": "742*11",
+    "predicted": "111",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 35,
+    "ground_truth": "5**424*12*",
+    "predicted": "****1*211",
+    "success": false,
+    "accuracy": 0.3333333333333333
+  },
+  {
+    "signal_idx": 36,
+    "ground_truth": "8A22A1",
+    "predicted": "88A2",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 37,
+    "ground_truth": "7D839B232*C",
+    "predicted": "779999311",
+    "success": false,
+    "accuracy": 0.2222222222222222
+  },
+  {
+    "signal_idx": 38,
+    "ground_truth": "1641D*806",
+    "predicted": "3?1**#?",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 39,
+    "ground_truth": "9A08*88",
+    "predicted": "8888888",
+    "success": false,
+    "accuracy": 0.42857142857142855
+  },
+  {
+    "signal_idx": 40,
+    "ground_truth": "1A147740*",
+    "predicted": "111111*",
+    "success": false,
+    "accuracy": 0.2857142857142857
+  },
+  {
+    "signal_idx": 41,
+    "ground_truth": "AD3*59A3655",
+    "predicted": "AA32B36655",
+    "success": false,
+    "accuracy": 0.3
+  },
+  {
+    "signal_idx": 42,
+    "ground_truth": "55*33C3C*2B",
+    "predicted": "**33333*1",
+    "success": false,
+    "accuracy": 0.3333333333333333
+  },
+  {
+    "signal_idx": 43,
+    "ground_truth": "005#ABC03",
+    "predicted": "000#DD33",
+    "success": false,
+    "accuracy": 0.375
+  },
+  {
+    "signal_idx": 44,
+    "ground_truth": "0C383*",
+    "predicted": "883833",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 45,
+    "ground_truth": "9B770A33*5D",
+    "predicted": "9977*311",
+    "success": false,
+    "accuracy": 0.375
+  },
+  {
+    "signal_idx": 46,
+    "ground_truth": "68068AAC9",
+    "predicted": "98?92AA?9",
+    "success": false,
+    "accuracy": 0.4444444444444444
+  },
+  {
+    "signal_idx": 47,
+    "ground_truth": "2#2*2",
+    "predicted": "222",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 48,
+    "ground_truth": "3B34AC1D5",
+    "predicted": "BB1BAA1BB",
+    "success": false,
+    "accuracy": 0.3333333333333333
+  },
+  {
+    "signal_idx": 49,
+    "ground_truth": "7268",
+    "predicted": "2288",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 50,
+    "ground_truth": "A63",
+    "predicted": "AA?",
+    "success": false,
+    "accuracy": 0.3333333333333333
+  },
+  {
+    "signal_idx": 51,
+    "ground_truth": "31000*",
+    "predicted": "33120",
+    "success": false,
+    "accuracy": 0.4
+  },
+  {
+    "signal_idx": 52,
+    "ground_truth": "8AC",
+    "predicted": "CAC",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 53,
+    "ground_truth": "386810CCA83",
+    "predicted": "3398CCCAC23",
+    "success": false,
+    "accuracy": 0.36363636363636365
+  },
+  {
+    "signal_idx": 54,
+    "ground_truth": "02D7BC#",
+    "predicted": "??8?CC",
+    "success": false,
+    "accuracy": 0.16666666666666666
+  },
+  {
+    "signal_idx": 55,
+    "ground_truth": "667#C340",
+    "predicted": "99791?",
+    "success": false,
+    "accuracy": 0.16666666666666666
+  },
+  {
+    "signal_idx": 56,
+    "ground_truth": "#09",
+    "predicted": "009",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 57,
+    "ground_truth": "94A506",
+    "predicted": "11#?",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 58,
+    "ground_truth": "7A01",
+    "predicted": "11D1",
+    "success": false,
+    "accuracy": 0.25
+  },
+  {
+    "signal_idx": 59,
+    "ground_truth": "790DC3A",
+    "predicted": "7799",
+    "success": false,
+    "accuracy": 0.25
+  },
+  {
+    "signal_idx": 60,
+    "ground_truth": "4A*478C",
+    "predicted": "44447",
+    "success": false,
+    "accuracy": 0.6
+  },
+  {
+    "signal_idx": 61,
+    "ground_truth": "9C4D4#D5*4A",
+    "predicted": "CC7C***AA",
+    "success": false,
+    "accuracy": 0.1111111111111111
+  },
+  {
+    "signal_idx": 62,
+    "ground_truth": "588BCA",
+    "predicted": "55CBCC",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 63,
+    "ground_truth": "2BB",
+    "predicted": "2AB",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 64,
+    "ground_truth": "A6A6522A",
+    "predicted": "BA55522A",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 65,
+    "ground_truth": "*2CB#A2#78A",
+    "predicted": "11CAA1CC",
+    "success": false,
+    "accuracy": 0.125
+  },
+  {
+    "signal_idx": 66,
+    "ground_truth": "19*484858D",
+    "predicted": "1174848588",
+    "success": false,
+    "accuracy": 0.7
+  },
+  {
+    "signal_idx": 67,
+    "ground_truth": "#8C2",
+    "predicted": "98C2",
+    "success": false,
+    "accuracy": 0.75
+  },
+  {
+    "signal_idx": 68,
+    "ground_truth": "*A39CC8*#DC",
+    "predicted": "11399799",
+    "success": false,
+    "accuracy": 0.25
+  },
+  {
+    "signal_idx": 69,
+    "ground_truth": "7223382D",
+    "predicted": "8833388",
+    "success": false,
+    "accuracy": 0.42857142857142855
+  },
+  {
+    "signal_idx": 70,
+    "ground_truth": "1748",
+    "predicted": "77",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 71,
+    "ground_truth": "C4*#7",
+    "predicted": "B??",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 72,
+    "ground_truth": "93D17D0*85",
+    "predicted": "AA117C77",
+    "success": false,
+    "accuracy": 0.25
+  },
+  {
+    "signal_idx": 73,
+    "ground_truth": "29B9851",
+    "predicted": "88?C?22",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 74,
+    "ground_truth": "212410#DD",
+    "predicted": "11**",
+    "success": false,
+    "accuracy": 0.25
+  },
+  {
+    "signal_idx": 75,
+    "ground_truth": "551D*",
+    "predicted": "550**",
+    "success": false,
+    "accuracy": 0.6
+  },
+  {
+    "signal_idx": 76,
+    "ground_truth": "*70*",
+    "predicted": "**00",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 77,
+    "ground_truth": "D607#120#9",
+    "predicted": "992131",
+    "success": false,
+    "accuracy": 0.16666666666666666
+  },
+  {
+    "signal_idx": 78,
+    "ground_truth": "96C08844AC1",
+    "predicted": "77BCC44",
+    "success": false,
+    "accuracy": 0.14285714285714285
+  },
+  {
+    "signal_idx": 79,
+    "ground_truth": "A333*4*6#0D",
+    "predicted": "3333##***",
+    "success": false,
+    "accuracy": 0.4444444444444444
+  },
+  {
+    "signal_idx": 80,
+    "ground_truth": "12*3819",
+    "predicted": "2138799",
+    "success": false,
+    "accuracy": 0.14285714285714285
+  },
+  {
+    "signal_idx": 81,
+    "ground_truth": "3*0#79D0",
+    "predicted": "00###?0",
+    "success": false,
+    "accuracy": 0.14285714285714285
+  },
+  {
+    "signal_idx": 82,
+    "ground_truth": "18A#6C5*5B",
+    "predicted": "22CAD800",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 83,
+    "ground_truth": "1#213",
+    "predicted": "11#1",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 84,
+    "ground_truth": "14#",
+    "predicted": "11#",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 85,
+    "ground_truth": "5D#**CA",
+    "predicted": "??*?A",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 86,
+    "ground_truth": "D9D#29",
+    "predicted": "D9D##9",
+    "success": false,
+    "accuracy": 0.8333333333333334
+  },
+  {
+    "signal_idx": 87,
+    "ground_truth": "5154C",
+    "predicted": "11???",
+    "success": false,
+    "accuracy": 0.2
+  },
+  {
+    "signal_idx": 88,
+    "ground_truth": "5B#91863DD",
+    "predicted": "??93?83?",
+    "success": false,
+    "accuracy": 0.125
+  },
+  {
+    "signal_idx": 89,
+    "ground_truth": "941",
+    "predicted": "741",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 90,
+    "ground_truth": "557369",
+    "predicted": "58166",
+    "success": false,
+    "accuracy": 0.4
+  },
+  {
+    "signal_idx": 91,
+    "ground_truth": "45*6*",
+    "predicted": "444**",
+    "success": false,
+    "accuracy": 0.4
+  },
+  {
+    "signal_idx": 92,
+    "ground_truth": "['7', '1', '4']",
+    "predicted": "",
+    "success": false,
+    "accuracy": 0.0,
+    "error": "Found array with 0 sample(s) (shape=(0, 1)) while a minimum of 1 is required by KMeans."
+  },
+  {
+    "signal_idx": 93,
+    "ground_truth": "2294923AB4",
+    "predicted": "39793???",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 94,
+    "ground_truth": "096C#34B#1",
+    "predicted": "99?91?1?",
+    "success": false,
+    "accuracy": 0.125
+  },
+  {
+    "signal_idx": 95,
+    "ground_truth": "0357",
+    "predicted": "23?7",
+    "success": false,
+    "accuracy": 0.5
+  },
+  {
+    "signal_idx": 96,
+    "ground_truth": "A0#0B",
+    "predicted": "AA0#",
+    "success": false,
+    "accuracy": 0.25
+  },
+  {
+    "signal_idx": 97,
+    "ground_truth": "32*C2A",
+    "predicted": "CC2AA",
+    "success": false,
+    "accuracy": 0.0
+  },
+  {
+    "signal_idx": 98,
+    "ground_truth": "6A7",
+    "predicted": "BA7",
+    "success": false,
+    "accuracy": 0.6666666666666666
+  },
+  {
+    "signal_idx": 99,
+    "ground_truth": "75974*9D",
+    "predicted": "4444**##",
+    "success": false,
+    "accuracy": 0.125
+  }
+]

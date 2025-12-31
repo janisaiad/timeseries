@@ -1,0 +1,56 @@
+{
+  "signal_idx": 52,
+  "ground_truth": "8AC",
+  "predicted": "CAC",
+  "accuracy": 0.6666666666666666,
+  "n_correct": 2,
+  "n_total": 3,
+  "n_clusters": 3,
+  "n_changepoints": 7,
+  "low_intervals": 3,
+  "high_intervals": 3,
+  "pairs": [
+    {
+      "idx": 0,
+      "symbol": "C",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        3600,
+        4950
+      ],
+      "high_interval": [
+        0,
+        6300
+      ]
+    },
+    {
+      "idx": 1,
+      "symbol": "A",
+      "low_freq": 685.9999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        6300,
+        9450
+      ],
+      "high_interval": [
+        6300,
+        16200
+      ]
+    },
+    {
+      "idx": 2,
+      "symbol": "C",
+      "low_freq": 832.9999999999999,
+      "high_freq": 1616.9999999999998,
+      "low_interval": [
+        13050,
+        15300
+      ],
+      "high_interval": [
+        16200,
+        19484
+      ]
+    }
+  ]
+}
