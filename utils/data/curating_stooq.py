@@ -9,6 +9,9 @@ __all__ = [
     "list_txt_files",
     "curate_stooq_many",
     "curate_stooq_dir",
+    "stooq_txt_to_df_daily",
+    "curate_stooq_many_daily",
+    "curate_stooq_dir_daily",
     "stooq_txt_to_df_hourly",
     "stooq_txt_to_df_5min",
     "curate_stooq_many_hourly",
@@ -222,6 +225,30 @@ def stooq_txt_to_df_hourly(file_path: Union[str, Path], tz: Optional[str] = None
     return df  # we return hourly dataframe
 
 
+def stooq_txt_to_df_daily(file_path: Union[str, Path], tz: Optional[str] = None) -> pd.DataFrame:
+    '''
+    we parse a stooq txt file and return only daily bars (per=="D") with validated timestamps  # we describe the purpose
+
+    args:
+        file_path: path to stooq txt  # we document parameter
+        tz: optional timezone to localize index  # we document parameter
+
+    returns:
+        a dataframe filtered to per=="D" with timestamps at 00:00:00  # we describe return
+    '''
+    df = stooq_txt_to_df(file_path, tz=tz)  # we parse base format
+    if "per" not in df.columns:  # we ensure per column exists
+        return df.iloc[0:0]  # we return empty if missing
+    mask = df["per"].astype("string").str.upper() == "D"  # we select daily rows
+    df = df.loc[mask]  # we filter to daily
+    if df.empty:  # we handle empty result
+        return df  # we return empty dataframe
+    valid = (df.index.hour == 0) & (df.index.minute == 0) & (df.index.second == 0)  # validate midnight stamps
+    df = df.loc[valid]  # we keep only valid rows
+    df = df[~df.index.duplicated(keep="last")]  # we deduplicate again for safety
+    return df  # we return daily dataframe
+
+
 def stooq_txt_to_df_5min(file_path: Union[str, Path], tz: Optional[str] = None) -> pd.DataFrame:
     '''
     we parse a stooq txt file and return only 5-minute bars with validated timestamps  # we describe the purpose
@@ -267,6 +294,43 @@ def curate_stooq_many_hourly(
                 raise  # we re-raise
             # else we skip  # we skip on error
     return out  # we return mapping
+
+
+def curate_stooq_many_daily(
+    paths: Sequence[Union[str, Path]],
+    tz: Optional[str] = None,
+    errors: Literal["raise", "skip"] = "skip",
+) -> Dict[str, pd.DataFrame]:
+    '''
+    we parse multiple files keeping only daily (D) bars  # we describe the purpose
+    '''
+    out: Dict[str, pd.DataFrame] = {}  # we prepare output mapping
+    for path in paths:  # we iterate files
+        try:
+            df = stooq_txt_to_df_daily(path, tz=tz)  # we parse daily
+            if df.empty:  # we skip empty
+                continue  # we continue
+            ticker = str(df["ticker"].iloc[0])  # we key by ticker
+            out[ticker] = df  # we store daily df
+        except Exception as exc:  # we handle per-file errors
+            if errors == "raise":  # we propagate if requested
+                raise  # we re-raise
+            # else we skip  # we skip on error
+    return out  # we return mapping
+
+
+def curate_stooq_dir_daily(
+    dir_path: Union[str, Path],
+    pattern: str = "*.txt",
+    recursive: bool = True,
+    tz: Optional[str] = None,
+    errors: Literal["raise", "skip"] = "skip",
+) -> Dict[str, pd.DataFrame]:
+    '''
+    we list files and parse only daily (D) bars  # we describe the purpose
+    '''
+    files = list_txt_files(dir_path, pattern=pattern, recursive=recursive)  # we list files
+    return curate_stooq_many_daily(files, tz=tz, errors=errors)  # we parse and collect
 
 
 def curate_stooq_dir_hourly(
