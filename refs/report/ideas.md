@@ -154,6 +154,6 @@ investigating we know that it's from having very high extremes that are not sati
 
 
 
-the time complexity is good, a bit long but it does not matter
+the time complexity is good, a bit long but it does not matter that much, 
 
-
+goal of all this analysis is to make something invariant to regimes !! unless dictionary learning

@@ -123,7 +123,7 @@ def compute_jump_score(
         return pd.DataFrame()
 
     prices = df[price_col]
-    r = prices.pct_change().fillna(0.0)
+    r = np.log(prices).diff().fillna(0.0)
 
     bar_td: Optional[pd.Timedelta] = None
     if isinstance(df.index, pd.DatetimeIndex):
