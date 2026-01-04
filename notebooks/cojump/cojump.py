@@ -351,7 +351,8 @@ def extract_windows(
         if int(loc) - window_steps < 0 or int(loc) + window_steps + 1 > len(df):
             continue
         subset = df.iloc[int(loc) - window_steps : int(loc) + window_steps + 1]
-        r_window = subset["close"].pct_change().fillna(0.0).to_numpy(dtype=float)
+        prices = subset["close"].astype(float).clip(lower=1e-12)
+        r_window = np.log(prices).diff().fillna(0.0).to_numpy(dtype=float)
         norm = float(row.get("f", 1.0)) * float(row.get("sigma", 1.0))
         if not np.isfinite(norm) or norm == 0.0:
             norm = 1e-4

@@ -27,7 +27,7 @@ class WaveletModel:
       - Primary complex wavelet coefficients at scales 2^j, j=1..J, evaluated at t=0 (center)
       - Second-order coefficients W_{j2} | W_{j1} x | (0) for all j1 < j2
       - Normalization by scale energy to obtain amplitude invariance
-      - Real/imag parts concatenated to a fixed-length feature vector (size 42 for J=6)
+      - Real/imag parts concatenated to a fixed-length feature vector (size 42 for J=6, without SS features)
 
     Kernel PCA is then applied to the standardized features to obtain a low-dimensional embedding.
 
@@ -55,8 +55,8 @@ class WaveletModel:
         Independent term in poly/sigmoid kernels  # we expose coef0
     standardize_features : bool, default=True
         Whether to standardize Φ(x) before KernelPCA  # we recommend standardization
-    include_scattering_spectra : bool, default=True
-        Whether to include Scattering Spectra features (Φ1, Φ2, Φ3, Φ4) in the feature vector  # we include SS by default
+    include_scattering_spectra : bool, default=False
+        Whether to include Scattering Spectra features (Φ1, Φ2, Φ3, Φ4) in the feature vector  # we keep SS opt-in to match the base paper features
     center_index : Optional[int], default=None
         Index of jump time (t=0) within each time-series; if None uses len(x)//2  # we center at middle by default
     random_state : Optional[int], default=None
@@ -76,7 +76,7 @@ class WaveletModel:
         degree: int = 3,
         coef0: float = 1.0,
         standardize_features: bool = True,
-        include_scattering_spectra: bool = True,
+        include_scattering_spectra: bool = False,
         center_index: Optional[int] = None,
         random_state: Optional[int] = None,
     ) -> None:

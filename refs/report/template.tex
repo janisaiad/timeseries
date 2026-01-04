@@ -1,0 +1,221 @@
+\documentclass[11pt]{article}
+\usepackage{theme}
+\usepackage{shortcuts}
+\usepackage{subcaption}
+% Document parameters
+% Document title
+\title{Mini-Project (ML for Time Series) - MVA 2025/2026}
+\author{
+Firstname Lastname \email{youremail1@mail.com} \\ % student 1
+Firstname Lastname \email{youremail2@mail.com} % student 2
+}
+
+\begin{document}
+\maketitle
+
+\paragraph{What is expected for these mini-projects?}
+The goal of the exercise is to read (and understand) a research article, implement it (or find an implementation), test it on real data and comment on the results obtained.
+Depending on the articles, the task will not always be the same: some articles are more theoretical or complex, others are in the direct line of the course, etc... It is therefore important to balance the exercise according to the article. For example, if you have reused an existing implementation, it is obvious that you will have to develop in a more detailed way the analysis of the results, the influence of the parameters etc... Do not hesitate to contact us by email if you wish to be guided.
+
+\paragraph{The report}
+ The report must be at most FIVE pages and use this template (excluding references). If needed, additional images and tables can be put in Appendix, but must be discussed in the main document. The report must contain a precise description of the work done, a description of the method, and the results of your tests. Please do not include source code! The report must clearly show the elements that you have done yourself and those that you have reused only, as well as the distribution of tasks within the team (see detailed plan below.)
+ 
+ \paragraph{The source code}
+In addition to this report, you will have to send us a Python notebook allowing to launch the code and to test it on data. For the data, you can find it on standard sites like Kaggle, or the site https://timeseriesclassification.com/ which contains a lot of signals!
+
+
+\paragraph{The oral presentations}
+They will last 10 minutes followed by 5 minutes of questions. The plan of the defense is the same as the one of the report: presentation of the work done, description of the method and analysis of the results.
+
+
+\paragraph{Deadlines}
+Two sessions will be available :
+\begin{itemize}
+ \item \textbf{Session 1}
+ \begin{itemize}
+  \item Deadline for report: December 14th (23:59)
+  \item Oral presentations: December 15th and 17th (precise times TBA)
+ \end{itemize}
+\item \textbf{Session 2}
+ \begin{itemize}
+  \item Deadline for report: January 4th (23:59)
+  \item Oral presentations: January, 5th and 7th (precise times TBA)
+ \end{itemize}
+\end{itemize}
+
+\section{Introduction and contributions}
+
+\paragraph{Context and objective (scientific).}
+Extreme events in financial time series (price jumps) can be caused by external information (exogenous) or by internal market feedback mechanisms (endogenous). The paper ``Riding Wavelets: A Method to Discover New Classes of Price Jumps'' proposes an unsupervised framework based on wavelet representations and kernel PCA to discover interpretable directions (reflexivity/time-asymmetry, mean-reversion, trend) and to study co-jumps.
+
+\paragraph{Task.}
+We reproduce the full pipeline on open OHLC data, validate the main qualitative findings, and perform ablations/robustness checks that are not fully explored in the original manuscript: effect of Scattering Spectra features, effect of the jump threshold, effect of time scale (5-min / hourly / daily), effect of the wavelet/scales and kernel choices, and basic complexity diagnostics.
+
+\paragraph{High-level takeaways (to be supported in Results).}
+\begin{itemize}
+    \item The reflexivity direction $D_1$ is strongly correlated with a simple volatility-profile asymmetry measure, and this correlation increases at coarser time scales (daily data tends to appear more exogenous/news-driven). 
+    \item Scattering Spectra features provide limited incremental benefit on our datasets compared to base wavelet scattering features (stability/visual similarity of $D_1$).
+    \item The qualitative classes (anticipatory/endogenous/exogenous and mean-reverting/trending) are robust across reasonable thresholds and multiple datasets, but sensitivity can increase for extremely rare events at coarse time scales due to reduced sample size.
+\end{itemize}
+
+\paragraph{Repartition of work, code reuse, new experiments, improvements.}
+\textbf{The last paragraph of the introduction must contain the following information}:
+\begin{itemize}
+    \item \textbf{Repartition of work:} Student 1: \textit{data curation, jump detection, thresholds/time scale experiments, report writing}; Student 2: \textit{wavelet/kPCA implementation details, wavelet/$J$/kernel robustness, plotting and diagnostics}. 
+    \item \textbf{Use of available source code:} \textit{no end-to-end public implementation was available; we implemented the pipeline ourselves using standard libraries.} 
+    \item \textbf{Existing vs new experiments:} \textit{we reproduce core figures (distribution tail, $D_1$ correlation, 2D projections, average profiles) and add ablations: SS vs no-SS, thresholds, time scales, wavelet/$J$/kernel.}
+    \item \textbf{Improvements:} \textit{we use open data, provide a runnable notebook, and clarify practical choices (time filtering, volatility estimation) needed for reproducibility.}
+\end{itemize}
+
+\section{Method}
+
+\paragraph{Overview.}
+The pipeline has three stages: (i) jump detection by standardized returns $x(t)$ and a threshold; (ii) feature extraction using wavelet scattering coefficients (and optionally Scattering Spectra features); (iii) dimensionality reduction via kernel PCA to obtain the reflexivity direction $D_1$, plus two interpretable local scores for mean-reversion $D_2$ and trend $D_3$.
+
+\paragraph{Why wavelets instead of dictionary learning (non-stationarity motivation).}
+Our raw time series exhibit strong non-stationarity (intraday seasonality, volatility clustering, regime shifts). Methods such as dictionary learning or change-point models typically require stationarity or piecewise-stationarity assumptions and can be unstable when the distribution of patterns changes across time and assets. In contrast, wavelet features arise from \emph{convolution operators} that provide a local, multi-scale \emph{time--frequency} (spectral) characterization of jump-centered windows, making them well-suited to transient events embedded in non-stationary backgrounds.
+
+\subsection*{Jump detection (max-stable null and thresholding)}
+\begin{itemize}
+    \item \textbf{Standardized returns:} $x(t)=\frac{r(t)}{f(t)\sigma(t)}$, where $r(t)$ are returns, $f(t)$ captures intraday seasonality (U-shape), and $\sigma(t)$ is local volatility. 
+    \item \textbf{Decision rule:} declare a jump at time $t$ when $|x(t)|>\theta$ (base: $\theta=4$; ablations: $\theta\in[\theta_{\min},\theta_{\max}]$). 
+    \item \textbf{Windowing:} extract a centered window around each jump to obtain a short profile $x(\tau)$ for $\tau\in[-T_-,T_+]$.
+\end{itemize}
+
+\subsection*{Wavelet scattering representation and kernel PCA}
+\begin{itemize}
+    \item \textbf{Jump alignment:} $\overline{x}(\tau)=\mathrm{sign}(x(0))\,x(\tau)$ to remove sign ambiguity. 
+    \item \textbf{Wavelet coefficients:} complex wavelet transform $W_j\overline{x}(0)$ at dyadic scales $2^j$, and second-order coefficients $W_{j_2}|W_{j_1}x|(0)$ for $j_1<j_2$. 
+    \item \textbf{Normalization:} per-scale energy normalization to reduce amplitude dependence. 
+    \item \textbf{Kernel PCA:} apply kernel PCA (RBF; robustness: linear kernel) to obtain low-dimensional embeddings; define $D_1$ as the first component and orient it so that $D_1>0$ corresponds to larger post-jump activity (exogenous-like). 
+\end{itemize}
+
+\subsection*{Interpretable local directions: mean-reversion and trend}
+\begin{itemize}
+    \item \textbf{Mean-reversion:} $D_2 = x(-1)-x(+1)$ (large $|D_2|$ indicates a sign change around the jump). 
+    \item \textbf{Trend:} $D_3 = x(-1)+x(+1)$ (large $|D_3|$ indicates persistence/anti-persistence aligned with the jump). 
+\end{itemize}
+
+\subsection*{Optional: Scattering Spectra features (ablation)}
+\begin{itemize}
+    \item \textbf{Motivation:} include higher-order scale interactions and moment features as proposed in follow-up work (Morel et al.). 
+    \item \textbf{Experiment:} compare embeddings and discovered directions with SS vs without SS using correlation and qualitative stability of profiles and projections. 
+\end{itemize}
+
+\section{Data}
+
+\paragraph{Datasets.}
+We use open OHLC intraday data from Stooq for multiple markets (e.g. Poland and Hong Kong). We consider multiple sampling frequencies: 5-minute bars (base), hourly (aggregated), and daily (aggregated) to study the impact of time scale.
+
+\paragraph{Dataset summary table.}
+Table~\ref{tab:data_summary} summarizes the datasets used throughout the report (frequency, number of stocks, time span, and the volatility-normalization span used for $\sigma(t)$).
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{llrrrrllrrlp{3.1cm}}
+\toprule
+country & freq & $n$ stocks & total points & median/stock & min/stock & max/stock & start & end & span (days) & $\Delta t$ & $\sigma$ span ($K$ / time) & data\_dir \\
+\midrule
+poland  & 5min   & 80 & 477302 & 6062.5 & 3883 & 7380 & 2025-07-07 10:00 & 2025-12-02 15:40 & 148   & 5min & 100 / 8h20 & \texttt{/home/janis/4A/timeseries/data/stooq/poland/5\_...} \\
+poland  & hourly & 80 & 105700 & 1178.5 &  647 & 2517 & 2024-04-11 11:00 & 2025-12-30 16:00 & 628   & 1h   & 8 / 8h     & \texttt{/home/janis/4A/timeseries/data/stooq/poland/ho...} \\
+poland  & daily  & 80 & 254918 & 3123.0 & 2787 & 4096 & 1998-01-21 00:00 & 2025-12-30 00:00 & 10205 & 1D   & 20 / 20D   & \texttt{/home/janis/4A/timeseries/data/stooq/poland/da...} \\
+hungary & 5min   & 23 &  52081 & 1252.0 &  402 & 7108 & 2025-06-10 10:00 & 2025-11-04 15:55 & 147   & 5min & 100 / 8h20 & \texttt{/home/janis/4A/timeseries/data/stooq/hungary/5...} \\
+hungary & hourly & 35 &  44143 & 1197.0 &  204 & 2330 & 2024-04-11 11:00 & 2025-11-04 16:00 & 572   & 1h   & 8 / 8h     & \texttt{/home/janis/4A/timeseries/data/stooq/hungary/ho...} \\
+hungary & daily  & 30 & 109233 & 2914.0 &  869 & 7727 & 1993-05-27 00:00 & --               & 11849 & 1D   & --         & \texttt{/home/janis/4A/timeseries/data/stooq/hungary/da...} \\
+\bottomrule
+\end{tabular}
+\caption{Dataset summary (computed during preprocessing). Missing fields should be filled from the actual preprocessing configuration.}
+\label{tab:data_summary}
+\end{table}
+
+\paragraph{Pre-processing.}
+\begin{itemize}
+    \item \textbf{Trading-hours filtering:} remove the first and last hour of each day to reduce open/close microstructure effects. 
+    \item \textbf{Returns:} compute close-to-close returns (log or percentage changes) and align time indices; stack assets for pooled analyses where appropriate. 
+    \item \textbf{Volatility/seasonality:} estimate $\sigma(t)$ and $f(t)$; note that we adjusted the volatility estimator compared to an initial attempt, and we discuss implications for the Gumbel/max-stable null fit. 
+\end{itemize}
+
+\paragraph{Non-stationarity diagnostics and implications.}
+We explicitly diagnose non-stationarity via volatility clustering and time-varying return scales. This motivates (i) de-seasonalization via $f(t)$ and local volatility normalization $\sigma(t)$, and (ii) preferring local spectral features (wavelet convolutions) over global pattern-learning approaches. 
+\begin{itemize}
+    \item \textbf{Suggested plots to cite:} \texttt{notebooks/dataset\_presentation/outputs/curves\_r\_sigma\_*.html} and \texttt{distributions\_r\_sigma\_5min\_hourly\_daily.html}. 
+    \item \textbf{Commentary placeholder:} explain where stationarity seems approximately recovered after normalization, and where it still fails (regimes, outliers, market-specific effects). 
+\end{itemize}
+
+\paragraph{Data diagnosis (plots to include).}
+\begin{itemize}
+    \item \textbf{Return distribution:} show standardized return distribution and tail fit; check Gumbel fit quality for each time scale. 
+    \item \textbf{Volatility diagnostics:} show volatility clustering and (approximate) stationarity after de-seasonalization; comment on regime changes and implications for methods assuming stationarity. 
+    \item \textbf{Summary statistics:} number of stocks, number of days, number of samples, number of detected jumps as a function of threshold and time scale. 
+\end{itemize}
+
+\section{Results}
+
+\subsection*{Validation of the jump-score tail model}
+\begin{itemize}
+    \item \textbf{Tail fit:} report a Gumbel fit (and Q--Q) for $|x(t)|$; compare across 5-min / hourly / daily. 
+    \item \textbf{Threshold calibration:} discuss how sample size decreases with coarser scales and motivates different ``reasonable'' thresholds (e.g. daily may require lower $\theta$ to retain enough events). 
+    \item \textbf{Time-scale aggregation and data-quantity effect:} we aggregate 12$\times$5-min windows into 1h, and 12$\times$1h into 1D. Because the number of observations (and thus the number of extreme events) decreases approximately exponentially with coarser sampling, we consider different threshold regimes to keep enough jumps for stable statistics: typically $\theta\approx4$ for 5-min, $\theta\approx3$ for hourly, and $\theta\approx2$ for daily. In all cases, the tail fit to a Gumbel distribution remains very good on the corresponding high-quantile range, but the most extreme tail becomes noisy at coarse scales due to the scarcity of very large events.
+    \item \textbf{Extreme-tail caveat (future work):} when the Gumbel fit deteriorates in the far tail (rare, ultra-large events), a complementary analysis restricted to extremes could be performed (e.g. PCA/PLS on the extreme subset) to test whether the same interpretable directions $D_1/D_2/D_3$ persist for the largest jumps. 
+\end{itemize}
+
+\subsection*{Recovered directions and interpretability}
+\begin{itemize}
+    \item \textbf{$D_1$ reflexivity:} show correlation between $D_1$ and volatility asymmetry; comment on interpretation (exogenous vs endogenous vs anticipatory). 
+    \item \textbf{$D_2$ mean-reversion and $D_3$ trend:} show the two 2D projections $(D_1,D_2)$ and $(D_1,D_3)$, plus average profiles in quantile bins. 
+\end{itemize}
+
+\subsection*{Ablation 1: Scattering Spectra (SS) vs no-SS}
+\begin{itemize}
+    \item \textbf{Claim:} embeddings are very close; SS does not substantially change $D_1$ on our data. 
+    \item \textbf{Evidence to include:} scatter of $D_1$ (with vs without SS), correlation, and distribution comparison; mention stability improvements observed without SS in daily data. 
+\end{itemize}
+
+\subsection*{Ablation 2: robustness to threshold}
+\begin{itemize}
+    \item \textbf{Claim:} direction and profiles are stable over a range of thresholds (e.g. 5-min data stable for $\theta\in[2.5,4.5]$); mean-reversion can degrade at extreme thresholds due to outlier dominance. 
+    \item \textbf{Evidence to include:} profile overlays across thresholds; discuss failure modes for extremely rare events. 
+\end{itemize}
+
+\subsection*{Ablation 3: time scale effects (5-min / hourly / daily)}
+\begin{itemize}
+    \item \textbf{Aggregation rule:} 12$\times$5-min = hourly; 12$\times$hourly = daily. 
+    \item \textbf{Claim:} daily jumps are more often exogenous/news-driven; $D_1$ aligns strongly with asymmetry at daily scale; endogeneity signatures are clearer at finer scales. 
+    \item \textbf{Evidence to include:} compare $D_1$ distributions and profile asymmetry across time scales; discuss how reduced data quantity affects statistical stability. 
+\end{itemize}
+
+\subsection*{Ablation 4: wavelet and model choices}
+\begin{itemize}
+    \item \textbf{Wavelet / number of scales $J$:} compare $D_1$ stability when changing wavelet family and $J$; include dot-product / correlation between directions across settings. 
+    \item \textbf{Kernel choice:} compare RBF vs linear kernel PCA (qualitatively similar). 
+\end{itemize}
+
+\subsection*{Co-jumps (multi-asset synchronization)}
+\begin{itemize}
+    \item \textbf{Size distribution:} histogram and CCDF of co-jump sizes across time scales; discuss heavy tails / possible power-law regime. 
+    \item \textbf{Sign alignment:} show that co-jumps are predominantly sign-aligned; compare across aggregation scales (5-min, 1h, 1D). 
+    \item \textbf{Reflexivity aggregation:} co-jump-level indicators based on $\overline{D_1}$ (mean of constituent jumps) and $\min(D_1)$ (most endogenous constituent), and interpret the mean-vs-min scatter as potential contagion signature. 
+    \item \textbf{Within-cojump correlation:} correlation proxy $\rho$ vs co-jump size to distinguish market-wide common-factor co-jumps from weakly correlated contagion-like co-jumps. 
+    \item \textbf{Example profiles:} include a small number of representative co-jump return profiles (top ranks) to illustrate the diversity of dynamics. 
+\end{itemize}
+\textbf{Plot placeholders (export to PDF for LaTeX inclusion):}
+\begin{itemize}
+    \item \texttt{notebooks/cojump/outputs/cojumps\_size\_\{hist,ccdf\}\_5min\_\{5min,1h,1D,1min\}.html}
+    \item \texttt{notebooks/cojump/outputs/cojumps\_mean\_sign\_5min\_\{5min,1h,1D,1min\}.html}
+    \item \texttt{notebooks/cojump/outputs/cojumps\_mean\_vs\_min\_D1\_5min\_\{5min,1h,1D,1min\}.html}
+    \item \texttt{notebooks/cojump/outputs/cojumps\_rho\_5min\_\{5min,1h,1D,1min\}.html}
+    \item \texttt{notebooks/cojump/outputs/cojumps\_scatter\_5min\_\{5min,1h,1D,1min\}.html}
+    \item \texttt{notebooks/cojump/outputs/cojump\_logret\_profiles\_5min\_5min\_rank0\{1,2,3,4\}\_S7.html} and \texttt{rank05\_S6.html}
+\end{itemize}
+
+\subsection*{Computational aspects}
+\begin{itemize}
+    \item \textbf{Complexity:} report empirical runtime scaling with number of jumps and window length; note that the pipeline is feasible for the dataset sizes considered. 
+\end{itemize}
+
+\paragraph{Appendix (optional, not counted in 5 pages).}
+Additional threshold sweeps, wavelet comparisons, eigenvalue/SVD decay diagnostics, and extra qualitative examples can be moved to an appendix and referenced from the main text.
+
+\end{document}

@@ -7,6 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
+#       jupytext_version: 1.18.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -44,6 +45,7 @@ from typing import Dict, List, Literal, Tuple
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
+import runpy
 
 from utils.data.curating_stooq import curate_stooq_dir_5min, curate_stooq_dir_hourly, curate_stooq_dir_daily
 from utils.data.jump_detection import compute_jump_score
@@ -84,6 +86,12 @@ def project_root() -> Path:
 
 def out_dir() -> Path:
     d = project_root() / CFG.out_subdir
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def report_figures_dir(fig_subdir: str = "2") -> Path:
+    d = project_root() / "refs" / "report" / "figures" / fig_subdir
     d.mkdir(parents=True, exist_ok=True)
     return d
 
@@ -234,9 +242,9 @@ def gumbel_ppf_standard(p: np.ndarray) -> np.ndarray:
     return -np.log(-np.log(p))
 
 
-def qq_data_abs_score_vs_gumbel(abs_scores: np.ndarray) -> tuple[np.ndarray, np.ndarray, float, float]:
+def qq_data_abs_score_vs_gumbel(abs_scores: np.ndarray) -> tuple[np.ndarray, np.ndarray, float, float, int, int]:
     """
-    Return (q_std, empirical_sorted, loc, scale) where:
+    Return (q_std, empirical_sorted, loc, scale, n_available, n_used) where:
       q_std = standard gumbel quantiles -log(-log(p))
       empirical_sorted = sorted |x(t)| samples
     """
@@ -245,22 +253,24 @@ def qq_data_abs_score_vs_gumbel(abs_scores: np.ndarray) -> tuple[np.ndarray, np.
     x = x[x >= 0]
     if x.size == 0:
         raise ValueError("No finite abs scores")
+    n_available = int(x.size)
 
     # subsample for QQ
     if x.size > CFG.qq_points:
         rng = np.random.default_rng(0)
         x = rng.choice(x, size=CFG.qq_points, replace=False)
     x = np.sort(x)
+    n_used = int(x.size)
     n = x.size
     p = (np.arange(1, n + 1) - 0.5) / n
 
     loc, scale = fit_gumbel_mom(x)
     q_std = gumbel_ppf_standard(p)
-    return q_std, x, loc, scale
+    return q_std, x, loc, scale, n_available, n_used
 
 
 def qq_plot_abs_score_vs_gumbel(abs_scores: np.ndarray, title: str) -> go.Figure:
-    q_std, x, loc, scale = qq_data_abs_score_vs_gumbel(abs_scores)
+    q_std, x, loc, scale, n_available, n_used = qq_data_abs_score_vs_gumbel(abs_scores)
 
     # fitted line in (q_std, x) space
     y_fit = loc + scale * q_std
@@ -269,13 +279,174 @@ def qq_plot_abs_score_vs_gumbel(abs_scores: np.ndarray, title: str) -> go.Figure
     fig.add_trace(go.Scatter(x=q_std, y=x, mode="markers", name="QQ points", marker=dict(size=4, opacity=0.6)))
     fig.add_trace(go.Scatter(x=q_std, y=y_fit, mode="lines", name="fit: loc + scale*q", line=dict(color="black", dash="dash")))
     fig.update_layout(
-        title=title + f"<br>Gumbel fit: loc={loc:.3f}, scale={scale:.3f}, n={n}",
+        title=title + f"<br>Gumbel fit: loc={loc:.3f}, scale={scale:.3f}, n_used={n_used} / n_available={n_available}",
         xaxis_title="Theoretical quantiles (standard Gumbel)",
         yaxis_title="Empirical quantiles (|x(t)|)",
         template="plotly_white",
         hovermode="closest",
     )
     return fig
+
+
+def _apply_report_matplotlib_style(font_scale: float = 1.0) -> None:
+    """
+    Apply the report Matplotlib style from `refs/report/matplotlibconfig.py`.
+
+    That file expects `plt` and `mpl` symbols to exist, so we execute it with those injected.
+    """
+    import matplotlib as mpl  # type: ignore
+    import matplotlib.pyplot as plt  # type: ignore
+
+    cfg_path = project_root() / "refs" / "report" / "matplotlibconfig.py"
+    if cfg_path.is_file():
+        runpy.run_path(str(cfg_path), init_globals={"plt": plt, "mpl": mpl})
+
+    # Scale fonts for this notebook's report exports (e.g., font_scale=1/3 lowers sizes 3×).
+    fs = float(font_scale)
+    if not np.isfinite(fs) or fs <= 0:
+        return
+    if abs(fs - 1.0) < 1e-12:
+        return
+    for k in (
+        "font.size",
+        "axes.titlesize",
+        "axes.labelsize",
+        "xtick.labelsize",
+        "ytick.labelsize",
+        "legend.fontsize",
+        "figure.titlesize",
+    ):
+        v = mpl.rcParams.get(k, None)
+        if isinstance(v, (int, float)) and np.isfinite(v):
+            mpl.rcParams[k] = float(v) * fs
+
+
+def qq_plot_abs_score_vs_gumbel_matplotlib(abs_scores: np.ndarray, title: str, out_path: Path) -> None:
+    """
+    Matplotlib QQ plot:
+    - x-axis: fitted Gumbel quantiles q_fit = loc + scale*q_std
+    - y-axis: empirical quantiles of |x(t)|
+    Requirements:
+    - threshold gumbel quantiles at 0 (drop q_fit < 0)
+    - do NOT show the fit line; show only the x=y reference line
+    """
+    import matplotlib.pyplot as plt  # type: ignore
+
+    _apply_report_matplotlib_style(font_scale=1.0 / 3.0)
+
+    q_std, emp, loc, scale, n_available, n_used = qq_data_abs_score_vs_gumbel(abs_scores)
+    q_fit = loc + scale * q_std
+
+    mask = np.isfinite(q_fit) & np.isfinite(emp) & (q_fit >= 0.0)
+    q_fit = q_fit[mask]
+    emp = emp[mask]
+    n_after_clip = int(q_fit.size)
+    if q_fit.size == 0:
+        return
+
+    fig, ax = plt.subplots()
+    ax.scatter(q_fit, emp, s=10, alpha=0.35)
+
+    lo = float(min(np.min(q_fit), np.min(emp)))
+    hi = float(max(np.max(q_fit), np.max(emp)))
+    ax.plot([lo, hi], [lo, hi], color="black", lw=1.2, alpha=0.8)  # we show x=y reference
+
+    ax.set_title(f"{title}\n(n_used={n_used} / n_available={n_available}, after_clip={n_after_clip})")
+    ax.set_xlabel("Theoretical quantiles (fitted Gumbel, clipped at 0)")
+    ax.set_ylabel("Empirical quantiles (|x(t)|)")
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(lo, hi)
+    ax.set_aspect("equal", adjustable="box")
+    fig.tight_layout()
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path)
+    plt.close(fig)
+
+
+def qq_plot_abs_score_vs_gumbel_stacked_matplotlib(abs_by_freq: Dict[Freq, np.ndarray], out_path: Path) -> None:
+    """
+    Matplotlib stacked QQ plot (3 freqs), comparable across freqs:
+    - x-axis: standard Gumbel quantiles q_std, thresholded at q_std >= 0
+    - y-axis: standardized empirical quantiles (emp - loc)/scale
+    - reference: x=y line only (no fitted line)
+    """
+    import matplotlib.pyplot as plt  # type: ignore
+
+    _apply_report_matplotlib_style(font_scale=1.0 / 3.0)
+
+    palette = {"5min": "#636EFA", "hourly": "#EF553B", "daily": "#00CC96"}
+    fig, ax = plt.subplots()
+
+    for freq in ("5min", "hourly", "daily"):
+        x = abs_by_freq.get(freq, np.array([]))
+        if x is None or np.asarray(x).size == 0:
+            continue
+        q_std, emp, loc, scale, n_available, n_used = qq_data_abs_score_vs_gumbel(np.asarray(x, dtype=float))
+        mask = np.isfinite(q_std) & np.isfinite(emp) & (q_std >= 0.0) & np.isfinite(scale) & (scale > 0)
+        q_std = q_std[mask]
+        emp_std = (emp[mask] - loc) / scale
+        if q_std.size == 0:
+            continue
+        n_after_clip = int(q_std.size)
+        # subsample for readability
+        if q_std.size > 4000:
+            take = np.unique(np.linspace(0, q_std.size - 1, 4000).astype(int))
+            q_std = q_std[take]
+            emp_std = emp_std[take]
+        ax.scatter(q_std, emp_std, s=10, alpha=0.35, color=palette.get(freq, None), label=f"{freq} (n={n_used}, after_clip={n_after_clip})")
+
+    # x=y reference line for standardized space
+    lo, hi = ax.get_xlim()
+    lo = float(min(lo, ax.get_ylim()[0]))
+    hi = float(max(hi, ax.get_ylim()[1]))
+    ax.plot([lo, hi], [lo, hi], color="black", lw=1.2, alpha=0.8)
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(lo, hi)
+    ax.set_aspect("equal", adjustable="box")
+
+    ax.set_title("Stacked QQ: |x(t)| vs Gumbel (standardized), q_std >= 0")
+    ax.set_xlabel("Theoretical quantiles (standard Gumbel), clipped at 0")
+    ax.set_ylabel("Empirical quantiles standardized (emp - loc)/scale")
+    ax.legend(frameon=False)
+    fig.tight_layout()
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path)
+    plt.close(fig)
+
+
+def ccdf_loglog_stacked_matplotlib(abs_by_freq: Dict[Freq, np.ndarray], out_path: Path) -> None:
+    """
+    Matplotlib stacked log-log CCDF overlay of |x(t)| across frequencies.
+    """
+    import matplotlib.pyplot as plt  # type: ignore
+
+    _apply_report_matplotlib_style(font_scale=1.0 / 3.0)
+
+    palette = {"5min": "#636EFA", "hourly": "#EF553B", "daily": "#00CC96"}
+    fig, ax = plt.subplots()
+
+    for freq in ("5min", "hourly", "daily"):
+        x = abs_by_freq.get(freq, np.array([]))
+        if x is None or np.asarray(x).size == 0:
+            continue
+        xv, cc = ccdf_points(np.asarray(x, dtype=float), max_points=800)
+        if xv.size == 0:
+            continue
+        ax.plot(xv, cc, lw=2.0, color=palette.get(freq, None), label=str(freq))
+
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_title("Stacked log-log tail: CCDF of |x(t)| (3 freqs)")
+    ax.set_xlabel("|x(t)|")
+    ax.set_ylabel("P(|x| > x)")
+    ax.legend(frameon=False)
+    fig.tight_layout()
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path)
+    plt.close(fig)
 
 # %% [markdown]
 # ### Run for daily / hourly / 5-min
@@ -330,6 +501,9 @@ for freq in ("daily", "hourly", "5min"):
     fig.write_html(out_path)
     fig.show()
     print(f"Saved: {out_path}")
+    out_path_mpl = report_figures_dir("2") / f"qq_abs_score_vs_gumbel_{freq}_mpl.pdf"
+    qq_plot_abs_score_vs_gumbel_matplotlib(abs_scores, title=f"QQ: |x(t)| vs Gumbel ({freq})", out_path=out_path_mpl)
+    print(f"Saved: {out_path_mpl}")
 
 
 # %% [markdown]
@@ -363,7 +537,7 @@ for freq in ("5min", "hourly", "daily"):
     x = abs_by_freq[freq]
     if x.size == 0:
         continue
-    q_std, emp, loc, scale = qq_data_abs_score_vs_gumbel(x)
+    q_std, emp, loc, scale, _, _ = qq_data_abs_score_vs_gumbel(x)
     # subsample points for plotting density
     if emp.size > 4000:
         take = np.unique(np.linspace(0, emp.size - 1, 4000).astype(int))
@@ -388,6 +562,10 @@ fig_qq.update_layout(
 )
 fig_qq.write_html(out_dir() / "qq_abs_score_vs_gumbel_STACKED.html")
 fig_qq.show()
+
+# Matplotlib stacked QQ (standardized; q_std >= 0; x=y only)
+qq_plot_abs_score_vs_gumbel_stacked_matplotlib(abs_by_freq, out_path=report_figures_dir("2") / "qq_abs_score_vs_gumbel_STACKED_mpl.pdf")
+print(f"Saved: {report_figures_dir('2') / 'qq_abs_score_vs_gumbel_STACKED_mpl.pdf'}")
 
 # Log-log CCDF overlay of |x(t)|
 fig_ccdf = go.Figure()
@@ -415,5 +593,8 @@ fig_ccdf.update_layout(
 )
 fig_ccdf.write_html(out_dir() / "score_ccdf_loglog_STACKED.html")
 fig_ccdf.show()
+
+ccdf_loglog_stacked_matplotlib(abs_by_freq, out_path=report_figures_dir("2") / "score_ccdf_loglog_STACKED_mpl.pdf")
+print(f"Saved: {report_figures_dir('2') / 'score_ccdf_loglog_STACKED_mpl.pdf'}")
 
 

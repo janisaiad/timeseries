@@ -205,7 +205,7 @@ def main():
     # ---------------------------------------------------------
     print("Running Wavelet Kernel PCA...")
     # J=3 for ~25 length series
-    wm = WaveletModel(n_layers=0, n_neurons=0, n_outputs=0, J=3, n_components=3)
+    wm = WaveletModel(n_layers=0, n_neurons=0, n_outputs=0, J=3, n_components=3, include_scattering_spectra=False)  # we keep ss opt-in for the baseline paper features
     embedding = wm.fit_transform(X_windows)
     
     # Extract D1

@@ -114,7 +114,7 @@ def compute_jump_score(
     Compute the full jump score time series x(t) = r(t) / (f(t) * sigma(t)).
 
     Returns a dataframe indexed like df with columns:
-      - return: simple return r(t) = pct_change(close)
+      - return: log return r(t) = log(close).diff()
       - f: intraday seasonality estimate (or ones for daily-like data)
       - sigma: local volatility estimate on deseasonalized returns
       - score: x(t)
@@ -177,12 +177,9 @@ def detect_jumps_single(
     if isinstance(df.index, pd.DatetimeIndex):
         bar_td = _infer_bar_timedelta(df.index)
 
-    # 1. Returns
-    # use log returns or simple? paper says "returns time-series r(t)"
-    # usually log returns for additivity, but for 1-min simple is fine.
-    # let's use pct_change
-    prices = df[price_col]
-    r = prices.pct_change().fillna(0.0)
+    # 1. Returns (log returns for additivity, consistent with compute_jump_score)
+    prices = df[price_col].astype(float).clip(lower=1e-12)
+    r = np.log(prices).diff().fillna(0.0)
     
     # 2. Intraday Pattern f(t)
     f = compute_u_shape(r)
@@ -192,21 +189,16 @@ def detect_jumps_single(
     
     # 4. Local Volatility sigma(t)
     # Paper: "sigma(t) is an estimator of local volatility"
-    # typically computed on r_des. 
-    # We use EWM std dev. Span depends on data freq. 
-    # If 5-min bars, previous default span=100 (≈ 500 minutes) is kept.
+    # typically computed on r_des.
     sigma_span_eff = int(sigma_span) if sigma_span is not None else _default_sigma_span(bar_td, auto_params)
     min_periods_eff = _default_min_periods(sigma_span_eff)
-
     sigma = (
         r_des.ewm(span=sigma_span_eff, min_periods=min_periods_eff)
         .std()
         .bfill()
         .fillna(min_vol)
+        .replace(0, min_vol)
     )
-    
-    # avoid zero sigma
-    sigma = sigma.replace(0, min_vol)
     
     # 5. Jump Score x(t)
     # x(t) = r(t) / (f(t) * sigma(t))

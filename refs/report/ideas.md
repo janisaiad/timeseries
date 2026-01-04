@@ -107,6 +107,21 @@ introduction/method
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 janis
 use different thrshold for daily data (for 5 minutes already done)
 
@@ -135,7 +150,7 @@ and very high extremes are not that much
 (this leads to functional extreme pls to do PCA/PLS int he extremes where the gumbel don't fit to see if we still have that D1/D2/D3 in very high extremes)
 
 
-
+the gumbel fit for 5 min deviate a bit so tthat the log curve could sho wa deviation from gumbel to max stable positive law (frechet) 
 
 
 
@@ -144,16 +159,34 @@ feature distirbution : the feature distrib is not the same along kpca handcrafte
 we cannot infer the same conclusions and the histogram do not behave the sme in log log plot
 
 
+
+
+
+
 thresholds
 when comparing thresholds (the most important int erms of statitical modelling) we see that it remains very stable
 from 2.5 to 4.5 for 5min data we still have great stability, D1 profiles are the same, same for D2, 
 but for D2 it degrades a bit
 
-investigating we know that it's from having very high extremes that are not satisfying this mean-analysis of trend/following etc .. those are very much outliers
+investigating we know that it's from having very high extremes that are not satisfying this mean-analysis of
+ trend/following etc .. those are very much outliers
 
-
+we have a great great accordance for 5min data along thresholds it striking
 
 
 the time complexity is good, a bit long but it does not matter that much, 
 
 goal of all this analysis is to make something invariant to regimes !! unless dictionary learning
+
+
+volatility : 
+we used pct changes and log returns for r, but we changed the vol estimation because the former did not worked
+it's still needed to investigate if this new vol estimator still lead to gumbel convergence as max stable
+
+
+plotting : 
+make some last jupyter at the end
+don't forget to use uk/us data also for dataset description
+
+
+

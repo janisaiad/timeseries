@@ -6,7 +6,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: percent
-#       format_version: "1.3"
+#       format_version: '1.3'
+#       jupytext_version: 1.18.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -18,8 +19,8 @@
 #
 # We reuse the project definition from `utils/data/jump_detection.py`:
 #
-# - r(t) = pct_change(close)
-# - sigma(t) = EWM std of deseasonalized returns (with frequency-aware span)
+# - r(t) = log(close).diff()
+# - sigma(t) = local volatility estimate on deseasonalized returns (see `compute_jump_score`)
 #
 # We produce:
 # - time-series curves of r(t) and sigma(t) for a representative ticker per frequency
@@ -39,8 +40,9 @@ import plotly.graph_objects as go  # we import plotly graph objects for custom p
 from plotly.subplots import make_subplots  # we import subplot helper
 
 from utils.data.curating_stooq import curate_stooq_dir_5min, curate_stooq_dir_daily, curate_stooq_dir_hourly  # we import curated loaders
-from utils.data.jump_detection import compute_jump_score  # we import r(t), sigma(t) definition
+from utils.data.jump_detection import _default_sigma_span, compute_jump_score  # we import r(t), sigma(t) definition + sigma span policy
 
+Country = Literal["poland", "hungary"]  # we define supported countries
 Freq = Literal["5min", "hourly", "daily"]  # we define supported frequencies
 
 
@@ -54,11 +56,34 @@ class DatasetPresentationConfig:
     use_sequential_index: bool = True  # we plot against a sequential index to avoid overnight gaps in intraday series
     random_seed: int = 0  # we keep sampling deterministic
     outputs_subdir: str = "notebooks/dataset_presentation/outputs"  # we store html outputs here
+    # which country to use for the time-series plots below (the summary table covers both countries)
+    country_for_plots: Country = "poland"
+    # Optional: choose the representative ticker explicitly (otherwise we pick the longest series)
+    ticker_5min: Optional[str] = None
+    ticker_hourly: Optional[str] = None
+    ticker_daily: Optional[str] = None
 
 
 CFG = DatasetPresentationConfig()  # we instantiate configuration
 
+# %% [markdown]
+# ### Choose the representative ticker (optional)
+#
+# By default we pick the **longest** available series for each frequency.
+# If you want to force a specific ticker, set it here (then re-run):
+#
+# Example:
+#
+# ```python
+# CFG = DatasetPresentationConfig(
+#     country_for_plots="poland",
+#     ticker_daily="PZU",      # or any ticker present in the loaded dict
+#     ticker_hourly=None,
+#     ticker_5min=None,
+# )
+# ```
 
+# %%
 def project_root() -> Path:
     try:
         here = Path(__file__).resolve()  # we locate file path when executed as a script
@@ -77,15 +102,31 @@ def out_dir() -> Path:
     return d  # we return output directory
 
 
-def data_dir(freq: Freq) -> Path:
+def report_figures_dir(fig_subdir: str = "2") -> Path:
+    d = project_root() / "refs" / "report" / "figures" / fig_subdir  # we target report figures dir
+    d.mkdir(parents=True, exist_ok=True)  # we ensure directory exists
+    return d  # we return directory
+
+
+def data_dir(country: Country, freq: Freq) -> Path:
     root = project_root()  # we locate repo root
-    if freq == "5min":
-        return root / "data" / "stooq" / "poland" / "5_min" / "pl" / "wsestocks"  # we follow existing notebook conventions
-    if freq == "hourly":
-        return root / "data" / "stooq" / "poland" / "hourly" / "ncstocks"  # we follow existing notebook conventions
-    if freq == "daily":
-        return root / "data" / "stooq" / "poland" / "daily" / "ncstocks"  # we follow existing notebook conventions
-    raise ValueError(f"unknown freq: {freq}")  # we validate frequency
+    if country == "poland":
+        if freq == "5min":
+            return root / "data" / "stooq" / "poland" / "5_min" / "pl" / "wsestocks"  # we follow existing conventions
+        if freq == "hourly":
+            return root / "data" / "stooq" / "poland" / "hourly" / "ncstocks"  # we follow existing conventions
+        if freq == "daily":
+            return root / "data" / "stooq" / "poland" / "daily" / "ncstocks"  # we follow existing conventions
+        raise ValueError(f"unknown freq: {freq}")  # we validate frequency
+    if country == "hungary":
+        if freq == "5min":
+            return root / "data" / "stooq" / "hungary" / "5_hu_txt" / "data" / "5_min" / "hu" / "bsestocks"
+        if freq == "hourly":
+            return root / "data" / "stooq" / "hungary" / "h_hu_txt" / "data" / "hourly" / "hu" / "bsestocks"
+        if freq == "daily":
+            return root / "data" / "stooq" / "hungary" / "d_hu_txt" / "data" / "daily" / "hu" / "bsestocks"
+        raise ValueError(f"unknown freq: {freq}")  # we validate frequency
+    raise ValueError(f"unknown country: {country}")  # we validate country
 
 
 def _infer_bar_timedelta(index: pd.DatetimeIndex) -> Optional[pd.Timedelta]:
@@ -142,8 +183,8 @@ def trim_intraday_by_bars(df: pd.DataFrame, trim_minutes: int) -> pd.DataFrame:
     return out  # we return trimmed dataframe
 
 
-def load_freq(freq: Freq, min_len: int, max_tickers: int) -> Dict[str, pd.DataFrame]:
-    d = data_dir(freq)  # we locate the data directory
+def load_freq(country: Country, freq: Freq, min_len: int, max_tickers: int) -> Dict[str, pd.DataFrame]:
+    d = data_dir(country, freq)  # we locate the data directory
     if not d.exists():  # we validate existence
         raise FileNotFoundError(f"data directory not found: {d}")  # we raise clear error
     if freq == "5min":
@@ -170,11 +211,118 @@ def load_freq(freq: Freq, min_len: int, max_tickers: int) -> Dict[str, pd.DataFr
     return out  # we return mapping
 
 
+def _bar_timedelta_for_any(dfs: Dict[str, pd.DataFrame]) -> Optional[pd.Timedelta]:
+    """
+    Infer a representative bar timedelta from the longest ticker's index.
+    """
+    if not dfs:
+        return None
+    t = representative_ticker(dfs)
+    idx = dfs[t].index
+    if not isinstance(idx, pd.DatetimeIndex):
+        return None
+    return _infer_bar_timedelta(idx)
+
+
+def summarize_dataset(country: Country, freq: Freq, min_len: int, max_tickers: int) -> Dict[str, object]:
+    """
+    Load and lightly preprocess a dataset, then return a summary row.
+    """
+    d = data_dir(country, freq)
+    dfs = load_freq(country=country, freq=freq, min_len=min_len, max_tickers=max_tickers)
+    n_stocks = int(len(dfs))
+    lens = np.array([len(df) for df in dfs.values()], dtype=int) if dfs else np.array([], dtype=int)
+
+    start = None
+    end = None
+    for df in dfs.values():
+        if df is None or df.empty:
+            continue
+        idx = df.index
+        if len(idx) == 0:
+            continue
+        s0 = idx.min()
+        e0 = idx.max()
+        start = s0 if start is None else min(start, s0)
+        end = e0 if end is None else max(end, e0)
+
+    bar_td = _bar_timedelta_for_any(dfs)
+    sigma_span = int(_default_sigma_span(bar_td, auto_params=True))
+    sigma_span_td = None
+    if bar_td is not None:
+        sigma_span_td = bar_td * sigma_span
+    elif freq == "daily":
+        sigma_span_td = pd.Timedelta(days=sigma_span)
+
+    return {
+        "country": country,
+        "freq": freq,
+        "data_dir": str(d),
+        "n_stocks": n_stocks,
+        "total_points": int(lens.sum()) if lens.size else 0,
+        "median_points_per_stock": float(np.median(lens)) if lens.size else float("nan"),
+        "min_points_per_stock": int(lens.min()) if lens.size else 0,
+        "max_points_per_stock": int(lens.max()) if lens.size else 0,
+        "start": pd.to_datetime(start) if start is not None else pd.NaT,
+        "end": pd.to_datetime(end) if end is not None else pd.NaT,
+        "span_days": (pd.to_datetime(end) - pd.to_datetime(start)).days if start is not None and end is not None else float("nan"),
+        "bar_timedelta": str(bar_td) if bar_td is not None else ("1D" if freq == "daily" else ""),
+        "sigma_span_K": sigma_span,
+        "sigma_span_time": str(sigma_span_td) if sigma_span_td is not None else "",
+    }
+
+
+def dataset_summary_table(min_len: int, max_tickers: int) -> pd.DataFrame:
+    """
+    Build a summary table for Poland and Hungary across (5min, hourly, daily).
+    """
+    rows: List[Dict[str, object]] = []
+    for country in ("poland", "hungary"):
+        for freq in ("5min", "hourly", "daily"):
+            rows.append(summarize_dataset(country=country, freq=freq, min_len=min_len, max_tickers=max_tickers))
+    df = pd.DataFrame(rows)
+    # Order columns for readability
+    cols = [
+        "country",
+        "freq",
+        "n_stocks",
+        "total_points",
+        "median_points_per_stock",
+        "min_points_per_stock",
+        "max_points_per_stock",
+        "start",
+        "end",
+        "span_days",
+        "bar_timedelta",
+        "sigma_span_K",
+        "sigma_span_time",
+        "data_dir",
+    ]
+    df = df[cols]
+    return df
+
+
 def representative_ticker(dfs: Dict[str, pd.DataFrame]) -> str:
     if not dfs:  # we validate input
         raise ValueError("no tickers loaded")  # we raise clear error
     t = max(dfs.keys(), key=lambda k: len(dfs[k]))  # we pick longest series
     return t  # we return ticker
+
+
+def pick_ticker(dfs: Dict[str, pd.DataFrame], preferred: Optional[str]) -> str:
+    """
+    Pick a ticker to use for plotting.
+    - If preferred is provided, require it to exist in dfs.
+    - Otherwise, fall back to the longest available series.
+    """
+    if preferred is None or str(preferred).strip() == "":
+        return representative_ticker(dfs)
+    key = str(preferred)
+    if key in dfs:
+        return key
+    # helpful error message
+    sample = ", ".join(list(sorted(dfs.keys()))[:12])
+    raise KeyError(f"ticker '{key}' not found in loaded dataset (sample tickers: {sample})")
 
 
 def _finite_series(s: pd.Series) -> pd.Series:
@@ -201,7 +349,7 @@ def plot_curves_r_sigma(freq: Freq, df: pd.DataFrame, ticker: str, ts_points: in
         x_axis = np.arange(len(r), dtype=int)  # we build a sequential index
         x_label = "bar index"  # we label x axis
     fig = make_subplots(specs=[[{"secondary_y": True}]])  # we build a dual-axis figure
-    fig.add_trace(go.Scatter(x=x_axis, y=r.values, name="r(t) = pct_change(close)", line=dict(color="#1f77b4")), secondary_y=False)  # we plot returns
+    fig.add_trace(go.Scatter(x=x_axis, y=r.values, name="r(t) = log(close).diff()", line=dict(color="#1f77b4")), secondary_y=False)  # we plot returns
     fig.add_trace(go.Scatter(x=x_axis, y=sigma.values, name="sigma(t) = EWM std (deseasonalized)", line=dict(color="#d62728")), secondary_y=True)  # we plot sigma
     fig.update_layout(
         title=f"{freq}: curves of r(t) and sigma(t) for {ticker}",
@@ -275,20 +423,142 @@ def plot_distributions_r_sigma(pooled: Dict[Freq, Tuple[np.ndarray, np.ndarray]]
     return fig  # we return figure
 
 
+def _apply_report_matplotlib_style() -> None:
+    """
+    Apply the report Matplotlib style from `refs/report/matplotlibconfig.py`.
+
+    That file expects `plt` and `mpl` symbols to exist, so we execute it with those injected.
+    """
+    import runpy
+
+    import matplotlib as mpl  # type: ignore
+    import matplotlib.pyplot as plt  # type: ignore
+
+    cfg_path = project_root() / "refs" / "report" / "matplotlibconfig.py"
+    if cfg_path.is_file():
+        runpy.run_path(str(cfg_path), init_globals={"plt": plt, "mpl": mpl})
+
+
+def plot_curves_r_sigma_matplotlib(freq: Freq, df: pd.DataFrame, ticker: str, ts_points: int, out_path: Path) -> None:
+    """
+    Matplotlib equivalent of `plot_curves_r_sigma` (saved to PDF/PNG for report usage).
+    """
+    import matplotlib.pyplot as plt  # type: ignore
+
+    _apply_report_matplotlib_style()
+
+    scores = compute_jump_score(df, price_col="close")
+    if scores.empty:
+        raise ValueError("could not compute r/sigma")
+
+    r = _finite_series(scores["return"])
+    sigma = _finite_series(scores["sigma"])
+    r = r.iloc[-ts_points:] if len(r) > ts_points else r
+    sigma = sigma.loc[r.index]
+
+    if CFG.use_sequential_index:
+        x = np.arange(len(r), dtype=int)
+        x_label = "bar index"
+    else:
+        x = r.index
+        x_label = "time"
+
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx()
+    ax1.plot(x, r.to_numpy(dtype=float), color="#1f77b4", lw=1.2, label=r"$r(t)=\Delta\log p(t)$")
+    ax2.plot(x, sigma.to_numpy(dtype=float), color="#d62728", lw=1.2, label=r"$\sigma(t)$")
+    ax1.axhline(0.0, color="k", lw=0.6, alpha=0.35)
+
+    ax1.set_xlabel(x_label)
+    ax1.set_ylabel(r"$r(t)$")
+    ax2.set_ylabel(r"$\sigma(t)$")
+    ax1.set_title(f"{freq}: curves of r(t) and sigma(t) for {ticker}")
+
+    # simple combined legend
+    lines1, labels1 = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    ax1.legend(lines1 + lines2, labels1 + labels2, loc="upper left", frameon=False)
+
+    fig.tight_layout()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path)
+    plt.close(fig)
+
+
+def plot_distributions_r_sigma_matplotlib(pooled: Dict[Freq, Tuple[np.ndarray, np.ndarray]], out_path: Path) -> None:
+    """
+    Matplotlib equivalent of `plot_distributions_r_sigma`.
+    """
+    import matplotlib.pyplot as plt  # type: ignore
+
+    _apply_report_matplotlib_style()
+
+    fig, axes = plt.subplots(nrows=2, ncols=1, sharex=False)
+    ax_r, ax_s = axes[0], axes[1]
+
+    colors = {"5min": "#636EFA", "hourly": "#EF553B", "daily": "#00CC96"}
+    for freq, (r, s) in pooled.items():
+        r = np.asarray(r, dtype=float)
+        s = np.asarray(s, dtype=float)
+        r = r[np.isfinite(r)]
+        s = s[np.isfinite(s)]
+        if r.size:
+            ax_r.hist(r, bins=200, density=True, alpha=0.45, color=colors.get(freq, None), label=freq)
+        if s.size:
+            ax_s.hist(s, bins=200, density=True, alpha=0.45, color=colors.get(freq, None), label=freq)
+
+    ax_r.set_title("Distributions of r(t) and sigma(t) (pooled across tickers)")
+    ax_r.set_ylabel("density")
+    ax_r.set_xlabel(r"$r(t)$")
+    ax_r.legend(frameon=False)
+
+    ax_s.set_ylabel("density")
+    ax_s.set_xlabel(r"$\sigma(t)$")
+    ax_s.legend(frameon=False)
+
+    fig.tight_layout()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path)
+    plt.close(fig)
+
+
 def run(show_plots: bool = False) -> None:
     np.random.seed(int(CFG.random_seed))  # we seed numpy for reproducibility
     figures_dir = out_dir()  # we ensure output directory exists
+    report_dir = report_figures_dir("2")  # we ensure report figures directory exists
+
+    # Dataset summary table (Poland vs Hungary)
+    summary = dataset_summary_table(min_len=int(CFG.min_len), max_tickers=int(CFG.max_tickers))
+    try:
+        from IPython.display import display  # type: ignore
+
+        display(summary)
+    except Exception:
+        print(summary.to_markdown(index=False))
+
     pooled: Dict[Freq, Tuple[np.ndarray, np.ndarray]] = {}  # we store pooled samples per freq
+    # Existing plots are computed for one chosen country (keeps runtime/plot count reasonable).
+    country = str(CFG.country_for_plots)
     for freq in ("5min", "hourly", "daily"):  # we iterate frequencies
-        dfs = load_freq(freq=freq, min_len=int(CFG.min_len), max_tickers=int(CFG.max_tickers))  # we load data
+        dfs = load_freq(country=country, freq=freq, min_len=int(CFG.min_len), max_tickers=int(CFG.max_tickers))  # we load data
         if not dfs:  # we validate
             raise ValueError(f"no tickers loaded for freq={freq}")  # we raise clear error
-        t = representative_ticker(dfs)  # we pick representative ticker
+        preferred = CFG.ticker_5min if freq == "5min" else (CFG.ticker_hourly if freq == "hourly" else CFG.ticker_daily)
+        t = pick_ticker(dfs, preferred=preferred)  # we pick representative ticker
+        print(f"[dataset_presentation] {country} {freq}: ticker used for r(t)/sigma(t) curves = {t} (n={len(dfs[t])})")
         fig_ts = plot_curves_r_sigma(freq=freq, df=dfs[t], ticker=t, ts_points=int(CFG.ts_points))  # we build curves plot
         fig_ts_path = figures_dir / f"curves_r_sigma_{freq}.html"  # we set output path
         fig_ts.write_html(str(fig_ts_path), include_plotlyjs="cdn")  # we save html
         if show_plots:  # we optionally display
             fig_ts.show()  # we show plot
+        # Matplotlib version (report-friendly)
+        plot_curves_r_sigma_matplotlib(
+            freq=freq,
+            df=dfs[t],
+            ticker=t,
+            ts_points=int(CFG.ts_points),
+            out_path=report_dir / f"curves_r_sigma_{freq}_mpl.pdf",
+        )
         r_pool, s_pool = pooled_r_sigma(dfs, max_points=int(CFG.max_points_per_freq), seed=int(CFG.random_seed))  # we pool values
         pooled[freq] = (r_pool, s_pool)  # we store pooled samples
     fig_dist = plot_distributions_r_sigma(pooled)  # we build distribution plot
@@ -296,7 +566,10 @@ def run(show_plots: bool = False) -> None:
     fig_dist.write_html(str(fig_dist_path), include_plotlyjs="cdn")  # we save html
     if show_plots:  # we optionally display
         fig_dist.show()  # we show plot
-    print(f"saved figures to: {figures_dir}")  # we print output location
+    # Matplotlib version (report-friendly)
+    plot_distributions_r_sigma_matplotlib(pooled, out_path=report_dir / "distributions_r_sigma_5min_hourly_daily_mpl.pdf")
+    print(f"saved figures to: {figures_dir}")  # we print html output location
+    print(f"saved report figures to: {report_dir}")  # we print report output location
 
 
 if __name__ == "__main__":

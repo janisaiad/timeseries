@@ -300,7 +300,8 @@ def _extract_aligned_windows_daily(
         if not np.isfinite(norm) or norm == 0.0:
             norm = 1e-4
 
-        r_window = subset["close"].pct_change().fillna(0.0).to_numpy(dtype=float)
+        prices = subset["close"].astype(float).clip(lower=1e-12)
+        r_window = np.log(prices).diff().fillna(0.0).to_numpy(dtype=float)
         x_profile = r_window / norm
 
         # Align jump direction to positive at t=0 (center index).

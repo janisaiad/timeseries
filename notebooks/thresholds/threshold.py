@@ -7,6 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
+#       jupytext_version: 1.18.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -264,8 +265,8 @@ def plot_score_diagnostics(freq: Freq, dfs: Dict[str, pd.DataFrame]) -> None:
     fig_tail.show()
 
 # %% [markdown]
-for freq in ("5min", "hourly", "daily"):
-    plot_score_diagnostics(freq, dfs_by_freq[freq])
+# for freq in ("5min", "hourly", "daily"):
+#     plot_score_diagnostics(freq, dfs_by_freq[freq])
 
 # %% [markdown]
 # ### Helpers: window extraction + scoring
@@ -304,7 +305,8 @@ def extract_windows(
         if loc - window_steps < 0 or loc + window_steps + 1 > len(df):
             continue
         subset = df.iloc[loc - window_steps : loc + window_steps + 1]
-        r_window = subset["close"].pct_change().fillna(0.0).to_numpy(dtype=float)
+        prices = subset["close"].astype(float).clip(lower=1e-12)
+        r_window = np.log(prices).diff().fillna(0.0).to_numpy(dtype=float)
 
         norm = float(row.get("f", 1.0)) * float(row.get("sigma", 1.0))
         if not np.isfinite(norm) or norm == 0.0:

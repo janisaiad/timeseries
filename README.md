@@ -1,19 +1,14 @@
-# Project Name
+# Riding wavelets
 
-## Description
-A clear and concise description of what this project does and what it is for.
+## 1-liner installation
 
-## Table of Contents
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [Tests](#tests)
-- [License](#license)
-- [Contact](#contact)
+```bash
+chmod +x launch.sh && ./launch.sh
+```
+
 ## Installation
 
-To install dependencies using uv, follow these steps:
+This project is managed with `uv` (see `pyproject.toml` and `uv.lock`). The recommended way to install dependencies is `uv sync` (not `requirements.txt`).
 
 1. Install uv:
    
@@ -51,9 +46,9 @@ To install dependencies using uv, follow these steps:
    .venv\Scripts\activate     # On Windows
    ```
 
-   - Install dependencies from requirements.txt:
+   - Install dependencies (recommended):
    ```bash
-   uv add -r requirements.txt
+   uv sync
    ```
 
 
@@ -84,9 +79,29 @@ To install dependencies using uv, follow these steps:
 
 ## Warning
 
-If you're using macOS or Python 3, replace `pip` with `pip3` in line 1 of ```launch.sh```
+If `pip install uv` does not target the right Python, use `python3 -m pip install uv` instead.
 
 Replace with your project folder name (which means the name of the library you are deving) in :```tests/test_env.py: ```
+
+## What `launch.sh` does
+
+`launch.sh` is a convenience bootstrap script that creates a local virtual environment in `.venv`, installs the project in editable mode, and runs a quick environment check.
+
+You can run it from the repo root with:
+
+```bash
+bash launch.sh
+```
+
+Line-by-line:
+
+- **`pip install uv`**: installs `uv` (a fast Python package/dependency manager).
+- **`uv venv`**: creates a virtual environment in `.venv/`.
+- **`source .venv/bin/activate`**: activates the environment for the current shell.
+- **`uv pip install -e .`**: installs this repo as an editable package (so imports like `import model` / `import utils` resolve) and installs dependencies declared in `pyproject.toml`.
+- **`uv cache prune`**: cleans `uv`'s download/build cache (optional; saves disk space, but may slow the next install).
+- **`uv run tests/test_env.py`**: runs a small sanity-check script to verify the environment can import the local packages.
+- **`source .venv/bin/activate`**: re-activates the venv (usually redundant; safe to remove if you want).
 
 
 ## Data 

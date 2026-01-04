@@ -21,7 +21,7 @@ def embed_series_windows(
         raise ValueError("x_windows must be 2D with shape (n_windows, T)")  # we guard misuse
     T = x_windows.shape[1]  # we get window length
     center = T // 2  # we choose middle as jump time
-    wm = WaveletModel(n_layers=0, n_neurons=0, n_outputs=0, J=J, kernel=kernel, n_components=n_components, center_index=center, random_state=random_state)  # we build model
+    wm = WaveletModel(n_layers=0, n_neurons=0, n_outputs=0, J=J, kernel=kernel, n_components=n_components, center_index=center, random_state=random_state, include_scattering_spectra=False)  # we keep ss opt-in for consistent embeddings
     Z = wm.fit_transform(x_windows)  # we compute embedding
     return Z, wm  # we return embedding and model
 

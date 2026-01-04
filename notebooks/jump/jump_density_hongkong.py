@@ -388,7 +388,7 @@ if not jumps_df.empty:
         
         # Compute D1 reflexivity using Wavelet PCA
         print("Computing reflexivity scores (D1)...")
-        wm = WaveletModel(n_layers=0, n_neurons=0, n_outputs=0, J=3, n_components=3)
+        wm = WaveletModel(n_layers=0, n_neurons=0, n_outputs=0, J=3, n_components=3, include_scattering_spectra=False)  # we keep ss opt-in for the baseline paper features
         embedding = wm.fit_transform(X_windows)
         
         d1 = embedding[:, 0]

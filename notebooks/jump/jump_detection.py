@@ -232,7 +232,7 @@ print(f"Extracted {len(X_windows)} windows.")
 if len(X_windows) > 0:
     # D1: Reflexivity (Wavelet Model)
     # J=3 is appropriate for T=25 (5-min data) vs J=6 for T=119 (1-min data)
-    wm = WaveletModel(n_layers=0, n_neurons=0, n_outputs=0, J=3, n_components=3)
+    wm = WaveletModel(n_layers=0, n_neurons=0, n_outputs=0, J=3, n_components=3, include_scattering_spectra=False)  # we keep ss opt-in for the baseline paper features
     embedding = wm.fit_transform(X_windows)
     jumps_subset["D1_reflexivity"] = embedding[:, 0]
     
