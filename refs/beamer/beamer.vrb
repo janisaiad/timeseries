@@ -1,0 +1,19 @@
+\frametitle{Reproducibility and engineering}
+\begin{itemize}
+  \item We worked 80+ hours.
+  \item We wrote 2k LOC.
+  \item We made 73 commits.
+  \item We open-source the code.
+  \item We install in one line.
+\end{itemize}
+
+\vspace{0.5em}
+\begin{center}
+\begin{minipage}{0.85\linewidth}
+\begin{beamerboxesrounded}[shadow=true]{1-liner installation}
+\begin{verbatim}
+chmod +x launch.sh && ./launch.sh
+\end{verbatim}
+\end{beamerboxesrounded}
+\end{minipage}
+\end{center}
