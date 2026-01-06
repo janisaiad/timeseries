@@ -655,6 +655,13 @@ def plot_mean_vs_min_d1(cojumps: pd.DataFrame, title: str, out_path: Path) -> No
             name="cojumps",
         )
     )
+    x = df["D1_mean_norm"].to_numpy(dtype=float)  # we build x for the y=x reference line
+    y = df["D1_min_norm"].to_numpy(dtype=float)  # we build y for the y=x reference line
+    xy = np.concatenate([x[np.isfinite(x)], y[np.isfinite(y)]])  # we compute a common numeric range
+    if xy.size >= 2:  # we only plot the diagonal when the range is meaningful
+        lo = float(np.min(xy))  # we take lower bound
+        hi = float(np.max(xy))  # we take upper bound
+        fig.add_trace(go.Scatter(x=[lo, hi], y=[lo, hi], mode="lines", name="y=x", line=dict(color="black", dash="dash", width=2)))  # we add y=x reference
     fig.update_layout(template="plotly_white", title=title, xaxis_title="mean(D1) / σ(size)", yaxis_title="min(D1) / σ(size)")
     fig.write_html(out_path)
 
@@ -709,6 +716,13 @@ def plot_mean_vs_min_d1_norm_scatter(
             name="cojumps",
         )
     )
+    x = df["D1_mean_norm"].to_numpy(dtype=float)  # we build x for the y=x reference line
+    y = df["D1_min_norm"].to_numpy(dtype=float)  # we build y for the y=x reference line
+    xy = np.concatenate([x[np.isfinite(x)], y[np.isfinite(y)]])  # we compute a common numeric range
+    if xy.size >= 2:  # we only plot the diagonal when the range is meaningful
+        lo = float(np.min(xy))  # we take lower bound
+        hi = float(np.max(xy))  # we take upper bound
+        fig.add_trace(go.Scatter(x=[lo, hi], y=[lo, hi], mode="lines", name="y=x", line=dict(color="black", dash="dash", width=2)))  # we add y=x reference
     fig.update_layout(
         template="plotly_white",
         title=title,
