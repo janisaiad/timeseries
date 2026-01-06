@@ -254,7 +254,7 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 \small
 \HYP{Average jump profiles stay stable across $\theta$.}\\
 
-
+\PLOT{Overlay mean profiles across $\theta$ (5-min).}\\
 \vspace{0.25em}
 \begin{columns}[T,onlytextwidth]
   \column{0.33\textwidth}
@@ -270,6 +270,7 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
   \includegraphics[width=\linewidth]{overlay_D3_thresholds_5min_mpl.png}
   {\scriptsize $D_3$ overlays}
 \end{columns}
+\centering
 \SEE{$D_1$ and $D_3$ stable; $D_2$ noisier at extremes.}
 \CONFIRMED
 \end{frame}
@@ -280,7 +281,7 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 \small
 \HYP{Asymetry/Mean-Revert/Trend structure}\\
 
-
+\PLOT{Overlay mean profiles across $\theta$ (daily).}\\
 \vspace{0.25em}
 \begin{columns}[T,onlytextwidth]
   \column{0.33\textwidth}
@@ -296,6 +297,8 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
   \includegraphics[width=\linewidth]{overlay_D3_thresholds_daily_mpl.png}
   {\scriptsize $D_3$ (daily)}
 \end{columns}
+
+\centering
 \SEE{Asymetry, less daily data =  higher noise.}
 \CONFIRMED
 \end{frame}
@@ -307,12 +310,12 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 \small
 \HYP{Features are robust to (i) Scattering Spectra and (ii) wavelet choice.}\\
 \PLOT{Wavelet-family sweep for $D_1$; SS ablation runs (text).}\\
+
+\centering
+\includegraphics[width=0.98\linewidth,height=0.70\textheight,keepaspectratio]{D1_different_wavelets.png}
 \SEE{With-SS vs no-SS: embeddings stay very similar; $D_1$ correlation stays high.}\\
 \SEE{$D_1$ stays stable across wavelets (fbsp/cmor/cgau).}
 
-\vspace{0.25em}
-\centering
-\includegraphics[width=0.98\linewidth,height=0.70\textheight,keepaspectratio]{D1_different_wavelets.png}
 \CONFIRMED
 \end{frame}
 
@@ -325,11 +328,11 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 \small
 \HYP{$D_3$ is a stable trend direction.}\\
 \PLOT{$D_3$ profiles across wavelets / markets.}\\
-\SEE{$D_3$ is unstable on PL/HU; we need more data (US placeholder).}
 
-\vspace{0.25em}
 \centering
 \includegraphics[width=0.98\linewidth,height=0.70\textheight,keepaspectratio]{D3_different_wavelets.png}
+\SEE{$D_3$ is unstable on PL/HU; we need more data (US placeholder).}
+
 \CONFIRMED
 \end{frame}
 
@@ -337,20 +340,20 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 
 
 \begin{frame}{RQ4: Asymmetry -- daily vs 5-min}
-\scriptsize
+
 \HYP{Daily asymmetry correlates; 5-min does not.}
-\vspace{0.15em}
+\PLOT{Correlation (daily vs 5-min).}
+
 
 \centering
 \includegraphics[width=0.65\linewidth,height=0.23\textheight,keepaspectratio]{D1_asymmetry.png}\\
 {\tiny daily}
 
-\vspace{0.20em}
+
 \includegraphics[width=0.65\linewidth,height=0.23\textheight,keepaspectratio]{D1asymetry5min.png}\\
 {\tiny 5-min}
 
 \vspace{0.13em}
-\PLOT{Correlation (daily vs 5-min).}
 \SEE{Daily: strong asymmetry (macro), 5-min: weak.}
 \CONFIRMED
 \end{frame}
@@ -395,14 +398,14 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 
 \begin{frame}{Co-jumps + takeaways}
 \small
-\HYP{Large co-jumps propagate across stocks.}\\
-\PLOT{Global Summary - Cojumps asymetry index.}\\
-\SEE{Synchronized moves cluster around events.}
+\HYP{Large daily co-jumps looks the same.}\\
+\PLOT{Global Summary - Cojumps similarity index.}\\
+
 
 \vspace{0.2em}
 \centering
 \includegraphics[width=0.98\linewidth,height=0.60\textheight,keepaspectratio]{cojump3.png}
-
+\SEE{They share same D1 values = looks the same}
 \CONFIRMED
 \begin{fboxenv}{Takeaway}
 \small
