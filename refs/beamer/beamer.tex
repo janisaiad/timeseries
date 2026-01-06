@@ -69,7 +69,7 @@
 \end{itemize}
 \vspace{0.25em}
 \begin{fboxenv}{Outline}
-Method $>$ Data $>$ Results
+Method $\xrightarrow{}$ Data $\xrightarrow{}$ Results
 \end{fboxenv}
 \end{frame}
 
@@ -96,7 +96,7 @@ Method $>$ Data $>$ Results
 \scriptsize
 \textbf{Engineering (open + reproducible)}
 \begin{itemize}
-  \item Worked 50/30 hours, wrote 2k LOC, 30 notebooks, 73 commits, We open-source the code.
+  \item Wrote 2k LOC, 30 notebooks, 73 commits, We open-source the code.
   \item  \textbf{We re-implement the full pipeline.}
   
 \end{itemize}
@@ -138,7 +138,6 @@ chmod +x launch.sh && ./launch.sh
     \begin{itemize}
       \item 5GB Stooq OHLC. 5-min, hourly, daily.
       \item Poland, Hungary, HK, US, UK Equities
-      \item Removed 1st/last 60 minutes of each day to avoid market opening/closing high vol (30\% daily activity last 5min).
     \end{itemize}
   \end{minipage}
   \hfill
@@ -272,7 +271,7 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
   {\scriptsize $D_3$ overlays}
 \end{columns}
 \centering
-\SEE{$D_1$ and $D_3$ stable; $D_2$ noisier at extremes.}
+\SEE{$D_1$ and $D_2$ stable; $D_3$ noisier at extremes.}
 \CONFIRMED
 \end{frame}
 
@@ -307,14 +306,13 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 
 
 
-\begin{frame}{Research question 3: robustness (SS ablation + wavelets)}
+\begin{frame}{RQ3: robustness with wavelet family ablation}
 \small
-\HYP{Features are robust to (i) Scattering Spectra and (ii) wavelet choice.}\\
-\PLOT{Wavelet-family sweep for $D_1$; SS ablation runs (text).}\\
+\HYP{Features are robust to wavelet choice.}\\
+\PLOT{Wavelet-family sweep for $D_1$.}\\
 
 \centering
 \includegraphics[width=0.98\linewidth,height=0.70\textheight,keepaspectratio]{D1_different_wavelets.png}
-\SEE{With-SS vs no-SS: embeddings stay very similar; $D_1$ correlation stays high.}\\
 \SEE{$D_1$ stays stable across wavelets (fbsp/cmor/cgau).}
 
 \CONFIRMED
@@ -325,7 +323,7 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 
 
 
-\begin{frame}{Trend direction: $D_3$}
+\begin{frame}{RQ 3: robustness with wavelet family ablation}
 \small
 \HYP{$D_3$ is a stable trend direction.}\\
 \PLOT{$D_3$ profiles across wavelets / markets.}\\
@@ -416,4 +414,5 @@ Full pipeline, open data, unsupervised robust jump classes (heavy tails, stable 
 \end{frame}
 
 \end{document}
+
 
