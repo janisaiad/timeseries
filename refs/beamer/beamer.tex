@@ -330,32 +330,30 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 \vspace{0.25em}
 \centering
 \includegraphics[width=0.98\linewidth,height=0.70\textheight,keepaspectratio]{D3_different_wavelets.png}
-\INCONCLUSIVE
+\CONFIRMED
 \end{frame}
 
 
 
 
+\begin{frame}{RQ4: Asymmetry -- daily vs 5-min}
+\scriptsize
+\HYP{Daily asymmetry correlates; 5-min does not.}
+\vspace{0.15em}
 
-\begin{frame}{Research question 4: Asymmetry: daily vs 5-min}
-  \small
-  \HYP{Daily asymmetry correlates; 5-min does not.}\\
-  \SEE{Strong daily asymetry (Macro News), weak 5-min correlation.}
+\centering
+\includegraphics[width=0.65\linewidth,height=0.23\textheight,keepaspectratio]{D1_asymmetry.png}\\
+{\tiny daily}
 
-  \vspace{0.25em}
-  \centering
-  \includegraphics[width=0.92\linewidth,height=0.34\textheight,keepaspectratio]{D1_asymmetry.png}\\
-  {\scriptsize daily}
+\vspace{0.20em}
+\includegraphics[width=0.65\linewidth,height=0.23\textheight,keepaspectratio]{D1asymetry5min.png}\\
+{\tiny 5-min}
 
-  \vspace{0.35em}
-  \includegraphics[width=0.92\linewidth,height=0.34\textheight,keepaspectratio]{D1asymetry5min.png}\\
-  {\scriptsize 5-min}
-
-  \vspace{0.25em}
-  \PLOT{Asymmetry correlation diagnostics (daily vs 5-min).}\\
-  \CONFIRMED
-  \end{frame}
-
+\vspace{0.13em}
+\PLOT{Correlation (daily vs 5-min).}
+\SEE{Daily: strong asymmetry (macro), 5-min: weak.}
+\CONFIRMED
+\end{frame}
 
 
 
@@ -405,12 +403,12 @@ v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
 \centering
 \includegraphics[width=0.98\linewidth,height=0.60\textheight,keepaspectratio]{cojump3.png}
 
-\vspace{0.25em}
+\CONFIRMED
 \begin{fboxenv}{Takeaway}
 \small
 Full pipeline, open data, unsupervised robust jump classes (heavy tails, stable profiles across thresholds/wavelets/markets), co-jumps consistents.
 \end{fboxenv}
-\CONFIRMED
+
 \end{frame}
 
 \end{document}
