@@ -63,7 +63,7 @@ Market = Literal["poland", "hungary", "hongkong"]
 
 @dataclass(frozen=True)
 class CojumpConfig:
-    base_freq: BaseFreq = "5min"
+    base_freq: BaseFreq = "daily"
     threshold_5min: float = 4.0
     threshold_hourly: float = 2.0
     threshold_daily: float = 2.5
@@ -71,9 +71,9 @@ class CojumpConfig:
     max_tickers: int = 200
     min_cojump_size: int = 2
     # intraday trimming (only used for 5min/hourly)
-    trim_intraday_minutes: int = 60
+    trim_intraday_minutes: int = 0
     # which cojump bin widths to compute
-    bins: Tuple[str, ...] = ("1min", "5min", "1h", "1D")
+    bins: Tuple[str, ...] = ("1D",)
     # jump-profile window (in bars, per side)
     window_steps_intraday: int = 12
     window_steps_daily: int = 20
@@ -89,22 +89,23 @@ class CojumpConfig:
     show_plots: bool = True
     show_only_profile_plots: bool = True  # we avoid spamming the notebook with all plots when showing inline
     # cojump profile plotting
-    profile_bin: str = "5min"  # we plot profiles for this bin (use a bin that matches the base bar timestamps)
+    profile_bin: str = "1D"  # we plot profiles for this bin (use a bin that matches the base bar timestamps)
     top_k_profiles: int = 5  # we plot the top-k largest cojumps
-    profile_window_steps: int = 12  # we plot ±window steps around the cojump timestamp
+    profile_window_steps: int = 20  # we plot ±window steps around the cojump timestamp
     max_tickers_per_profile: int = 35  # we cap plotted tickers per cojump to keep plots readable
 
 
 CFG = CojumpConfig()
 
 
-def threshold_for_freq(base_freq: BaseFreq) -> float:
+def threshold_for_freq(base_freq: BaseFreq, *, cfg: Optional[CojumpConfig] = None) -> float:
+    cfg0 = cfg if cfg is not None else CFG
     if base_freq == "5min":
-        return float(CFG.threshold_5min)
+        return float(cfg0.threshold_5min)
     if base_freq == "hourly":
-        return float(CFG.threshold_hourly)
+        return float(cfg0.threshold_hourly)
     if base_freq == "daily":
-        return float(CFG.threshold_daily)
+        return float(cfg0.threshold_daily)
     raise ValueError(base_freq)
 
 
@@ -160,6 +161,10 @@ def hungary_data_dir(base_freq: BaseFreq) -> Path:
     root = project_root()
     if base_freq == "5min":
         return root / "data" / "stooq" / "hungary" / "5_hu_txt" / "data" / "5_min" / "hu" / "bsestocks"
+    if base_freq == "hourly":
+        return root / "data" / "stooq" / "hungary" / "h_hu_txt" / "data" / "hourly" / "hu" / "bsestocks"
+    if base_freq == "daily":
+        return root / "data" / "stooq" / "hungary" / "d_hu_txt" / "data" / "daily" / "hu" / "bsestocks"
     raise ValueError(f"Unknown base_freq: {base_freq}")
 
 
@@ -716,23 +721,24 @@ def plot_mean_vs_min_d1_norm_scatter(
         fig.show()
 
 
-def run_market_5min_cojump_scatter(
+def run_market_cojump_scatter(
     *,
     market_label: str,
-    dfs_5min: Dict[str, pd.DataFrame],
+    dfs: Dict[str, pd.DataFrame],
     cfg: CojumpConfig,
     out_tag: str,
     min_size_for_scatter: int = 3,
     scale_marker_by_size: bool = True,
 ) -> pd.DataFrame:
     """
-    Compute 5-min co-jumps (bin='5min') and plot (mean(D1)/σ, min(D1)/σ) scatter.  # we keep this as a small building block for multiple markets
+    Compute co-jumps (bin=cfg.profile_bin) and plot (mean(D1)/σ, min(D1)/σ) scatter.  # we keep this as a small building block for multiple markets
     """
-    base_freq: BaseFreq = "5min"
-    thr = float(cfg.threshold_5min)
+    base_freq: BaseFreq = cfg.base_freq
+    thr = float(threshold_for_freq(base_freq, cfg=cfg))
+    bin_freq = str(cfg.profile_bin)
 
-    print(f"[{market_label}] Detecting 5min jumps (threshold={thr}) ...")
-    jumps_df = detect_jumps_many(dfs_5min, threshold=thr)
+    print(f"[{market_label}] Detecting {base_freq} jumps (threshold={thr}) ...")
+    jumps_df = detect_jumps_many(dfs, threshold=thr)
     print(f"[{market_label}] Detected {len(jumps_df)} jumps.")
     if jumps_df is None or jumps_df.empty:
         return pd.DataFrame()
@@ -743,8 +749,8 @@ def run_market_5min_cojump_scatter(
         jumps_df = jumps_df.iloc[np.sort(idx)].reset_index(drop=True)
         print(f"[{market_label}] Subsampled jumps to {len(jumps_df)} for speed.")
 
-    w = int(cfg.window_steps_intraday)
-    X, jumps_scored = extract_windows(dfs_5min, jumps_df, window_steps=w, max_windows=int(cfg.max_windows_total), seed=int(cfg.random_seed))
+    w = window_steps_for_freq(base_freq)
+    X, jumps_scored = extract_windows(dfs, jumps_df, window_steps=w, max_windows=int(cfg.max_windows_total), seed=int(cfg.random_seed))
     print(f"[{market_label}] Extracted {len(X)} windows (window_steps={w}).")
     if jumps_scored is None or jumps_scored.empty or X.size == 0:
         return pd.DataFrame()
@@ -762,19 +768,19 @@ def run_market_5min_cojump_scatter(
     jumps_scored["D2"] = scores["D2"]
     jumps_scored["D3"] = scores["D3"]
 
-    cj0 = group_cojumps(jumps_scored, bin_freq="5min", min_size=int(cfg.min_cojump_size))
+    cj0 = group_cojumps(jumps_scored, bin_freq=bin_freq, min_size=int(cfg.min_cojump_size))
     cj = compute_cojump_metrics(cj0)
     if cj is None or cj.empty:
         return pd.DataFrame()
 
-    out_csv = out_dir() / f"cojumps_5min_{out_tag}.csv"
+    out_csv = out_dir() / f"cojumps_{base_freq}_{bin_freq}_{out_tag}.csv"
     cj.to_csv(out_csv, index=False)
     print(f"[{market_label}] Saved: {out_csv}")
 
-    out_html = out_dir() / f"cojumps_mean_vs_min_D1_norm_5min_{out_tag}.html"
+    out_html = out_dir() / f"cojumps_mean_vs_min_D1_norm_{base_freq}_{bin_freq}_{out_tag}.html"
     plot_mean_vs_min_d1_norm_scatter(
         cj,
-        title=f"{market_label} 5min co-jumps: mean(D1)/σ vs min(D1)/σ (size≥{int(min_size_for_scatter)})",
+        title=f"{market_label} {base_freq} cojumps (bin={bin_freq}): mean(D1)/σ vs min(D1)/σ (size≥{int(min_size_for_scatter)})",
         out_path=out_html,
         min_size_for_scatter=int(min_size_for_scatter),
         scale_marker_by_size=bool(scale_marker_by_size),
@@ -787,10 +793,10 @@ def run_market_5min_cojump_scatter(
     for i, row in topk.iterrows():
         size = int(row.get("size", 0))
         ts = pd.to_datetime(row.get("bin"))
-        title = f"Co-jump log-return profiles | market={market_label} | bin=5min | rank={i+1} | size={size} | time={ts}"
-        out_path_prof = out_dir() / f"cojump_logret_profiles_{out_tag}_5min_rank{i+1:02d}_S{size}.html"
+        title = f"Co-jump log-return profiles | market={market_label} | base={base_freq} | bin={bin_freq} | rank={i+1} | size={size} | time={ts}"
+        out_path_prof = out_dir() / f"cojump_logret_profiles_{out_tag}_{base_freq}_{bin_freq}_rank{i+1:02d}_S{size}.html"
         plot_cojump_log_return_profiles(
-            dfs_5min,
+            dfs,
             cojump_row=row,
             window_steps=int(cfg.profile_window_steps),
             max_tickers=int(cfg.max_tickers_per_profile),
@@ -926,7 +932,7 @@ def run(cfg: CojumpConfig) -> Tuple[pd.DataFrame, Dict[str, pd.DataFrame]]:
     dfs = preprocess(cfg.base_freq, dfs, trim_minutes=cfg.trim_intraday_minutes)
     print(f"Loaded {len(dfs)} tickers after filtering.")
 
-    thr = threshold_for_freq(cfg.base_freq)
+    thr = threshold_for_freq(cfg.base_freq, cfg=cfg)
     print(f"Detecting jumps (threshold={thr}) ...")
     jumps_df = detect_jumps_many(dfs, threshold=thr)
     print(f"Detected {len(jumps_df)} jumps total.")
@@ -1026,72 +1032,53 @@ for b, cj in cojumps_by_bin.items():
 
 
 # %% [markdown]
-# ## 5-min co-jumps across markets: poland → hungary → hongkong (100/200/300 random tickers)
+# ## Daily co-jumps across markets: poland → hungary
 #
 # We plot the 2D indicator scatter (for co-jumps with size ≥ 3):  # we match your request
 # - x = mean(D1) / σ(size)
 # - y = min(D1) / σ(size)
-# - point size ∝ cojump size (except for hongkong)
-
-# %% [markdown]
-# ### Poland (5min)
-
-# %%
-cfg_pl = CojumpConfig(base_freq="5min", bins=("5min",), show_plots=True, show_only_profile_plots=True, max_tickers=200, max_windows_total=1500)  # we keep kpca feasible
-dfs_pl_raw = load_market_top_by_length("poland", "5min", min_len=int(cfg_pl.min_len), max_tickers=int(cfg_pl.max_tickers))
-dfs_pl = preprocess("5min", dfs_pl_raw, trim_minutes=int(cfg_pl.trim_intraday_minutes))
-cojumps_pl = run_market_5min_cojump_scatter(market_label="poland", dfs_5min=dfs_pl, cfg=cfg_pl, out_tag="poland", min_size_for_scatter=3, scale_marker_by_size=True)
-
-
-# %% [markdown]
-# ### Hungary (5min)
-
-# %%
-cfg_hu = CojumpConfig(base_freq="5min", bins=("5min",), show_plots=True, show_only_profile_plots=True, max_tickers=200, max_windows_total=1500)  # we keep kpca feasible
-dfs_hu_raw = load_market_top_by_length("hungary", "5min", min_len=int(cfg_hu.min_len), max_tickers=int(cfg_hu.max_tickers))
-dfs_hu = preprocess("5min", dfs_hu_raw, trim_minutes=int(cfg_hu.trim_intraday_minutes))
-cojumps_hu = run_market_5min_cojump_scatter(market_label="hungary", dfs_5min=dfs_hu, cfg=cfg_hu, out_tag="hungary", min_size_for_scatter=3, scale_marker_by_size=True)
-
-
-# %% [markdown]
-# ### Hong Kong (5min): random tickers (seeded), run at n=100/200/300
+# - point size ∝ cojump size
 #
-# We do **not** scale marker size by cojump size here (per your request).  # we keep sizes fixed for hongkong
+# Note on Hong Kong:
+# - the repo currently only contains Hong Kong 5-min bars under `data/stooq/hongkong/5_min/...`  # we do not have daily HK here
+# - so we keep HK as an optional 5-min add-on below
+
+# %% [markdown]
+# ### Poland (daily)
 
 # %%
-hk_dir = hongkong_data_dir("5min")
-dfs_hk_pool_raw = sample_valid_5min_universe(hk_dir, target_n=300, seed=0, min_len=500)
-dfs_hk_pool = preprocess("5min", dfs_hk_pool_raw, trim_minutes=60)
-print(f"[hongkong] Loaded {len(dfs_hk_pool)} tickers for the 300-universe.")
+cfg_pl = CojumpConfig(base_freq="daily", bins=("1D",), profile_bin="1D", show_plots=True, show_only_profile_plots=True, max_tickers=200, max_windows_total=1500)  # we keep kpca feasible
+dfs_pl_raw = load_market_top_by_length("poland", "daily", min_len=int(cfg_pl.min_len), max_tickers=int(cfg_pl.max_tickers))
+dfs_pl = preprocess("daily", dfs_pl_raw, trim_minutes=int(cfg_pl.trim_intraday_minutes))
+cojumps_pl = run_market_cojump_scatter(market_label="poland", dfs=dfs_pl, cfg=cfg_pl, out_tag="poland_daily", min_size_for_scatter=3, scale_marker_by_size=True)
 
 
 # %% [markdown]
-# #### Hong Kong n=100
+# ### Hungary (daily)
 
 # %%
-hk_keys = list(dfs_hk_pool.keys())
-dfs_hk_100 = {k: dfs_hk_pool[k] for k in hk_keys[: min(100, len(hk_keys))]}
-cfg_hk = CojumpConfig(base_freq="5min", bins=("5min",), show_plots=True, show_only_profile_plots=True, max_windows_total=1500, max_tickers=100)  # we keep kpca feasible
-cojumps_hk_100 = run_market_5min_cojump_scatter(market_label="hongkong (n=100)", dfs_5min=dfs_hk_100, cfg=cfg_hk, out_tag="hongkong_n100", min_size_for_scatter=3, scale_marker_by_size=False)
+cfg_hu = CojumpConfig(base_freq="daily", bins=("1D",), profile_bin="1D", show_plots=True, show_only_profile_plots=True, max_tickers=200, max_windows_total=1500)  # we keep kpca feasible
+dfs_hu_raw = load_market_top_by_length("hungary", "daily", min_len=int(cfg_hu.min_len), max_tickers=int(cfg_hu.max_tickers))
+dfs_hu = preprocess("daily", dfs_hu_raw, trim_minutes=int(cfg_hu.trim_intraday_minutes))
+cojumps_hu = run_market_cojump_scatter(market_label="hungary", dfs=dfs_hu, cfg=cfg_hu, out_tag="hungary_daily", min_size_for_scatter=3, scale_marker_by_size=True)
 
 
 # %% [markdown]
-# #### Hong Kong n=200
+# ## Optional: Hong Kong (5min)
+#
+# We did not run Hong Kong in the daily section because daily HK data is not present in `data/stooq/hongkong/`.  # we keep it as 5-min only
 
 # %%
-hk_keys = list(dfs_hk_pool.keys())
-dfs_hk_200 = {k: dfs_hk_pool[k] for k in hk_keys[: min(200, len(hk_keys))]}
-cfg_hk = CojumpConfig(base_freq="5min", bins=("5min",), show_plots=True, show_only_profile_plots=True, max_windows_total=1500, max_tickers=200)  # we keep kpca feasible
-cojumps_hk_200 = run_market_5min_cojump_scatter(market_label="hongkong (n=200)", dfs_5min=dfs_hk_200, cfg=cfg_hk, out_tag="hongkong_n200", min_size_for_scatter=3, scale_marker_by_size=False)
+RUN_HONGKONG_5MIN = False
 
+if bool(RUN_HONGKONG_5MIN):
+    hk_dir = hongkong_data_dir("5min")
+    dfs_hk_pool_raw = sample_valid_5min_universe(hk_dir, target_n=300, seed=0, min_len=500)
+    dfs_hk_pool = preprocess("5min", dfs_hk_pool_raw, trim_minutes=60)
+    print(f"[hongkong] Loaded {len(dfs_hk_pool)} tickers for the 300-universe.")
 
-# %% [markdown]
-# #### Hong Kong n=300
-
-# %%
-hk_keys = list(dfs_hk_pool.keys())
-dfs_hk_300 = {k: dfs_hk_pool[k] for k in hk_keys[: min(300, len(hk_keys))]}
-cfg_hk = CojumpConfig(base_freq="5min", bins=("5min",), show_plots=True, show_only_profile_plots=True, max_windows_total=1500, max_tickers=300)  # we keep kpca feasible
-cojumps_hk_300 = run_market_5min_cojump_scatter(market_label="hongkong (n=300)", dfs_5min=dfs_hk_300, cfg=cfg_hk, out_tag="hongkong_n300", min_size_for_scatter=3, scale_marker_by_size=False)
-
+    hk_keys = list(dfs_hk_pool.keys())
+    dfs_hk_100 = {k: dfs_hk_pool[k] for k in hk_keys[: min(100, len(hk_keys))]}
+    cfg_hk = CojumpConfig(base_freq="5min", bins=("5min",), profile_bin="5min", show_plots=True, show_only_profile_plots=True, max_windows_total=1500, max_tickers=100, trim_intraday_minutes=60)
+    cojumps_hk_100 = run_market_cojump_scatter(market_label="hongkong (n=100)", dfs=dfs_hk_100, cfg=cfg_hk, out_tag="hongkong_5min_n100", min_size_for_scatter=3, scale_marker_by_size=False)
 

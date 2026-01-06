@@ -1,15 +1,15 @@
-\frametitle{Reproducibility and engineering}
+\frametitle{Reproducibility and code structure}
+\scriptsize
+\textbf{Engineering (open + reproducible)}
 \begin{itemize}
-  \item We worked 80+ hours.
-  \item We wrote 2k LOC.
-  \item We made 73 commits.
-  \item We open-source the code.
-  \item We install in one line.
+  \item Worked 50/30 hours, wrote 2k LOC, 30 notebooks, 73 commits, We open-source the code.
+  \item  \textbf{We re-implement the full pipeline.}
+
 \end{itemize}
 
-\vspace{0.5em}
+\vspace{0.25em}
 \begin{center}
-\begin{minipage}{0.85\linewidth}
+\begin{minipage}{0.88\linewidth}
 \begin{beamerboxesrounded}[shadow=true]{1-liner installation}
 \begin{verbatim}
 chmod +x launch.sh && ./launch.sh
@@ -17,3 +17,38 @@ chmod +x launch.sh && ./launch.sh
 \end{beamerboxesrounded}
 \end{minipage}
 \end{center}
+
+\vspace{-0.2em}
+\textbf{Code map (where things live)}
+\vspace{0.2em}
+\centering
+\begin{tikzpicture}[
+  scale=0.85,
+  transform shape,
+  box/.style={draw, rounded corners, align=left, inner sep=3pt, font=\tiny},
+  arr/.style={-Latex, thick},
+  node distance=6mm
+]
+\node[box] (data) {\textbf{Data} \\ \texttt{utils/data/} \\ preprocess \& detect};
+\node[box, right=of data] (model) {\textbf{Model} \\ \texttt{model/wavelet/} \\ features \& KPCA};
+\node[box, right=of model] (viz) {\textbf{Viz} \\ \texttt{utils/viz/} \\ plots \& export};
+\node[box, below=of model] (nb) {\textbf{Notebooks} \\ \texttt{notebooks/} \\ experiments};
+
+\draw[arr] (data) -- (model);
+\draw[arr] (model) -- (viz);
+\draw[arr] (nb) -- (data);
+\draw[arr] (nb) -- (viz);
+\end{tikzpicture}
+
+  \begin{minipage}{0.50\linewidth}
+    \begin{itemize}
+      \item 5GB Stooq OHLC. 5-min, hourly, daily.
+      \item Poland, Hungary, HK, US, UK Equities
+    \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.46\linewidth}
+    \includegraphics[width=\linewidth]{figures/exampledata.png}
+  \end{minipage}
+
+

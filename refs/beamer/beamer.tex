@@ -21,10 +21,35 @@
 \newcommand{\CONFIRMED}{\begin{center}\vspace{0.15em}\textbf{\LARGE CONFIRMED}\end{center}}
 \newcommand{\NOTCONFIRMED}{\begin{center}\vspace{0.15em}\textbf{\LARGE NOT CONFIRMED}\end{center}}
 \newcommand{\INCONCLUSIVE}{\begin{center}\vspace{0.15em}\textbf{\LARGE INCONCLUSIVE}\end{center}}
+\setbeamercolor{coolbox title}{fg=white,bg=blue!65!black}
+\setbeamercolor{coolbox body}{fg=black,bg=blue!7}
+\newenvironment{coolbox}[1]{%
+  \begin{beamercolorbox}[wd=\linewidth,sep=0.6ex,rounded=true,shadow=true]{coolbox title}%
+    \textbf{#1}%
+  \end{beamercolorbox}%
+  \vspace{-0.25em}%
+  \begin{beamercolorbox}[wd=\linewidth,sep=0.9ex,rounded=true]{coolbox body}%
+}{%
+  \end{beamercolorbox}%
+}
+\setbeamercolor{fbox title}{fg=white,bg=red!60!black}
+\setbeamercolor{fbox body}{fg=black,bg=red!4}
+\newenvironment{fboxenv}[1]{%
+  \begin{beamerboxesrounded}[shadow=true,upper=fbox title,lower=fbox body]{#1}%
+}{%
+  \end{beamerboxesrounded}%
+}
+\setbeamercolor{sigmabox title}{fg=white,bg=green!45!black}
+\setbeamercolor{sigmabox body}{fg=black,bg=green!4}
+\newenvironment{sigmaboxenv}[1]{%
+  \begin{beamerboxesrounded}[shadow=true,upper=sigmabox title,lower=sigmabox body]{#1}%
+}{%
+  \end{beamerboxesrounded}%
+}
 
 \title{Riding Wavelets: Reproducing ``Riding Wavelets'' on Open Data}
-\subtitle{Mini-project (ML for Time Series)}
-\author{Janis Aiad (\texttt{janisaiad.ja@gmail.com}) \and Jordi Baroja Fernandez (\texttt{baroja.jordi@gmail.com})}
+\subtitle{Reproducible research (ML for Time Series)}
+\author{Janis Aiad \and Jordi Baroja Fernandez}
 \date{MVA --- Jan 2026}
 
 \begin{document}
@@ -33,27 +58,52 @@
   \titlepage
 \end{frame}
 
+
 \begin{frame}{Why this project?}
 \begin{itemize}
-  \item We do not work in finance: we were curious about \textbf{very noisy} data and \textbf{non-trivial spectral analysis} around extreme events.
-  \item We reproduced a hedge-fund research preprint: \textbf{Aubrun et al., ``Riding Wavelets''} (jump classes via wavelets + Kernel PCA).
-  \item Key motivation: markets are \textbf{non-stationary} (volatility clustering, intraday patterns) so global templates (e.g., dictionary learning) can be brittle.
-  \item Goal: implement the full pipeline from the paper with \textbf{open data}, end-to-end, and test robustness across \textbf{time scales} and \textbf{markets}.
+  \item We do not work in finance: curious on \textbf{very noisy} data and \textbf{non-trivial spectral analysis} with extreme events.
+  \item We reproduced a hedge-fund preprint: \textbf{Bouchaud et al., ``Riding Wavelets''} (jump classes via wavelets + Kernel PCA).
+  \item Key motivation: \textbf{non-stationary markets} (volatility clustering, intraday patterns) so global templates (e.g., dictionary learning) fail.
+  \item Goal: reproduce the full pipeline from the paper with \textbf{open data}, end-to-end, and test across \textbf{time scales} and \textbf{markets}.
+
 \end{itemize}
+\vspace{0.25em}
+\begin{fboxenv}{Outline}
+Method $>$ Data $>$ Results
+\end{fboxenv}
 \end{frame}
 
-\begin{frame}[fragile]{Reproducibility and engineering}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[fragile]{Reproducibility and code structure}
+\scriptsize
+\textbf{Engineering (open + reproducible)}
 \begin{itemize}
-  \item We worked 80+ hours.
-  \item We wrote 2k LOC.
-  \item We made 73 commits.
-  \item We open-source the code.
-  \item We install in one line.
+  \item Worked 50/30 hours, wrote 2k LOC, 30 notebooks, 73 commits, We open-source the code.
+  \item  \textbf{We re-implement the full pipeline.}
+  
 \end{itemize}
 
-\vspace{0.5em}
+\vspace{0.25em}
 \begin{center}
-\begin{minipage}{0.85\linewidth}
+\begin{minipage}{0.88\linewidth}
 \begin{beamerboxesrounded}[shadow=true]{1-liner installation}
 \begin{verbatim}
 chmod +x launch.sh && ./launch.sh
@@ -61,16 +111,17 @@ chmod +x launch.sh && ./launch.sh
 \end{beamerboxesrounded}
 \end{minipage}
 \end{center}
-\end{frame}
 
-\begin{frame}{Code structure (high-level)}
+\vspace{-0.2em}
+\textbf{Code map (where things live)}
+\vspace{0.2em}
 \centering
 \begin{tikzpicture}[
   scale=0.85,
   transform shape,
-  box/.style={draw, rounded corners, align=left, inner sep=4pt, font=\scriptsize},
+  box/.style={draw, rounded corners, align=left, inner sep=3pt, font=\tiny},
   arr/.style={-Latex, thick},
-  node distance=7mm
+  node distance=6mm
 ]
 \node[box] (data) {\textbf{Data} \\ \texttt{utils/data/} \\ preprocess \& detect};
 \node[box, right=of data] (model) {\textbf{Model} \\ \texttt{model/wavelet/} \\ features \& KPCA};
@@ -83,96 +134,126 @@ chmod +x launch.sh && ./launch.sh
 \draw[arr] (nb) -- (viz);
 \end{tikzpicture}
 
-\vspace{0.25em}
-\begin{itemize}
-  \item We re-implement the full pipeline.
-\end{itemize}
+  \begin{minipage}{0.50\linewidth}
+    \begin{itemize}
+      \item 5GB Stooq OHLC. 5-min, hourly, daily.
+      \item Poland, Hungary, HK, US, UK Equities
+    \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.46\linewidth}
+    \includegraphics[width=\linewidth]{figures/exampledata.png}
+  \end{minipage}
+
+
 \end{frame}
 
-\begin{frame}{Data and preprocessing}
-\begin{itemize}
-  \item We use 5GB Stooq OHLC equities.
-  \item We cover 5-min, hourly, daily.
-  \item We study Poland, Hungary.
-  \item We test HK, US, UK.
-  \item We normalize by local volatility.
-\end{itemize}
-\end{frame}
 
-\begin{frame}{Jump detection and non-stationarity}
+
+
+
+
+
+
+\begin{frame}{Jump normalization (seasonality + local volatility)}
+\scriptsize
 \begin{itemize}
-  \item We standardize returns.
+  \item Markets highly non-stationary = standardize returns to jump score $x(t)$
 \end{itemize}
+
+\vspace{0.15em}
 \[
 x(t)=\frac{r(t)}{f(t)\sigma(t)}.
 \]
-\begin{itemize}
-  \item Markets are highly non-stationary.
-  \item We avoid dictionary learning.
-  \item We threshold with $\theta=4$ (5-min).
-  \item We assume max-stable (Gumbel).
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Seasonality $f(t)$ and volatility $\sigma(t)$}
-\begin{itemize}
-  \item Returns: $r_t=\log p_t-\log p_{t-\Delta}$.
-  \item Intraday bin: $\tau(t)=$ time-of-day of $t$.
-  \item Robust seasonality estimate:
-\end{itemize}
-\[
-m(\tau)=\mathrm{median}\big\{|r_t|:\tau(t)=\tau\big\},\qquad
-q=\sqrt{\frac{1}{|\mathcal{T}|}\sum_{\tau\in\mathcal{T}} m(\tau)^2},\qquad
-f_t=\frac{m(\tau(t))}{q}.
-\]
-\begin{itemize}
-  \item Deseasonalize: $r^{\mathrm{des}}_t=r_t/f_t$ (daily: $f_t\equiv 1$).
-  \item Local volatility (EWMA std on $r^{\mathrm{des}}$):
-\end{itemize}
-\[
-\mu_t=\alpha r^{\mathrm{des}}_t+(1-\alpha)\mu_{t-1},\qquad
-v_t=\alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\qquad
-\sigma_t=\sqrt{v_t},\qquad
-\alpha=\frac{2}{s+1}.
-\]
-\end{frame}
-
-\begin{frame}{Wavelet features and interpretable directions}
-\begin{itemize}
-  \item We align jump signs ($t=0$).
-  \item We compute complex wavelet scattering.
-\end{itemize}
-\[
-\Phi(x)=\big(W_j\bar{x}(0),\; W_{j_2}\,|W_{j_1}x|(0)\big)_{1\le j\le J,\; 1\le j_1<j_2\le J}.
-\]
-\begin{itemize}
-  \item We run Kernel PCA on $K(\Phi(x_i),\Phi(x_j))$.
-  \item We interpret $D_1$ as reflexivity.
-  \item We score mean-reversion $D_2$.
-  \item We score trend $D_3$.
-\end{itemize}
-\[
-D_2=x(-1)-x(+1),\qquad D_3=x(-1)+x(+1).
-\]
-\end{frame}
-
-\begin{frame}{Gumbel diagnostic}
-\small
-\HYP{Jump scores are approximately max-stable (Gumbel-like) after normalization.}\\
-\PLOT{Q--Q of $|x(t)|$ vs fitted Gumbel.}\\
-\SEE{Overall good fit; mild 5-min tail deviation.}
 
 \vspace{0.25em}
-\centering
-\includegraphics[width=0.98\linewidth,height=0.70\textheight,keepaspectratio]{qq_abs_score_vs_gumbel_STACKED_mpl.png}
-\CONFIRMED
+\begin{fboxenv}{Seasonality $f_t$}
+\small
+\[
+\begin{aligned}
+r_t &= \log p_t-\log p_{t-\Delta}, \qquad \tau(t)=\text{time-of-day of }t,\\
+m(\tau) &= \mathrm{median}\big\{|r_t|:\tau(t)=\tau\big\},\\
+q &= \sqrt{\frac{1}{|\mathcal{T}|}\sum_{\tau\in\mathcal{T}} m(\tau)^2},\\
+f_t &= \frac{m(\tau(t))}{q}, \qquad r^{\mathrm{des}}_t = \frac{r_t}{f_t}, \qquad (\text{daily: } f_t\equiv 1).
+\end{aligned}
+\]
+\end{fboxenv}
+
+\vspace{0.25em}
+\begin{sigmaboxenv}{Local volatility $\sigma_t$}
+\small
+\[
+\begin{aligned}
+\mu_t &= \alpha r^{\mathrm{des}}_t+(1-\alpha)\mu_{t-1},\\
+v_t &= \alpha\big(r^{\mathrm{des}}_t-\mu_t\big)^2+(1-\alpha)v_{t-1},\\
+\sigma_t &= \sqrt{v_t},\qquad \alpha=\frac{2}{s+1}.
+\end{aligned}
+\]
+\end{sigmaboxenv}
+
 \end{frame}
+
+
+
+
+\begin{frame}{Gumbel diagnostic}
+  \small
+  \HYP{Jump scores are approximately max-stable (Gumbel-like) after normalization; we threshold with $\theta=4$ (5-min).}\\
+  \PLOT{Q--Q of $|x(t)|$ vs Gumbel.}\\
+  \SEE{Overall good fit; mild 5-min Fréchet deviation.}
+  
+  \vspace{0.25em}
+  \centering
+  \includegraphics[width=0.40\linewidth]{qq_abs_score_vs_gumbel_STACKED_mpl.png}
+  \CONFIRMED
+  \end{frame}
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  \begin{frame}{Wavelet features and interpretable directions}
+    \small
+    \begin{itemize}
+      \item We align jump signs ($t=0$).
+      \item We compute complex wavelet scattering.
+    \end{itemize}
+    \[
+    \Phi(x)=\big(W_j\bar{x}(0),\; W_{j_2}\,|W_{j_1}x|(0)\big)_{1\le j\le J,\; 1\le j_1<j_2\le J}.
+    \]
+    \begin{itemize}
+      \item We run Kernel PCA on feature vector $\Phi(x)$: $K(\Phi(x_i),\Phi(x_j))$.
+    \end{itemize}
+    \end{frame}
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \begin{frame}{Research question 1: robustness to the threshold (5-min)}
 \small
 \HYP{Average jump profiles stay stable across $\theta$.}\\
-\PLOT{Overlay mean profiles across $\theta$ (5-min).}\\
-\SEE{$D_1$ and $D_3$ stay stable; $D_2$ gets noisier at extremes.}
+
 
 \vspace{0.25em}
 \begin{columns}[T,onlytextwidth]
@@ -189,14 +270,16 @@ D_2=x(-1)-x(+1),\qquad D_3=x(-1)+x(+1).
   \includegraphics[width=\linewidth]{overlay_D3_thresholds_5min_mpl.png}
   {\scriptsize $D_3$ overlays}
 \end{columns}
+\SEE{$D_1$ and $D_3$ stable; $D_2$ noisier at extremes.}
 \CONFIRMED
 \end{frame}
 
-\begin{frame}{Research question 1 (cont.): daily frequency}
+
+
+\begin{frame}{Research question 2 : daily frequency}
 \small
-\HYP{Same structure holds at daily scale.}\\
-\PLOT{Daily overlays across $\theta$.}\\
-\SEE{Profiles remain similar, with higher noise.}
+\HYP{Asymetry/Mean-Revert/Trend structure}\\
+
 
 \vspace{0.25em}
 \begin{columns}[T,onlytextwidth]
@@ -213,22 +296,19 @@ D_2=x(-1)-x(+1),\qquad D_3=x(-1)+x(+1).
   \includegraphics[width=\linewidth]{overlay_D3_thresholds_daily_mpl.png}
   {\scriptsize $D_3$ (daily)}
 \end{columns}
+\SEE{Asymetry, less daily data =  higher noise.}
 \CONFIRMED
 \end{frame}
 
-\begin{frame}{Research question 2: do Scattering Spectra help?}
-\small
-\HYP{Scattering Spectra adds little at our resolution.}\\
-\PLOT{With-SS vs no-SS ablation (runs).}\\
-\SEE{Embeddings stay very similar; $D_1$ correlation stays high.}
-\CONFIRMED
-\end{frame}
 
-\begin{frame}{Wavelet robustness: $D_1$}
+
+
+\begin{frame}{Research question 3: robustness (SS ablation + wavelets)}
 \small
-\HYP{$D_1$ is robust to wavelet choice.}\\
-\PLOT{Different wavelet families (fbsp/cmor/cgau).}\\
-\SEE{$D_1$ stays stable across wavelets.}
+\HYP{Features are robust to (i) Scattering Spectra and (ii) wavelet choice.}\\
+\PLOT{Wavelet-family sweep for $D_1$; SS ablation runs (text).}\\
+\SEE{With-SS vs no-SS: embeddings stay very similar; $D_1$ correlation stays high.}\\
+\SEE{$D_1$ stays stable across wavelets (fbsp/cmor/cgau).}
 
 \vspace{0.25em}
 \centering
@@ -236,25 +316,10 @@ D_2=x(-1)-x(+1),\qquad D_3=x(-1)+x(+1).
 \CONFIRMED
 \end{frame}
 
-\begin{frame}{Asymmetry: daily vs 5-min}
-\small
-\HYP{Daily asymmetry correlates; 5-min does not.}\\
-\PLOT{Asymmetry correlation diagnostics (daily vs 5-min).}\\
-\SEE{We see strong daily correlation. We see weak 5-min correlation.}
 
-\vspace{0.25em}
-\begin{columns}[T,onlytextwidth]
-  \column{0.5\textwidth}
-  \centering
-  \includegraphics[width=\linewidth,height=0.68\textheight,keepaspectratio]{D1_asymmetry.png}
-  {\scriptsize daily}
-  \column{0.5\textwidth}
-  \centering
-  \includegraphics[width=\linewidth,height=0.68\textheight,keepaspectratio]{D1asymetry5min.png}
-  {\scriptsize 5-min}
-\end{columns}
-\CONFIRMED
-\end{frame}
+
+
+
 
 \begin{frame}{Trend direction: $D_3$}
 \small
@@ -268,57 +333,84 @@ D_2=x(-1)-x(+1),\qquad D_3=x(-1)+x(+1).
 \INCONCLUSIVE
 \end{frame}
 
-\begin{frame}{Research question 3: robustness across markets (and co-jumps)}
-\begin{itemize}
-  \item We test multiple markets.
-  \item We connect endo/exo signatures.
-  \item We analyze co-jumps.
-\end{itemize}
-\end{frame}
 
-\begin{frame}{Co-jumps: size distribution and alignment}
+
+
+
+\begin{frame}{Research question 4: Asymmetry: daily vs 5-min}
+  \small
+  \HYP{Daily asymmetry correlates; 5-min does not.}\\
+  \SEE{Strong daily asymetry (Macro News), weak 5-min correlation.}
+
+  \vspace{0.25em}
+  \centering
+  \includegraphics[width=0.92\linewidth,height=0.34\textheight,keepaspectratio]{D1_asymmetry.png}\\
+  {\scriptsize daily}
+
+  \vspace{0.35em}
+  \includegraphics[width=0.92\linewidth,height=0.34\textheight,keepaspectratio]{D1asymetry5min.png}\\
+  {\scriptsize 5-min}
+
+  \vspace{0.25em}
+  \PLOT{Asymmetry correlation diagnostics (daily vs 5-min).}\\
+  \CONFIRMED
+  \end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{Research question 5: 5-min cojumps looks the same}
 \small
-\HYP{Co-jump sizes are heavy-tailed.}\\
-\PLOT{Size histogram/CCDF and sign alignment.}\\
-\SEE{Large co-jumps occur and structure emerges.}
+\HYP{5-min Jumps are endogeneous = Symetric.}\\
+\PLOT{Example of 5-min co-jumps.}\\
+
 \centering
 \includegraphics[width=0.98\linewidth,height=0.82\textheight,keepaspectratio]{cojump1.png}
+\SEE{Very symetric/reflexive jumps, no exogenous activity.}
 \CONFIRMED
 \end{frame}
 
-\begin{frame}{Co-jumps: reflexivity indicator}
+
+
+
+\begin{frame}{Research question 5: Daily co-jumps looks different}
 \small
-\HYP{Large co-jumps show strong reflexivity.}\\
+\HYP{ Daily co-jumps show low reflexivity.}\\
 \PLOT{Co-jump indicator from aggregated $D_1$.}\\
-\SEE{Reflexivity signal strengthens with size.}
+
 \centering
 \includegraphics[width=0.98\linewidth,height=0.82\textheight,keepaspectratio]{cojump2.png}
+\SEE{Reflexivity signal very low, exogeneous activity}
 \CONFIRMED
 \end{frame}
 
-\begin{frame}{Co-jumps: representative profiles}
+
+
+
+\begin{frame}{Co-jumps + takeaways}
 \small
 \HYP{Large co-jumps propagate across stocks.}\\
-\PLOT{Representative constituent profiles.}\\
+\PLOT{Global Summary - Cojumps asymetry index.}\\
 \SEE{Synchronized moves cluster around events.}
+
+\vspace{0.2em}
 \centering
-\includegraphics[width=0.98\linewidth,height=0.82\textheight,keepaspectratio]{cojump3.png}
+\includegraphics[width=0.98\linewidth,height=0.60\textheight,keepaspectratio]{cojump3.png}
+
+\vspace{0.25em}
+\begin{fboxenv}{Takeaway}
+\small
+Full pipeline, open data, unsupervised robust jump classes (heavy tails, stable profiles across thresholds/wavelets/markets), co-jumps consistents.
+\end{fboxenv}
 \CONFIRMED
-\end{frame}
-
-\begin{frame}{Takeaways}
-\begin{itemize}
-  \item We recover jump classes.
-  \item We interpret $D_1$ reflexivity.
-  \item We see mean-reversion and trend.
-  \item We confirm heavy tails.
-  \item We confirm threshold robustness.
-  \item \cmark\ We verify all the financial knowledge !! open-research is great !
-\end{itemize}
-
-\vspace{0.8em}
-\centering
-{\Large Questions?}
 \end{frame}
 
 \end{document}
