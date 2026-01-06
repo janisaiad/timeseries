@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.8.16)  6 JAN 2026 16:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.8.16)  6 JAN 2026 16:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1029,7 +1029,7 @@ Overfull \hbox (21.94011pt too wide) in paragraph at lines 95--95
 \openout4 = `beamer.vrb'.
 
 
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 149--149
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 150--150
  [][][][]  
  []
 
@@ -1037,7 +1037,7 @@ Overfull \hbox (21.94011pt too wide) in paragraph at lines 149--149
 <figures/exampledata.png, id=120, 1582.91376pt x 602.25pt>
 File: figures/exampledata.png Graphic file (type png)
 <use figures/exampledata.png>
-Package pdftex.def Info: figures/exampledata.png  used on input line 51.
+Package pdftex.def Info: figures/exampledata.png  used on input line 52.
 (pdftex.def)             Requested size: 158.33215pt x 60.23772pt.
 )
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1047,7 +1047,7 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 [3
 
  <./figures/exampledata.png>]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 194--194
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 195--195
  [][][][]  
  []
 
@@ -1059,7 +1059,7 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 [4
 
 ]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 209--209
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 210--210
  [][][][]  
  []
 
@@ -1068,7 +1068,7 @@ pt>
 File: figures/qq_abs_score_vs_gumbel_STACKED_mpl.png Graphic file (type png)
 <use figures/qq_abs_score_vs_gumbel_STACKED_mpl.png>
 Package pdftex.def Info: figures/qq_abs_score_vs_gumbel_STACKED_mpl.png  used o
-n input line 209.
+n input line 210.
 (pdftex.def)             Requested size: 137.67603pt x 125.66512pt.
 
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1078,7 +1078,7 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 [5
 
  <./figures/qq_abs_score_vs_gumbel_STACKED_mpl.png>]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 235--235
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 236--236
  [][][][]  
  []
 
@@ -1090,7 +1090,7 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 [6
 
 ]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 276--276
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 277--277
  [][][][]  
  []
 
@@ -1099,21 +1099,21 @@ Overfull \hbox (21.94011pt too wide) in paragraph at lines 276--276
 File: figures/overlay_D1_thresholds_5min_mpl.png Graphic file (type png)
 <use figures/overlay_D1_thresholds_5min_mpl.png>
 Package pdftex.def Info: figures/overlay_D1_thresholds_5min_mpl.png  used on in
-put line 276.
+put line 277.
 (pdftex.def)             Requested size: 113.58508pt x 102.03934pt.
 <figures/overlay_D2_thresholds_5min_mpl.png, id=273, 431.59644pt x 390.54707pt>
 
 File: figures/overlay_D2_thresholds_5min_mpl.png Graphic file (type png)
 <use figures/overlay_D2_thresholds_5min_mpl.png>
 Package pdftex.def Info: figures/overlay_D2_thresholds_5min_mpl.png  used on in
-put line 276.
+put line 277.
 (pdftex.def)             Requested size: 113.58508pt x 102.77936pt.
 <figures/overlay_D3_thresholds_5min_mpl.png, id=274, 433.33092pt x 388.23444pt>
 
 File: figures/overlay_D3_thresholds_5min_mpl.png Graphic file (type png)
 <use figures/overlay_D3_thresholds_5min_mpl.png>
 Package pdftex.def Info: figures/overlay_D3_thresholds_5min_mpl.png  used on in
-put line 276.
+put line 277.
 (pdftex.def)             Requested size: 113.58508pt x 101.762pt.
 
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1124,7 +1124,7 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 
  <./figures/overlay_D1_thresholds_5min_mpl.png> <./figures/overlay_D2_threshold
 s_5min_mpl.png> <./figures/overlay_D3_thresholds_5min_mpl.png>]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 304--304
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 305--305
  [][][][]  
  []
 
@@ -1132,19 +1132,19 @@ Overfull \hbox (21.94011pt too wide) in paragraph at lines 304--304
 File: figures/overlay_D1_thresholds_daily_mpl.png Graphic file (type png)
 <use figures/overlay_D1_thresholds_daily_mpl.png>
 Package pdftex.def Info: figures/overlay_D1_thresholds_daily_mpl.png  used on i
-nput line 304.
+nput line 305.
 (pdftex.def)             Requested size: 113.58508pt x 102.32971pt.
 <figures/overlay_D2_thresholds_daily_mpl.png, id=308, 432.4155pt x 390.0171pt>
 File: figures/overlay_D2_thresholds_daily_mpl.png Graphic file (type png)
 <use figures/overlay_D2_thresholds_daily_mpl.png>
 Package pdftex.def Info: figures/overlay_D2_thresholds_daily_mpl.png  used on i
-nput line 304.
+nput line 305.
 (pdftex.def)             Requested size: 113.58508pt x 102.4435pt.
 <figures/overlay_D3_thresholds_daily_mpl.png, id=309, 433.62pt x 389.0535pt>
 File: figures/overlay_D3_thresholds_daily_mpl.png Graphic file (type png)
 <use figures/overlay_D3_thresholds_daily_mpl.png>
 Package pdftex.def Info: figures/overlay_D3_thresholds_daily_mpl.png  used on i
-nput line 304.
+nput line 305.
 (pdftex.def)             Requested size: 113.58508pt x 101.91138pt.
 
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1155,7 +1155,7 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 
  <./figures/overlay_D1_thresholds_daily_mpl.png> <./figures/overlay_D2_threshol
 ds_daily_mpl.png> <./figures/overlay_D3_thresholds_daily_mpl.png>]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 320--320
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 321--321
  [][][][]  
  []
 
@@ -1163,7 +1163,7 @@ Overfull \hbox (21.94011pt too wide) in paragraph at lines 320--320
 File: figures/D1_different_wavelets.png Graphic file (type png)
 <use figures/D1_different_wavelets.png>
 Package pdftex.def Info: figures/D1_different_wavelets.png  used on input line 
-320.
+321.
 (pdftex.def)             Requested size: 337.31363pt x 147.50691pt.
 
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1173,7 +1173,7 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 [9
 
  <./figures/D1_different_wavelets.png>]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 337--337
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 338--338
  [][][][]  
  []
 
@@ -1181,7 +1181,7 @@ Overfull \hbox (21.94011pt too wide) in paragraph at lines 337--337
 File: figures/D3_different_wavelets.png Graphic file (type png)
 <use figures/D3_different_wavelets.png>
 Package pdftex.def Info: figures/D3_different_wavelets.png  used on input line 
-337.
+338.
 (pdftex.def)             Requested size: 337.29726pt x 144.50447pt.
 
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1191,19 +1191,19 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 [10
 
  <./figures/D3_different_wavelets.png>]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 359--359
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 360--360
  [][][][]  
  []
 
 <figures/D1_asymmetry.png, id=399, 922.04475pt x 413.1435pt>
 File: figures/D1_asymmetry.png Graphic file (type png)
 <use figures/D1_asymmetry.png>
-Package pdftex.def Info: figures/D1_asymmetry.png  used on input line 359.
+Package pdftex.def Info: figures/D1_asymmetry.png  used on input line 360.
 (pdftex.def)             Requested size: 134.44577pt x 60.24153pt.
 <figures/D1asymetry5min.png, id=400, 542.52687pt x 176.15813pt>
 File: figures/D1asymetry5min.png Graphic file (type png)
 <use figures/D1asymetry5min.png>
-Package pdftex.def Info: figures/D1asymetry5min.png  used on input line 359.
+Package pdftex.def Info: figures/D1asymetry5min.png  used on input line 360.
 (pdftex.def)             Requested size: 185.52458pt x 60.2397pt.
 
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1213,14 +1213,14 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 [11
 
  <./figures/D1_asymmetry.png> <./figures/D1asymetry5min.png>]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 380--380
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 381--381
  [][][][]  
  []
 
 <figures/cojump1.png, id=431, 1564.84625pt x 652.4375pt>
 File: figures/cojump1.png Graphic file (type png)
 <use figures/cojump1.png>
-Package pdftex.def Info: figures/cojump1.png  used on input line 380.
+Package pdftex.def Info: figures/cojump1.png  used on input line 381.
 (pdftex.def)             Requested size: 337.29498pt x 140.62971pt.
 
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1230,14 +1230,14 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 [12
 
  <./figures/cojump1.png>]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 394--394
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 395--395
  [][][][]  
  []
 
 <figures/cojump2.png, id=460, 1564.84625pt x 652.4375pt>
 File: figures/cojump2.png Graphic file (type png)
 <use figures/cojump2.png>
-Package pdftex.def Info: figures/cojump2.png  used on input line 394.
+Package pdftex.def Info: figures/cojump2.png  used on input line 395.
 (pdftex.def)             Requested size: 337.29498pt x 140.62971pt.
 
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1247,14 +1247,14 @@ Overfull \hbox (21.94011pt too wide) has occurred while \output is active
 [13
 
  <./figures/cojump2.png>]
-Overfull \hbox (21.94011pt too wide) in paragraph at lines 415--415
+Overfull \hbox (21.94011pt too wide) in paragraph at lines 416--416
  [][][][]  
  []
 
 <figures/cojump3.png, id=489, 1564.84625pt x 451.6875pt>
 File: figures/cojump3.png Graphic file (type png)
 <use figures/cojump3.png>
-Package pdftex.def Info: figures/cojump3.png  used on input line 415.
+Package pdftex.def Info: figures/cojump3.png  used on input line 416.
 (pdftex.def)             Requested size: 337.29498pt x 97.35902pt.
 
 Overfull \hbox (21.94011pt too wide) has occurred while \output is active
@@ -1306,7 +1306,7 @@ cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx1
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on beamer.pdf (14 pages, 1927930 bytes).
+Output written on beamer.pdf (14 pages, 1928279 bytes).
 PDF statistics:
  611 PDF objects out of 1000 (max. 8388607)
  462 compressed objects within 5 object streams

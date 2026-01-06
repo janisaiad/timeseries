@@ -44,6 +44,7 @@ chmod +x launch.sh && ./launch.sh
     \begin{itemize}
       \item 5GB Stooq OHLC. 5-min, hourly, daily.
       \item Poland, Hungary, HK, US, UK Equities
+      \item Removed 1st/last 60 minutes of each day to avoid market opening/closing high vol (30\% daily activity last 5min).
     \end{itemize}
   \end{minipage}
   \hfill
